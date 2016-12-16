@@ -1,0 +1,37 @@
+//
+//  Mimamori.pch
+//  Mimamori
+//
+//  Created by totyu3 on 16/6/3.
+//  Copyright © 2016年 totyu3. All rights reserved.
+//
+
+#ifndef NIT_Prefix_pch
+#define NIT_Prefix_pch
+
+#endif
+
+
+//里面所有的内容只能用到.m文件中或者.mm
+#ifdef __OBJC__
+
+#import "MCommon.h"
+
+#import "UIView+Extension.h"  //frame 工具
+#import "NSDate+Extension.h"  //日期 类
+
+#import "MBProgressHUD+MJ.h"  //提示工具
+
+#import "MBProgressHUD.h"
+
+#import "MJExtension.h"       //转模型
+#import "MJRefresh.h"         //刷新控件
+
+#import "UIImage+Mj.h"
+//---------------------------------------------------------
+#import "NITRefreshInit.h"
+//---------------------------------------------------------
+
+#endif /* NIT_Prefix_pch */
+
+

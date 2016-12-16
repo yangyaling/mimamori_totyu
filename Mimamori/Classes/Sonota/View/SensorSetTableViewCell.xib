@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="SensorSetTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="350" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="350" height="59"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWx-6E-hEt">
+                        <rect key="frame" x="8" y="12" width="47" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="47" id="1bm-dk-4Lm"/>
+                            <constraint firstAttribute="height" constant="35" id="jIq-4A-XT6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" tag="55" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGF-Gk-Xmz">
+                        <rect key="frame" x="62" y="12" width="170" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="XRU-vk-6Eq"/>
+                        </constraints>
+                        <connections>
+                            <action selector="clickPick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="RjM-cR-D2P"/>
+                        </connections>
+                    </button>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="e0X-F2-Yuq">
+                        <rect key="frame" x="242" y="12" width="100" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="5L6-bV-0Lj"/>
+                            <constraint firstAttribute="height" constant="35" id="XdR-Ob-7pL"/>
+                        </constraints>
+                        <segments>
+                            <segment title="外"/>
+                            <segment title="内"/>
+                        </segments>
+                    </segmentedControl>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="dWx-6E-hEt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="0zF-Ga-SBO"/>
+                    <constraint firstItem="dWx-6E-hEt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="32b-Ig-zyf"/>
+                    <constraint firstItem="e0X-F2-Yuq" firstAttribute="leading" secondItem="uGF-Gk-Xmz" secondAttribute="trailing" constant="10" id="QYl-SD-y0o"/>
+                    <constraint firstItem="uGF-Gk-Xmz" firstAttribute="leading" secondItem="dWx-6E-hEt" secondAttribute="trailing" constant="7" id="Rxs-zq-nTZ"/>
+                    <constraint firstItem="uGF-Gk-Xmz" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="bKP-PJ-h3v"/>
+                    <constraint firstItem="e0X-F2-Yuq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="g2z-G0-7uI"/>
+                    <constraint firstAttribute="trailing" secondItem="e0X-F2-Yuq" secondAttribute="trailing" constant="8" id="vBN-cT-0St"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="roomname" destination="uGF-Gk-Xmz" id="g1e-4F-e1E"/>
+                <outlet property="segmentbar" destination="e0X-F2-Yuq" id="pjt-AM-s0a"/>
+                <outlet property="sensorname" destination="dWx-6E-hEt" id="MT7-hN-Mt8"/>
+            </connections>
+            <point key="canvasLocation" x="-382" y="-26"/>
+        </tableViewCell>
+    </objects>
+</document>
