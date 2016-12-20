@@ -56,7 +56,7 @@
     [self setupTitleView];
     
     
-    [self setupCalendar];// 测试日历数据
+    [self setupCalendar];//
     
     // 监听POPCalendar日历以外区域的点击事件
     [NITNotificationCenter addObserver:self selector:@selector(TapHideCalendar) name:@"HideCalendar" object:nil];
@@ -134,16 +134,39 @@
         NSString *selectedDate = [date needDateStatus:NotHaveType];
         
         if ([NSDate isEarlyThanToday:date] == NO) {
+            
             [MBProgressHUD showError:@"過去の時間を選択してください"];
+            
         } else {
+            
             [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            
             [weakSelf noticeInfoWithDateType:SelectDateType date:selectedDate];
+            
         }
+        
         weakSelf.isCounter = YES;
+        
         NITLog(@"SelectedCalendarDate-----%@",selectedDate);
+        
     };
+    
 }
 
+#pragma mark Calendar
+
+// 点击日历按钮调用
+- (void)ShowCalendar:(UIButton *)sender {
+    
+    if (self.isCounter) {
+        [NITNotificationCenter postNotificationName:@"noticeCalendar" object:nil];
+        [self.POPCalendar show];
+        self.isCounter = NO;
+    } else {
+        [self.POPCalendar dismiss];
+        self.isCounter = YES;
+    }
+}
 
 
 /**
@@ -176,7 +199,7 @@
         
         param.startdate = [NSDate SharedToday];
         
-        [self.POPCalendar removeFromSuperview]; //　每次下拉刷新删除calendar
+//        [self.POPCalendar removeFromSuperview]; //　每次下拉刷新删除calendar
     }
     
     [MNoticeTool noticeInfoWithParam:param success:^(NSArray *array) {
@@ -220,7 +243,7 @@
             [NITUserDefaults setObject:[array copy] forKey:@"noticeCalendar"];
             [NITUserDefaults synchronize];
             
-            [self setupCalendar];// 创建日历 - 选择日期
+//            [self setupCalendar];// 创建日历 - 选择日期
         }
     } failure:^(NSError *error) {
         NITLog(@"zwgetnoticedatelist请求失败:%@",error);
@@ -339,21 +362,13 @@
 }
 
 
-#pragma mark Calendar
 
-// 点击日历按钮调用
-- (void)ShowCalendar:(UIButton *)sender {
-    if (self.isCounter) {
-        [NITNotificationCenter postNotificationName:@"noticeCalendar" object:nil];
-        [self.POPCalendar show];
-        self.isCounter = NO;
-    } else {
-        [self.POPCalendar dismiss];
-        self.isCounter = YES;
-    }
-}
+
+
+
 
 - (void)TimeSegmentAction:(UISegmentedControl *)sender {
+    
     
 }
 

@@ -49,7 +49,8 @@
     [_passWord resignFirstResponder];
     
     
-    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    [MBProgressHUD showMessage:@"後ほど..." toView:self.view];
     [self loginWithUserId:_userId.text pwd:_passWord.text];
     
 }
@@ -63,7 +64,7 @@
     param.password = pwd;
 
     [MLoginTool loginWithParam:param success:^(MLoginResult *result) {
-        
+        [MBProgressHUD hideHUDForView:self.view];
         //認証OKの場合(code=200)
         if ([result.code isEqualToString:@"200"]) {
             
@@ -79,17 +80,19 @@
             NSString *timeStr = [NSString stringWithFormat:@"%f", interval];
             [NITUserDefaults setObject:timeStr forKey:@"oldtime"];
         }else{
-            [MBProgressHUD  showMessage:@"正しい情報を入力してください" toView:self.view];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-            });
+            [MBProgressHUD  showError:@"正しい情報を入力してください"];
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                [MBProgressHUD hideHUD];
+//            });
         }
 
     } failure:^(NSError *error) {
-        [MBProgressHUD  showMessage:@"後ほど試してください"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUD];
-        });
+        [MBProgressHUD hideHUDForView:self.view];
+        NITLog(@"登录失败:%@",error);
+        [MBProgressHUD  showError:@"後ほど試してください"];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [MBProgressHUD hideHUD];
+//        });
     }];
     
 }

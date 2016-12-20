@@ -94,11 +94,22 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     
     //预加载下数据
     _topView=[self makeView];
+    
+//    _topView.backgroundColor = [UIColor yellowColor];
+    
+    
+    
     _weekView=[self makeView];
+    
+    
+    
     _contentView=[self makeView];
+    
+    
     [self addSubview:_topView];
     
     WHUCalendarYMSelectView* selView=[[WHUCalendarYMSelectView alloc] init];
+    
     selView.translatesAutoresizingMaskIntoConstraints=NO;
     [self addSubview:selView];
     _pickerView=selView;
@@ -109,22 +120,29 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     calendarConView.translatesAutoresizingMaskIntoConstraints=NO;
     [calendarConView addSubview:_weekView];
     [calendarConView addSubview:_contentView];
+    
+    
     _calendarConView=calendarConView;
+    
+//    calendarConView.backgroundColor = [UIColor blueColor];
     UIColor* bgColor=[UIColor colorWithRed:0.93 green:0.92 blue:0.95 alpha:1];
     _topView.backgroundColor=bgColor;
     _weekView.backgroundColor=bgColor;
-    _contentView.backgroundColor=bgColor;
+//    _contentView.backgroundColor=[UIColor blueColor];
     self.backgroundColor=bgColor;
     NSDictionary* viewDic=@{@"topv":_topView,@"midv":_weekView,@"bottomv":_contentView,@"calcon":calendarConView,@"selview":selView};
     NSDictionary* metrics=@{@"topH":@(WHUCalendarView_TopView_Height),
                             @"midH":@(WHUCalendarView_WeekView_Height)
                             };
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(==10)-[selview]-(==10)-|" options:0 metrics:nil views:viewDic]];
+//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[midv]-10-|" options:0 metrics:nil views:viewDic]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[topv]-(==-10)-[selview(==162)]" options:0 metrics:nil views:viewDic]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[topv]|" options:0 metrics:nil views:viewDic]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[calcon]|" options:0 metrics:nil views:viewDic]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topv(==topH)][calcon]|" options:0 metrics:metrics views:viewDic]];
-    [calendarConView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[midv]|" options:0 metrics:nil views:viewDic]];
+    
+    [calendarConView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-7.5-[midv]-7.5-|" options:0 metrics:nil views:viewDic]];
+    
     [calendarConView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bottomv]|" options:0 metrics:nil views:viewDic]];
     [calendarConView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[midv(==midH)][bottomv]|" options:0 metrics:metrics views:viewDic]];
     
@@ -175,9 +193,9 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     
     NSDictionary* viewDic2=@{@"prebtn":preBtn,@"nextbtn":nextBtn};
     
-    [_topView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-3-[prebtn(==25)]-|" options:0 metrics:nil views:viewDic2]];
+    [_topView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[prebtn]-5-|" options:0 metrics:nil views:viewDic2]];
     [_topView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[prebtn(==70)]" options:0 metrics:nil views:viewDic2]];
-    [_topView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-3-[nextbtn(==25)]-|" options:0 metrics:nil views:viewDic2]];
+    [_topView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[nextbtn]-5-|" options:0 metrics:nil views:viewDic2]];
     [_topView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[nextbtn(==70)]-10-|" options:0 metrics:nil views:viewDic2]];
     
 //    [_topView addConstraint:[NSLayoutConstraint constraintWithItem:preBtn attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:_topView attribute:NSLayoutAttributeLeading multiplier:1.0f constant:+20]];
@@ -320,8 +338,6 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
 }
 
 
-
-
 -(void)reloadCollectionView{
     NSArray* tempArr=_dataDic[@"dataArr"];
     WHUCalendarFlowLayout* layout=(WHUCalendarFlowLayout*)_calView.collectionViewLayout;
@@ -349,14 +365,16 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
         NSArray *tmparr = [NITUserDefaults objectForKey:@"noticeCalendar"];
         
         [self lastDates:tmparr];
+        
     } else {
+        
         NSArray *tmparr = [NITUserDefaults objectForKey:@"lifeCalendar"];
         
         [self lastDates:tmparr];
     }
-    //    [_dataArr removeAllObjects];
+        [_dataArr removeAllObjects];
     
-//        [_calView reloadData];
+        [_calView reloadData];
     
 }
 
@@ -438,6 +456,8 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     }
 }
 
+
+
 -(CGSize)getCollectionCellItemSize{
     CGFloat itemWidth=(self.bounds.size.width-WHUCalendarView_Margin_Horizon)/7.0f;
     return CGSizeMake(itemWidth, itemWidth);
@@ -454,29 +474,31 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     [super layoutSubviews];
     if(_weekView.subviews.count==0){
         NSArray* weekArr=@[@"月",@"火",@"水",@"木",@"金",@"土",@"日"];
-        UILabel* preLbl=nil;
-        CGFloat weekMargin=WHUCalendarView_Margin_Horizon;
-        NSString* firstStr=weekArr[0];
-        CGRect strRect=[firstStr boundingRectWithSize:CGSizeMake(FLT_MAX, WHUCalendarView_WeekView_Height) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:nil context:nil];
-        CGFloat itemCount=(CGFloat)weekArr.count;
-        CGFloat weekGap=(self.bounds.size.width-2*weekMargin-itemCount*strRect.size.width)/(itemCount-1);
+//        UILabel* preLbl=nil;
+//        CGFloat weekMargin=WHUCalendarView_Margin_Horizon;
+//        NSString* firstStr=weekArr[0];
+//        CGRect strRect=[firstStr boundingRectWithSize:CGSizeMake(FLT_MAX, WHUCalendarView_WeekView_Height) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:nil context:nil];
+//        CGFloat itemCount=(CGFloat)weekArr.count;
+//        CGFloat weekGap=(self.bounds.size.width-2*weekMargin-itemCount*strRect.size.width)/(itemCount-1);
+        CGFloat labelX = (self.bounds.size.width-WHUCalendarView_Margin_Horizon)/7.0f;
         for(int i=0;i<weekArr.count;i++){
-            UILabel* lbl=[[UILabel alloc] init];
-            lbl.translatesAutoresizingMaskIntoConstraints=NO;
+            UILabel* lbl=[[UILabel alloc] initWithFrame:CGRectMake(labelX *i, 0, labelX, WHUCalendarView_WeekView_Height)];
+//            lbl.translatesAutoresizingMaskIntoConstraints=NO;
             lbl.font=[UIFont systemFontOfSize:12.0f];
             lbl.text=weekArr[i];
             lbl.textColor=[UIColor blackColor];
+//            lbl.backgroundColor = [UIColor redColor];
             [lbl setTextAlignment:NSTextAlignmentCenter];
-            [lbl sizeToFit];
+//            [lbl sizeToFit];
             [_weekView addSubview:lbl];
-            [_weekView addConstraint:[NSLayoutConstraint constraintWithItem:lbl attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_weekView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0]];
-            if(preLbl==nil){
-                [_weekView addConstraint:[NSLayoutConstraint constraintWithItem:lbl attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_weekView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:weekMargin]];
-            }
-            else{
-                [_weekView addConstraint:[NSLayoutConstraint constraintWithItem:lbl attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:preLbl attribute:NSLayoutAttributeRight multiplier:1.0f constant:weekGap]];
-            }
-            preLbl=lbl;
+//            [_weekView addConstraint:[NSLayoutConstraint constraintWithItem:lbl attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_weekView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0]];
+//            if(preLbl==nil){
+//                [_weekView addConstraint:[NSLayoutConstraint constraintWithItem:lbl attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_weekView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:weekMargin]];
+//            }
+//            else{
+//                [_weekView addConstraint:[NSLayoutConstraint constraintWithItem:lbl attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:preLbl attribute:NSLayoutAttributeRight multiplier:1.0f constant:weekGap]];
+//            }
+//            preLbl=lbl;
         }
         
         if(_dataDic==nil){
@@ -485,15 +507,20 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
         }
         
         WHUCalendarFlowLayout* flowLayout = [[WHUCalendarFlowLayout alloc]init];
+        
         CGSize itemSize=[self getCollectionCellItemSize];
+        
         flowLayout.itemSize = itemSize;
+        
         flowLayout.minimumLineSpacing=0;
+        
         flowLayout.sectionInset=UIEdgeInsetsZero;
         flowLayout.minimumInteritemSpacing=0;
         flowLayout.headerReferenceSize=CGSizeZero;
         flowLayout.footerReferenceSize=CGSizeZero;
         _calView=[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
         CGFloat w=1/([UIScreen mainScreen].scale);
+        
         _calView.layer.borderColor=[UIColor lightGrayColor].CGColor;
         _calView.layer.borderWidth=w;
         _calView.allowsMultipleSelection=YES;
@@ -503,24 +530,38 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
         _calView.scrollEnabled=YES;
         _calView.pagingEnabled = YES;
         _calView.showsHorizontalScrollIndicator = NO;
+        
         [_calView registerClass:[WHUCalendarCell class] forCellWithReuseIdentifier:@"cell"];
+        
         _calView.translatesAutoresizingMaskIntoConstraints=NO;
+        
         NSDictionary* viewDic2=@{@"calview":_calView};
+        
         NSDictionary* metrics2=@{@"gap":@(WHUCalendarView_Margin_Horizon/2.0f)};
+        
         _contentView.layer.masksToBounds=YES;
+        
         [_contentView addSubview:_calView];
+        
         [_contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(==gap)-[calview]-(==gap)-|" options:0 metrics:metrics2 views:viewDic2]];
+        
         [_contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[calview]" options:0 metrics:nil views:viewDic2]];
+        
+        
         _calviewBottomGapCts=[NSLayoutConstraint constraintWithItem:_calView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_contentView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:0];
+        
         [_contentView addConstraint:_calviewBottomGapCts];
         
-        
-        
         _curMonthLbl.text=_dataDic[@"monthStr"];
+        
         NSArray* tempArr=_dataDic[@"dataArr"];
+        
         flowLayout.dataCount=tempArr.count;
+        
         flowLayout.columnCount=7;
+        
         [_calView reloadData];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             UISwipeGestureRecognizer* swipeRight=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
             swipeRight.numberOfTouchesRequired=1;
@@ -561,7 +602,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
             preBtn.hidden=YES;
             [_topView addSubview:preBtn];
             
-            UIButton* nextBtn=[self makeButtonWithText:@"ok"];
+            UIButton* nextBtn=[self makeButtonWithText:@"OK"];
             nextBtn.layer.masksToBounds = YES;
             nextBtn.layer.cornerRadius = 5;
             nextBtn.layer.borderWidth = 1;
@@ -593,7 +634,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
 
 -(UIButton*)makeButtonWithText:(NSString*)title{
     UIButton* btn=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn.titleLabel.font=[UIFont systemFontOfSize:14.0f];
+    btn.titleLabel.font=[UIFont systemFontOfSize:13.0f];
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //    btn.x = 20;
@@ -687,6 +728,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     _dataArr = [NSMutableArray new];
     
     [tmpdate enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
         if ([array containsObject:obj]) {
             
             [_dataArr addObject:@"*"];
@@ -733,6 +775,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
         
         _onDateSelectBlk(self.selectedDate);
     }
+//    [collectionView reloadData];
 }
 
 -(NSDate*)selectedDate{

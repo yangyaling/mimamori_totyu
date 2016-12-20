@@ -62,15 +62,25 @@
 }
 
 -(void)getCalendarMapWith:(NSString*)dateStr completion:(void(^)(NSDictionary* dic))completeBlk{
+    
     dispatch_async(_workQueue, ^{
+        
         NSString* nextMonthStr=[self nextMonthOfMonthString:dateStr];
+        
         NSString* preMonthStr=[self preMonthOfMonthString:dateStr];
+        
         if(_preCalMap!=nil&&[_preCalMap[@"monthStr"] isEqualToString:dateStr]){
+            
             NSDictionary* tempCur=_currentCalMap;
+            
             self.currentCalMap=_preCalMap;
+            
             [self dealDateOnMainQueue:completeBlk];
+            
             if(tempCur!=nil&&[tempCur[@"monthStr"] isEqualToString:nextMonthStr]){
+                
                 self.nextCalMap=tempCur;
+                
             }
             else{
                 self.nextCalMap=nil;

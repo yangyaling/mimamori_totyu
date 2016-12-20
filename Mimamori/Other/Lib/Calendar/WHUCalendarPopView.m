@@ -67,54 +67,6 @@
 
 }
 
-//-(id)initWithFrame:(CGRect)frame{
-//    CGRect screenBounds=[[UIScreen mainScreen] bounds];
-//    self=[super initWithFrame:screenBounds];
-//    if(self){
-//        
-//        self.backgroundColor = NITColorAlpha(116, 116, 116, 0);
-//        
-//        _calView=[[WHUCalendarView alloc] init];
-//        
-//        _calView.translatesAutoresizingMaskIntoConstraints=NO;
-//        
-//        _backBtn=[UIButton  buttonWithType:UIButtonTypeCustom];
-//        
-//        _backBtn.frame = screenBounds;
-//        
-//        [_backBtn addTarget:self action:@selector(hideCalendar) forControlEvents:UIControlEventTouchUpInside];
-//        [self addSubview:_backBtn];
-//        
-//        _backBtn.backgroundColor=[UIColor clearColor];
-//        
-//        CGSize s=[_calView sizeThatFits:CGSizeMake(screenBounds.size.width, FLT_MAX)];
-//        
-//        _calHeight=s.height;
-//        
-//        [self addSubview:_calView];
-//        
-//        [self addConstraint:[NSLayoutConstraint constraintWithItem:_calView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0f constant:64]];
-//        
-//        [self addConstraint:[NSLayoutConstraint constraintWithItem:_calView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0f constant:0]];
-//        
-//        [self addConstraint:[NSLayoutConstraint constraintWithItem:_calView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:s.height + 10]];
-//        
-//        [self addConstraint:[NSLayoutConstraint constraintWithItem:_calView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-//        
-//        [self setHidden:YES];
-//        
-//        WHUCalendarView_WeakSelf weakself=self;
-//        _calView.onDateSelectBlk=^(NSDate* date){
-//            WHUCalendarView_StrongSelf self=weakself;
-//            dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC));
-//            dispatch_after(time, dispatch_get_main_queue(), ^{
-//                [self dismiss];
-//            });
-//        };
-//    }
-//    return self;
-//}
-
 -(void)setOnDateSelectBlk:(void (^)(NSDate *))onDateSelectBlk{
     _onDateSelectBlk=onDateSelectBlk;
     

@@ -93,12 +93,15 @@
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     if(selected){
+        
         self.layer.backgroundColor=[UIColor colorWithRed:0.02 green:0.45 blue:0.67 alpha:1].CGColor;
         self.lbl.textColor=[UIColor whiteColor];
         self.dbl.textColor=[UIColor whiteColor];
-    }
-    else{
+        
+    }else{
+        
         self.layer.backgroundColor=[UIColor whiteColor].CGColor;
+        
         if(_isDayInCurMonth){
             self.lbl.textColor=[UIColor blackColor];
         }

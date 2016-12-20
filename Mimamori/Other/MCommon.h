@@ -54,55 +54,54 @@
  sonota   URL
  */
 
-#define NITGetCustInfo @"http://mimamori.azurewebsites.net/zwgetcustlist.php"
+#define NITGetCustInfo @"http://mimamori2.azurewebsites.net/zwgetcustlist.php"
 
-#define NITDeleteCustInfo @"http://mimamori.azurewebsites.net/zwdeletecust.php"
+#define NITDeleteCustInfo @"http://mimamori2.azurewebsites.net/zwdeletecust.php"
 
-#define NITAddCustInfo @"http://mimamori.azurewebsites.net/zwaddcust.php"
-
-
-#define NITGetUserInfo @"http://mimamori.azurewebsites.net/zwgetcustinfo.php"
-
-#define NITUpdateUserInfo @"http://mimamori.azurewebsites.net/zwupdatecustinfo.php"
+#define NITAddCustInfo @"http://mimamori2.azurewebsites.net/zwaddcust.php"
 
 
-#define NITGetScenarioList @"http://mimamori.azurewebsites.net/zwgetscenariolist.php"
+#define NITGetUserInfo @"http://mimamori2.azurewebsites.net/zwgetcustinfo.php"
+
+#define NITUpdateUserInfo @"http://mimamori2.azurewebsites.net/zwupdatecustinfo.php"
 
 
-#define NITDeleteScenario @"http://mimamori.azurewebsites.net/zwdeletescenarioinfo.php"
+#define NITGetScenarioList @"http://mimamori2.azurewebsites.net/zwgetscenariolist.php"
 
-#define NITGetGroupInfo @"http://mimamori.azurewebsites.net/zwgetgroupinfo.php"
+
+#define NITDeleteScenario @"http://mimamori2.azurewebsites.net/zwdeletescenarioinfo.php"
+
+#define NITGetGroupInfo @"http://mimamori2.azurewebsites.net/zwgetgroupinfo.php"
 
 
 /**
  lift   URL
  */
-#define NITGetDailyDeviceInfo @"http://mimamori.azurewebsites.net/zwgetdailydeviceinfo2.php"
+#define NITGetDailyDeviceInfo @"http://mimamori2.azurewebsites.net/zwgetdailydeviceinfo2.php"
 
-#define NITGetWeeklyDeviceInfo @"http://mimamori.azurewebsites.net/zwgetweeklydeviceinfo.php"
+#define NITGetWeeklyDeviceInfo @"http://mimamori2.azurewebsites.net/zwgetweeklydeviceinfo.php"
 
-#define NITGetMonthlyDeviceInfo @"http://mimamori.azurewebsites.net/zwgetmonthlydeviceinfo.php"
+#define NITGetMonthlyDeviceInfo @"http://mimamori2.azurewebsites.net/zwgetmonthlydeviceinfo.php"
 
 
 
 /**
  notice   URL
  */
-#define NITGetNoticeInfo @"http://mimamori.azurewebsites.net/zwgetnoticeinfo.php"
+#define NITGetNoticeInfo @"http://mimamori2.azurewebsites.net/zwgetnoticeinfo.php"
 
+#define NITGetNoticeDateList @"http://mimamori2.azurewebsites.net/zwgetnoticedatelist.php"
 
-#define NITGetNoticeDateList @"http://mimamori.azurewebsites.net/zwgetnoticedatelist.php"
-
-#define NITUpdateNoticeInfo @"http://mimamori.azurewebsites.net/zwupdatenoticeinfo.php"
+#define NITUpdateNoticeInfo @"http://mimamori2.azurewebsites.net/zwupdatenoticeinfo.php"
 
 
 /**
  login   URL
  */
 
-#define NITLogin @"http://mimamori.azurewebsites.net/zwlogin.php"
+#define NITLogin @"http://mimamori2.azurewebsites.net/zwlogin.php"
 
-#define NITGetZsessionInfo @"http://mimamori.azurewebsites.net/zwgetzsessioninfo.php"
+#define NITGetZsessionInfo @"http://mimamori2.azurewebsites.net/zwgetzsessioninfo.php"
 
 
 
