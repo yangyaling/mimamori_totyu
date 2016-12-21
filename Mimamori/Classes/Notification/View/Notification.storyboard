@@ -59,12 +59,13 @@
                     <navigationItem key="navigationItem" id="pX7-fQ-1U4"/>
                     <connections>
                         <outlet property="MyTableView" destination="8LR-AD-uCc" id="bk9-3N-tXD"/>
+                        <outlet property="segmentC" destination="hSt-Ix-8vH" id="f0d-Fe-9xU"/>
                         <segue destination="iD4-kd-q9J" kind="show" identifier="pushPostC" id="obD-yN-hrq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X9n-ii-Z9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="371" y="-127"/>
+            <point key="canvasLocation" x="-283" y="-139"/>
         </scene>
         <!--Post Letter Controller-->
         <scene sceneID="zYN-0l-Kcm">

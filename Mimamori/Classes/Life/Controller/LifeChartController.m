@@ -23,6 +23,7 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *arautoButton;
 @property (strong, nonatomic) IBOutlet UIButton *sinarioButton;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 @property (strong, nonatomic) UITableView *myTableView;
 
@@ -51,6 +52,9 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     self.leftbgView.layer.cornerRadius = 6;
     self.arautoButton.layer.cornerRadius = 6;
     self.sinarioButton.layer.cornerRadius = 6;
+    
+    
+    [self.segmentControl setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
     
     NSData *imgdata =  [NITUserDefaults objectForKey:@"usericon"];
     

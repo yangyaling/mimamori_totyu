@@ -7,11 +7,22 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CalendarPopDelegate <NSObject>
+
+- (void)GetCurrentCanlendarStatus:(BOOL)isShow;
+
+@end
+
+
+
+
 @interface WHUCalendarPopView : UIView
 
 @property(nonatomic,strong) void(^onDateSelectBlk)(NSDate*);
 
-- (instancetype)initWithFrame:(CGRect)frame;
+@property (nonatomic, weak) id<CalendarPopDelegate>calendarDelegate;
+
+- (instancetype)initWithFrame:(CGRect)frame withArray:(NSArray *)array;
 
 -(void)dismiss;
 

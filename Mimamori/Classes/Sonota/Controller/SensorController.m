@@ -39,6 +39,8 @@
     
     self.tableView.tableFooterView = [[UIView alloc]init];
     
+    [self.sensorSegment setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]} forState:UIControlStateNormal];
+    
 //    self.tableView.backgroundColor = [UIColor redColor];
     
     self.isSensorTableView = YES;

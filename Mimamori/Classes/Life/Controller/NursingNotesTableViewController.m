@@ -22,7 +22,7 @@ typedef enum {
     SelectDateType
 }ParametersType;
 
-@interface NursingNotesTableViewController ()
+@interface NursingNotesTableViewController ()<CalendarPopDelegate>
 
 /**
  *  介护纪录 table
@@ -63,16 +63,16 @@ typedef enum {
 
     
     self.isCounter = YES; //日历弹出开关
+        
     
-    [self setupCalendar];
     [self getDatesForCalendar];
-    
     
     self.nursingNotesTable.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullRefresh)];
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.nursingNotesTable.mj_header];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" 生活" style:UIBarButtonItemStyleDone target:self action:@selector(clickLeftBarButtonItem)];
-    [NITNotificationCenter addObserver:self selector:@selector(TapHideCalendar) name:@"HideCalendar" object:nil];
+    
+//    [NITNotificationCenter addObserver:self selector:@selector(TapHideCalendar) name:@"HideCalendar" object:nil];
     
     
 }
@@ -92,7 +92,7 @@ typedef enum {
 /**
  *  点击calendar阴影隐藏calendar
  */
-- (void)TapHideCalendar
+- (void)GetCurrentCanlendarStatus:(BOOL)isShow
 {
     self.isCounter = YES;
 }
@@ -103,6 +103,8 @@ typedef enum {
  */
 -(void)pullRefresh{
     [self loadNewDataWithType:TodayDateType andDate:[NSDate SharedToday]];
+//    [self.POPCalendar removeFromSuperview];
+    
 }
 
 -(void)getDatesForCalendar{
@@ -116,7 +118,10 @@ typedef enum {
         
         NSArray *dateArr = [responseObject objectForKey:@"datelist"];
         if (dateArr) {
-            [NITUserDefaults setObject:[dateArr copy] forKey:@"lifeCalendar"];
+            
+            [self setupCalendarDates:[dateArr copy]];// 创建日历 - 选择日期'
+//            [self.POPCalendar dismiss];
+//            self.isCounter = YES;
         }
         
         [self.nursingNotesTable.mj_header endRefreshing];
@@ -165,10 +170,10 @@ typedef enum {
 /**
  *  获取选择的日期
  */
-- (void)setupCalendar
+- (void)setupCalendarDates:(NSArray *)array
 {
     
-    self.POPCalendar = [[WHUCalendarPopView alloc] initWithFrame:CGRectMake(0, 105, NITScreenW, NITScreenH - 155)];
+    self.POPCalendar = [[WHUCalendarPopView alloc] initWithFrame:CGRectMake(0, 105, NITScreenW, NITScreenH - 155) withArray:array];
     
     [self.view addSubview:self.POPCalendar];
     typeof(self) __weak weakSelf = self;
@@ -254,7 +259,7 @@ typedef enum {
 - (IBAction)calendar:(id)sender {
     
     if (self.isCounter) {
-        [NITNotificationCenter postNotificationName:@"lifeCalendar" object:nil];
+//        [NITNotificationCenter postNotificationName:@"lifeCalendar" object:nil];
         [self.POPCalendar show];
         self.isCounter = NO;
     } else {

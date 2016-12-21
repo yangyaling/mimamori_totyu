@@ -25,6 +25,6 @@
 //当前日历的显示月份,默认显示为当前月份的日历.
 @property(nonatomic,strong) NSDate* currentDate;
 
--(id)initWithFrame:(CGRect)frame;
+-(id)initWithFrame:(CGRect)frame withArray:(NSArray *)array;
 
 @end

@@ -17,7 +17,7 @@
 
 @implementation WHUCalendarPopView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame withArray:(NSArray *)array{
     CGRect screenBounds= frame;
     
     self=[super initWithFrame:screenBounds];
@@ -25,7 +25,7 @@
         
         self.backgroundColor = NITColorAlpha(116, 116, 116, 0);
         
-        _calView=[[WHUCalendarView alloc] initWithFrame:screenBounds];
+        _calView=[[WHUCalendarView alloc] initWithFrame:screenBounds withArray:array];
         
         _calView.translatesAutoresizingMaskIntoConstraints=NO;
         
@@ -111,7 +111,9 @@
 
 - (void)hideCalendar
 {
-    [NITNotificationCenter postNotificationName:@"HideCalendar" object:nil];
+    if ([self.calendarDelegate respondsToSelector:@selector(GetCurrentCanlendarStatus:)]) {
+        [self.calendarDelegate GetCurrentCanlendarStatus:NO];
+    }
     [self dismiss];
 }
 @end

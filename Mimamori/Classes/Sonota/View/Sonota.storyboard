@@ -250,11 +250,11 @@
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5S4-aE-msu">
                                 <rect key="frame" x="50" y="505" width="220" height="55"/>
-                                <color key="backgroundColor" red="0.45050104079999997" green="0.59369924151292519" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.42849170918367346" green="0.5915710034013606" blue="0.99651892006802723" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="BZv-Mn-DrZ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <state key="normal" title="ログアウト">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -402,7 +402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dsn-RX-vee" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1558" y="-865"/>
+            <point key="canvasLocation" x="-1228" y="-842"/>
         </scene>
         <!--見守り設定-->
         <scene sceneID="3Id-eX-bLX">
@@ -677,7 +677,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" tag="88" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkS-Us-Khx">
+                            <button opaque="NO" tag="77" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkS-Us-Khx">
                                 <rect key="frame" x="15" y="119" width="290" height="40"/>
                                 <color key="backgroundColor" red="0.45216836729999998" green="0.70089285710000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -726,7 +726,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MIh-f1-UZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1763" y="-1222"/>
+            <point key="canvasLocation" x="-2363" y="-1225"/>
         </scene>
         <!--Scenario Table View Controller-->
         <scene sceneID="5wr-Nt-hZd">

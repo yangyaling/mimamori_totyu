@@ -295,6 +295,7 @@
                         <outlet property="imageIcon" destination="rOS-F1-0NZ" id="X36-ma-Gl5"/>
                         <outlet property="leftbgView" destination="S2O-ek-0wz" id="aBL-6i-IRj"/>
                         <outlet property="myCollection" destination="ySG-K5-PNF" id="LZY-cW-0bN"/>
+                        <outlet property="segmentControl" destination="Fz6-qF-l7l" id="wEF-aH-DsF"/>
                         <outlet property="sinarioButton" destination="Yeu-3d-gfz" id="NA9-XO-94i"/>
                         <segue destination="wt9-Vt-nM3" kind="push" identifier="aripush" id="KP7-WT-vtI"/>
                         <segue destination="t6L-J0-B5E" kind="push" identifier="sinariopush" id="bFe-53-8oD"/>

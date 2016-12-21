@@ -17,7 +17,7 @@
 #import "MTitleLabel.h"
 #import "MNoticeTool.h"
 
-@interface MainNotificationController ()<NotificationCellDelegate>
+@interface MainNotificationController ()<NotificationCellDelegate,CalendarPopDelegate>
 
 
 @property (nonatomic, assign) BOOL isCounter;
@@ -27,12 +27,14 @@
 @property (nonatomic, weak) WHUCalendarPopView *POPCalendar;
 
 @property (nonatomic, weak) MTitleLabel *titleLabel; //タイトル
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentC;
 
 @property (nonatomic, copy) NSString *refreshDate; //最終更新時間(タイトルに表示)
 
 @property (nonatomic, strong) NSMutableArray *noticesArray;//全ての通知アイテム
 
 @property (nonatomic, assign) NSInteger CalendarH;
+
 
 @end
 
@@ -41,6 +43,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [self.segmentC setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
     
     self.isCounter = YES; //日历弹出开关
     
@@ -54,12 +58,6 @@
     
     // タイトル
     [self setupTitleView];
-    
-    
-    [self setupCalendar];//
-    
-    // 监听POPCalendar日历以外区域的点击事件
-    [NITNotificationCenter addObserver:self selector:@selector(TapHideCalendar) name:@"HideCalendar" object:nil];
     
     
     self.CalendarH = 0;
@@ -107,6 +105,8 @@
     //1. 通知リストを取得
     [self noticeInfoWithDateType:TodayDateType date:[NSDate SharedToday]];
     //2. 通知のある日付を取得
+    
+    [self.POPCalendar removeFromSuperview];
     [self dateList];
 }
 
@@ -121,9 +121,10 @@
 }
 
 
--(void)setupCalendar{
-    WHUCalendarPopView *POPCalendar = [[WHUCalendarPopView alloc] initWithFrame:CGRectMake(0, 136, NITScreenW, NITScreenH - 185)];
+-(void)setupCalendarDates:(NSArray *)array{
+    WHUCalendarPopView *POPCalendar = [[WHUCalendarPopView alloc] initWithFrame:CGRectMake(0, 136, NITScreenW, NITScreenH - 185) withArray:array];
     self.POPCalendar = POPCalendar;
+    self.POPCalendar.calendarDelegate = self;
     [self.view addSubview:self.POPCalendar];
     
     typeof(self) __weak weakSelf = self;
@@ -159,7 +160,6 @@
 - (void)ShowCalendar:(UIButton *)sender {
     
     if (self.isCounter) {
-        [NITNotificationCenter postNotificationName:@"noticeCalendar" object:nil];
         [self.POPCalendar show];
         self.isCounter = NO;
     } else {
@@ -168,14 +168,13 @@
     }
 }
 
-
 /**
  *  点击calendar阴影隐藏calendar
  */
-- (void)TapHideCalendar
-{
+- (void)GetCurrentCanlendarStatus:(BOOL)isShow {
     self.isCounter = YES;
 }
+
 
 
 #pragma mark - API Request
@@ -199,7 +198,6 @@
         
         param.startdate = [NSDate SharedToday];
         
-//        [self.POPCalendar removeFromSuperview]; //　每次下拉刷新删除calendar
     }
     
     [MNoticeTool noticeInfoWithParam:param success:^(NSArray *array) {
@@ -240,10 +238,12 @@
     
     [MNoticeTool noticeDatesWithParam:param success:^(NSArray *array) {
         if (array.count > 0) {
-            [NITUserDefaults setObject:[array copy] forKey:@"noticeCalendar"];
-            [NITUserDefaults synchronize];
+//            [NITUserDefaults setObject:[array copy] forKey:@"noticeCalendar"];
+//            [NITUserDefaults synchronize];
             
-//            [self setupCalendar];// 创建日历 - 选择日期
+            [self setupCalendarDates:[array copy]];// 创建日历 - 选择日期
+            [self.POPCalendar dismiss];
+            self.isCounter = YES;
         }
     } failure:^(NSError *error) {
         NITLog(@"zwgetnoticedatelist请求失败:%@",error);
@@ -337,16 +337,16 @@
     
     timeSegement.frame = CGRectMake(65, 5, (self.view.width - 60) * 0.9, 30);
     
-    UIFont *font = [UIFont boldSystemFontOfSize:14.0f];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
-                                                           forKey:UITextAttributeFont];
-    [timeSegement setTitleTextAttributes:attributes
-                                forState:UIControlStateNormal];
+//    UIFont *font = [UIFont boldSystemFontOfSize:14.0f];
+//    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+//                                                           forKey:UITextAttributeFont];
+//    [timeSegement setTitleTextAttributes:attributes
+//                                forState:UIControlStateNormal];
     
-    
+    [timeSegement setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
     //    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],UITextAttributeTextColor,[UIFont fontWithName:@"SnellRoundhand-Bold" size:24],UITextAttributeFont ,nil];
     
-    [timeSegement setTitleTextAttributes:attributes forState:UIControlStateNormal];
+//    [timeSegement setTitleTextAttributes:attributes forState:UIControlStateNormal];
     
     [CalendarButton addTarget:self action:@selector(ShowCalendar:) forControlEvents:UIControlEventTouchUpInside];
     

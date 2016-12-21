@@ -65,6 +65,8 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     
     BOOL _shouldLayout;
     
+    
+    NSArray *_ccdates;
 }
 
 
@@ -78,10 +80,11 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
 //    return self;
 //}
 
--(id)initWithFrame:(CGRect)frame{
+-(id)initWithFrame:(CGRect)frame withArray:(NSArray *)array{
     self=[super initWithFrame:frame];
     if(self){
         [self setupView];
+        _ccdates = array.count >0 ? [array copy] : [NSArray new];
     }
     return self;
 }
@@ -149,6 +152,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     
     UIButton* preBtn=[self makeButtonWithText:@"先月"];
     
+    
     [preBtn setBackgroundColor:NITColorAlpha(19, 146, 255, 0.76)];
     
     preBtn.layer.borderWidth = 1;
@@ -160,31 +164,54 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     preBtn.layer.borderColor = NITColorAlpha(225, 225, 225, 0.8).CGColor;
     
     preBtn.translatesAutoresizingMaskIntoConstraints=NO;
+    
     _mLeftBtn=preBtn;
+    
     preBtn.tag=1000;
+    
     [preBtn addTarget:self action:@selector(monthSelectAction:) forControlEvents:UIControlEventTouchUpInside];
+    
     UIButton* nextBtn=[self makeButtonWithText:@"来月"];
+    
     [nextBtn setBackgroundColor:NITColorAlpha(19, 146, 255, 0.76)];
+    
     nextBtn.layer.masksToBounds = YES;
+    
     nextBtn.layer.cornerRadius = 5;
+    
     nextBtn.layer.borderWidth = 1;
+    
     nextBtn.layer.borderColor = NITColorAlpha(225, 225, 225, 0.8).CGColor;
+    
     _mRightBtn=nextBtn;
+    
     nextBtn.tag=2000;
+    
     nextBtn.translatesAutoresizingMaskIntoConstraints=NO;
+    
     [nextBtn addTarget:self action:@selector(monthSelectAction:) forControlEvents:UIControlEventTouchUpInside];
     
     UILabel* curDateLbl=[[UILabel alloc] init];
+    
     curDateLbl.font=[UIFont boldSystemFontOfSize:18.0f];
+    
     curDateLbl.translatesAutoresizingMaskIntoConstraints=NO;
+    
+    
     curDateLbl.text=@"            ";
+    
 //    [curDateLbl setBackgroundColor:NITColorAlpha(19, 146, 255, 0.1)];
+    
     _curMonthLbl=curDateLbl;
+    
     _curMonthLbl.userInteractionEnabled=YES;
     
     UITapGestureRecognizer* tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+    
     tap.numberOfTapsRequired=1;
+    
     [_curMonthLbl addGestureRecognizer:tap];
+    
     [curDateLbl sizeToFit];
     
     [_topView addSubview:preBtn];
@@ -207,8 +234,8 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     [_topView addConstraint:[NSLayoutConstraint constraintWithItem:curDateLbl attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_topView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
     
     
-    [NITNotificationCenter addObserver:self selector:@selector(GetcalendarDates:) name:@"lifeCalendar"  object:nil];
-    [NITNotificationCenter addObserver:self selector:@selector(GetNoticeCalendarDates:) name:@"noticeCalendar"  object:nil];
+//    [NITNotificationCenter addObserver:self selector:@selector(GetcalendarDates:) name:@"lifeCalendar"  object:nil];
+//    [NITNotificationCenter addObserver:self selector:@selector(GetNoticeCalendarDates:) name:@"noticeCalendar"  object:nil];
     
 }
 
@@ -225,6 +252,8 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
                 
                 WHUCalendarView_StrongSelf self=weakSelf;
                 self->_dataDic=dic;
+                
+                [self lastDates:dic[@"dataArr"]];
                 
                 [self reloadCollectionView];
                 self->_curMonthLbl.text=_dataDic[@"monthStr"];
@@ -244,13 +273,21 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
 
 -(void)toggleBtnState:(void(^)(void))complitionBlk{
     if(_mLeftBtn.hidden){
+        
         _curMonthLbl.text=_dataDic[@"monthStr"];
+        
         _yLeftBtn.hidden=YES;
+        
         _yRightBtn.hidden=YES;
+        
         _mLeftBtn.hidden=NO;
+        
         _mRightBtn.hidden=NO;
+        
         [CATransaction begin];
+        
         CATransform3D trans=CATransform3DIdentity;
+        
         trans.m34=-1.0/500.0;
         trans=CATransform3DTranslate(trans, 0, 45, 0);
         trans=CATransform3DRotate(trans, -M_PI/2.8, 1, 0,0);
@@ -282,7 +319,9 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
                 ges.enabled=YES;
             }
         }
+        
         _collectionPanGes.enabled=NO;
+        
         _collectionTapGes.enabled=NO;
     }
     else{
@@ -340,11 +379,12 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
 
 -(void)reloadCollectionView{
     NSArray* tempArr=_dataDic[@"dataArr"];
+    
     WHUCalendarFlowLayout* layout=(WHUCalendarFlowLayout*)_calView.collectionViewLayout;
     layout.dataCount=tempArr.count;
     
     NSInteger row=-1;
-//    [_calView reloadData];
+    
     for(int i=0;i<tempArr.count;i++){
         WHUCalendarItem* item=tempArr[i];
         if([item.dateStr isEqualToString:_selectedDateString]){
@@ -360,19 +400,19 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
         }
     });
     
-    if (_whichCalendar) {
-        
-        NSArray *tmparr = [NITUserDefaults objectForKey:@"noticeCalendar"];
-        
-        [self lastDates:tmparr];
-        
-    } else {
-        
-        NSArray *tmparr = [NITUserDefaults objectForKey:@"lifeCalendar"];
-        
-        [self lastDates:tmparr];
-    }
-        [_dataArr removeAllObjects];
+//    if (_whichCalendar) {
+//        
+//        NSArray *tmparr = [NITUserDefaults objectForKey:@"noticeCalendar"];
+//        
+//        [self lastDates:tmparr];
+//        
+//    } else {
+//        
+//        NSArray *tmparr = [NITUserDefaults objectForKey:@"lifeCalendar"];
+//        
+//        [self lastDates:tmparr];
+//    }
+//        [_dataArr removeAllObjects];
     
         [_calView reloadData];
     
@@ -396,6 +436,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
             [_calcal getCalendarMapWith:_pickerView.selectdDateStr completion:^(NSDictionary* dic){
                 WHUCalendarView_StrongSelf self=weakself;
                 self->_dataDic=dic;
+                [self lastDates:dic[@"dataArr"]];
                 [self reloadCollectionView];
                 self->_curMonthLbl.text=self->_dataDic[@"monthStr"];
                 self->_calView.hidden=YES;
@@ -417,6 +458,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
         [_calcal preMonthCalendar:_curMonthLbl.text complete:^(NSDictionary* dic){
             WHUCalendarView_StrongSelf self=weakself;
             self->_dataDic=dic;
+            [self lastDates:dic[@"dataArr"]];
             CATransition* tran=[CATransition animation];
             self->_curMonthLbl.text=dic[@"monthStr"];
             tran.duration=0.3;
@@ -430,6 +472,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
         [_calcal nextMonthCalendar:_curMonthLbl.text complete:^(NSDictionary* dic){
             WHUCalendarView_StrongSelf self=weakself;
             self->_dataDic=dic;
+            [self lastDates:dic[@"dataArr"]];
             CATransition* tran=[CATransition animation];
             self->_curMonthLbl.text=dic[@"monthStr"];
             tran.duration=0.3;
@@ -556,6 +599,8 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
         
         NSArray* tempArr=_dataDic[@"dataArr"];
         
+        [self lastDates:tempArr];
+        
         flowLayout.dataCount=tempArr.count;
         
         flowLayout.columnCount=7;
@@ -614,6 +659,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
             nextBtn.hidden=YES;
             [_topView addSubview:nextBtn];
             [nextBtn addTarget:self action:@selector(yearMonthSelectAction:) forControlEvents:UIControlEventTouchUpInside];
+            
             //            CGFloat totalHeight=_contentView.frame.size.height;
             //            UILabel* info1=[[UILabel alloc] initWithFrame:CGRectMake(10, totalHeight-35, 300, 12)];
             //            info1.text=@"1.左スライド、1月、右、左にスライド、月にジャンプする.";
@@ -627,6 +673,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
             //            [_contentView addSubview:info2];
             //            [_contentView sendSubviewToBack:info1];
             //            [_contentView sendSubviewToBack:info2];
+            
         });
     }
 }
@@ -704,32 +751,33 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
 
 
 
-- (void)GetNoticeCalendarDates:(NSNotification *)noticefication
-{
-    NSArray *data = [NITUserDefaults objectForKey:@"noticeCalendar"];
-    
-    _whichCalendar = YES;
-    [self lastDates:data];
-    //    NITLog(@"-=-=-=-=-=-=-=%@",data);
-    
-    
-}
+//- (void)GetNoticeCalendarDates:(NSNotification *)noticefication
+//{
+//    NSArray *data = [NITUserDefaults objectForKey:@"noticeCalendar"];
+//    
+//    _whichCalendar = YES;
+//    [self lastDates:data];
+//    //    NITLog(@"-=-=-=-=-=-=-=%@",data);
+//    
+//    
+//}
 
 - (void)lastDates:(NSArray *)array {
     
-    NSArray* tempArr=_dataDic[@"dataArr"];
+//    NSArray* tempArr=_dataDic[@"dataArr"];
     NSMutableArray *tmpdate = [NSMutableArray new];
-    for (WHUCalendarItem *model in tempArr) {
+    for (WHUCalendarItem *model in array) {
         [tmpdate addObject:model.dateStr];
     }
     //        NITLog(@"%@",tmpdate);
     
     //        NITLog(@"%@",array);
     _dataArr = [NSMutableArray new];
+    [_dataArr removeAllObjects];
     
     [tmpdate enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
-        if ([array containsObject:obj]) {
+        if ([_ccdates containsObject:obj]) {
             
             [_dataArr addObject:@"*"];
         } else {
@@ -737,24 +785,25 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
         }
     }];
     
-    [_calView reloadData];
+//    return tmpdate;
+//    [_calView reloadData];
 }
 
-- (void)GetcalendarDates:(NSNotification *)noticefication
-{
-    NSArray *data = [NITUserDefaults objectForKey:@"lifeCalendar"];
-    _whichCalendar = NO;
-    [self lastDates:data];
-    
-    //    NITLog(@"-=-=-=-=-=-=-=%@",data);
-    
-}
+//- (void)GetcalendarDates:(NSNotification *)noticefication
+//{
+//    NSArray *data = [NITUserDefaults objectForKey:@"lifeCalendar"];
+//    _whichCalendar = NO;
+//    [self lastDates:data];
+//    
+//    //    NITLog(@"-=-=-=-=-=-=-=%@",data);
+//    
+//}
 
--(void)dealloc
-{
-    [NITNotificationCenter removeObserver:self name:@"noticeCalendar" object:nil];
-    [NITNotificationCenter removeObserver:self name:@"lifeCalendar" object:nil];
-}
+//-(void)dealloc
+//{
+//    [NITNotificationCenter removeObserver:self name:@"noticeCalendar" object:nil];
+//    [NITNotificationCenter removeObserver:self name:@"lifeCalendar" object:nil];
+//}
 
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSArray *selectedItemIndexPaths = [collectionView indexPathsForSelectedItems];
