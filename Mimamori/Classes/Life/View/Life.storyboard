@@ -62,7 +62,7 @@
                                         <rect key="frame" x="0.0" y="28" width="328" height="98"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dbu-nj-FWi" id="fNr-gP-cda">
-                                            <rect key="frame" x="0.0" y="0.0" width="328" height="98"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="328" height="97"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAt-3z-vCW">
@@ -341,7 +341,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6bf-bx-NTn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-234" y="-1099"/>
+            <point key="canvasLocation" x="743" y="-1279"/>
         </scene>
         <!--Zworks Chart View Controller-->
         <scene sceneID="qan-ty-Gev">
@@ -380,7 +380,7 @@
                                 <rect key="frame" x="0.0" y="70" width="320" height="160"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A9Q-sd-YYo" id="aE5-qS-kWY">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="u5q-oL-JhW">
@@ -394,7 +394,7 @@
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ZChartCollectionCell" id="2q1-o6-RwF" customClass="ZworksChartCollectionViewCell">
-                                                    <rect key="frame" x="1.5" y="0.0" width="317" height="151"/>
+                                                    <rect key="frame" x="2" y="0.0" width="317" height="151"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                         <rect key="frame" x="0.0" y="0.0" width="317" height="151"/>
@@ -809,7 +809,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mbu-dH-J2P" id="mJ2-eW-uKO">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -828,7 +828,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OTH-a6-xld" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-816" y="-579"/>
+            <point key="canvasLocation" x="-662" y="-1147"/>
         </scene>
     </scenes>
     <resources>
@@ -838,6 +838,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="24J-fa-IFR"/>
         <segue reference="uha-ZK-ypc"/>
-        <segue reference="JgD-GO-VX9"/>
+        <segue reference="aR7-Wp-mlh"/>
     </inferredMetricsTieBreakers>
 </document>
