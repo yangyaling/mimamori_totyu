@@ -35,6 +35,14 @@
 }
 
 
+- (IBAction)addCustButton:(id)sender {
+    
+    [self performSegueWithIdentifier:@"addCustPush" sender:self];
+    
+}
+
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     

@@ -27,7 +27,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mSm-j2-gjN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2134" y="-1437"/>
+            <point key="canvasLocation" x="-3544" y="-1900"/>
         </scene>
         <!--その他-->
         <scene sceneID="96U-BU-gJ0">
@@ -284,7 +284,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQs-WC-3xz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1573" y="-1870"/>
+            <point key="canvasLocation" x="-2402" y="-2196"/>
         </scene>
         <!--見守り設定-->
         <scene sceneID="hvW-SZ-D6Q">
@@ -299,14 +299,21 @@
                             <outlet property="delegate" destination="hsj-yv-zXb" id="Na2-wV-f9A"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="見守り設定" id="yyB-On-JqE"/>
+                    <navigationItem key="navigationItem" title="見守り設定" id="yyB-On-JqE">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="mMu-Fc-Vl1">
+                            <connections>
+                                <action selector="addCustButton:" destination="hsj-yv-zXb" id="eYU-vO-lag"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="pfM-EA-pgU" kind="push" identifier="setcellpush" id="Ovz-59-74F"/>
+                        <segue destination="Ley-Sc-UQa" kind="push" identifier="addCustPush" id="vJ6-en-Hnk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oSM-bs-BaR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-296" y="-1360"/>
+            <point key="canvasLocation" x="-1208" y="-1749"/>
         </scene>
         <!--Sensor Controller-->
         <scene sceneID="XjU-8u-WMA">
@@ -402,7 +409,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dsn-RX-vee" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1228" y="-842"/>
+            <point key="canvasLocation" x="-1553" y="-746"/>
         </scene>
         <!--見守り設定-->
         <scene sceneID="3Id-eX-bLX">
@@ -454,12 +461,11 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <segue destination="BON-i7-8TT" kind="show" identifier="patientDetailsPush" id="goX-wB-Dvh"/>
-                        <segue destination="Ley-Sc-UQa" kind="show" identifier="addCustPush" id="jOd-PT-wNX"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ln8-xi-YZi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1646" y="772"/>
+            <point key="canvasLocation" x="208" y="62"/>
         </scene>
         <!--Patient Details Table View Controller-->
         <scene sceneID="aFx-ee-DHy">
@@ -504,7 +510,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EMt-bn-FTM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="68" y="321"/>
+            <point key="canvasLocation" x="-1395" y="483"/>
         </scene>
         <!--Add Sick Person Table View Controller-->
         <scene sceneID="tOj-55-Ztp">
@@ -633,6 +639,7 @@
                             </tableViewSection>
                         </sections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="yTm-sX-LiH"/>
                     <connections>
                         <outlet property="nicknameText" destination="wDV-Ii-ivZ" id="Z3q-b5-Kpb"/>
                         <outlet property="roomidText" destination="eYI-bI-31W" id="COD-9s-327"/>
@@ -641,7 +648,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Evz-G1-pHb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1479" y="-709"/>
+            <point key="canvasLocation" x="-203" y="-1693"/>
         </scene>
         <!--シナリオ設定-->
         <scene sceneID="eOK-Dy-MQh">
@@ -726,7 +733,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MIh-f1-UZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2363" y="-1225"/>
+            <point key="canvasLocation" x="-2477" y="-1233"/>
         </scene>
         <!--Scenario Table View Controller-->
         <scene sceneID="5wr-Nt-hZd">
@@ -995,7 +1002,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VS5-XI-e89" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-486" y="-942"/>
+            <point key="canvasLocation" x="-654" y="-184"/>
         </scene>
         <!--Profile Table View Controller-->
         <scene sceneID="FbI-6K-hYc">
@@ -1401,7 +1408,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="442-fX-VIQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2923" y="-942"/>
+            <point key="canvasLocation" x="-4573" y="-1160"/>
         </scene>
         <!--Self View Controller-->
         <scene sceneID="skt-co-FUo">
@@ -1538,7 +1545,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uTw-Jl-tq4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-99" y="-2050"/>
+            <point key="canvasLocation" x="-654" y="-2418"/>
         </scene>
     </scenes>
     <resources>
