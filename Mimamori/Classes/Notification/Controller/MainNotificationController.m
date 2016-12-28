@@ -122,9 +122,13 @@
 
 
 -(void)setupCalendarDates:(NSArray *)array{
+    
     WHUCalendarPopView *POPCalendar = [[WHUCalendarPopView alloc] initWithFrame:CGRectMake(0, 136, NITScreenW, NITScreenH - 185) withArray:array];
+    
     self.POPCalendar = POPCalendar;
+    
     self.POPCalendar.calendarDelegate = self;
+    
     [self.view addSubview:self.POPCalendar];
     
     typeof(self) __weak weakSelf = self;
@@ -160,10 +164,15 @@
 - (void)ShowCalendar:(UIButton *)sender {
     
     if (self.isCounter) {
+        
         [self.POPCalendar show];
+        
         self.isCounter = NO;
+        
     } else {
+        
         [self.POPCalendar dismiss];
+        
         self.isCounter = YES;
     }
 }

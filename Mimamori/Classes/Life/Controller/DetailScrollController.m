@@ -33,10 +33,8 @@ static NSString * const reuseIdentifier = @"Cell";
     self.navigationItem.title = [NSString stringWithFormat:@"%@（%@）",self.chartModel.devicename,self.chartModel.nodename];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
-    //从缓存中取得点击的是第几页进入详细页面的
-    NSInteger index = [NITUserDefaults integerForKey:@"dateindex"];//获得定位
-    self.selectindex = index;
     
+    //从缓存中取得点击的是第几页进入详细页面的
     
     [self setupControllers];
     
