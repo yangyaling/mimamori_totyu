@@ -13,7 +13,7 @@
 @protocol MyPickerDelegate <NSObject>
 
 @optional
-- (void)PickerDelegateSelectString:(NSString *)sinario;
+- (void)PickerDelegateSelectString:(NSString *)sinario withBool:(BOOL)addcell;
 
 @end
 

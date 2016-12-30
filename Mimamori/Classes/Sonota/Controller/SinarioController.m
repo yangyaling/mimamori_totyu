@@ -21,14 +21,23 @@
 @property (nonatomic, strong) NITPicker       *picker;
 @property (nonatomic, assign) NSInteger                    cellnum;
 
+@property (nonatomic, strong) NSMutableArray                    *allarray;
+
 @end
 
 @implementation SinarioController
 
+-(NSMutableArray *)allarray {
+    if (!_allarray) {
+        _allarray = [NSMutableArray new];
+    }
+    return _allarray;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.cellnum = 1;
+//    self.cellnum = 1;
     
     self.sinariobutton.layer.cornerRadius = 6;
     self.tableView.tableFooterView = [[UIView alloc]init];
@@ -38,9 +47,18 @@
 /**
  PickerDelegate
  */
-- (void)PickerDelegateSelectString:(NSString *)sinario {
+- (void)PickerDelegateSelectString:(NSString *)sinario withBool:(BOOL)addcell {
+    if (addcell) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.allarray insertObject:sinario atIndex:0];
+//        self.cellnum ++;
+        [self.tableView beginUpdates];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    } else {
+        self.sinarioText.text = sinario;
+    }
     
-    self.sinarioText.text = sinario;
 }
 
 - (IBAction)PickShow:(UIButton *)sender {
@@ -60,7 +78,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.cellnum;
+    return _allarray.count;
 }
 
 
@@ -69,7 +87,7 @@
     
     SinarioTableViewCell *cell = [SinarioTableViewCell cellWithTableView:tableView];
     
-//    cell.sensorname.text = self.sensors[indexPath.row];
+    [cell.sinarioButton setTitle:self.allarray[indexPath.row] forState:UIControlStateNormal];
     
     return cell;
     
@@ -90,6 +108,7 @@
     
     
     [editButton setTitle: @"＋" forState: UIControlStateNormal];
+    editButton.tag = 88;
     [editButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [editButton addTarget:self action:@selector(addScenarioCell:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -119,13 +138,12 @@
 
 
 - (void)addScenarioCell:(UIButton *)sender {
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device];
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-
-    self.cellnum ++;
-    [self.tableView beginUpdates];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView endUpdates];
+    _picker.mydelegate = self;
+    
+    [WindowView addSubview:_picker];
+    
     
 }
 
@@ -144,16 +162,13 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        self.cellnum --;
-//        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+        [self.allarray removeObjectAtIndex:indexPath.row];
         [self.tableView beginUpdates];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
         [self.tableView endUpdates];
         
     } 
 }
-
-
 
 
 

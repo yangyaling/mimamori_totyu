@@ -77,6 +77,7 @@
         self.userIcon.image = [UIImage imageWithData:imgdata];
     }
     [self getProfileInfo];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{

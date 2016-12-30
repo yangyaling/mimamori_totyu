@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class SickPersonModel;
+
 @interface SensorController : UIViewController
+
+@property (nonatomic, copy) NSString                   *profileUser0;
+
 @property (nonatomic, copy) NSArray                    *sensors;
+
 @end

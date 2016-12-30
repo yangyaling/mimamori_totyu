@@ -50,7 +50,7 @@
                     </button>
                     <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXw-y8-qDs">
                         <rect key="frame" x="85" y="40" width="60" height="25"/>
-                        <state key="normal" title="0.5時間">
+                        <state key="normal" title="-">
                             <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
@@ -59,7 +59,7 @@
                     </button>
                     <button opaque="NO" tag="33" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dsi-Lb-NTi">
                         <rect key="frame" x="155" y="40" width="155" height="25"/>
-                        <state key="normal" title="28℃以上">
+                        <state key="normal" title="- -">
                             <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
@@ -68,7 +68,7 @@
                     </button>
                     <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMa-Xw-WIc">
                         <rect key="frame" x="85" y="70" width="60" height="25"/>
-                        <state key="normal" title="1.5時間">
+                        <state key="normal" title="-">
                             <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
@@ -77,7 +77,7 @@
                     </button>
                     <button opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1i-xg-f4t">
                         <rect key="frame" x="85" y="100" width="60" height="25"/>
-                        <state key="normal" title="ー">
+                        <state key="normal" title="-">
                             <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
@@ -86,7 +86,7 @@
                     </button>
                     <button opaque="NO" tag="44" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuL-o4-UFE">
                         <rect key="frame" x="155" y="70" width="155" height="25"/>
-                        <state key="normal" title="28%以上">
+                        <state key="normal" title="- -">
                             <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
@@ -95,7 +95,7 @@
                     </button>
                     <button opaque="NO" tag="55" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpU-Iq-OWS">
                         <rect key="frame" x="155" y="100" width="155" height="25"/>
-                        <state key="normal" title="ー">
+                        <state key="normal" title="- -">
                             <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                         <connections>
@@ -115,9 +115,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" tag="66" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHM-3R-FRw">
-                        <rect key="frame" x="91" y="130" width="160" height="25"/>
+                        <rect key="frame" x="85" y="130" width="160" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="160" id="aeM-WJ-8gS"/>
+                            <constraint firstAttribute="width" constant="160" id="ihz-DK-9sy"/>
                         </constraints>
                         <state key="normal" title="使用なし">
                             <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -125,6 +125,7 @@
                     </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="rHM-3R-FRw" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="19n-rR-G9m"/>
                     <constraint firstItem="98r-yB-4nI" firstAttribute="height" secondItem="Rop-cc-6Hv" secondAttribute="height" id="1gH-XC-Hbu"/>
                     <constraint firstItem="bpU-Iq-OWS" firstAttribute="width" secondItem="KuL-o4-UFE" secondAttribute="width" id="2l8-kT-2qQ"/>
                     <constraint firstItem="Dsi-Lb-NTi" firstAttribute="leading" secondItem="fXw-y8-qDs" secondAttribute="trailing" constant="10" id="2y6-cN-T3j"/>
@@ -143,7 +144,6 @@
                     <constraint firstItem="F1i-xg-f4t" firstAttribute="width" secondItem="vMa-Xw-WIc" secondAttribute="width" id="OBq-NU-mCO"/>
                     <constraint firstItem="bpU-Iq-OWS" firstAttribute="height" secondItem="Cw8-oy-3yx" secondAttribute="height" id="OUy-U8-iAj"/>
                     <constraint firstItem="KuL-o4-UFE" firstAttribute="width" secondItem="Dsi-Lb-NTi" secondAttribute="width" id="Pey-Ua-xpw"/>
-                    <constraint firstItem="rHM-3R-FRw" firstAttribute="height" secondItem="A8r-vN-9mm" secondAttribute="height" id="QPR-Cx-hFb"/>
                     <constraint firstItem="bpU-Iq-OWS" firstAttribute="top" secondItem="Cw8-oy-3yx" secondAttribute="top" id="S1u-IH-uX0"/>
                     <constraint firstItem="Dsi-Lb-NTi" firstAttribute="top" secondItem="Rop-cc-6Hv" secondAttribute="top" id="W6h-GZ-OGT"/>
                     <constraint firstItem="A8r-vN-9mm" firstAttribute="leading" secondItem="Cw8-oy-3yx" secondAttribute="leading" id="X8R-iU-PMq"/>
@@ -156,8 +156,8 @@
                     <constraint firstItem="98r-yB-4nI" firstAttribute="top" secondItem="Rop-cc-6Hv" secondAttribute="bottom" constant="5" id="eZ5-qM-SWu"/>
                     <constraint firstItem="F1i-xg-f4t" firstAttribute="leading" secondItem="vMa-Xw-WIc" secondAttribute="leading" id="fKn-IC-wRR"/>
                     <constraint firstItem="F1i-xg-f4t" firstAttribute="top" secondItem="Cw8-oy-3yx" secondAttribute="top" id="gGn-aj-xeY"/>
-                    <constraint firstItem="rHM-3R-FRw" firstAttribute="top" secondItem="A8r-vN-9mm" secondAttribute="top" id="gQN-S9-xp9"/>
                     <constraint firstItem="Rop-cc-6Hv" firstAttribute="top" secondItem="J2n-1h-iUB" secondAttribute="bottom" constant="5" id="hLS-9P-uoQ"/>
+                    <constraint firstItem="rHM-3R-FRw" firstAttribute="top" secondItem="A8r-vN-9mm" secondAttribute="top" id="htG-Sn-f48"/>
                     <constraint firstItem="A8r-vN-9mm" firstAttribute="top" secondItem="Cw8-oy-3yx" secondAttribute="bottom" constant="5" id="ik0-OU-sYZ"/>
                     <constraint firstItem="fXw-y8-qDs" firstAttribute="top" secondItem="Rop-cc-6Hv" secondAttribute="top" id="ks2-Ud-MIx"/>
                     <constraint firstItem="KuL-o4-UFE" firstAttribute="leading" secondItem="Dsi-Lb-NTi" secondAttribute="leading" id="mjY-6g-l4M"/>
@@ -166,8 +166,8 @@
                     <constraint firstItem="Rop-cc-6Hv" firstAttribute="leading" secondItem="J2n-1h-iUB" secondAttribute="leading" id="u6b-7a-wrx"/>
                     <constraint firstItem="98r-yB-4nI" firstAttribute="width" secondItem="Rop-cc-6Hv" secondAttribute="width" id="uS3-pA-Y02"/>
                     <constraint firstItem="Cw8-oy-3yx" firstAttribute="top" secondItem="98r-yB-4nI" secondAttribute="bottom" constant="5" id="v69-Sm-fft"/>
-                    <constraint firstItem="rHM-3R-FRw" firstAttribute="leading" secondItem="A8r-vN-9mm" secondAttribute="trailing" constant="16" id="vud-Za-7Ph"/>
                     <constraint firstItem="fXw-y8-qDs" firstAttribute="height" secondItem="Rop-cc-6Hv" secondAttribute="height" id="ypr-ql-LwP"/>
+                    <constraint firstItem="rHM-3R-FRw" firstAttribute="bottom" secondItem="A8r-vN-9mm" secondAttribute="bottom" id="zjz-E5-zRY"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -179,12 +179,13 @@
                 <outlet property="humidity" destination="98r-yB-4nI" id="1jg-wm-hvZ"/>
                 <outlet property="humidityTD" destination="KuL-o4-UFE" id="O4B-cI-VMD"/>
                 <outlet property="humiditytime" destination="vMa-Xw-WIc" id="SML-ar-VNm"/>
+                <outlet property="nasiButton" destination="rHM-3R-FRw" id="7sK-NX-dTq"/>
                 <outlet property="sinarioButton" destination="J2n-1h-iUB" id="kUR-3d-Y6Z"/>
                 <outlet property="temperature" destination="Rop-cc-6Hv" id="Lf1-OP-phd"/>
                 <outlet property="temperatureTD" destination="Dsi-Lb-NTi" id="yzQ-vq-Ki5"/>
                 <outlet property="temperaturetime" destination="fXw-y8-qDs" id="7Yv-5h-swV"/>
             </connections>
-            <point key="canvasLocation" x="-118" y="1"/>
+            <point key="canvasLocation" x="-342" y="-36"/>
         </tableViewCell>
     </objects>
 </document>

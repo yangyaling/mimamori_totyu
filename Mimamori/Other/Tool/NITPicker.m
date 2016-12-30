@@ -72,6 +72,9 @@
             case 77:
                 scenariotype =6;
                 break;
+            case 88:
+                scenariotype =7;
+                break;
                 
             default:
                 break;
@@ -155,6 +158,8 @@
             break;
         case 6:
             select = self.names[0];
+        case 7:
+            select = self.names[0];
             break;
             
         default:
@@ -192,42 +197,48 @@
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     } else if (scenariotype == 6){
         // 2.通知代理
-        if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:)]) {
-            [self.mydelegate PickerDelegateSelectString:select];
+        if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withBool:)]) {
+            [self.mydelegate PickerDelegateSelectString:select withBool:NO];
         }
         
+    } else if (scenariotype == 7) {
+        if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withBool:)]) {
+             [self.mydelegate PickerDelegateSelectString:select withBool:YES];
+        }
+       
     } else {
+    
         [self.thisbutton setTitle:select forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     
     
     //    [self.delegate selecttitle:select tag:thistag];
-    NSData * data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
-    NSMutableArray * scenarioarr= [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    
-    for (int i = 0 ; i < scenarioarr.count ; i++) {
-        //NSMutableArray *modelarray = scenarioarr[i];
-        Device *device = [scenarioarr objectAtIndex:i];
-        if ([device.deviceid isEqualToString:_model.deviceid]) {
-            if (self.thisbutton.tag==11) {
-                device.deviceValue.time = @([select integerValue]);
-            }else if(self.thisbutton.tag==22){
-                device.deviceValue.time = @([select integerValue]);
-            }else if(self.thisbutton.tag==33){
-                device.deviceValue.value = @([select integerValue]);
-            }else if(self.thisbutton.tag==44){
-                device.deviceValue.rpoint = select;
-            }
-            
-//            NSMutableArray *modelarrays = [NSMutableArray array];
-//            [modelarrays addObject:device];
-            [scenarioarr replaceObjectAtIndex:i withObject:device];
-        }
-    }
-    
-    NSData * datas = [NSKeyedArchiver archivedDataWithRootObject:scenarioarr];
-    [NITUserDefaults setObject:datas forKey:@"scenariodtlinfoarr"];
+//    NSData * data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+//    NSMutableArray * scenarioarr= [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//    
+//    for (int i = 0 ; i < scenarioarr.count ; i++) {
+//        //NSMutableArray *modelarray = scenarioarr[i];
+//        Device *device = [scenarioarr objectAtIndex:i];
+//        if ([device.deviceid isEqualToString:_model.deviceid]) {
+//            if (self.thisbutton.tag==11) {
+//                device.deviceValue.time = @([select integerValue]);
+//            }else if(self.thisbutton.tag==22){
+//                device.deviceValue.time = @([select integerValue]);
+//            }else if(self.thisbutton.tag==33){
+//                device.deviceValue.value = @([select integerValue]);
+//            }else if(self.thisbutton.tag==44){
+//                device.deviceValue.rpoint = select;
+//            }
+//            
+////            NSMutableArray *modelarrays = [NSMutableArray array];
+////            [modelarrays addObject:device];
+//            [scenarioarr replaceObjectAtIndex:i withObject:device];
+//        }
+//    }
+//    
+//    NSData * datas = [NSKeyedArchiver archivedDataWithRootObject:scenarioarr];
+//    [NITUserDefaults setObject:datas forKey:@"scenariodtlinfoarr"];
     
     
     [self removeFromSuperview];
@@ -305,14 +316,13 @@
     } else {
         text.frame = pickerlabelframe2;
         
-        if (scenariotype==0) {
-            text.text = self.names[row];
-        }else if(scenariotype==1){
+//        if (scenariotype==0) {
+//            text.text = self.names[row];
+//        }else
+        if(scenariotype==1){
             text.text = self.time[row];
-        } else if(scenariotype==6) {
-            text.text = self.names[row];
         }  else {
-            
+            text.text = self.names[row];
         }
         [view addSubview:text];
         return view;
@@ -460,11 +470,11 @@
 
 -(NSMutableArray *)names{
     if (!_names) {
-        if (scenariotype == 0) {
-            _names = [NSMutableArray arrayWithObjects:@"居室入口",@"トイレ",@"リビング", nil];
-            
-        } else if (scenariotype == 6) {
+        if (scenariotype == 6) {
             _names = [NSMutableArray arrayWithObjects:@"夜間活動",@"熱中症",@"活動なし", nil];
+            
+        } else {
+            _names = [NSMutableArray arrayWithObjects:@"居室入口",@"トイレ",@"リビング", nil];
         }
     }
     return _names;

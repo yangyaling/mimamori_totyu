@@ -12,11 +12,17 @@
 
 #import "SensorController.h"
 
+#import "SickPersonModel.h"
+
+#import "MCustTool.h"
+
 @interface SetController ()
 
 @property (nonatomic, strong) NSArray                  *userarray;
 
 @property (nonatomic, strong) NSArray                  *numarray;
+
+@property (strong, nonatomic) NSMutableArray *custArr;//見守られる人
 
 @end
 
@@ -26,14 +32,50 @@
     
     [super viewDidLoad];
     
-    self.userarray = @[@"xxxxx名（1棟6号室）"];
-    
-    self.numarray = @[@"C1",@"D1",@"M1"];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getCustList)];
+    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
     self.tableView.tableFooterView = [[UIView alloc]init];
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    [self.tableView.mj_header beginRefreshing];
+}
+
+
+
+/**
+ *  見守られる対象者を取得
+ */
+-(void)getCustList{
+    
+    MCustInfoParam *param = [[MCustInfoParam alloc]init];
+    param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
+    param.hassensordata = @"0";
+    
+    [MCustTool custInfoWithParam:param success:^(NSArray *array) {
+        [self.tableView.mj_header endRefreshing];
+        if (array.count == 0) {
+            [MBProgressHUD showError:@"見守り対象者を追加してください"];
+            [self.tableView.mj_header endRefreshing];
+        }
+        if (array) {
+            NSArray *tmpArr = [SickPersonModel mj_objectArrayWithKeyValuesArray:array];
+            self.custArr= tmpArr.count ? [NSMutableArray arrayWithArray:tmpArr] : [NSMutableArray new];
+        }
+        
+        [self.tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        NITLog(@"zwgetcustlist请求失败");
+        [self.tableView.mj_header endRefreshing];
+    }];
+    
+    
+}
 
 - (IBAction)addCustButton:(id)sender {
     
@@ -50,13 +92,16 @@
         
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
         
-        NSString *strtit = self.userarray[indexPath.row];
-        //
         SensorController *ssc = segue.destinationViewController;
         
-        ssc.title = strtit;
+        // 传递模型
+        SickPersonModel * selectModel = self.custArr[indexPath.row];
         
-        ssc.sensors = self.numarray.copy;
+        ssc.profileUser0 = selectModel.userid0;
+        
+        ssc.title = selectModel.dispname;
+        
+        ssc.sensors = @[@"D1",@"M1",@"M2"];
     }
 }
 
@@ -68,14 +113,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.userarray.count;
+    return self.custArr.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SetTableViewCell *cell = [SetTableViewCell cellWithTableView:tableView];
     
-    cell.userinfolabel.text = self.userarray[indexPath.row];
+    cell.userinfolabel.text = self.custArr[indexPath.row];
     
     cell.sensernumber.text = @"3";
     
@@ -88,8 +133,6 @@
 {
     [self performSegueWithIdentifier:@"setcellpush" sender:self];
 }
-
-
 
 
 

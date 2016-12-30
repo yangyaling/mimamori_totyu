@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *humidityTD;
 @property (strong, nonatomic) IBOutlet UIButton *brightnesstime;
 @property (strong, nonatomic) IBOutlet UIButton *brightnessTD;
+@property (strong, nonatomic) IBOutlet UIButton *nasiButton;
 
 @property (nonatomic, copy) Device *device;
 

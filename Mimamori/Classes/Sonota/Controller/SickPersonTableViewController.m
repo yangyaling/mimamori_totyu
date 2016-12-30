@@ -54,7 +54,7 @@
     param.hassensordata = @"0";
     
     [MCustTool custInfoWithParam:param success:^(NSArray *array) {
-        
+        [self.tableView.mj_header endRefreshing];
         if (array.count == 0) {
             [MBProgressHUD showError:@"見守り対象者を追加してください"];
             [self.tableView.mj_header endRefreshing];

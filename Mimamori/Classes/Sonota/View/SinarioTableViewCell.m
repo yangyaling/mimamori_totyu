@@ -69,13 +69,7 @@
 }
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {
-    
-    //    SensorSetTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"setsensorcell"];
-    //    if (!cell) {
-    //        cell = [[NSBundle mainBundle] loadNibNamed:@"setsensorcell" owner:self options:nil].firstObject;
-    //    }
-    //    return cell;
-    
+
     
     return [SinarioTableViewCell cellFromNib:nil andCollectionView:tableView];
 }

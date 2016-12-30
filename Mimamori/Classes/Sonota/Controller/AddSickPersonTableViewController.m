@@ -64,8 +64,7 @@
     cust.userid0 = self.useridText.text;
     cust.roomid = self.roomidText.text;
     cust.dispname = self.nicknameText.text;
-    
-    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    [MBProgressHUD showMessage:@"後ほど..." toView:self.view];
     [self addCust:cust];
     
 }
@@ -83,11 +82,12 @@
     param.updatedate = [[NSDate date] needDateStatus:HaveHMSType];
     
     [MCustTool custAddWithParam:param success:^(NSString *code) {
+        [MBProgressHUD hideHUDForView:self.view];
         if ([code intValue]>299) {
-            [MBProgressHUD showMessage:@"ユーザIDまたはルームIDが正しく入力されていません"];
+            [MBProgressHUD showError:@"ユーザIDまたはルームIDが正しく入力されていません"];
             
         }else{
-            [MBProgressHUD showMessage:@"追加しました!"];
+            [MBProgressHUD showSuccess:@"追加しました!"];
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
@@ -97,9 +97,9 @@
             
         }
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showError:@"後ほど試してください"];
         
-        [MBProgressHUD showMessage:@"後ほど試してください"];
-        [MBProgressHUD hideHUD];
     }];
     
 }

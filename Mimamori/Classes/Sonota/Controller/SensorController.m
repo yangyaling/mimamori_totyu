@@ -7,9 +7,13 @@
 //
 
 #import "SensorController.h"
+
+
 #import "SensorSetTableViewCell.h"
 
 #import "AddTableViewCell.h"
+
+#import "ProfileTableViewController.h"
 
 @interface SensorController ()
 
@@ -74,6 +78,24 @@
 - (IBAction)GoInSetVC:(UIButton *)sender {
     
     [self performSegueWithIdentifier:@"profilePush" sender:self];
+    
+    
+}
+
+
+
+//segue跳转
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+    //NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    
+    if ([segue.identifier isEqualToString:@"profilePush"]) {
+        
+        ProfileTableViewController * ptvc = segue.destinationViewController;
+        ptvc.userid0 = self.profileUser0;
+        
+    }
     
 }
 
