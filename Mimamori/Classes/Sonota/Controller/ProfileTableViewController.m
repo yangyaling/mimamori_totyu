@@ -12,6 +12,8 @@
 
 #import "MProfileTool.h"
 
+#import "IconModel.h"
+
 @interface ProfileTableViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 /**
  *  姓名
@@ -61,6 +63,8 @@
 @property (nonatomic, strong) NSMutableArray      *profileArray;
 @property (strong, nonatomic) IBOutlet UIImageView *userIcon;
 
+@property (nonatomic, strong) NSData                    *imagedata;
+
 
 @end
 
@@ -72,12 +76,12 @@
     self.userIcon.layer.cornerRadius = 6;
     self.userIcon.layer.masksToBounds = YES;
     
-    NSData *imgdata = [NITUserDefaults objectForKey:@"usericon"];
-    if (imgdata) {
-        self.userIcon.image = [UIImage imageWithData:imgdata];
+    self.imagedata = [NITUserDefaults objectForKey:self.userid0];
+    if (self.imagedata) {
+        self.userIcon.image = [UIImage imageWithData:self.imagedata];
     }
     [self getProfileInfo];
-    
+    [MBProgressHUD showMessage:@"後ほど..." toView:WindowView];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -85,14 +89,14 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [MBProgressHUD hideHUD];
+    [MBProgressHUD hideHUDForView:WindowView];
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [MBProgressHUD showMessage:@"後ほど..." toView:self.tableView];
+        [MBProgressHUD showMessage:@"後ほど..." toView:WindowView];
         [self tapClick];
     }
 }
@@ -101,6 +105,12 @@
 -(void)setupData{
     
     ProfileModel *pmodel = self.profileArray.firstObject;
+    
+    NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:pmodel.imageurl]];
+    
+    if (dataicon) {
+        self.userIcon.image = [UIImage imageWithData:dataicon];
+    }
     
     self.user0name.text = pmodel.user0name;
     self.sex.text = pmodel.sex;
@@ -112,21 +122,27 @@
     self.other.text = pmodel.other;
     self.updatename.text = pmodel.updatename;
     self.updatedate.text = pmodel.date;
+    [MBProgressHUD hideHUDForView:WindowView];
 }
 
 /**
  * プロフィール情报
  */
 -(void)getProfileInfo{
+    
     MProfileInfoParam *param = [[MProfileInfoParam alloc]init];
+    
     param.userid0 = self.userid0;
     
     [MProfileTool profileInfoWithParam:param success:^(NSArray *array) {
         if (array.count > 0){
             self.profileArray = [ProfileModel mj_objectArrayWithKeyValuesArray:array];
             [self setupData];
+        } else {
+            [MBProgressHUD hideHUDForView:WindowView];
         }
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:WindowView];
          [MBProgressHUD showError:@"後ほど試してください"];
     }];
     
@@ -136,11 +152,18 @@
  *  更新プロフィール
  */
 -(void)updateProfileInfo{
+    
+    NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
     // 请求参数
     MProfileInfoUpdateParam *param = [[MProfileInfoUpdateParam alloc]init];
+    IconModel *iconM = [[IconModel alloc] init];
+    iconM.userid0 = self.userid0;
+    iconM.updatedate = updatedate;
+    iconM.picdata = self.imagedata;
+    
     param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
     param.userid0 = self.userid0;
-    param.user0name = self.self.user0name.text;
+    param.user0name = self.user0name.text;
     param.sex = self.sex.text;
     param.birthday = self.birthday.text;
     param.address = self.address.text;
@@ -148,8 +171,17 @@
     param.drug = self.drug.text;
     param.health = self.health.text;
     param.other = self.other.text;
-    param.updatedate = [[NSDate date] needDateStatus:HaveHMSType];
+    param.updatedate = updatedate;
     param.updatename =[NITUserDefaults objectForKey:@"userid1name"];
+    
+    
+    NITLog(@"%@\n%@\n%@",self.userid0,updatedate,self.imagedata);
+    
+    [MProfileTool profileInfoUpdateImageWithParam:iconM withImageDatas:@[self.imagedata] success:^(NSString *code) {
+        NITLog(@"%@",code);
+    } failure:^(NSError *error) {
+        NITLog(@"%@",error.localizedDescription);
+    }];
     
     [MProfileTool profileInfoUpdateWithParam:param success:^(NSString *code) {
         [MBProgressHUD showSuccess:@"更新しました！"];
@@ -168,38 +200,38 @@
 //　点击保存按钮
 - (IBAction)saveProfile:(id)sender {
     
-    if (!self.user0name.text.length) {
-        [MBProgressHUD showError:@"氏名を入力してください"];
-        return;
-    }
-    if (!self.sex.text.length) {
-        [MBProgressHUD showError:@"性别を入力してください"];
-        return;
-    }
-    if (!self.birthday.text.length) {
-        [MBProgressHUD showError:@"誕生日を入力してください"];
-        return;
-    }
-    if (!self.address.text.length) {
-        [MBProgressHUD showError:@"現住所を入力してください"];
-        return;
-    }
-    if (!self.kakaritsuke.text.length) {
-        [MBProgressHUD showError:@"かかりつけ医を入力してください"];
-        return;
-    }
-    if (!self.drug.text.length) {
-        [MBProgressHUD showError:@"服薬情報を入力してください"];
-        return;
-    }
-    if (!self.health.text.length) {
-        [MBProgressHUD showError:@"健康診断結果を入力してください"];
-        return;
-    }
-    if (!self.other.text.length) {
-        [MBProgressHUD showError:@"その他お願い事項を入力してください"];
-        return;
-    }
+//    if (!self.user0name.text.length) {
+//        [MBProgressHUD showError:@"氏名を入力してください"];
+//        return;
+//    }
+//    if (!self.sex.text.length) {
+//        [MBProgressHUD showError:@"性别を入力してください"];
+//        return;
+//    }
+//    if (!self.birthday.text.length) {
+//        [MBProgressHUD showError:@"誕生日を入力してください"];
+//        return;
+//    }
+//    if (!self.address.text.length) {
+//        [MBProgressHUD showError:@"現住所を入力してください"];
+//        return;
+//    }
+//    if (!self.kakaritsuke.text.length) {
+//        [MBProgressHUD showError:@"かかりつけ医を入力してください"];
+//        return;
+//    }
+//    if (!self.drug.text.length) {
+//        [MBProgressHUD showError:@"服薬情報を入力してください"];
+//        return;
+//    }
+//    if (!self.health.text.length) {
+//        [MBProgressHUD showError:@"健康診断結果を入力してください"];
+//        return;
+//    }
+//    if (!self.other.text.length) {
+//        [MBProgressHUD showError:@"その他お願い事項を入力してください"];
+//        return;
+//    }
     
     [self updateProfileInfo];
     
@@ -208,7 +240,7 @@
 //进入本地相册
 /*选择拍照/本地相册*/
 - (void)tapClick {
-    [MBProgressHUD hideHUDForView:self.tableView];
+    [MBProgressHUD hideHUDForView:WindowView];
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePicker.allowsEditing = YES;
@@ -224,7 +256,7 @@
 //        
 //        [self presentViewController:imagePicker animated:YES completion:nil];
 //    }];
-    UIAlertAction *ua = [UIAlertAction actionWithTitle:@"キャンセル" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *ua = [UIAlertAction actionWithTitle:@"キャンセル" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     [ac addAction:cc];
@@ -241,11 +273,13 @@
         
         NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
         
-        [NITUserDefaults setObject:imageData forKey:@"usericon"];
+        [NITUserDefaults setObject:imageData forKey:self.userid0];
+        
         //UIImagePickerControllerCropRect
         //UIImagePickerControllerEditedImage
         //UIImagePickerControllerOriginalImage
         self.userIcon.image = [UIImage imageWithData:imageData];
+        
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
     

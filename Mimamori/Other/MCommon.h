@@ -54,16 +54,18 @@
  sonota   URL
  */
 
-#define NITGetCustInfo @"http://mimamori2.azurewebsites.net/zwgetcustlist.php"
+#define NITGetCustList @"http://mimamori2.azurewebsites.net/zwgetcustlist.php"
 
-#define NITDeleteCustInfo @"http://mimamori2.azurewebsites.net/zwdeletecust.php"
+#define NITDeleteCustList @"http://mimamori2.azurewebsites.net/zwdeletecust.php"
 
-#define NITAddCustInfo @"http://mimamori2.azurewebsites.net/zwaddcust.php"
+#define NITAddCustList @"http://mimamori2.azurewebsites.net/zwaddcust.php"
 
 
-#define NITGetUserInfo @"http://mimamori2.azurewebsites.net/zwgetcustinfo.php"
+#define NITGetCustInfo @"http://mimamori2.azurewebsites.net/zwgetcustinfo.php"
 
-#define NITUpdateUserInfo @"http://mimamori2.azurewebsites.net/zwupdatecustinfo.php"
+#define NITUpdateCustInfo @"http://mimamori2.azurewebsites.net/zwupdatecustinfo.php"
+
+#define NITUploadpic @"http://mimamori2.azurewebsites.net/zwuploadpic.php"
 
 
 #define NITGetScenarioList @"http://mimamori2.azurewebsites.net/zwgetscenariolist.php"

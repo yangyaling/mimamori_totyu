@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "IconModel.h"
 #import "MProfileInfoParam.h"
 #import "MProfileInfoUpdateParam.h"
 
@@ -31,4 +31,15 @@
  *  @param failure 请求失败的回调
  */
 +(void)profileInfoUpdateWithParam:(MProfileInfoUpdateParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure;
+
+
+
+/**
+ *  图片上传
+ *
+ *  @param param   请求参数
+ *  @param success 请求成功的回调
+ *  @param failure 请求失败的回调
+ */
++(void)profileInfoUpdateImageWithParam:(IconModel *)param withImageDatas:(NSArray *)images success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure;
 @end

@@ -56,7 +56,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     
     [self.segmentControl setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
     
-    NSData *imgdata =  [NITUserDefaults objectForKey:@"usericon"];
+    NSData *imgdata =  [NITUserDefaults objectForKey:self.userid0];
     
     if (imgdata)  self.imageIcon.image = [UIImage imageWithData:imgdata];
     

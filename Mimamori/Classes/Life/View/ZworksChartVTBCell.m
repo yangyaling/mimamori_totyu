@@ -104,7 +104,7 @@
         }
     }
     
-    chartview =[[UUChart alloc]initwithUUChartDataFrame:CGRectMake(15,0, [UIScreen mainScreen].bounds.size.width-30, 148)
+    chartview =[[UUChart alloc]initwithUUChartDataFrame:CGRectMake(10,0, [UIScreen mainScreen].bounds.size.width-20, 148)
                                              withSource:self withStyle:celltype==1?UUChartLineStyle:UUChartBarStyle withdevicename:_CellModel.devicename withname:_CellModel.devicename withdate:selectdata];
     chartview.userInteractionEnabled = NO;
     [chartview showInView:self.contentView];}

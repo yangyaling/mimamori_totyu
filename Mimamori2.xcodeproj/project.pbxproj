@@ -168,6 +168,7 @@
 		EB9C932D1E027F4700F3132C /* ZworksChartTBVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C932C1E027F4700F3132C /* ZworksChartTBVC.m */; };
 		EB9C93301E028BC200F3132C /* SinarioDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C932F1E028BC200F3132C /* SinarioDetailController.m */; };
 		EB9C93331E028BE400F3132C /* ArautoDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C93321E028BE400F3132C /* ArautoDetailController.m */; };
+		EB9F89DA1E1652BE00908000 /* IconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F89D91E1652BE00908000 /* IconModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -500,6 +501,8 @@
 		EB9C932F1E028BC200F3132C /* SinarioDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinarioDetailController.m; sourceTree = "<group>"; };
 		EB9C93311E028BE400F3132C /* ArautoDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArautoDetailController.h; sourceTree = "<group>"; };
 		EB9C93321E028BE400F3132C /* ArautoDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArautoDetailController.m; sourceTree = "<group>"; };
+		EB9F89D81E1652BE00908000 /* IconModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconModel.h; sourceTree = "<group>"; };
+		EB9F89D91E1652BE00908000 /* IconModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -827,6 +830,8 @@
 				92951A191D7D0B0100787997 /* SelfModel.m */,
 				92951A1A1D7D0B0100787997 /* SickPersonModel.h */,
 				92951A1B1D7D0B0100787997 /* SickPersonModel.m */,
+				EB9F89D81E1652BE00908000 /* IconModel.h */,
+				EB9F89D91E1652BE00908000 /* IconModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1499,6 +1504,7 @@
 				92F362FE1DC9B1C80030DCE0 /* MJRefreshAutoStateFooter.m in Sources */,
 				927C311E1D8A654900E097D2 /* DeviceValue.m in Sources */,
 				929519801D7D06FE00787997 /* MainNotificationController.m in Sources */,
+				EB9F89DA1E1652BE00908000 /* IconModel.m in Sources */,
 				92F362FB1DC9B1C80030DCE0 /* MJRefreshHeader.m in Sources */,
 				E9D4459A1D010FE500CFF364 /* Mimamori.xcdatamodeld in Sources */,
 				929519851D7D06FE00787997 /* NotificationCell.m in Sources */,

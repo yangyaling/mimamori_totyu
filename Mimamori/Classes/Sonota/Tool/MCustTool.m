@@ -13,7 +13,7 @@
 
 +(void)custInfoWithParam:(MCustInfoParam *)param success:(void (^)(NSArray *))success failure:(void (^)(NSError *))failure{
     
-    [MHttpTool postWithURL:NITGetCustInfo params:param.mj_keyValues success:^(id json) {
+    [MHttpTool postWithURL:NITGetCustList params:param.mj_keyValues success:^(id json) {
         if (success) {
             NSArray *dateArray = [json objectForKey:@"custlist"];
             success(dateArray);
@@ -26,7 +26,7 @@
 }
 
 +(void)custDeleteWithParam:(MCustDeleteParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure{
-    [MHttpTool postWithURL: NITDeleteCustInfo params:param.mj_keyValues success:^(id json) {
+    [MHttpTool postWithURL: NITDeleteCustList params:param.mj_keyValues success:^(id json) {
         if (success) {
             NSString *code = [json objectForKey:@"code"];
             success(code);
@@ -39,7 +39,7 @@
 }
 
 +(void)custAddWithParam:(MCustAddParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure{
-    [MHttpTool postWithURL: NITAddCustInfo params:param.mj_keyValues success:^(id json) {
+    [MHttpTool postWithURL: NITAddCustList params:param.mj_keyValues success:^(id json) {
         if (success) {
             NSString *code = [json objectForKey:@"code"];
             success(code);

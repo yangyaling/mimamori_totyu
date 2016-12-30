@@ -10,6 +10,8 @@
 
 @interface MProfileInfoUpdateParam : NSObject
 
+@property (nonatomic, copy) NSString                               *imageurl;
+
 @property (nonatomic, copy) NSString                               *userid1;
 
 @property (nonatomic, copy) NSString                               *userid0;
@@ -33,4 +35,7 @@
 @property (nonatomic, copy) NSString                               *updatedate;
 
 @property (nonatomic, copy) NSString                               *updatename;
+
+
+
 @end

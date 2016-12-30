@@ -64,7 +64,7 @@
     
     [self addSubview:typeLabel];
     
-    UILabel*dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.size.width*0.75, 0, self.frame.size.width*0.22, 20)];
+    UILabel*dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.frame.size.width*0.6, 0, self.frame.size.width*0.4, 20)];
     dateLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:13];
     dateLabel.alpha = 0.8;
     dateLabel.textAlignment = NSTextAlignmentRight;

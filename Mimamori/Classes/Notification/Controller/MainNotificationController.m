@@ -245,19 +245,24 @@
     MNoticeDateParam *param = [[MNoticeDateParam alloc]init];
     param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
     
-    [MNoticeTool noticeDatesWithParam:param success:^(NSArray *array) {
-        if (array.count > 0) {
-//            [NITUserDefaults setObject:[array copy] forKey:@"noticeCalendar"];
-//            [NITUserDefaults synchronize];
-            
-            [self setupCalendarDates:[array copy]];// 创建日历 - 选择日期
+    
+    
+    
+//    [MNoticeTool noticeDatesWithParam:param success:^(NSArray *array) {
+//        if (array.count > 0) {
+////            [NITUserDefaults setObject:[array copy] forKey:@"noticeCalendar"];
+////            [NITUserDefaults synchronize];
+            [self setupCalendarDates:nil];
+//            [self setupCalendarDates:[array copy]];// 创建日历 - 选择日期
             [self.POPCalendar dismiss];
             self.isCounter = YES;
-        }
-    } failure:^(NSError *error) {
-        NITLog(@"zwgetnoticedatelist请求失败:%@",error);
-        //[MBProgressHUD showError:@"後ほど試してください"];
-    }];
+//        } else {
+//            NITLog(@"日历数据获取失败");
+//        }
+//    } failure:^(NSError *error) {
+//        NITLog(@"zwgetnoticedatelist请求失败:%@",error);
+//        //[MBProgressHUD showError:@"後ほど試してください"];
+//    }];
 }
 
 

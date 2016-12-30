@@ -118,9 +118,14 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     SetTableViewCell *cell = [SetTableViewCell cellWithTableView:tableView];
     
-    cell.userinfolabel.text = self.custArr[indexPath.row];
+    SickPersonModel *tmpmodel = self.custArr[indexPath.row];
+    
+    NSString *strname = [NSString stringWithFormat:@"%@(%@)",tmpmodel.user0name,tmpmodel.roomname];
+    
+    cell.userinfolabel.text = strname;
     
     cell.sensernumber.text = @"3";
     

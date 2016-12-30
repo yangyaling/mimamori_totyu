@@ -10,6 +10,11 @@
 
 @interface ProfileModel : NSObject
 /**
+ *  imageurl
+ */
+@property (nonatomic, copy) NSString                         *imageurl;
+
+/**
  *  user0name
  */
 @property (nonatomic, copy) NSString                         *user0name;
