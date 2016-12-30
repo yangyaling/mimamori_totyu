@@ -406,7 +406,7 @@
  *  remove通知
  */
 - (void)dealloc {
-    [NITNotificationCenter removeObserver:self name:@"HideCalendar" object:nil];
+//    [NITNotificationCenter removeObserver:self name:@"HideCalendar" object:nil];
 }
 
 

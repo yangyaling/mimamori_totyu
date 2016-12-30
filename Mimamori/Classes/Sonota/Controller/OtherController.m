@@ -34,11 +34,11 @@
     //创建一个layout布局类
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     
-    layout.sectionInset = UIEdgeInsetsMake(15, 40, 30, 40);
+    layout.sectionInset = UIEdgeInsetsMake(15, 30, 30, 30);
     //设置布局方向为垂直流布局
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     //设置每个item的大小为100*100
-    layout.itemSize = CGSizeMake((self.view.width - 120) / 2.0, 70);
+    layout.itemSize = CGSizeMake((self.view.width - 90) / 2.0, 70);
     
     
     [self.collectionview setCollectionViewLayout:layout];
