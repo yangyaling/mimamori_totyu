@@ -32,4 +32,9 @@
  */
 +(void)scenarioDeleteWithParam:(MScenarioDeleteParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure;
 
+
+
+
++(void)sensorUpdateWithParam:(MScenarioListParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure;
+
 @end

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -115,7 +116,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" tag="66" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHM-3R-FRw">
-                        <rect key="frame" x="85" y="130" width="160" height="25"/>
+                        <rect key="frame" x="115" y="130" width="160" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="ihz-DK-9sy"/>
                         </constraints>
@@ -125,7 +126,7 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="rHM-3R-FRw" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="19n-rR-G9m"/>
+                    <constraint firstItem="rHM-3R-FRw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="-50" id="19n-rR-G9m"/>
                     <constraint firstItem="98r-yB-4nI" firstAttribute="height" secondItem="Rop-cc-6Hv" secondAttribute="height" id="1gH-XC-Hbu"/>
                     <constraint firstItem="bpU-Iq-OWS" firstAttribute="width" secondItem="KuL-o4-UFE" secondAttribute="width" id="2l8-kT-2qQ"/>
                     <constraint firstItem="Dsi-Lb-NTi" firstAttribute="leading" secondItem="fXw-y8-qDs" secondAttribute="trailing" constant="10" id="2y6-cN-T3j"/>

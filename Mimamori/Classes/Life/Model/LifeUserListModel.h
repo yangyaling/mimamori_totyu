@@ -10,6 +10,10 @@
 
 @interface LifeUserListModel : NSObject
 /**
+ *  picpath
+ */
+@property (nonatomic, copy) NSString                         *picpath;
+/**
  *  userid0
  */
 @property (nonatomic, copy) NSString                         *userid0;

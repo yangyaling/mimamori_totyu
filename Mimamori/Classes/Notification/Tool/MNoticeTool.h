@@ -37,7 +37,7 @@
  *  @param success 请求成功的回调
  *  @param failure 请求失败的回调
  */
-+(void)noticeDatesWithParam:(MNoticeDateParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure;
++(void)noticeDatesWithParam:(MNoticeDateParam *)param success:(void (^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
 
 /**
  *  更新通知状态(確認必要->確認済み)

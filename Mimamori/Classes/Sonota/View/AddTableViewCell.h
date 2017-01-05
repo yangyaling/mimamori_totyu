@@ -12,7 +12,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *titlename;
 @property (strong, nonatomic) IBOutlet UILabel *sendtime;
 
-
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end

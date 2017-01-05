@@ -63,7 +63,7 @@
                 <outlet property="sendtime" destination="vmN-UD-JPq" id="eaQ-1q-ckG"/>
                 <outlet property="titlename" destination="0ui-E8-66o" id="UyL-6a-zAX"/>
             </connections>
-            <point key="canvasLocation" x="-141" y="-61"/>
+            <point key="canvasLocation" x="-51" y="-72"/>
         </tableViewCell>
     </objects>
 </document>

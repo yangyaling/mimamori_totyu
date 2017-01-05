@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="350" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="350" height="60"/>
+                <rect key="frame" x="0.0" y="0.0" width="350" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWx-6E-hEt">
@@ -33,6 +33,9 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="XRU-vk-6Eq"/>
                         </constraints>
+                        <state key="normal">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
                         <connections>
                             <action selector="clickPick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="RjM-cR-D2P"/>
                         </connections>
@@ -47,6 +50,9 @@
                             <segment title="外"/>
                             <segment title="内"/>
                         </segments>
+                        <connections>
+                            <action selector="selectPlaceNumber:" destination="KGk-i7-Jjw" eventType="valueChanged" id="eZ7-Sk-cIQ"/>
+                        </connections>
                     </segmentedControl>
                 </subviews>
                 <constraints>
@@ -64,7 +70,7 @@
                 <outlet property="segmentbar" destination="e0X-F2-Yuq" id="pjt-AM-s0a"/>
                 <outlet property="sensorname" destination="dWx-6E-hEt" id="MT7-hN-Mt8"/>
             </connections>
-            <point key="canvasLocation" x="-382" y="-26"/>
+            <point key="canvasLocation" x="-506" y="-3"/>
         </tableViewCell>
     </objects>
 </document>

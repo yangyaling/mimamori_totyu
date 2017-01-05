@@ -16,4 +16,8 @@
 
 @property (nonatomic, copy) NSString                               *selectdate;
 
+@property (nonatomic, copy) NSString                               *historyflg;
+
+@property (nonatomic, copy) NSString                               *noticetype;
+
 @end

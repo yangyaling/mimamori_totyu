@@ -11,7 +11,7 @@
 @interface NotificationModel : NSObject
 
 
-@property (nonatomic, strong) NSDictionary                   *registdate;
+@property (nonatomic, strong) NSString                       *registdate;
 
 @property (nonatomic, assign) NSInteger                       noticeid;
 

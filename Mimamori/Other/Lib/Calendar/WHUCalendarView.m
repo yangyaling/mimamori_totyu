@@ -83,8 +83,8 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
 -(id)initWithFrame:(CGRect)frame withArray:(NSArray *)array{
     self=[super initWithFrame:frame];
     if(self){
-        [self setupView];
         _ccdates = array.count >0 ? [array copy] : [NSArray new];
+        [self setupView];
     }
     return self;
 }
@@ -774,6 +774,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     //        NITLog(@"%@",array);
     _dataArr = [NSMutableArray new];
     [_dataArr removeAllObjects];
+    
     
     [tmpdate enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         

@@ -20,6 +20,6 @@
 /**
  *  birthday
  */
-@property (nonatomic, copy) NSData                           *picdata;
+@property (nonatomic, copy) NSString                           *picdata;
 
 @end

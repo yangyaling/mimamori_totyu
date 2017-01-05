@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol PopUpdateChartDelegate <NSObject>
+
+- (void)updateCorrentTB:(int)numChart;
+
+@end
+
+
 @interface ZworksChartTBVC : UITableViewController
+
+@property (nonatomic, assign) id<PopUpdateChartDelegate>updatedelegate;
+
 @property (nonatomic, strong) NSMutableArray *zarray;
 @property (nonatomic, assign) NSInteger        superrow;
 @property (nonatomic, assign) int              xnum;

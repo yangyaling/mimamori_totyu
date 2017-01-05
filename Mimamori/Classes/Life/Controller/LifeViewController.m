@@ -45,6 +45,7 @@
     self.lifeTableView.tableFooterView = [[UIView alloc]init];
     
     self.lifeTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getCustList)];
+    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.lifeTableView.mj_header];
     
     self.segmentNum = 0;
 }
@@ -181,6 +182,7 @@
         vc.title = self.deliverModel.dispname;
         vc.username = self.deliverModel.user0name;
         vc.roomID = self.deliverModel.roomid;
+        vc.picpath = self.deliverModel.picpath;
         
     //介護メモ入力
     }else if([segue.identifier isEqualToString:@"addNursingPush"]){

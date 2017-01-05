@@ -25,11 +25,10 @@
     }];
 }
 
-+(void)noticeDatesWithParam:(MNoticeDateParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure{
++(void)noticeDatesWithParam:(MNoticeDateParam *)param success:(void (^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure {
     [MHttpTool postWithURL:NITGetNoticeDateList params:param.mj_keyValues success:^(id json) {
         if (success) {
-            NSArray *dateArray = [json objectForKey:@"datelist"];
-            success(dateArray);
+            success(json);
         }
     } failure:^(NSError *error) {
         if (failure) {

@@ -19,6 +19,12 @@
 
 @property (nonatomic, copy) NSString *nodename;
 
+@property (nonatomic, copy) NSString *nodeid;
+
+@property (nonatomic, copy) NSString *displayname;
+
+@property (nonatomic, copy) NSString *place;
+
 /**
  *  h
  */

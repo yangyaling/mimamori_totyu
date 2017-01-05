@@ -23,16 +23,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    _ZworksTB.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(reloadList)];
-//    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)_ZworksTB.mj_header];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(popReloadList)];
+    [NITRefreshInit MJRefreshNormalHeaderInitTwo:(MJRefreshNormalHeader*)self.tableView.mj_header];
+}
+
+- (void)popReloadList {
+    
+    [self.updatedelegate updateCorrentTB:self.xnum];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    CGFloat setx = [NITUserDefaults floatForKey:@"oneoffSetx"];
-    CGFloat sety = [NITUserDefaults floatForKey:@"oneoffSety"];
+//    CGFloat setx = [NITUserDefaults floatForKey:@"oneoffSetx"];
+//    CGFloat sety = [NITUserDefaults floatForKey:@"oneoffSety"];
 
-    [self.tableView setContentOffset:CGPointMake(setx, sety)];
+//    [self.tableView setContentOffset:CGPointMake(setx, sety)];
 }
 
 #pragma mark UITableView delegate and dataSource
@@ -58,8 +64,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-    [NITUserDefaults setFloat:scrollView.contentOffset.y forKey:@"oneoffSety"];
-    [NITUserDefaults setFloat:scrollView.contentOffset.x forKey:@"oneoffSetx"];
+//    [NITUserDefaults setFloat:scrollView.contentOffset.y forKey:@"oneoffSety"];
+//    [NITUserDefaults setFloat:scrollView.contentOffset.x forKey:@"oneoffSetx"];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -35,7 +35,6 @@
 		929519841D7D06FE00787997 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9295197C1D7D06FE00787997 /* Notification.storyboard */; };
 		929519851D7D06FE00787997 /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295197E1D7D06FE00787997 /* NotificationCell.m */; };
 		929519861D7D06FE00787997 /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9295197F1D7D06FE00787997 /* NotificationCell.xib */; };
-		929519911D7D078B00787997 /* EmergencyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295198A1D7D078B00787997 /* EmergencyController.m */; };
 		929519921D7D078B00787997 /* ABFillButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295198D1D7D078B00787997 /* ABFillButton.m */; };
 		929519931D7D078B00787997 /* Emergency.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9295198E1D7D078B00787997 /* Emergency.storyboard */; };
 		929519941D7D078B00787997 /* NITSegmented.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519901D7D078B00787997 /* NITSegmented.m */; };
@@ -146,6 +145,14 @@
 		EB4A56141E00F26100A2F1C2 /* SetController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A56131E00F26100A2F1C2 /* SetController.m */; };
 		EB4A56181E00F32300A2F1C2 /* SetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A56161E00F32300A2F1C2 /* SetTableViewCell.m */; };
 		EB4A56191E00F32300A2F1C2 /* SetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB4A56171E00F32300A2F1C2 /* SetTableViewCell.xib */; };
+		EB581AD31E1C993A0076BAFD /* EmergencyAController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581AD21E1C993A0076BAFD /* EmergencyAController.m */; };
+		EB581AE51E1CCAFD0076BAFD /* FAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581ADD1E1CCAFD0076BAFD /* FAImageView.m */; };
+		EB581AE61E1CCAFD0076BAFD /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB581ADE1E1CCAFD0076BAFD /* FontAwesome.ttf */; };
+		EB581AE71E1CCAFD0076BAFD /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581AE01E1CCAFD0076BAFD /* NSString+FontAwesome.m */; };
+		EB581AE81E1CCAFD0076BAFD /* UIFont+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581AE21E1CCAFD0076BAFD /* UIFont+FontAwesome.m */; };
+		EB581AE91E1CCAFD0076BAFD /* MozTopAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581AE41E1CCAFD0076BAFD /* MozTopAlertView.m */; };
+		EB581AEC1E1D1F350076BAFD /* DetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581AEB1E1D1F350076BAFD /* DetailController.m */; };
+		EB581AEF1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581AEE1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.m */; };
 		EB5D365B1E139A1800CEBF4E /* UUBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D36501E139A1800CEBF4E /* UUBar.m */; };
 		EB5D365C1E139A1800CEBF4E /* UUBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D36521E139A1800CEBF4E /* UUBarChart.m */; };
 		EB5D365D1E139A1800CEBF4E /* UUChart.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D36541E139A1800CEBF4E /* UUChart.m */; };
@@ -243,8 +250,6 @@
 		9295197D1D7D06FE00787997 /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
 		9295197E1D7D06FE00787997 /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
 		9295197F1D7D06FE00787997 /* NotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
-		929519891D7D078B00787997 /* EmergencyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmergencyController.h; sourceTree = "<group>"; };
-		9295198A1D7D078B00787997 /* EmergencyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmergencyController.m; sourceTree = "<group>"; };
 		9295198C1D7D078B00787997 /* ABFillButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABFillButton.h; sourceTree = "<group>"; };
 		9295198D1D7D078B00787997 /* ABFillButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABFillButton.m; sourceTree = "<group>"; };
 		9295198E1D7D078B00787997 /* Emergency.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Emergency.storyboard; sourceTree = "<group>"; };
@@ -461,6 +466,21 @@
 		EB4A56151E00F32300A2F1C2 /* SetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTableViewCell.h; sourceTree = "<group>"; };
 		EB4A56161E00F32300A2F1C2 /* SetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTableViewCell.m; sourceTree = "<group>"; };
 		EB4A56171E00F32300A2F1C2 /* SetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetTableViewCell.xib; sourceTree = "<group>"; };
+		EB581AD11E1C993A0076BAFD /* EmergencyAController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmergencyAController.h; sourceTree = "<group>"; };
+		EB581AD21E1C993A0076BAFD /* EmergencyAController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmergencyAController.m; sourceTree = "<group>"; };
+		EB581ADC1E1CCAFD0076BAFD /* FAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAImageView.h; sourceTree = "<group>"; };
+		EB581ADD1E1CCAFD0076BAFD /* FAImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAImageView.m; sourceTree = "<group>"; };
+		EB581ADE1E1CCAFD0076BAFD /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		EB581ADF1E1CCAFD0076BAFD /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		EB581AE01E1CCAFD0076BAFD /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
+		EB581AE11E1CCAFD0076BAFD /* UIFont+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontAwesome.h"; sourceTree = "<group>"; };
+		EB581AE21E1CCAFD0076BAFD /* UIFont+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontAwesome.m"; sourceTree = "<group>"; };
+		EB581AE31E1CCAFD0076BAFD /* MozTopAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MozTopAlertView.h; sourceTree = "<group>"; };
+		EB581AE41E1CCAFD0076BAFD /* MozTopAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MozTopAlertView.m; sourceTree = "<group>"; };
+		EB581AEA1E1D1F350076BAFD /* DetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailController.h; sourceTree = "<group>"; };
+		EB581AEB1E1D1F350076BAFD /* DetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailController.m; sourceTree = "<group>"; };
+		EB581AED1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKAvoidKeyboardViewController.h; sourceTree = "<group>"; };
+		EB581AEE1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKAvoidKeyboardViewController.m; sourceTree = "<group>"; };
 		EB5D364F1E139A1800CEBF4E /* UUBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUBar.h; sourceTree = "<group>"; };
 		EB5D36501E139A1800CEBF4E /* UUBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUBar.m; sourceTree = "<group>"; };
 		EB5D36511E139A1800CEBF4E /* UUBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUBarChart.h; sourceTree = "<group>"; };
@@ -640,6 +660,8 @@
 				929519731D7D06FE00787997 /* MainNotificationController.m */,
 				929519741D7D06FE00787997 /* PostLetterController.h */,
 				929519751D7D06FE00787997 /* PostLetterController.m */,
+				EB581AEA1E1D1F350076BAFD /* DetailController.h */,
+				EB581AEB1E1D1F350076BAFD /* DetailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -682,8 +704,8 @@
 		929519881D7D078B00787997 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				929519891D7D078B00787997 /* EmergencyController.h */,
-				9295198A1D7D078B00787997 /* EmergencyController.m */,
+				EB581AD11E1C993A0076BAFD /* EmergencyAController.h */,
+				EB581AD21E1C993A0076BAFD /* EmergencyAController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -696,6 +718,8 @@
 				9295198E1D7D078B00787997 /* Emergency.storyboard */,
 				9295198F1D7D078B00787997 /* NITSegmented.h */,
 				929519901D7D078B00787997 /* NITSegmented.m */,
+				EB581AED1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.h */,
+				EB581AEE1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -753,6 +777,7 @@
 		929519DC1D7D0A6000787997 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EB581ADA1E1CCAFD0076BAFD /* TopAlertView */,
 				EB9C93081E026A2900F3132C /* ZworksChartVTBCell.h */,
 				EB9C93091E026A2900F3132C /* ZworksChartVTBCell.m */,
 				929519E01D7D0A6000787997 /* LifesTableViewCell.h */,
@@ -1261,6 +1286,30 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
+		EB581ADA1E1CCAFD0076BAFD /* TopAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				EB581ADB1E1CCAFD0076BAFD /* fontawesome */,
+				EB581AE31E1CCAFD0076BAFD /* MozTopAlertView.h */,
+				EB581AE41E1CCAFD0076BAFD /* MozTopAlertView.m */,
+			);
+			path = TopAlertView;
+			sourceTree = "<group>";
+		};
+		EB581ADB1E1CCAFD0076BAFD /* fontawesome */ = {
+			isa = PBXGroup;
+			children = (
+				EB581ADC1E1CCAFD0076BAFD /* FAImageView.h */,
+				EB581ADD1E1CCAFD0076BAFD /* FAImageView.m */,
+				EB581ADE1E1CCAFD0076BAFD /* FontAwesome.ttf */,
+				EB581ADF1E1CCAFD0076BAFD /* NSString+FontAwesome.h */,
+				EB581AE01E1CCAFD0076BAFD /* NSString+FontAwesome.m */,
+				EB581AE11E1CCAFD0076BAFD /* UIFont+FontAwesome.h */,
+				EB581AE21E1CCAFD0076BAFD /* UIFont+FontAwesome.m */,
+			);
+			path = fontawesome;
+			sourceTree = "<group>";
+		};
 		EB5D364E1E139A1800CEBF4E /* UUChart */ = {
 			isa = PBXGroup;
 			children = (
@@ -1401,6 +1450,7 @@
 				929519F61D7D0A6100787997 /* Life.storyboard in Resources */,
 				E9D4459F1D010FE600CFF364 /* LaunchScreen.storyboard in Resources */,
 				92F363061DC9B1C80030DCE0 /* MJRefresh.bundle in Resources */,
+				EB581AE61E1CCAFD0076BAFD /* FontAwesome.ttf in Resources */,
 				EB9C93291E02730F00F3132C /* MBProgressHUD.bundle in Resources */,
 				EB9C92EC1E015BBC00F3132C /* SinarioTableViewCell.xib in Resources */,
 				EB9C92D91E01063600F3132C /* SensorSetTableViewCell.xib in Resources */,
@@ -1462,23 +1512,26 @@
 				92951A321D7D0B0100787997 /* DFChildTableViewCell.m in Sources */,
 				92F362F81DC9B1C80030DCE0 /* MJRefreshBackFooter.m in Sources */,
 				EB5D36601E139A1800CEBF4E /* UULineChart.m in Sources */,
+				EB581AD31E1C993A0076BAFD /* EmergencyAController.m in Sources */,
 				92951A301D7D0B0100787997 /* SelfModel.m in Sources */,
 				927C311B1D89447B00E097D2 /* Device.m in Sources */,
 				92F362FA1DC9B1C80030DCE0 /* MJRefreshFooter.m in Sources */,
 				929519F41D7D0A6000787997 /* ZworksChartModel.m in Sources */,
 				EB9C93301E028BC200F3132C /* SinarioDetailController.m in Sources */,
 				929519941D7D078B00787997 /* NITSegmented.m in Sources */,
+				EB581AE81E1CCAFD0076BAFD /* UIFont+FontAwesome.m in Sources */,
 				928C61EB1DC854A2009B5974 /* MNoticeInfoResult.m in Sources */,
 				92C3F1221DC744E300E61A8B /* MSessionInfoResult.m in Sources */,
+				EB581AEF1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.m in Sources */,
 				EB9C92E71E0157CD00F3132C /* SinarioController.m in Sources */,
 				EB5D365E1E139A1800CEBF4E /* UUChartLabel.m in Sources */,
 				92F363131DC9B2780030DCE0 /* NITPicker.m in Sources */,
 				92F363081DC9B1C80030DCE0 /* UIScrollView+MJExtension.m in Sources */,
-				929519911D7D078B00787997 /* EmergencyController.m in Sources */,
 				92F3631F1DC9B3570030DCE0 /* NITTextView.m in Sources */,
 				EB9C92D81E01063600F3132C /* SensorSetTableViewCell.m in Sources */,
 				EB4A56101E00DB3E00A2F1C2 /* OtherCollectionCell.m in Sources */,
 				92F363021DC9B1C80030DCE0 /* MJChiBaoZiHeader.m in Sources */,
+				EB581AE91E1CCAFD0076BAFD /* MozTopAlertView.m in Sources */,
 				929519831D7D06FE00787997 /* NotificationModel.m in Sources */,
 				928C61F51DC8550B009B5974 /* MNoticeDateParam.m in Sources */,
 				92F362E21DC9B1C80030DCE0 /* WHUCalendarView.m in Sources */,
@@ -1526,6 +1579,7 @@
 				92951A291D7D0B0100787997 /* ProfileTableViewController.m in Sources */,
 				92F363011DC9B1C80030DCE0 /* MJRefreshBackStateFooter.m in Sources */,
 				EB5D365D1E139A1800CEBF4E /* UUChart.m in Sources */,
+				EB581AE51E1CCAFD0076BAFD /* FAImageView.m in Sources */,
 				92F362FF1DC9B1C80030DCE0 /* MJRefreshBackGifFooter.m in Sources */,
 				92F3624E1DC9930A0030DCE0 /* UIImage+Mj.m in Sources */,
 				92951A341D7D0B0100787997 /* PatientDetailsTableViewCell.m in Sources */,
@@ -1543,10 +1597,12 @@
 				928C62251DC8738A009B5974 /* MProfileInfoUpdateParam.m in Sources */,
 				928C62021DC86812009B5974 /* MCustTool.m in Sources */,
 				92F362EC1DC9B1C80030DCE0 /* MJDictionaryCache.m in Sources */,
+				EB581AE71E1CCAFD0076BAFD /* NSString+FontAwesome.m in Sources */,
 				929519F21D7D0A6000787997 /* NursingNotesModel.m in Sources */,
 				EB9C932D1E027F4700F3132C /* ZworksChartTBVC.m in Sources */,
 				928C61FE1DC8625E009B5974 /* MNoticeInfoUploadParam.m in Sources */,
 				92F362FC1DC9B1C80030DCE0 /* MJRefreshAutoGifFooter.m in Sources */,
+				EB581AEC1E1D1F350076BAFD /* DetailController.m in Sources */,
 				92F362F31DC9B1C80030DCE0 /* NSObject+MJCoding.m in Sources */,
 				928C62321DC890CC009B5974 /* MScenarioDeleteParam.m in Sources */,
 				92AF7BCD1D98C82100FC30E9 /* DetailScrollController.m in Sources */,

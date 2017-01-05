@@ -14,14 +14,17 @@
 +(void)scenarioListWithParam:(MScenarioListParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure{
     [MHttpTool postWithURL:NITGetScenarioList params:param.mj_keyValues success:^(id json) {
         if (success) {
-            NSArray *dateArray = [json objectForKey:@"scenariolist"];
-            success(dateArray);
+            NSMutableArray *arr = [NSMutableArray new];
+            [arr addObject:json];
+//            NSArray *dateArray = [json objectForKey:@"scenariolist"];
+            success(arr);
         }
     } failure:^(NSError *error) {
         if (failure) {
             failure(error);
         }
     }];
+    //[1]	(null)	@"sensorplacelist" : @"7 elements"
 }
 
 +(void)scenarioDeleteWithParam:(MScenarioDeleteParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure{
@@ -37,5 +40,18 @@
     }];
 }
 
+
++(void)sensorUpdateWithParam:(MScenarioListParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure {
+    [MHttpTool postWithURL:NITUpdateSensorInfo params:param.mj_keyValues success:^(id json) {
+        if (success) {
+            NSString *code = [json objectForKey:@"code"];
+            success(code);
+        }
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
 
 @end

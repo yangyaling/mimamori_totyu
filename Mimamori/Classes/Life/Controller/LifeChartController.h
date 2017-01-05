@@ -24,4 +24,10 @@
  */
 @property (nonatomic, copy) NSString *roomID;
 
+
+/**
+ *  picpath
+ */
+@property (nonatomic, copy) NSString *picpath;
+
 @end

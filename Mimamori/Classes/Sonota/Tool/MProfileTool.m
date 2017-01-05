@@ -42,8 +42,10 @@
     
     [MHttpTool postWithURL:NITUploadpic params:param.mj_keyValues formDataArray:images success:^(id json) {
         if (success) {
+            NSString *path = [json objectForKey:@"picpath"];
             NSString *code = [json objectForKey:@"code"];
-            success(code);
+            NSString *con = [NSString stringWithFormat:@"%@\n%@",code,path];
+            success(con);
         }
     } failure:^(NSError *error) {
         if (failure) {

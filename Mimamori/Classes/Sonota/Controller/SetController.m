@@ -77,11 +77,11 @@
     
 }
 
-- (IBAction)addCustButton:(id)sender {
-    
-    [self performSegueWithIdentifier:@"addCustPush" sender:self];
-    
-}
+//- (IBAction)addCustButton:(id)sender {
+//    
+//    [self performSegueWithIdentifier:@"addCustPush" sender:self];
+//    
+//}
 
 
 
@@ -100,8 +100,6 @@
         ssc.profileUser0 = selectModel.userid0;
         
         ssc.title = selectModel.dispname;
-        
-        ssc.sensors = @[@"D1",@"M1",@"M2"];
     }
 }
 

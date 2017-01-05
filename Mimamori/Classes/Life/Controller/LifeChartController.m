@@ -15,9 +15,14 @@
 #import "NITRefreshInit.h"
 
 #import "ZworksChartTBVC.h"
-#define Surplus 345
 
-@interface LifeChartController ()
+#import "MozTopAlertView.h"
+
+#define Surplus 345
+#define NITVersionKey @"version"
+
+@interface LifeChartController ()<PopUpdateChartDelegate>
+
 @property (strong, nonatomic) IBOutlet UIImageView *imageIcon;
 @property (strong, nonatomic) IBOutlet UIView *leftbgView;
 
@@ -58,19 +63,51 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     
     NSData *imgdata =  [NITUserDefaults objectForKey:self.userid0];
     
-    if (imgdata)  self.imageIcon.image = [UIImage imageWithData:imgdata];
-    
+    if (imgdata) {
+        self.imageIcon.image = [UIImage imageWithData:imgdata];
+    } else {
+        NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.picpath]];
+        if (dataicon) {
+            self.imageIcon.image = [UIImage imageWithData:dataicon];
+        }
+    }
     [self.myCollection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     [self collectionViewsets];
     
+//    self.xnum = 0;
     // 取得日单位的数据
     [self getSensorDataInfoWithType:MSensorDataTypeDaily];
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     
     
+    [self chooesfirst];
 }
+//选择根控制器
+- (void)chooesfirst{
+    //获取当前的版本号
+//    NSString *currentVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
+//    //获取上一次的版本号
+//    NSString *lasteVersion = [NITUserDefaults objectForKey:NITVersionKey];
+//    //判断当前是否有新版本
+//    if (![currentVersion isEqualToString:lasteVersion]) {
+        //保存当前版本,用偏好设置
+//        [NITUserDefaults setObject:currentVersion forKey:NITVersionKey];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            [MozTopAlertView showWithType:MozAlertTypeWarning text:@"プルしないとデータが更新されない" doText:@" X " doBlock:^{
+                
+            } parentView:self.view];
+        });
+    });
+    
+//    }
+}
+
+
+
 - (IBAction)ArautoPush:(UIButton *)sender {
     
     [self performSegueWithIdentifier:@"aripush" sender:self];
@@ -114,7 +151,6 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     
     [MSensorDataTool sensorDataWithParam:param type:type success:^(NSArray *array) {
         [MBProgressHUD hideHUDForView:self.view];
-        [_myTableView.mj_header endRefreshing];
         
         NSArray *tmpArr = [ZworksChartModel mj_objectArrayWithKeyValuesArray:array];
         if (tmpArr.count == 0) {
@@ -133,6 +169,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
                 ChartC.zarray = _ZworksDataArray;
                 ChartC.xnum = _xnum;
                 ChartC.userid0 = _userid0;
+                ChartC.updatedelegate = self;
                 ChartC.superrow = i;
                 [self addChildViewController:ChartC];
                 [self.controlarr addObject:ChartC]; //viewC放到数组里面
@@ -153,6 +190,10 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     
 }
 
+- (void)updateCorrentTB:(int)numChart {
+    self.xnum = numChart;
+    [self reloadList];
+}
 
 -(void)reloadList{
     

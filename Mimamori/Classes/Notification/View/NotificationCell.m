@@ -38,8 +38,9 @@
 - (IBAction)ButtonClick:(UIButton *)sender {
     // 1.让按钮文字变为“確認済”
     sender.enabled = NO;
-    [sender setTitle:@"確認済" forState:UIControlStateNormal];
     
+    [sender setTitle:@"確認済" forState:UIControlStateNormal];
+    sender.backgroundColor = [UIColor lightGrayColor];
     // 2.通知代理
     if ([self.delegate respondsToSelector:@selector(notificationCellBtnClicked:)]) {
         [self.delegate notificationCellBtnClicked:self];
@@ -53,7 +54,7 @@
     
     
     // ステータスボタン
-    if (_notice.status == 0) {
+    if (notice.status == 0) {
         [self.Srue setHidden:NO];
         [self.Srue setTitle:@"確認必要" forState:UIControlStateNormal];
         [self.Srue setEnabled:YES];
@@ -68,36 +69,30 @@
     }
     
     // タイトル
-    if (_notice.type == 0) {
-        NSString *string = [NSString stringWithFormat:@"%@%@",@"<支援要請>",_notice.username];
+//    if (_notice.type == 0) {
+//        NSString *string = [NSString stringWithFormat:@"%@%@",@"",_notice.username];
+//        self.notifType.text = string;
+//        self.notifEvent.text = _notice.title;
+//        
+    if (notice.type == 1) {
+        NSString *string = [NSString stringWithFormat:@"<センサー>%@",notice.groupname];
         self.notifType.text = string;
-        self.notifEvent.text = _notice.title;
+        self.notifEvent.text = notice.title;
         
-    } else if (_notice.type == 1) {
-        NSString *string = [NSString stringWithFormat:@"%@%@",@"<センサー>",_notice.groupname];
+    } else  {
+        NSString *string = [NSString stringWithFormat:@"<支援要請>%@",notice.username];
         self.notifType.text = string;
-        self.notifEvent.text = _notice.title;
-        
-    } else if(_notice.type == 2) {
-        NSString *string = [NSString stringWithFormat:@"%@%@->%@",@"<お知らせ>",_notice.username, _notice.groupname];
-        self.notifType.text = string;
-        [self.Srue setHidden:YES];
-        self.notifEvent.text = _notice.title;
-        
+        self.notifEvent.text = notice.title;
+        self.inputTime.text = notice.registdate;
     }
     
-
-
     //最終更新時間
-    id date = [_notice valueForKey:@"registdate"];
-    if ([date isKindOfClass:[NSDictionary class]]) {
-        NSString *dateStr = [date valueForKey:@"date"];
-
-        self.inputTime.text = [dateStr substringToIndex:19];
-    }
-    
-
-    
+//    id date = [_notice valueForKey:@"registdate"];
+//    if ([date isKindOfClass:[NSDictionary class]]) {
+//        NSString *dateStr = [date valueForKey:@"date"];
+//
+//        
+//    }
     
     
 }

@@ -299,13 +299,7 @@
                             <outlet property="delegate" destination="hsj-yv-zXb" id="Na2-wV-f9A"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="見守り設定" id="yyB-On-JqE">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="mMu-Fc-Vl1">
-                            <connections>
-                                <action selector="addCustButton:" destination="hsj-yv-zXb" id="eYU-vO-lag"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="見守り設定" id="yyB-On-JqE"/>
                     <connections>
                         <segue destination="pfM-EA-pgU" kind="push" identifier="setcellpush" id="Ovz-59-74F"/>
                         <segue destination="Ley-Sc-UQa" kind="push" identifier="addCustPush" id="vJ6-en-Hnk"/>
@@ -720,7 +714,13 @@
                             <constraint firstItem="Vc1-bj-wdG" firstAttribute="top" secondItem="5zQ-Cs-5O2" secondAttribute="bottom" constant="10" id="rMJ-T2-9RH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="シナリオ設定" id="N2F-na-C60"/>
+                    <navigationItem key="navigationItem" title="シナリオ設定" id="N2F-na-C60">
+                        <barButtonItem key="rightBarButtonItem" title="編集" style="plain" id="rWA-mA-5Qk">
+                            <connections>
+                                <action selector="EditBarButton:" destination="jhc-5I-Cg6" id="iLf-Yt-lqI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="sinarioText" destination="BeE-oA-RYG" id="w3S-aN-ykM"/>
                         <outlet property="sinariobutton" destination="lkS-Us-Khx" id="ffO-wh-v2K"/>
@@ -729,7 +729,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MIh-f1-UZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2477" y="-1233"/>
+            <point key="canvasLocation" x="-3214" y="-1186"/>
         </scene>
         <!--Scenario Table View Controller-->
         <scene sceneID="5wr-Nt-hZd">
@@ -1064,7 +1064,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="性别" id="fLQ-2l-5GN">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="XTj-8Z-N6X">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="44" id="XTj-8Z-N6X">
                                         <rect key="frame" x="0.0" y="262" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XTj-8Z-N6X" id="3Rl-Oa-ynw">
@@ -1092,7 +1092,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="誕生日" id="rVa-Py-EKr">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="Lgu-hI-Fle">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="44" id="Lgu-hI-Fle">
                                         <rect key="frame" x="0.0" y="328" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lgu-hI-Fle" id="AFV-1j-cu4">
@@ -1120,7 +1120,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="現住所" id="Aw4-cx-bdt">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="Ikc-XT-Pbs">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="44" id="Ikc-XT-Pbs">
                                         <rect key="frame" x="0.0" y="394" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ikc-XT-Pbs" id="VcM-8Y-Fhp">
@@ -1148,7 +1148,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="かかりつけ医" id="qUh-nn-DGW">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="P5z-Cn-21R">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="44" id="P5z-Cn-21R">
                                         <rect key="frame" x="0.0" y="460" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P5z-Cn-21R" id="CsY-lJ-Kdy">
@@ -1176,7 +1176,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="服薬情報" id="S8j-wF-gXH">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="3pq-c9-tA2">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="3pq-c9-tA2">
                                         <rect key="frame" x="0.0" y="526" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3pq-c9-tA2" id="LbI-Uh-kPt">
@@ -1216,7 +1216,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="健康診断結果" id="qbe-Xp-Y83">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="38h-Nz-V0a">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="38h-Nz-V0a">
                                         <rect key="frame" x="0.0" y="648" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="38h-Nz-V0a" id="1S3-83-CKX">
@@ -1256,7 +1256,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="その他お願い事項" id="hyr-xB-itA">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="LiI-ys-cgP">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="LiI-ys-cgP">
                                         <rect key="frame" x="0.0" y="770" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LiI-ys-cgP" id="e7n-iP-H7e">
@@ -1296,7 +1296,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="最終更新日付" id="v4p-qr-5tx">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="7Ux-xw-8Yu">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="60" id="7Ux-xw-8Yu">
                                         <rect key="frame" x="0.0" y="892" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Ux-xw-8Yu" id="3Pp-09-OkF">
@@ -1322,7 +1322,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="最終更新者名" id="bf2-hg-7M0">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="OqJ-Rb-Nnd">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="60" id="OqJ-Rb-Nnd">
                                         <rect key="frame" x="0.0" y="974" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OqJ-Rb-Nnd" id="AAn-Co-3Di">

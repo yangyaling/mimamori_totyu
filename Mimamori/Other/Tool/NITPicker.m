@@ -44,10 +44,12 @@
 
 @property (nonatomic, strong) Device                   *model;
 
+@property (nonatomic, assign) NSInteger                cellindex;
+
 @end
 @implementation NITPicker
 
--(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton *)selectbutton model:(Device *)model{
+-(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton model:(Device *)model cellNumber:(NSInteger)number {
     self = [super initWithFrame:frame];
     if (self) {
         
@@ -92,7 +94,7 @@
 //        } else {
 //            scenariotype = 5;
 //        }
-        
+        self.cellindex = number;
         self.thisbutton = selectbutton;
         self.model = model;
         self.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -211,6 +213,25 @@
         [self.thisbutton setTitle:select forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
+    NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
+    
+      [nodesdic setValue:select forKey:@"displayname"];
+    [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
+    [NITUserDefaults setObject:arr forKey:@"sensorallnodes"];
+    
+//    NITLog(@"nodesdic:%@",arr);
+    //\U5c45\U5ba4\U5165\U53e3
+    
+//      [nodesdic setObject:dicnode forKey:self.model.nodeid];
+//      [NITUserDefaults setObject:nodesdic forKey:@"sensorallnodes"];
+//        
+//    } else {
+//        NSDictionary *dic = @{@"displayname":select,@"place":@""};
+//        
+//        [nodesdic setObject:dic forKey:self.model.nodeid];
+//        [NITUserDefaults setObject:nodesdic forKey:@"sensorallnodes"];
+//    }
     
     
     //    [self.delegate selecttitle:select tag:thistag];

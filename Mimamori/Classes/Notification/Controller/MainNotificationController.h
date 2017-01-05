@@ -8,13 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
-    
-    TodayDateType,
-    SelectDateType
-    
-}DateType;
-
 
 
 @interface MainNotificationController : UIViewController

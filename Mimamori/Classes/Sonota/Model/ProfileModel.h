@@ -12,7 +12,11 @@
 /**
  *  imageurl
  */
-@property (nonatomic, copy) NSString                         *imageurl;
+@property (nonatomic, copy) NSString                         *picpath;
+/**
+ *  picupdatedate
+ */
+@property (nonatomic, copy) NSString                         *picupdatedate;
 
 /**
  *  user0name

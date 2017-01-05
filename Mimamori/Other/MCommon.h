@@ -65,10 +65,12 @@
 
 #define NITUpdateCustInfo @"http://mimamori2.azurewebsites.net/zwupdatecustinfo.php"
 
-#define NITUploadpic @"http://mimamori2.azurewebsites.net/zwuploadpic.php"
+#define NITUploadpic @"http://mimamori2.azurewebsites.net/upload/zwuploadpic.php"
 
 
-#define NITGetScenarioList @"http://mimamori2.azurewebsites.net/zwgetscenariolist.php"
+#define NITGetScenarioList @"http://mimamori2.azurewebsites.net/zwgetsslist.php"
+
+#define NITUpdateSensorInfo @"http://mimamori2.azurewebsites.net/zwupdatenodeplaceinfo.php"
 
 
 #define NITDeleteScenario @"http://mimamori2.azurewebsites.net/zwdeletescenarioinfo.php"

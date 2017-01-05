@@ -35,15 +35,16 @@
 +(void)postWithURL:(NSString *)url params:(NSDictionary *)params formDataArray:(NSArray *)formDataArray success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
     // 1.创建请求管理对象
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-    
     // 2.发送请求
     [session POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull totalFormData) {
         
 //        for (NSData *formData in formDataArray) {
 //            [totalFormData appendPartWithFileData:formData.data name:formData.name fileName:formData.filename mimeType:formData.mimeType];
 
+//        NSData *data = formDataArray[0];
+        
             //上传文件参数
-            [totalFormData appendPartWithFileData:params[@"picdata"] name:@"user0image" fileName:@"HeaderImage.png" mimeType:@"image/jpeg"];
+//        [totalFormData appendPartWithFileData:data name:@"photo" fileName:@"HeaderImage.jpeg" mimeType:@"image/jpeg"];
 //        }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -56,6 +57,9 @@
             failure(error);
         }
     }];
+    //value	__NSCFString *	@"http://mimamori2.azurewebsites.net/upload/0002.jpg"	0x00000001704579d0
+    //[0]	(null)	@"picpath" : @"http://mimamori2.azurewebsites.net/upload/0002.jpg"
+    //value	__NSCFString *	@"http://mimamori2.azurewebsites.net/upload/0002.jpg"	0x0000000170058f00
 }
 
 

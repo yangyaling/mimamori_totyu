@@ -9,5 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface NITRefreshInit : NSObject
+
 +(MJRefreshNormalHeader*)MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)header;
+
+
++(MJRefreshNormalHeader*)MJRefreshNormalHeaderInitTwo:(MJRefreshNormalHeader*)header;
+
 @end

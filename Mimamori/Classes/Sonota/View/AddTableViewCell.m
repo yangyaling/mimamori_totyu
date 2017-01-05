@@ -18,7 +18,6 @@
     //    }
     //    return cell;
     
-    
     return [AddTableViewCell cellFromNib:nil andCollectionView:tableView];
 }
 
@@ -34,5 +33,7 @@
     
     return [tableView dequeueReusableCellWithIdentifier:ID];
 }
+
+
 
 @end

@@ -37,11 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.cellnum = 1;
+    self.cellnum = 0;
     
     self.sinariobutton.layer.cornerRadius = 6;
     self.tableView.tableFooterView = [[UIView alloc]init];
-    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
 }
 
 /**
@@ -58,11 +58,13 @@
     } else {
         self.sinarioText.text = sinario;
     }
-    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (IBAction)PickShow:(UIButton *)sender {
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device];
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:nil];
     
     _picker.mydelegate = self;
     
@@ -92,6 +94,7 @@
     return cell;
     
 }
+
 //
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -138,11 +141,39 @@
 
 
 - (void)addScenarioCell:(UIButton *)sender {
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device];
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:nil];
     
     _picker.mydelegate = self;
     
     [WindowView addSubview:_picker];
+    
+}
+
+
+
+/**
+    编辑
+ */
+- (IBAction)EditBarButton:(UIBarButtonItem *)sender {
+    if ([sender.title isEqualToString:@"編集"]) {
+        [sender setTitle:@"完了"];
+        
+        self.cellnum = 100;
+        
+        //进入编辑状态
+        [self.tableView setEditing:YES animated:YES];
+    }else{
+        
+        [sender setTitle:@"編集"];
+        self.cellnum = 0;
+        //取消编辑状态
+        [self.tableView setEditing:NO animated:YES];
+        
+        
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
     
     
 }
@@ -158,6 +189,12 @@
 }
 
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return UITableViewCellEditingStyleDelete;
+}
+
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -167,14 +204,17 @@
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
         [self.tableView endUpdates];
         
-    } 
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 100;
+    return self.cellnum;
 }
 
 

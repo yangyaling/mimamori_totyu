@@ -11,12 +11,15 @@
 
 @interface SensorSetTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet UILabel *sensorname;
+@property (strong, nonatomic) IBOutlet UILabel             *sensorname;
 
-@property (strong, nonatomic) IBOutlet UIButton *roomname;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentbar;
+@property (strong, nonatomic) IBOutlet UIButton            *roomname;
 
-@property (nonatomic, copy) Device *device;
+@property (strong, nonatomic) IBOutlet UISegmentedControl  *segmentbar;
+
+@property (nonatomic, assign) NSInteger                    cellnumber;
+
+@property (nonatomic, strong) Device *device;
 
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;

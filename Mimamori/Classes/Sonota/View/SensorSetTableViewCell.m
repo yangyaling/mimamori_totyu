@@ -16,6 +16,9 @@
 
 @property (nonatomic, strong) NITPicker       *picker;
 
+
+@property (nonatomic, strong) NSMutableArray       *allarray;
+
 @end
 
 @implementation SensorSetTableViewCell
@@ -48,8 +51,20 @@
 
 - (IBAction)clickPick:(UIButton *)sender {
     
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device];
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:self.cellnumber];
     [WindowView addSubview:_picker];
+    
+}
+
+
+- (IBAction)selectPlaceNumber:(UISegmentedControl *)sender {
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
+    NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellnumber]];
+    NSString *value = [NSString stringWithFormat:@"%ld",sender.selectedSegmentIndex];
+    [nodesdic setValue:value forKey:@"place"];
+    [arr replaceObjectAtIndex:self.cellnumber withObject:nodesdic];
+    [NITUserDefaults setObject:arr forKey:@"sensorallnodes"];
     
 }
 
