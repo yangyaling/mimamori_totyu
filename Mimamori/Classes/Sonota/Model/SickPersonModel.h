@@ -31,4 +31,11 @@
  */
 @property (nonatomic, copy) NSString                         *roomname;
 
+
+/**
+    sensorcount
+ */
+@property (nonatomic, copy) NSString                         *sensorcount;
+
+
 @end

@@ -148,9 +148,6 @@
     
     self.typenum = sender.selectedSegmentIndex;
     
-    
-    [MBProgressHUD showMessage:@"" toView:self.view];
-    
     [self.MyTableView.mj_header beginRefreshing];
     
     
@@ -170,7 +167,7 @@
       
         
     } else {
-        
+        [MBProgressHUD showMessage:@"" toView:self.view];
         [self noticeInfoWithDate:[NSDate SharedToday] andHistoryflg:@"1" withNoticetype:[NSString stringWithFormat:@"%ld",self.typenum]];
     }
 }
@@ -212,6 +209,7 @@
             [MBProgressHUD showError:@"過去の時間を選択してください"];
             
         } else {
+            
             self.onstauts = YES;
             
             [MBProgressHUD showMessage:@"" toView:self.view];

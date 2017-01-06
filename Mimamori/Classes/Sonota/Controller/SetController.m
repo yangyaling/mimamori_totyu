@@ -125,7 +125,7 @@
     
     cell.userinfolabel.text = strname;
     
-    cell.sensernumber.text = @"3";
+    cell.sensernumber.text = tmpmodel.sensorcount;
     
     return cell;
 }

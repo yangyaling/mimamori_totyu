@@ -111,7 +111,11 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     
     [self addSubview:_topView];
     
-    WHUCalendarYMSelectView* selView=[[WHUCalendarYMSelectView alloc] init];
+    NSString *datestr = [NSDate SharedToday];
+    
+    NSString *tmpstr = [datestr substringFromIndex:5];
+        
+    WHUCalendarYMSelectView* selView=[WHUCalendarYMSelectView currentYear:[[datestr substringToIndex:4] integerValue] withMonth:[[tmpstr substringToIndex:2] integerValue]];
     
     selView.translatesAutoresizingMaskIntoConstraints=NO;
     [self addSubview:selView];

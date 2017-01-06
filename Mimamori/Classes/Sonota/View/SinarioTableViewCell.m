@@ -70,22 +70,14 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {
 
+    SinarioTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SinarioTableViewCell"];
+    if (!cell) {
+        cell = [[NSBundle mainBundle] loadNibNamed:@"SinarioTableViewCell" owner:self options:nil].firstObject;
+    }
+    return cell;
     
-    return [SinarioTableViewCell cellFromNib:nil andCollectionView:tableView];
 }
 
-+ (instancetype)cellFromNib:(NSString *)nibName andCollectionView:(UITableView *)tableView
-{
-    NSString *className = NSStringFromClass([self class]);
-    
-    NSString *ID = nibName == nil? className : nibName;
-    
-    UINib *nib = [UINib nibWithNibName:ID bundle:nil];
-    
-    [tableView registerNib:nib forCellReuseIdentifier:ID];
-    
-    return [tableView dequeueReusableCellWithIdentifier:ID];
-}
 
 - (IBAction)PickShow:(UIButton *)sender {
     _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:nil];

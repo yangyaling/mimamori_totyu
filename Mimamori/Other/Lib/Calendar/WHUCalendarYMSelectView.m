@@ -14,23 +14,35 @@
 @property(nonatomic,strong) NSArray* yearArr;
 @property(nonatomic,assign) NSInteger curYear;
 @property(nonatomic,assign) NSInteger yearRange;
+
+@property(nonatomic,assign) NSInteger yearnum;
+@property(nonatomic,assign) NSInteger monthnum;
 @end
 @implementation WHUCalendarYMSelectView
--(id)initWithFrame:(CGRect)frame{
+
++ (instancetype)currentYear:(NSInteger)year withMonth:(NSInteger)month {
+    
+    WHUCalendarYMSelectView *view = [[WHUCalendarYMSelectView alloc] initWithFrame:CGRectZero andyear:year withmonth:month];
+    return view;
+}
+
+-(id)initWithFrame:(CGRect)frame andyear:(NSInteger)year withmonth:(NSInteger)month{
     self=[super initWithFrame:frame];
     if(self){
+        self.yearnum = year;
+        self.monthnum = month;
         [self setupViews];
     }
     return self;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder{
-   self= [super initWithCoder:aDecoder];
-    if(self){
-        [self setupViews];
-    }
-    return self;
-}
+//-(id)initWithCoder:(NSCoder *)aDecoder{
+//   self= [super initWithCoder:aDecoder];
+//    if(self){
+//        [self setupViews];
+//    }
+//    return self;
+//}
 
 -(void)setupViews{
     _yearRange=20;
@@ -48,8 +60,8 @@
     NSCalendar* cal=[NSCalendar currentCalendar];
     NSDateComponents* com=[cal components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:[NSDate date]];
     self.curYear=com.year;
-    [_pickerView selectRow:_yearRange inComponent:0 animated:NO];
-    [_pickerView selectRow:com.month-1 inComponent:1 animated:NO];
+    [_pickerView selectRow:_yearnum-1995 inComponent:0 animated:NO];
+    [_pickerView selectRow:_monthnum-1 inComponent:1 animated:NO];
 }
 
 

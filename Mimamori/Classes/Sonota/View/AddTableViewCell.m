@@ -12,27 +12,14 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {
     
-    //    SensorSetTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"setsensorcell"];
-    //    if (!cell) {
-    //        cell = [[NSBundle mainBundle] loadNibNamed:@"setsensorcell" owner:self options:nil].firstObject;
-    //    }
-    //    return cell;
+    AddTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"AddTableViewCell"];
+    if (!cell) {
+        cell = [[NSBundle mainBundle] loadNibNamed:@"AddTableViewCell" owner:self options:nil].firstObject;
+    }
+    return cell;
     
-    return [AddTableViewCell cellFromNib:nil andCollectionView:tableView];
 }
 
-+ (instancetype)cellFromNib:(NSString *)nibName andCollectionView:(UITableView *)tableView
-{
-    NSString *className = NSStringFromClass([self class]);
-    
-    NSString *ID = nibName == nil? className : nibName;
-    
-    UINib *nib = [UINib nibWithNibName:ID bundle:nil];
-    
-    [tableView registerNib:nib forCellReuseIdentifier:ID];
-    
-    return [tableView dequeueReusableCellWithIdentifier:ID];
-}
 
 
 

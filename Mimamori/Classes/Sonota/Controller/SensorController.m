@@ -75,7 +75,45 @@
     [self getProfileInfo];
     [MBProgressHUD showMessage:@"" toView:self.view];
     
+    //监听键盘出现和消失
+    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
 }
+
+
+#pragma mark 键盘出现
+-(void)keyboardWillShow:(NSNotification *)note
+{
+    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height, 0);
+}
+#pragma mark 键盘消失
+-(void)keyboardWillHide:(NSNotification *)note
+{
+    self.tableView.contentInset = UIEdgeInsetsZero;
+}
+
+
+-(void)dealloc {
+    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+//#pragma mark 键盘出现
+//
+//-(void)keyboardWillShow:(NSNotification *)note
+//{
+//    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    self.tableView.frame = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 64 - keyBoardRect.size.height);
+//}
+//
+//#pragma mark 键盘消失
+//-(void)keyboardWillHide:(NSNotification *)note
+//{
+//    self.tableView.frame = CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 64);
+//}
+
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [self.tableView.mj_header beginRefreshing];
@@ -121,23 +159,39 @@
     [MScenarioTool scenarioListWithParam:param success:^(NSArray *array) {
         
         if (array.count > 0) {
-//            NITLog(@"scenarioList:%@",array);
+            
             NSDictionary *dic = array.firstObject;
             
-            self.scenarioArray = [NSMutableArray arrayWithArray:[Scenario mj_objectArrayWithKeyValuesArray:dic[@"scenariolist"]]];
             
-            [NITUserDefaults setObject:dic[@"sensorplacelist"] forKey:@"sensorallnodes"];
+            NSArray *sensorarray = dic[@"sensorplacelist"];
             
-            self.sensorArray = [NSMutableArray arrayWithArray:[Device mj_objectArrayWithKeyValuesArray:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
+            NSArray *scenarioarray = dic[@"scenariolist"];
+            
+            NITLog(@"scenarioarray:%@",scenarioarray);
+            
+            self.scenarioArray = [NSMutableArray arrayWithArray:[Scenario mj_objectArrayWithKeyValuesArray:scenarioarray]];
+            
+            
+            [NITUserDefaults setObject:sensorarray forKey:@"sensorallnodes"];
+            
+            self.sensorArray = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
         }
         
         [self.tableView.mj_header endRefreshing];
+        
         [self.tableView reloadData];
+        
     } failure:^(NSError *error) {
+        
         [self.tableView.mj_header endRefreshing];
+        
         [self.tableView reloadData];
+        
     }];
+    
 }
+
+
 
 /**
  *  シナリオ削除
@@ -192,28 +246,23 @@
     
     param.place = str;
     
-    AFHTTPSessionManager *manager =  [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+//    NITLog(@"userid1:%@\n userid0:%@\n place:%@",param.userid1,param.userid0,param.place);
     
-    [manager POST:NITUpdateSensorInfo parameters:param.mj_keyValues progress:^(NSProgress * _Nonnull uploadProgress) {
+    [MScenarioTool sensorUpdateWithParam:param success:^(NSString *code) {
         
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NITLog(@"zwupdatescenarioinfo success %@",responseObject);
-        //追加成功，显示信息
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NITLog(@"%@",code);
+        
+        [self getScenarioList];
+        [MBProgressHUD showSuccess:@"success"];
+        
+    } failure:^(NSError *error) {
+        
     }];
-    
-//    [MScenarioTool sensorUpdateWithParam:param success:^(NSString *code) {
-//        NITLog(@"%@",code);
-//    } failure:^(NSError *error) {
-//        
-//    }];
     
 }
 - (IBAction)GoInSetVC:(UIButton *)sender {
     
     [self performSegueWithIdentifier:@"profilePush" sender:self];
-    
     
 }
 
@@ -276,18 +325,23 @@
     if (self.isSensorTableView) {
         SensorSetTableViewCell *cell = [SensorSetTableViewCell cellWithTableView:tableView];
         
-        
         NSArray *arr = [Device mj_objectArrayWithKeyValuesArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
         
         Device *devices = arr[indexPath.row];
+        
         cell.cellnumber = indexPath.row;
+        
         cell.sensorname.text = devices.nodename;
-        [cell.roomname setTitle:devices.displayname forState:UIControlStateNormal];
-        [cell.segmentbar setSelectedSegmentIndex:[devices.place integerValue]];
-        cell.device = devices;
+        
+        cell.roomname.text = devices.displayname;
+        
+        [cell.segmentbar setSelectedSegmentIndex:[devices.place integerValue] - 1];
+        
+        
         return cell;
     } else {
         AddTableViewCell *cell = [AddTableViewCell cellWithTableView:tableView];
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }

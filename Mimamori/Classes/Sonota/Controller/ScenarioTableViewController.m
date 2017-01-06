@@ -74,9 +74,9 @@
         self.saveType = 1;
         cancelEdit = YES;
     }
-    
-
 }
+
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
@@ -109,6 +109,7 @@
         [self.tableView.mj_header endRefreshing];
     }];
 }
+
 
 /**
  *  把シナリオ放入一个个模型中，再把模型放入一个数组中
@@ -146,7 +147,6 @@
  *   シナリオ上传到服务器
  */
 -(void)updateScenarioInfo:(NSArray *)array{
-    
     
     NSString *url = @"http://mimamori.azurewebsites.net/zwupdatescenarioinfo.php";
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
@@ -197,6 +197,7 @@
         NITLog(@"zwupdatescenarioinfo failed");
         [MBProgressHUD showError:@"後ほど試してください"];
     }];
+    
 }
 
 /**
@@ -245,11 +246,17 @@
 -(NSMutableDictionary*)scenarioDictionary:(Device *)model type:(int)type{
     
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    
     [dict setValue:model.deviceid forKey:@"deviceid"];
+    
     [dict setValue:model.deviceValue.time forKey:@"time"];
+    
     [dict setValue:model.deviceValue.value forKey:@"value"];
+    
     [dict setValue:model.deviceValue.rpoint forKey:@"rpoint"];
+    
     [dict setValue:type==0 ? @"0" : @"1" forKey:@"pattern"];
+    
     return dict;
 }
 
@@ -272,15 +279,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     // 不可编辑情况下，取消所有的编辑结果
+    
     if (cancelEdit == YES) {
+        
         self.editDevicesArray = [[NSMutableArray alloc]initWithArray:self.devicesArray];
+        
     // 可编辑情况下，取实时保存的编辑结果
     }else{
+        
         NSData * data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+        
         NSMutableArray * tmpArray= [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        
         self.editDevicesArray = tmpArray;
     }
-
     
     Device *device = self.editDevicesArray[indexPath.row];
     
@@ -291,9 +303,9 @@
         DoorFeelTableViewCell *cell = [DoorFeelTableViewCell cellWithTableView:tableView];
         cell.editType = cancelEdit;
         cell.device = device;
-        
         return cell;
     }
+    
     //以上・以下
     else if(pattern == 3){
         DFChildTableViewCell *cell = [DFChildTableViewCell cellWithTableView:tableView];
@@ -303,6 +315,7 @@
         return cell;
     }
     return nil;
+    
 }
 
 

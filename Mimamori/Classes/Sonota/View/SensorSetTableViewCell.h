@@ -7,19 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Device;
 
 @interface SensorSetTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel             *sensorname;
 
-@property (strong, nonatomic) IBOutlet UIButton            *roomname;
+@property (strong, nonatomic) IBOutlet UITextField         *roomname;
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl  *segmentbar;
 
 @property (nonatomic, assign) NSInteger                    cellnumber;
-
-@property (nonatomic, strong) Device *device;
 
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
