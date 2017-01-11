@@ -105,7 +105,7 @@
 
 
 - (IBAction)showPickerView:(id)sender {
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:nil];
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:0];
     [WindowView addSubview:_picker];
 }
 @end

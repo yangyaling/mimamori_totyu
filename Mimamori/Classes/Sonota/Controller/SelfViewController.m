@@ -55,7 +55,6 @@
     //GroupInfo
     NSArray *tmpArr = [NotificationModel mj_objectArrayWithKeyValuesArray:[NITUserDefaults objectForKey:@"allGroupData"]];
     self.allGroupData = tmpArr.count > 0 ? [NSMutableArray arrayWithArray:tmpArr] : [NSMutableArray new];
-    
     //UserInfo
     [self getUserInfo];
 }
@@ -70,7 +69,7 @@
 }
 
 -(void)getUserInfo{
-    NSString *url = @"http://mimamori.azurewebsites.net/zwgetuserinfo.php";
+    NSString *url = @"http://mimamori2.azurewebsites.net/zwgetuserinfo.php";
 
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     NSString *userid1 = [NITUserDefaults objectForKey:@"userid1"];
@@ -103,7 +102,7 @@
 
 
 -(void)updateUserInfo{
-    NSString *url = @"http://mimamori.azurewebsites.net/zwupdateuserinfo.php";
+    NSString *url = @"http://mimamori2.azurewebsites.net/zwupdateuserinfo.php";
     
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     NSString *userid1 = [NITUserDefaults objectForKey:@"userid1"];

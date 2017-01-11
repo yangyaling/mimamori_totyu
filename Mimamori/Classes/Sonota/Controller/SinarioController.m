@@ -7,8 +7,13 @@
 //
 
 #import "SinarioController.h"
+
+
 #import "NITPicker.h"
 #import "SinarioTableViewCell.h"
+#import "AFNetworking.h"
+#import "Device.h"
+#import "ScenarioCellFrame.h"
 
 @interface SinarioController ()<MyPickerDelegate>
 
@@ -23,48 +28,145 @@
 
 @property (nonatomic, strong) NSMutableArray                    *allarray;
 
+@property (nonatomic,strong) AFHTTPSessionManager       *session;
+
 @end
 
 @implementation SinarioController
 
--(NSMutableArray *)allarray {
-    if (!_allarray) {
-        _allarray = [NSMutableArray new];
-    }
-    return _allarray;
-}
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     self.cellnum = 0;
+    
+    self.sinarioText.text = self.textname;
+    
+    NSArray *nodes =  [NITUserDefaults objectForKey:@"addnodeiddatas"];
+    if (nodes.count > 0) {
+        [NITUserDefaults setObject:nodes.copy forKey:@"tempdeaddnodeiddatas"];
+    }
     
     self.sinariobutton.layer.cornerRadius = 6;
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
+    
+    self.session = [AFHTTPSessionManager manager];
+    self.session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getScenariodtlInfo)];
+    
+    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    
 }
+
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:YES];
+    
+}
+
+-(void)getScenariodtlInfo{
+    NSString *url = NITGetScenarioInfo;
+    NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
+    parametersDict[@"roomid"] = self.roomID;
+    if (self.isRefresh) {
+        parametersDict[@"scenarioid"] = self.scenarioID;
+    }
+    
+    
+    [self.session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray *tmpArr = [responseObject objectForKey:@"scenariodtlinfo"];
+        [MBProgressHUD hideHUDForView:self.view];
+        [self.tableView.mj_header endRefreshing];
+        if (tmpArr) {
+//            NITLog(@"%@",tmpArr);
+            
+            NSData * data = [NSKeyedArchiver archivedDataWithRootObject:tmpArr];
+            [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
+            
+            
+            self.allarray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"scenariodtlinfoarr"]]];
+            
+            [self.tableView reloadData];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSArray *arr = nil;
+        [NITUserDefaults setObject:arr forKey:@"scenariodtlinfoarr"];
+        
+        [NITUserDefaults setObject:arr forKey:@"tempdeaddnodeiddatas"];
+        
+        [MBProgressHUD hideHUDForView:self.view];
+        
+        [self.tableView.mj_header endRefreshing];
+    }];
+}
+
 
 /**
  PickerDelegate
  */
-- (void)PickerDelegateSelectString:(NSString *)sinario withBool:(BOOL)addcell {
-    if (addcell) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.allarray insertObject:sinario atIndex:0];
-//        self.cellnum ++;
-        [self.tableView beginUpdates];
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
-    } else {
+- (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell {
+    
+    if (addcell.count == 0) {
+        
         self.sinarioText.text = sinario;
+        
+    } else {
+        NSInteger index = [addcell[@"idx"] integerValue];
+        
+        
+        NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+        
+        
+        NSArray *deletearr = arr[index];
+        NSMutableArray *newarr = [NSMutableArray new];
+        for (int i = 0; i< deletearr.count; i++) {
+            NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:deletearr[i]];
+            [dicOne setObject:@"1" forKey:@"detailno"];
+            [newarr addObject:dicOne];
+        }
+        [arr replaceObjectAtIndex:index withObject:newarr];
+        
+        NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:arr];
+        [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
+        
+        
+        //        NSMutableArray *disparray =[NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]];
+        //        [disparray removeObject:sinario];
+        //        [NITUserDefaults setObject:disparray forKey:@"tempdeaddnodeiddatas"];
+        
+        
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+//        //        self.cellnum ++;
+//        [self.tableView beginUpdates];
+//        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//        [self.tableView endUpdates];
+        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:index inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+        //UITableViewScrollPositionNone
+        //UITableViewScrollPositionMiddle
+        //UITableViewScrollPositionBottom
+        //UITableViewScrollPositionTop
+        
     }
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
 }
 
 - (IBAction)PickShow:(UIButton *)sender {
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:nil];
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:0];
     
     _picker.mydelegate = self;
     
@@ -81,6 +183,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return _allarray.count;
+    
 }
 
 
@@ -89,7 +192,28 @@
     
     SinarioTableViewCell *cell = [SinarioTableViewCell cellWithTableView:tableView];
     
-    [cell.sinarioButton setTitle:self.allarray[indexPath.row] forState:UIControlStateNormal];
+    NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+    NSArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    self.allarray = [NSMutableArray arrayWithArray:arr];
+//    self.allarray = [Device mj_objectArrayWithKeyValuesArray:arr.copy];
+    
+//    if (_allarray.count == 0) return cell;
+    
+//    Device *devices = self.allarray[indexPath.row];
+    
+    cell.cellindex = indexPath.row;
+    cell.cellarr = self.allarray[indexPath.row];
+//    
+
+    
+    
+//    if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0) return cell;
+    
+    if (self.cellnum == 0) { //cell是否可以编辑
+        cell.userInteractionEnabled = NO;
+    }
+    
     
     return cell;
     
@@ -111,7 +235,7 @@
     
     
     [editButton setTitle: @"＋" forState: UIControlStateNormal];
-    editButton.tag = 88;
+    editButton.tag = 11;
     [editButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [editButton addTarget:self action:@selector(addScenarioCell:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -128,12 +252,15 @@
     
     saveButton.titleLabel.font = [UIFont systemFontOfSize:26.0];
     saveButton.layer.cornerRadius = 5;
+    
 //    saveButton.layer.borderWidth = 1.3;
 //    saveButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
     
     [footerView addSubview:editButton];
+    
     [footerView addSubview:saveButton];
+    
     [footerView addSubview:line];
     
     return footerView;
@@ -141,12 +268,20 @@
 
 
 - (void)addScenarioCell:(UIButton *)sender {
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:nil];
     
-    _picker.mydelegate = self;
+    NSArray *array =[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"];
     
-    [WindowView addSubview:_picker];
-    
+    if (array.count != 0) {
+        _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:0];
+        
+        _picker.mydelegate = self;
+        
+        [WindowView addSubview:_picker];
+        
+    } else {
+        
+        [MBProgressHUD showError:@""];
+    }
 }
 
 
@@ -178,9 +313,123 @@
     
 }
 
+
+
+/**
+   
+     保存-遍历检查scenario数据是否填写完整
+
+ */
 - (void)saveScenario:(UIButton *)sender {
-    [MBProgressHUD showSuccess:@"Success"];
+//    BOOL scenariosuccess = YES;
+    
+    NSMutableArray *alldatas = [NSMutableArray new];
+    NSData * data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+    NSArray * scenarioarr = [[NSKeyedUnarchiver unarchiveObjectWithData:data] copy];
+    for (NSArray *tmparr in scenarioarr) {
+        
+        NSDictionary *dicOne = tmparr[0];
+        NSDictionary *dicTwo = tmparr[1];
+        NSDictionary *dicThree = tmparr[2];
+        NSDictionary *dicFour = tmparr[3];
+        if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0){
+            continue;
+        }
+        NSMutableArray *array = [NSMutableArray new];
+        
+        
+        if (![dicOne[@"time"] isEqualToString:@"-"]) {
+            [array addObject:dicOne];
+        }
+        
+        if ( ![dicTwo[@"time"] isEqualToString:@"-"] && ![dicTwo[@"value"] isEqualToString:@"-"] && ![dicTwo[@"rpoint"] isEqualToString:@"-"]) {
+            [array addObject:dicTwo];
+        }
+        
+        if (![dicThree[@"time"] isEqualToString:@"-"] && ![dicThree[@"value"] isEqualToString:@"-"] && ![dicThree[@"rpoint"] isEqualToString:@"-"] ) {
+            [array addObject:dicThree];
+        }
+        
+        if (![dicFour[@"time"] isEqualToString:@"-"] && ![dicFour[@"value"] isEqualToString:@"-"] && ![dicFour[@"rpoint"] isEqualToString:@"-"]) {
+            [array addObject:dicFour];
+        }
+        [alldatas addObject:array];
+    }
+    
+    if (!self.sinarioText.text.length) {
+        [MBProgressHUD showError:@"シナリオネームを入力してください"];
+    }else{
+        if ([alldatas.firstObject count] > 0) {
+            NITLog(@"%ld",alldatas.count);
+            // 网络请求，追加或更新
+//            [MBProgressHUD showError:@"シナリオネームを入力してください"];
+            [self updateScenarioInfo:scenarioarr];
+        }else{
+            [MBProgressHUD  showError:@"入力項目をチェックしてください!"];
+        }
+    }
+    
 }
+
+
+
+/**
+ *   シナリオ上传到服务器
+ */
+-(void)updateScenarioInfo:(NSArray *)array{
+    
+    NSString *url = NITUpdateScenarioInfo;
+    NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
+    [parametersDict setValue:[NITUserDefaults objectForKey:@"userid1"] forKey:@"userid1"];
+    [parametersDict setValue:self.user0 forKey:@"userid0"];
+//    if (self.saveType == 1) {
+        [parametersDict setValue:self.scenarioID forKey:@"scenarioid"];
+//    }
+    [parametersDict setValue:self.sinarioText.text forKey:@"scenarioname"];
+    [parametersDict setValue:[[NSDate date]needDateStatus:HaveHMSType] forKey:@"updatedate"];
+    
+    //保存detailinfo的数组转换成json数据格式
+    NSError *parseError = nil;
+    NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
+    NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+    [parametersDict setValue:str forKey:@"scenariodtlinfo"];
+    
+    
+    [self.session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NITLog(@"zwupdatescenarioinfo success %@",responseObject);
+        //追加成功，显示信息
+        if ([[responseObject valueForKey:@"code"]isEqualToString:@"200"]) {
+            
+            if (self.isRefresh) {
+                [MBProgressHUD showSuccess:@"更新いたしました"];
+            }else {
+                [MBProgressHUD showSuccess:@"追加いたしました"];
+            }
+            //跳转到前页面
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                // 如果刚刚添加的scenario检知到异常
+                if ([[responseObject objectForKey:@"result"]intValue] == 0) {
+                    if ([self.delegate respondsToSelector:@selector(warningScenarioAdded:)]) {
+                        NSString *message = [NSString stringWithFormat:@"<センサー> %@%@",self.user0name,_sinarioText.text];
+                        [self.delegate warningScenarioAdded:message];
+                    }
+                    
+                }
+                
+            });
+            
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NITLog(@"zwupdatescenarioinfo failed");
+        [MBProgressHUD showError:@"後ほど試してください"];
+    }];
+    
+}
+
 
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -199,12 +448,60 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        [self.allarray removeObjectAtIndex:indexPath.row];
-        [self.tableView beginUpdates];
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-        [self.tableView endUpdates];
+        
+        NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+        NSArray *deletearr = array[indexPath.row];
+        
+        
+        
+        //删除一个cell  pick上添加当前删除的displayname
+        
+        NSMutableArray *disparray = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]];
+        NSString *disstr = [deletearr.firstObject objectForKey:@"displayname"];
+        NSDictionary *disdic = @{@"displayname":disstr,@"idx":@(indexPath.row)};
+        [disparray insertObject:disdic atIndex:0];
+        
+        [NITUserDefaults setObject:disparray forKey:@"tempdeaddnodeiddatas"];
+        
+        
+        //删除总数组当行cell的所有数据  再缓存新的临时数组
+        NSMutableArray *newarr = [NSMutableArray new];
+        for (int i = 0; i< deletearr.count; i++) {
+            NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:deletearr[i]];
+            [dicOne setObject:@"0" forKey:@"detailno"];
+            [newarr addObject:dicOne];
+        }
+        
+//        NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:deletearr.firstObject];
+//
+//        NSMutableDictionary *dicTwo = [NSMutableDictionary dictionaryWithDictionary:[deletearr objectAtIndex:1]];
+//
+//        NSMutableDictionary *dicThree = [NSMutableDictionary dictionaryWithDictionary:[deletearr objectAtIndex:2]];
+//
+//        NSMutableDictionary *dicFour = [NSMutableDictionary dictionaryWithDictionary:deletearr.lastObject];
+//        
+//        [dicOne setObject:@"0" forKey:@"detailno"];
+//        [dicTwo setObject:@"0" forKey:@"detailno"];
+//        [dicThree setObject:@"0" forKey:@"detailno"];
+//        [dicFour setObject:@"0" forKey:@"detailno"];
+//        [deletearr removeAllObjects];
+        
+        //            if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0) ;
+        
+        
+        [array replaceObjectAtIndex:indexPath.row withObject:newarr];
+        NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:array];
+        [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
+        
+//        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:indexPath.row inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//        [self.tableView beginUpdates];
+//        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+//        [self.tableView endUpdates];
         
     }
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -214,21 +511,59 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
     return self.cellnum;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 165;
+    NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+    NSArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSArray *cellarr = arr[indexPath.row];
+//    ScenarioCellFrame *frame = [[ScenarioCellFrame alloc] init];
+//    Device *devi = self.allarray[indexPath.row];
+//    frame.scenarioM = devi;
+//    
+    NSDictionary *dicOne = cellarr.firstObject;
+    
+    NSDictionary *dicTwo = [cellarr objectAtIndex:1];
+    
+    NSDictionary *dicThree = [cellarr objectAtIndex:2];
+    
+    NSDictionary *dicFour = cellarr.lastObject;
+    
+    if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0){
+        
+        return 0;
+    } else {
+        
+        NSMutableArray *tmparray = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]];
+        if (tmparray.count > 0) {
+            for (NSDictionary *dic in tmparray) {
+                if ([dic[@"idx"] integerValue] == indexPath.row) {
+                    [tmparray removeObject:dic];
+                    break;
+                }
+            }
+        }
+        [NITUserDefaults setObject:tmparray forKey:@"tempdeaddnodeiddatas"];
+        return 172;
+    }
+    
+    
+    
 }
+
+
+
+
 
 #pragma mark - UITextFieldDelegate
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
-    
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
@@ -237,6 +572,13 @@
         return NO;
     }
     return  YES;
+}
+
+-(NSMutableArray *)allarray {
+    if (!_allarray) {
+        _allarray = [NSMutableArray array];
+    }
+    return _allarray;
 }
 
 @end

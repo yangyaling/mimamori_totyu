@@ -79,51 +79,20 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+//
+////输入框编辑完成以后，将视图恢复到原始状态
+//
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
     NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellnumber]];
     [nodesdic setValue:textField.text forKey:@"displayname"];
     [arr replaceObjectAtIndex:self.cellnumber withObject:nodesdic];
     [NITUserDefaults setObject:arr forKey:@"sensorallnodes"];
-    [textField resignFirstResponder];
-    return YES;
 }
-
-
-//-(void)textFieldDidBeginEditing:(UITextField *)textField
-//
-//{
-//    
-//    CGRect frame = textField.frame;
-//    
-//    int offset = frame.origin.y + 70 - (self.frame.size.height - 216.0);//iPhone键盘高度216，iPad的为352
-//    
-//    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-//    
-//    [UIView setAnimationDuration:0.5f];
-//    
-//    
-//    
-//    //将视图的Y坐标向上移动offset个单位，以使下面腾出地方用于软键盘的显示
-//    
-//    if(offset > 0)
-//        
-//        self.frame = CGRectMake(0.0f, -offset, self.width, self.height);
-//    
-//    
-//    
-//    [UIView commitAnimations];
-//    
-//}
-//
-//
-////输入框编辑完成以后，将视图恢复到原始状态
-//
-//-(void)textFieldDidEndEditing:(UITextField *)textField
-//
-//{
-//    
-//    self.frame =CGRectMake(0, 0, self.width, self.height);
-//    
-//}
 
 @end

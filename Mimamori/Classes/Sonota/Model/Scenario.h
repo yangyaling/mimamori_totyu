@@ -14,4 +14,6 @@
 
 @property (nonatomic, copy) NSString *scenarioname;
 
+@property (nonatomic, copy) NSString *updatedate;
+
 @end

@@ -8,16 +8,10 @@
 
 #import "SinarioTableViewCell.h"
 #import "NITPicker.h"
-
+#import "Device.h"
 @interface SinarioTableViewCell ()
-@property (strong, nonatomic) IBOutlet UILabel *temperature;
-
-@property (strong, nonatomic) IBOutlet UILabel *humidity;
-@property (strong, nonatomic) IBOutlet UILabel *brightness;
 
 @property (nonatomic, strong) NITPicker       *picker;
-@property (strong, nonatomic) IBOutlet UILabel *doalabel;
-@property (strong, nonatomic) IBOutlet UIButton *doaState;
 
 @end
 
@@ -39,6 +33,7 @@
     self.brightnessTD.layer.cornerRadius = 6;
     self.doalabel.layer.cornerRadius = 6;
     self.doaState.layer.cornerRadius = 6;
+    self.doatime.layer.cornerRadius = 6;
     
     self.sinarioButton.layer.borderWidth = 0.6;
     self.temperature.layer.borderWidth = 0.6;
@@ -52,6 +47,7 @@
     self.humiditytime.layer.borderWidth = 0.6;
     self.doalabel.layer.borderWidth = 0.6;
     self.doaState.layer.borderWidth = 0.6;
+    self.doatime.layer.borderWidth = 0.6;
     
     
     self.humiditytime.layer.borderColor = NITColor(211, 211, 211).CGColor;
@@ -66,6 +62,7 @@
     self.brightnessTD.layer.borderColor = NITColor(211, 211, 211).CGColor;
     self.doalabel.layer.borderColor = NITColor(211, 211, 211).CGColor;
     self.doaState.layer.borderColor = NITColor(211, 211, 211).CGColor;
+    self.doatime.layer.borderColor = NITColor(211, 211, 211).CGColor;
 }
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {
@@ -73,16 +70,127 @@
     SinarioTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SinarioTableViewCell"];
     if (!cell) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"SinarioTableViewCell" owner:self options:nil].firstObject;
+//
     }
     return cell;
+}
+
+- (IBAction)PickShow:(UIButton *)sender {
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:self.cellindex];
+    [WindowView addSubview:_picker];
+}
+
+-(void)setCellarr:(NSArray *)cellarr {
+    
+    
+    NSDictionary *dicOne = cellarr.firstObject;
+    
+    NSDictionary *dicTwo = [cellarr objectAtIndex:1];
+    
+    NSDictionary *dicThree = [cellarr objectAtIndex:2];
+    
+    NSDictionary *dicFour = cellarr.lastObject;
+    
+    
+    if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0){
+        
+        self.hidden = YES;
+        return;
+    }
+    
+    
+    [self.sinarioButton setTitle:dicOne[@"displayname"] forState:UIControlStateNormal];
+    
+    
+    //门 - 人感
+    self.doalabel.text = dicOne[@"devicename"];
+    NSString *strT4 = [NSString stringWithFormat:@"%@%@",dicOne[@"time"],dicOne[@"timeunit"]];
+    [self.doatime setTitle:strT4 forState:UIControlStateNormal];
+    self.doaState.text = dicOne[@"rpoint"];
+    
+    //温度
+    self.temperature.text = dicTwo[@"devicename"];
+    NSString *strT1 = [NSString stringWithFormat:@"%@%@",dicTwo[@"time"],dicTwo[@"timeunit"]];
+    NSString *strV1 = [NSString stringWithFormat:@"%@%@%@",dicTwo[@"value"],dicTwo[@"valueunit"],dicTwo[@"rpoint"]];
+    [self.temperaturetime setTitle:strT1 forState:UIControlStateNormal];
+    [self.temperatureTD setTitle:strV1 forState:UIControlStateNormal];
+    
+    
+    //湿度
+    self.humidity.text = dicThree[@"devicename"];
+    NSString *strT2 = [NSString stringWithFormat:@"%@%@",dicThree[@"time"],dicThree[@"timeunit"]];
+    NSString *strV2 = [NSString stringWithFormat:@"%@%@%@",dicThree[@"value"],dicThree[@"valueunit"],dicThree[@"rpoint"]];
+    [self.humiditytime setTitle:strT2 forState:UIControlStateNormal];
+    [self.humidityTD setTitle:strV2 forState:UIControlStateNormal];
+    //照明
+    self.brightness.text = dicFour[@"devicename"];
+    NSString *strT3 = [NSString stringWithFormat:@"%@%@",dicFour[@"time"],dicFour[@"timeunit"]];
+    NSString *strV3 = [NSString stringWithFormat:@"%@%@%@",dicFour[@"value"],dicFour[@"valueunit"],dicFour[@"rpoint"]];
+    [self.brightnesstime setTitle:strT3 forState:UIControlStateNormal];
+    [self.brightnessTD setTitle:strV3 forState:UIControlStateNormal];
+    
     
 }
 
 
-- (IBAction)PickShow:(UIButton *)sender {
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:nil];
-    [WindowView addSubview:_picker];
-}
+//-(void)setDevice:(Device *)device {
+//    _device = device;
+//    
+//    
+//    //    if (array.count == 0) return cell;
+//    //
+//    NSDictionary *dicOne = device.modelArr.firstObject;
+//
+//    NSDictionary *dicTwo = [device.modelArr objectAtIndex:1];
+//
+//    NSDictionary *dicThree = [device.modelArr objectAtIndex:2];
+//
+//    NSDictionary *dicFour = device.modelArr.lastObject;
+//
+//
+//    if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0){
+//        self.height = 0;
+//        NSMutableArray *tmparray = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"addnodeiddatas"]];
+//       
+//        [tmparray removeObjectAtIndex:self.cellindex];
+//      
+//        [NITUserDefaults setObject:tmparray forKey:@"tempdeaddnodeiddatas"];
+//        
+//        return;
+//    }
+//
+//
+//    [self.sinarioButton setTitle:dicOne[@"displayname"] forState:UIControlStateNormal];
+//
+//
+//
+//
+//    //门 - 人感
+//    self.doalabel.text = dicOne[@"devicename"];
+//    self.doaState.text = dicOne[@"rpoint"];
+//
+//    //温度
+//    self.temperature.text = dicTwo[@"devicename"];
+//    NSString *strT1 = [NSString stringWithFormat:@"%@%@",dicTwo[@"time"],dicTwo[@"timeunit"]];
+//    NSString *strV1 = [NSString stringWithFormat:@"%@%@%@",dicTwo[@"value"],dicTwo[@"valueunit"],dicTwo[@"rpoint"]];
+//    [self.temperaturetime setTitle:strT1 forState:UIControlStateNormal];
+//    [self.temperatureTD setTitle:strV1 forState:UIControlStateNormal];
+//
+//
+//    //湿度
+//    self.humidity.text = dicThree[@"devicename"];
+//    NSString *strT2 = [NSString stringWithFormat:@"%@%@",dicThree[@"time"],dicThree[@"timeunit"]];
+//    NSString *strV2 = [NSString stringWithFormat:@"%@%@%@",dicThree[@"value"],dicThree[@"valueunit"],dicThree[@"rpoint"]];
+//    [self.humiditytime setTitle:strT2 forState:UIControlStateNormal];
+//    [self.humidityTD setTitle:strV2 forState:UIControlStateNormal];
+//    //照明
+//    self.brightness.text = dicFour[@"devicename"];
+//    NSString *strT3 = [NSString stringWithFormat:@"%@%@",dicFour[@"time"],dicFour[@"timeunit"]];
+//    NSString *strV3 = [NSString stringWithFormat:@"%@%@%@",dicFour[@"value"],dicFour[@"valueunit"],dicFour[@"rpoint"]];
+//    [self.brightnesstime setTitle:strT3 forState:UIControlStateNormal];
+//    [self.brightnessTD setTitle:strV3 forState:UIControlStateNormal];
 
+    
+//}
 
 @end

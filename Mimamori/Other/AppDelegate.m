@@ -14,6 +14,9 @@
 #import "MNoticeTool.h"
 #import "MGroupTool.h"
 
+#define MainVC @"MainIdentifier"
+#define LoginVC @"LoginIdentifier"
+
 @interface AppDelegate ()
 @property (nonatomic, strong) NSMutableArray *alertArr;//全ての通知アイテム(支援要請・センサー・お知らせ)(模型数组)
 @property (nonatomic, strong) NSArray *readNoticeIdArr;//既読のお知らせ
@@ -26,8 +29,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    NSString *vcstr = [NITUserDefaults objectForKey:@"loginFlg"];
     // ログインFlag
-    NSString *VcID = [[NITUserDefaults objectForKey:@"loginFlg"] isEqualToString:@"0"] ? @"MainIdentifier" : @"LoginIdentifier";
+    NSString *VcID = [vcstr isEqualToString:@"0"] ?  MainVC: LoginVC;
     self.window.rootViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:VcID];
     
     //串行队列 异步任务 (非常非常有用！！！!!!!)
@@ -92,7 +96,7 @@
         }
         NSPredicate *thePredicate = [NSCompoundPredicate andPredicateWithSubpredicates:types];
         NSArray *resultArr = [noticeArray filteredArrayUsingPredicate:thePredicate];
-                
+        
         // 3.3 字典数组－>alertArr模型数组
         self.alertArr = [NotificationModel mj_objectArrayWithKeyValuesArray:resultArr];
     }

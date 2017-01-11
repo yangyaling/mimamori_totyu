@@ -62,15 +62,18 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     [self.segmentControl setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
     
     NSData *imgdata =  [NITUserDefaults objectForKey:self.userid0];
-    
     if (imgdata) {
         self.imageIcon.image = [UIImage imageWithData:imgdata];
     } else {
-        NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.picpath]];
-        if (dataicon) {
-            self.imageIcon.image = [UIImage imageWithData:dataicon];
-        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.picpath]];
+            if (dataicon) {
+                self.imageIcon.image = [UIImage imageWithData:dataicon];
+                [NITUserDefaults setObject:dataicon forKey:self.userid0];
+            }
+        });
     }
+    
     [self.myCollection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     [self collectionViewsets];
@@ -86,14 +89,14 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 }
 //选择根控制器
 - (void)chooesfirst{
-    //获取当前的版本号
-//    NSString *currentVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
-//    //获取上一次的版本号
-//    NSString *lasteVersion = [NITUserDefaults objectForKey:NITVersionKey];
-//    //判断当前是否有新版本
-//    if (![currentVersion isEqualToString:lasteVersion]) {
-        //保存当前版本,用偏好设置
-//        [NITUserDefaults setObject:currentVersion forKey:NITVersionKey];
+// /   获取当前的版本号
+    NSString *currentVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
+   // //获取上一次的版本号
+    NSString *lasteVersion = [NITUserDefaults objectForKey:NITVersionKey];
+    ///判断当前是否有新版本
+    if (![currentVersion isEqualToString:lasteVersion]) {
+//       / //保存当前版本,用偏好设置
+        [NITUserDefaults setObject:currentVersion forKey:NITVersionKey];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
@@ -103,7 +106,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
         });
     });
     
-//    }
+    }
 }
 
 

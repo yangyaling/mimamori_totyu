@@ -16,7 +16,23 @@
 @property (strong, nonatomic) IBOutlet UIButton *humidityTD;
 @property (strong, nonatomic) IBOutlet UIButton *brightnesstime;
 @property (strong, nonatomic) IBOutlet UIButton *brightnessTD;
-@property (strong, nonatomic) IBOutlet UIButton *nasiButton;
+
+@property (strong, nonatomic) IBOutlet UILabel *doaState;
+
+
+@property (strong, nonatomic) IBOutlet UILabel *temperature;
+
+@property (strong, nonatomic) IBOutlet UILabel *humidity;
+@property (strong, nonatomic) IBOutlet UILabel *brightness;
+
+@property (strong, nonatomic) IBOutlet UIButton *doatime;
+
+@property (strong, nonatomic) IBOutlet UILabel *doalabel;
+
+
+@property (nonatomic, assign) NSInteger     cellindex;
+
+@property (nonatomic, copy) NSArray     *cellarr;
 
 @property (nonatomic, copy) Device *device;
 

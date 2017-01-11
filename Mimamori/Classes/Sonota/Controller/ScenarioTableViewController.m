@@ -130,6 +130,7 @@
         device.timeunit = [tmpDict valueForKey:@"timeunit"];
         device.valueunit = [tmpDict valueForKey:@"valueunit"];
         
+        
         DeviceValue *value = [[DeviceValue alloc]init];
         value.time = [tmpDict valueForKey:@"time"];
         value.value = [tmpDict valueForKey:@"value"];

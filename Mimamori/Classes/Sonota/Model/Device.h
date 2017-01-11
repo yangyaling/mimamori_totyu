@@ -25,19 +25,30 @@
 
 @property (nonatomic, copy) NSString *place;
 
+
+@property (nonatomic, copy) NSArray           *modelArr;
+
+
 /**
  *  h
  */
-@property (nonatomic, copy) NSString *timeunit;
+@property (nonatomic, copy) NSString          *timeunit;
+
+
 /**
  *  ℃・%　等
  */
 @property (nonatomic, copy) NSString *valueunit;
+
+
 /**
  *  1:使用なし　2:反応なし  3:以上・以下
  */
 @property (nonatomic, assign) int       pattern;
 
-@property (nonatomic, strong) DeviceValue *deviceValue;
+
+
+@property (nonatomic, strong) DeviceValue      *deviceValue;
+
 
 @end

@@ -14,5 +14,8 @@
 
 @property (nonatomic, copy) NSString                   *profileUser0;
 
+@property (nonatomic, copy) NSString                   *profileUser0name;
+
+@property (nonatomic, copy) NSString                   *roomID;
 
 @end

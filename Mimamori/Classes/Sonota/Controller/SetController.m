@@ -99,7 +99,11 @@
         
         ssc.profileUser0 = selectModel.userid0;
         
+        ssc.profileUser0name = selectModel.user0name;
+        
         ssc.title = selectModel.dispname;
+        
+        ssc.roomID = selectModel.roomid;
     }
 }
 

@@ -16,7 +16,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uUn-jY-k6U" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="gpJ-nz-xUu"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aEQ-ok-0HV">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aEQ-ok-0HV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -307,7 +307,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oSM-bs-BaR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1208" y="-1749"/>
+            <point key="canvasLocation" x="-1029" y="-1733"/>
         </scene>
         <!--Sensor Controller-->
         <scene sceneID="XjU-8u-WMA">
@@ -395,11 +395,12 @@
                         <outlet property="tableView" destination="BE2-st-l6c" id="lof-qb-kx2"/>
                         <segue destination="9hZ-gK-lgR" kind="push" identifier="profilePush" id="hIY-Xc-b5e"/>
                         <segue destination="jhc-5I-Cg6" kind="push" identifier="scenarioPush" id="yeS-6U-rIe"/>
+                        <segue destination="jhc-5I-Cg6" kind="push" identifier="scenarioInfoPush" id="uva-52-CQK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dsn-RX-vee" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1898" y="-755"/>
+            <point key="canvasLocation" x="-2297" y="-1033"/>
         </scene>
         <!--見守り設定-->
         <scene sceneID="3Id-eX-bLX">
@@ -674,7 +675,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" tag="77" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkS-Us-Khx">
+                            <button opaque="NO" tag="88" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkS-Us-Khx">
                                 <rect key="frame" x="15" y="119" width="290" height="40"/>
                                 <color key="backgroundColor" red="0.45216836729999998" green="0.70089285710000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -729,7 +730,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MIh-f1-UZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3214" y="-1186"/>
+            <point key="canvasLocation" x="-1641" y="-982"/>
         </scene>
         <!--Scenario Table View Controller-->
         <scene sceneID="5wr-Nt-hZd">
@@ -1548,4 +1549,7 @@
     <resources>
         <image name="placeholder" width="132" height="128"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="uva-52-CQK"/>
+    </inferredMetricsTieBreakers>
 </document>

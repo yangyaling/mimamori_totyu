@@ -30,6 +30,7 @@
     //以下对象无需 get set
     NSString*select;
     NSString*select2;
+    NSDictionary *selectdic;
     int scenariotype;
 }
 @property (nonatomic, strong) UIPickerView             *nitpicker;
@@ -54,27 +55,28 @@
     if (self) {
         
         switch (selectbutton.tag) {
-            case 11:
-                scenariotype =0;
-                break;
+//            case 11:
+//                scenariotype =0;
+//                break;
             case 22:
+            case 33:
+            case 44:
+            case 99:
                 scenariotype =1;
                 break;
-            case 33:
+            case 55:
                 scenariotype =2;
                 break;
-            case 44:
+            case 66:
                 scenariotype =3;
                 break;
-            case 55:
+            case 77:
                 scenariotype =4;
                 break;
-            case 66:
-                scenariotype =5;
-            case 77:
+            case 88:
                 scenariotype =6;
                 break;
-            case 88:
+            case 11:
                 scenariotype =7;
                 break;
                 
@@ -137,9 +139,6 @@
 -(void)defaultselect{
     
     switch (scenariotype) {
-        case 0:
-            select = self.names[0];
-            break;
         case 1:
             select = self.time[0];
             break;
@@ -155,33 +154,15 @@
             select = self.value[0];
             select2 = self.type[0];
             break;
-        case 5:
-//            select = self.names[0];
-            break;
         case 6:
             select = self.names[0];
         case 7:
-            select = self.names[0];
+            selectdic = self.names[0];
             break;
             
         default:
             break;
     }
-    
-//    if (scenariotype==0) {
-//        select = self.time[0];
-//    }else if(scenariotype==1){
-//        select = self.value[0];
-//    }else if(scenariotype==2){
-//        select = self.type[0];
-//    }else if(scenariotype==3) {
-//        select = self.names[0];
-//    } else if(scenariotype==4){
-//        select = self.value[0];
-//        select2 = self.type[0];
-//    } else {
-//        select = self.names[0];
-//    }
 }
 /**
  *  点击取消按钮
@@ -193,32 +174,86 @@
  *  点击确定按钮
  */
 -(void)rightbtnselsct{
-    if (scenariotype == 2 || scenariotype == 3 ||scenariotype == 4 ) {
-        NSString *str = [NSString stringWithFormat:@"%@ %@",select,select2];
+    if (scenariotype == 2) {
+        NSString *str = [NSString stringWithFormat:@"%@℃ %@",select,select2];
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    } else if (scenariotype == 6){
+    } else if (scenariotype == 3){
+        NSString *str = [NSString stringWithFormat:@"%@%@ %@",select,@"%",select2];
+        [self.thisbutton setTitle:str forState:UIControlStateNormal];
+        [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    } else if (scenariotype == 4){
+        NSString *str = [NSString stringWithFormat:@"%@ - %@",select,select2];
+        [self.thisbutton setTitle:str forState:UIControlStateNormal];
+        [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+    }else if (scenariotype == 6){
         // 2.通知代理
-        if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withBool:)]) {
-            [self.mydelegate PickerDelegateSelectString:select withBool:NO];
+        if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
+            [self.mydelegate PickerDelegateSelectString:select withDic:selectdic];
         }
         
     } else if (scenariotype == 7) {
-        if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withBool:)]) {
-             [self.mydelegate PickerDelegateSelectString:select withBool:YES];
+        if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
+             [self.mydelegate PickerDelegateSelectString:select withDic:selectdic];
         }
-       
     } else {
-    
-        [self.thisbutton setTitle:select forState:UIControlStateNormal];
+        NSString *str = [NSString stringWithFormat:@"%@H",select];
+        [self.thisbutton setTitle:str forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
-    NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
     
-      [nodesdic setValue:select forKey:@"displayname"];
-    [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
-    [NITUserDefaults setObject:arr forKey:@"sensorallnodes"];
+    NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+    NSArray *deletearr = arr[self.cellindex];
+    NSMutableArray *newarr = [NSMutableArray new];
+    
+    NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:deletearr[0]];
+    NSMutableDictionary *dicTwo = [NSMutableDictionary dictionaryWithDictionary:deletearr[1]];
+    NSMutableDictionary *dicThree = [NSMutableDictionary dictionaryWithDictionary:deletearr[2]];
+    NSMutableDictionary *dicFour = [NSMutableDictionary dictionaryWithDictionary:deletearr[3]];
+    
+        switch (self.thisbutton.tag) {
+            case 22:
+                [dicTwo setObject:select forKey:@"time"];
+                break;
+            case 33:
+                [dicThree setObject:select forKey:@"time"];
+                break;
+            case 44:
+                [dicFour setObject:select forKey:@"time"];
+                break;
+            case 99:
+                [dicOne setObject:select forKey:@"time"];
+                break;
+            case 55:
+                [dicTwo setObject:select forKey:@"value"];
+                [dicTwo setObject:select2 forKey:@"rpoint"];
+                break;
+            case 66:
+                [dicThree setObject:select forKey:@"value"];
+                [dicThree setObject:select2 forKey:@"rpoint"];
+                
+                break;
+            case 77:
+                [dicFour setObject:select forKey:@"value"];
+                [dicFour setObject:select2 forKey:@"rpoint"];
+                
+                break;
+            default:
+                break;
+        }
+    
+    [newarr addObject:dicOne];
+    [newarr addObject:dicTwo];
+    [newarr addObject:dicThree];
+    [newarr addObject:dicFour];
+    
+    [arr replaceObjectAtIndex:self.cellindex withObject:newarr];
+    
+    NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:arr];
+    
+    [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
     
 //    NITLog(@"nodesdic:%@",arr);
     //\U5c45\U5ba4\U5165\U53e3
@@ -251,7 +286,7 @@
 //            }else if(self.thisbutton.tag==44){
 //                device.deviceValue.rpoint = select;
 //            }
-//            
+//
 ////            NSMutableArray *modelarrays = [NSMutableArray array];
 ////            [modelarrays addObject:device];
 //            [scenarioarr replaceObjectAtIndex:i withObject:device];
@@ -342,7 +377,10 @@
 //        }else
         if(scenariotype==1){
             text.text = self.time[row];
-        }  else {
+        }  else if (scenariotype == 7){
+            text.text = [self.names[row] objectForKey:@"displayname"];
+            
+        } else {
             text.text = self.names[row];
         }
         [view addSubview:text];
@@ -356,7 +394,7 @@
 //    [_nitpicker viewForRow:row forComponent:component];
 
     if (scenariotype==0) {
-        select = self.names[row];
+        select = [self.names[row] objectForKey:@"displayname"];
     }else if(scenariotype==1){
         select = self.time[row];
     } else if(scenariotype == 2 || scenariotype == 3 ||scenariotype == 4){
@@ -367,7 +405,11 @@
         }
     } else if(scenariotype==5) {
         select = @"";
+    } else if (scenariotype == 7) {
+        selectdic = self.names[row];
+        
     } else {
+        
         select = self.names[row];
     }
 }
@@ -458,22 +500,22 @@
 -(NSMutableArray *)value{
     if (!_value) {
         if (scenariotype == 2) {
-            _value = [NSMutableArray arrayWithArray:[self getdata:@"℃"]];
+            _value = [NSMutableArray arrayWithArray:self.getdata];
         } else if (scenariotype == 3) {
-            _value = [NSMutableArray arrayWithArray:[self getdata:@" %"]];
+            _value = [NSMutableArray arrayWithArray:self.getdata];
         } else {
-            _value = [NSMutableArray arrayWithArray:[self getdata:@"-"]];
+            _value = [NSMutableArray arrayWithArray:self.getdata];
         }
         
     }
     return _value;
 }
 
-- (NSArray *)getdata:(NSString *)symbol {
+- (NSArray *)getdata {
     NSMutableArray *arr = [NSMutableArray new];
     [arr addObject:@"-"];
     for (int i = 0; i<100; i++) {
-        [arr addObject:[NSString stringWithFormat:@"%d%@",i+1,symbol]];
+        [arr addObject:[NSString stringWithFormat:@"%d",i+1]];
     }
     return arr;
 }
@@ -482,8 +524,8 @@
     if (!_time) {
         _time = [NSMutableArray new];
         [_time addObject:@"-"];
-        for (int i = 0; i<48; i++) {
-            [_time addObject:[NSString stringWithFormat:@"%.1f時間",i / 2.0]];
+        for (int i = 1; i<48; i++) {
+            [_time addObject:[NSString stringWithFormat:@"%.1f",i / 2.0]];
         }
     }
     return _time;
@@ -495,7 +537,8 @@
             _names = [NSMutableArray arrayWithObjects:@"夜間活動",@"熱中症",@"活動なし", nil];
             
         } else {
-            _names = [NSMutableArray arrayWithObjects:@"居室入口",@"トイレ",@"リビング", nil];
+           NSArray *arr = [[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"] copy];
+            _names = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] : [NSMutableArray new];
         }
     }
     return _names;

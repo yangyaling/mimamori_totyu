@@ -25,9 +25,12 @@
 
 #import "Device.h"
 
-#import "AFNetworking.h"
+#import "SinarioController.h"
 
-@interface SensorController ()
+#import <AVFoundation/AVFoundation.h>
+
+
+@interface SensorController ()<ScenarioVcDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView         *tableView;
 
@@ -66,6 +69,8 @@
     [self.sensorSegment setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]} forState:UIControlStateNormal];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
 
+    
+    
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getScenarioList)];
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
@@ -167,7 +172,7 @@
             
             NSArray *scenarioarray = dic[@"scenariolist"];
             
-            NITLog(@"scenarioarray:%@",scenarioarray);
+//            NITLog(@"scenarioarray:%@",scenarioarray);
             
             self.scenarioArray = [NSMutableArray arrayWithArray:[Scenario mj_objectArrayWithKeyValuesArray:scenarioarray]];
             
@@ -175,6 +180,9 @@
             [NITUserDefaults setObject:sensorarray forKey:@"sensorallnodes"];
             
             self.sensorArray = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
+            
+            [self saveNodeIdDatas];
+            
         }
         
         [self.tableView.mj_header endRefreshing];
@@ -182,6 +190,11 @@
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
+        
+        NSArray *sensordatas = [NITUserDefaults objectForKey:@"sensorallnodes"];
+        
+        sensordatas = nil;
+        [NITUserDefaults setObject:sensordatas forKey:@"sensorallnodes"]; //清空 本地sensor数据，防止请求失败读上次缓存。
         
         [self.tableView.mj_header endRefreshing];
         
@@ -204,13 +217,30 @@
     [MScenarioTool scenarioDeleteWithParam:param success:^(NSString *code) {
         if ([code isEqualToString:@"200"]) {
             
+            [self  getScenarioList];
             
         } else {
-            
+            NITLog(@"deleteScenario删除失败");
         }
     } failure:^(NSError *error) {
-        
+        NITLog(@"deleteScenario删除失败");
     }];
+}
+
+
+#pragma mark - ScenarioVcDelegate
+
+-(void)warningScenarioAdded:(NSString *)message{
+    AudioServicesPlaySystemSound(1007);
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"アラート"
+                                                                   message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction *action) {
+                                                
+                                            }]];
+    [self.navigationController presentViewController:alert animated:YES completion:nil];
 }
 
 
@@ -251,15 +281,34 @@
     [MScenarioTool sensorUpdateWithParam:param success:^(NSString *code) {
         
         NITLog(@"%@",code);
-        
-        [self getScenarioList];
-        [MBProgressHUD showSuccess:@"success"];
+        [self saveNodeIdDatas];
+        [MBProgressHUD showSuccess:@""];
         
     } failure:^(NSError *error) {
         
     }];
     
 }
+
+
+/**
+  保存displayname-nodeid-nodetype
+ */
+- (void)saveNodeIdDatas {
+    NSMutableArray *arr = [NSMutableArray new];
+    NSArray *sensorarray = [[NITUserDefaults objectForKey:@"sensorallnodes"] copy];
+    
+    if (sensorarray.count == 0) return;
+    
+    for (int i = 0; i< sensorarray.count ; i++) {
+        NSDictionary *sensordic = sensorarray[i];
+        NSDictionary *tmpdic = @{@"displayname":sensordic[@"displayname"],@"idx":[NSString stringWithFormat:@"%d",i]};
+        [arr addObject:tmpdic];
+    }
+    [NITUserDefaults setObject:arr forKey:@"addnodeiddatas"];
+    
+}
+
 - (IBAction)GoInSetVC:(UIButton *)sender {
     
     [self performSegueWithIdentifier:@"profilePush" sender:self];
@@ -271,6 +320,7 @@
 //segue跳转 profilePush
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    SinarioController *src = segue.destinationViewController;
     
     if ([segue.identifier isEqualToString:@"profilePush"]) {
         
@@ -278,6 +328,23 @@
         ptvc.userid0 = self.profileUser0;
         ptvc.pmodel = self.profileArray.firstObject;
         
+    } else if ([segue.identifier isEqualToString:@"scenarioInfoPush"]) {
+        NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+        
+        Scenario *sar = self.scenarioArray[indexPath.row];
+        
+        src.roomID = self.roomID;
+        src.scenarioID = sar.scenarioid;
+        src.isRefresh = YES;
+        src.textname = sar.scenarioname;
+        
+        src.user0name = self.profileUser0name;
+        
+        src.user0 = self.profileUser0;
+    } else {
+        
+        src.roomID = self.roomID;
+        src.isRefresh = NO;;
     }
     
 }
@@ -342,6 +409,12 @@
     } else {
         AddTableViewCell *cell = [AddTableViewCell cellWithTableView:tableView];
         
+        Scenario *sc = self.scenarioArray[indexPath.row];
+        
+        cell.titlename.text = sc.scenarioname;
+        
+        cell.sendtime.text = sc.updatedate;
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
@@ -351,10 +424,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (!self.isSensorTableView) {
-        [self performSegueWithIdentifier:@"scenarioPush" sender:self];
+        [self performSegueWithIdentifier:@"scenarioInfoPush" sender:self];
     }
     
 }
+
+
+
 //
 //自定义 SectionHeader
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

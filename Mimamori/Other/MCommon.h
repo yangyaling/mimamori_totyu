@@ -77,6 +77,10 @@
 
 #define NITGetGroupInfo @"http://mimamori2.azurewebsites.net/zwgetgroupinfo.php"
 
+#define NITGetScenarioInfo @"http://mimamori2.azurewebsites.net/zwgetscenariodtlinfo.php"
+
+
+#define NITUpdateScenarioInfo @"http://mimamori.azurewebsites.net/zwupdatescenarioinfo.php"
 
 /**
  lift   URL

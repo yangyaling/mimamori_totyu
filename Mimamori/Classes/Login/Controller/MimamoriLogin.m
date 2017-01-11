@@ -70,6 +70,7 @@
             
             //用户信息保存
             [NITUserDefaults setObject:_userId.text forKey:@"userid1"];
+            
             [NITUserDefaults setObject:result.username forKey:@"userid1name"];
             
             //session idを取得していく

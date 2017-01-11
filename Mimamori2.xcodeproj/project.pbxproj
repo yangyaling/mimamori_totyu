@@ -159,6 +159,7 @@
 		EB5D365E1E139A1800CEBF4E /* UUChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D36561E139A1800CEBF4E /* UUChartLabel.m */; };
 		EB5D365F1E139A1800CEBF4E /* UUColor.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D36581E139A1800CEBF4E /* UUColor.m */; };
 		EB5D36601E139A1800CEBF4E /* UULineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D365A1E139A1800CEBF4E /* UULineChart.m */; };
+		EB692A161E24BAAE007682EE /* ScenarioCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = EB692A151E24BAAE007682EE /* ScenarioCellFrame.m */; };
 		EB9C92D81E01063600F3132C /* SensorSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C92D61E01063600F3132C /* SensorSetTableViewCell.m */; };
 		EB9C92D91E01063600F3132C /* SensorSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9C92D71E01063600F3132C /* SensorSetTableViewCell.xib */; };
 		EB9C92DC1E01109800F3132C /* SensorController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C92DB1E01109800F3132C /* SensorController.m */; };
@@ -493,6 +494,8 @@
 		EB5D36581E139A1800CEBF4E /* UUColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUColor.m; sourceTree = "<group>"; };
 		EB5D36591E139A1800CEBF4E /* UULineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UULineChart.h; sourceTree = "<group>"; };
 		EB5D365A1E139A1800CEBF4E /* UULineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UULineChart.m; sourceTree = "<group>"; };
+		EB692A141E24BAAE007682EE /* ScenarioCellFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioCellFrame.h; sourceTree = "<group>"; };
+		EB692A151E24BAAE007682EE /* ScenarioCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScenarioCellFrame.m; sourceTree = "<group>"; };
 		EB9C92D51E01063600F3132C /* SensorSetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorSetTableViewCell.h; sourceTree = "<group>"; };
 		EB9C92D61E01063600F3132C /* SensorSetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorSetTableViewCell.m; sourceTree = "<group>"; };
 		EB9C92D71E01063600F3132C /* SensorSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SensorSetTableViewCell.xib; sourceTree = "<group>"; };
@@ -818,12 +821,12 @@
 				92951A081D7D0B0100787997 /* PatientDetailsTableViewController.m */,
 				92951A0B1D7D0B0100787997 /* ScenarioTableViewController.h */,
 				92951A0C1D7D0B0100787997 /* ScenarioTableViewController.m */,
-				92951A0D1D7D0B0100787997 /* SelfViewController.h */,
-				92951A0E1D7D0B0100787997 /* SelfViewController.m */,
 				EB4A560A1E00D69400A2F1C2 /* OtherController.h */,
 				EB4A560B1E00D69400A2F1C2 /* OtherController.m */,
 				EB4A56121E00F26100A2F1C2 /* SetController.h */,
 				EB4A56131E00F26100A2F1C2 /* SetController.m */,
+				92951A0D1D7D0B0100787997 /* SelfViewController.h */,
+				92951A0E1D7D0B0100787997 /* SelfViewController.m */,
 				92951A031D7D0B0100787997 /* AddSickPersonTableViewController.h */,
 				92951A041D7D0B0100787997 /* AddSickPersonTableViewController.m */,
 				EB9C92DA1E01109800F3132C /* SensorController.h */,
@@ -857,6 +860,8 @@
 				92951A1B1D7D0B0100787997 /* SickPersonModel.m */,
 				EB9F89D81E1652BE00908000 /* IconModel.h */,
 				EB9F89D91E1652BE00908000 /* IconModel.m */,
+				EB692A141E24BAAE007682EE /* ScenarioCellFrame.h */,
+				EB692A151E24BAAE007682EE /* ScenarioCellFrame.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1608,6 +1613,7 @@
 				92AF7BCD1D98C82100FC30E9 /* DetailScrollController.m in Sources */,
 				EB9C93281E02730F00F3132C /* MBProgressHUD+MJ.m in Sources */,
 				92F363041DC9B1C80030DCE0 /* MJRefreshNormalHeader.m in Sources */,
+				EB692A161E24BAAE007682EE /* ScenarioCellFrame.m in Sources */,
 				EB9C930B1E026A2900F3132C /* ZworksChartVTBCell.m in Sources */,
 				92F362471DC984200030DCE0 /* MSensorDataParam.m in Sources */,
 				928C621B1DC8705D009B5974 /* MCustInfoParam.m in Sources */,

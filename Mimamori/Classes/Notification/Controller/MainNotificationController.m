@@ -93,7 +93,7 @@
     self.MyTableView.tableFooterView = [[UIView alloc]init];
 
     self.MyTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullRefresh)];
-    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.MyTableView.mj_header];
+    [NITRefreshInit MJRefreshNormalHeaderInitTwo:(MJRefreshNormalHeader*)self.MyTableView.mj_header];
 }
 
 
@@ -102,7 +102,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:YES];
-    [MBProgressHUD showMessage:@"" toView:self.view];
     [self.MyTableView.mj_header beginRefreshing];
 }
 
@@ -342,6 +341,7 @@
     param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
     
     [MNoticeTool noticeDatesWithParam:param success:^(NSDictionary *dic) {
+        [self.MyTableView.mj_header beginRefreshing];
         if (dic.count > 0) {
             
             self.datelists0 = dic[@"datelist0"];
@@ -355,6 +355,7 @@
     } failure:^(NSError *error) {
         NITLog(@"日历数据获取失败");
         NITLog(@"zwgetnoticedatelist请求失败:%@",error);
+        [self.MyTableView.mj_header beginRefreshing];
         //[MBProgressHUD showError:@"後ほど試してください"];
     }];
 }
@@ -376,7 +377,7 @@
             [self.MyTableView.mj_header beginRefreshing];
         }
     } failure:^(NSError *error) {
-        
+        [self.MyTableView.mj_header beginRefreshing];
     }];
 }
 
