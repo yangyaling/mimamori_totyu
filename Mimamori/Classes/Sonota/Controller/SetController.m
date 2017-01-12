@@ -73,8 +73,6 @@
         NITLog(@"zwgetcustlist请求失败");
         [self.tableView.mj_header endRefreshing];
     }];
-    
-    
 }
 
 //- (IBAction)addCustButton:(id)sender {

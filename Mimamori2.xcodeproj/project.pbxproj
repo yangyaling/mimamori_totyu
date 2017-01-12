@@ -49,19 +49,11 @@
 		929519F91D7D0A6100787997 /* NursingNotesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519E51D7D0A6000787997 /* NursingNotesTableViewCell.m */; };
 		92951A001D7D0AC200787997 /* LifeUserListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519FF1D7D0AC200787997 /* LifeUserListModel.m */; };
 		92951A261D7D0B0100787997 /* AddSickPersonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A041D7D0B0100787997 /* AddSickPersonTableViewController.m */; };
-		92951A271D7D0B0100787997 /* OtherTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A061D7D0B0100787997 /* OtherTableViewController.m */; };
-		92951A281D7D0B0100787997 /* PatientDetailsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A081D7D0B0100787997 /* PatientDetailsTableViewController.m */; };
 		92951A291D7D0B0100787997 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A0A1D7D0B0100787997 /* ProfileTableViewController.m */; };
-		92951A2A1D7D0B0100787997 /* ScenarioTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A0C1D7D0B0100787997 /* ScenarioTableViewController.m */; };
 		92951A2B1D7D0B0100787997 /* SelfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A0E1D7D0B0100787997 /* SelfViewController.m */; };
-		92951A2C1D7D0B0100787997 /* SickPersonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A101D7D0B0100787997 /* SickPersonTableViewController.m */; };
 		92951A2D1D7D0B0100787997 /* ProfileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A131D7D0B0100787997 /* ProfileModel.m */; };
 		92951A301D7D0B0100787997 /* SelfModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A191D7D0B0100787997 /* SelfModel.m */; };
 		92951A311D7D0B0100787997 /* SickPersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A1B1D7D0B0100787997 /* SickPersonModel.m */; };
-		92951A321D7D0B0100787997 /* DFChildTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A1E1D7D0B0100787997 /* DFChildTableViewCell.m */; };
-		92951A331D7D0B0100787997 /* DoorFeelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A201D7D0B0100787997 /* DoorFeelTableViewCell.m */; };
-		92951A341D7D0B0100787997 /* PatientDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A221D7D0B0100787997 /* PatientDetailsTableViewCell.m */; };
-		92951A351D7D0B0100787997 /* SickPersonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A241D7D0B0100787997 /* SickPersonTableViewCell.m */; };
 		92951A361D7D0B0100787997 /* Sonota.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92951A251D7D0B0100787997 /* Sonota.storyboard */; };
 		92AC08E41D79BAFA008A469D /* MimamoriLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AC08E01D79BAFA008A469D /* MimamoriLogin.m */; };
 		92AF7BC21D98AA8E00FC30E9 /* DetailChartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AF7BC11D98AA8E00FC30E9 /* DetailChartViewController.m */; };
@@ -160,6 +152,8 @@
 		EB5D365F1E139A1800CEBF4E /* UUColor.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D36581E139A1800CEBF4E /* UUColor.m */; };
 		EB5D36601E139A1800CEBF4E /* UULineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D365A1E139A1800CEBF4E /* UULineChart.m */; };
 		EB692A161E24BAAE007682EE /* ScenarioCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = EB692A151E24BAAE007682EE /* ScenarioCellFrame.m */; };
+		EB84F0FF1E275490005B1C4D /* DetailCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB84F0FD1E275490005B1C4D /* DetailCCell.m */; };
+		EB84F1001E275490005B1C4D /* DetailCCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB84F0FE1E275490005B1C4D /* DetailCCell.xib */; };
 		EB9C92D81E01063600F3132C /* SensorSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C92D61E01063600F3132C /* SensorSetTableViewCell.m */; };
 		EB9C92D91E01063600F3132C /* SensorSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9C92D71E01063600F3132C /* SensorSetTableViewCell.xib */; };
 		EB9C92DC1E01109800F3132C /* SensorController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C92DB1E01109800F3132C /* SensorController.m */; };
@@ -175,7 +169,6 @@
 		EB9C932A1E02730F00F3132C /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C93271E02730F00F3132C /* MBProgressHUD.m */; };
 		EB9C932D1E027F4700F3132C /* ZworksChartTBVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C932C1E027F4700F3132C /* ZworksChartTBVC.m */; };
 		EB9C93301E028BC200F3132C /* SinarioDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C932F1E028BC200F3132C /* SinarioDetailController.m */; };
-		EB9C93331E028BE400F3132C /* ArautoDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C93321E028BE400F3132C /* ArautoDetailController.m */; };
 		EB9F89DA1E1652BE00908000 /* IconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F89D91E1652BE00908000 /* IconModel.m */; };
 /* End PBXBuildFile section */
 
@@ -277,33 +270,17 @@
 		929519FF1D7D0AC200787997 /* LifeUserListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeUserListModel.m; sourceTree = "<group>"; };
 		92951A031D7D0B0100787997 /* AddSickPersonTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSickPersonTableViewController.h; sourceTree = "<group>"; };
 		92951A041D7D0B0100787997 /* AddSickPersonTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSickPersonTableViewController.m; sourceTree = "<group>"; };
-		92951A051D7D0B0100787997 /* OtherTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherTableViewController.h; sourceTree = "<group>"; };
-		92951A061D7D0B0100787997 /* OtherTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherTableViewController.m; sourceTree = "<group>"; };
-		92951A081D7D0B0100787997 /* PatientDetailsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientDetailsTableViewController.m; sourceTree = "<group>"; };
 		92951A091D7D0B0100787997 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
 		92951A0A1D7D0B0100787997 /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
-		92951A0B1D7D0B0100787997 /* ScenarioTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioTableViewController.h; sourceTree = "<group>"; };
-		92951A0C1D7D0B0100787997 /* ScenarioTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScenarioTableViewController.m; sourceTree = "<group>"; };
 		92951A0D1D7D0B0100787997 /* SelfViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfViewController.h; sourceTree = "<group>"; };
 		92951A0E1D7D0B0100787997 /* SelfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfViewController.m; sourceTree = "<group>"; };
-		92951A0F1D7D0B0100787997 /* SickPersonTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SickPersonTableViewController.h; sourceTree = "<group>"; };
-		92951A101D7D0B0100787997 /* SickPersonTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SickPersonTableViewController.m; sourceTree = "<group>"; };
 		92951A121D7D0B0100787997 /* ProfileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileModel.h; sourceTree = "<group>"; };
 		92951A131D7D0B0100787997 /* ProfileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileModel.m; sourceTree = "<group>"; };
 		92951A181D7D0B0100787997 /* SelfModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelfModel.h; sourceTree = "<group>"; };
 		92951A191D7D0B0100787997 /* SelfModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelfModel.m; sourceTree = "<group>"; };
 		92951A1A1D7D0B0100787997 /* SickPersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SickPersonModel.h; sourceTree = "<group>"; };
 		92951A1B1D7D0B0100787997 /* SickPersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SickPersonModel.m; sourceTree = "<group>"; };
-		92951A1D1D7D0B0100787997 /* DFChildTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFChildTableViewCell.h; sourceTree = "<group>"; };
-		92951A1E1D7D0B0100787997 /* DFChildTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFChildTableViewCell.m; sourceTree = "<group>"; };
-		92951A1F1D7D0B0100787997 /* DoorFeelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoorFeelTableViewCell.h; sourceTree = "<group>"; };
-		92951A201D7D0B0100787997 /* DoorFeelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoorFeelTableViewCell.m; sourceTree = "<group>"; };
-		92951A211D7D0B0100787997 /* PatientDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientDetailsTableViewCell.h; sourceTree = "<group>"; };
-		92951A221D7D0B0100787997 /* PatientDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PatientDetailsTableViewCell.m; sourceTree = "<group>"; };
-		92951A231D7D0B0100787997 /* SickPersonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SickPersonTableViewCell.h; sourceTree = "<group>"; };
-		92951A241D7D0B0100787997 /* SickPersonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SickPersonTableViewCell.m; sourceTree = "<group>"; };
 		92951A251D7D0B0100787997 /* Sonota.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Sonota.storyboard; sourceTree = "<group>"; };
-		929A83E71D92735D004560F8 /* PatientDetailsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatientDetailsTableViewController.h; sourceTree = "<group>"; };
 		92AC08DF1D79BAFA008A469D /* MimamoriLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MimamoriLogin.h; sourceTree = "<group>"; };
 		92AC08E01D79BAFA008A469D /* MimamoriLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MimamoriLogin.m; sourceTree = "<group>"; };
 		92AF7BC01D98AA8E00FC30E9 /* DetailChartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailChartViewController.h; sourceTree = "<group>"; };
@@ -496,6 +473,9 @@
 		EB5D365A1E139A1800CEBF4E /* UULineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UULineChart.m; sourceTree = "<group>"; };
 		EB692A141E24BAAE007682EE /* ScenarioCellFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioCellFrame.h; sourceTree = "<group>"; };
 		EB692A151E24BAAE007682EE /* ScenarioCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScenarioCellFrame.m; sourceTree = "<group>"; };
+		EB84F0FC1E275490005B1C4D /* DetailCCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCCell.h; sourceTree = "<group>"; };
+		EB84F0FD1E275490005B1C4D /* DetailCCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCCell.m; sourceTree = "<group>"; };
+		EB84F0FE1E275490005B1C4D /* DetailCCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCCell.xib; sourceTree = "<group>"; };
 		EB9C92D51E01063600F3132C /* SensorSetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorSetTableViewCell.h; sourceTree = "<group>"; };
 		EB9C92D61E01063600F3132C /* SensorSetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorSetTableViewCell.m; sourceTree = "<group>"; };
 		EB9C92D71E01063600F3132C /* SensorSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SensorSetTableViewCell.xib; sourceTree = "<group>"; };
@@ -522,8 +502,6 @@
 		EB9C932C1E027F4700F3132C /* ZworksChartTBVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZworksChartTBVC.m; sourceTree = "<group>"; };
 		EB9C932E1E028BC200F3132C /* SinarioDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinarioDetailController.h; sourceTree = "<group>"; };
 		EB9C932F1E028BC200F3132C /* SinarioDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinarioDetailController.m; sourceTree = "<group>"; };
-		EB9C93311E028BE400F3132C /* ArautoDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArautoDetailController.h; sourceTree = "<group>"; };
-		EB9C93321E028BE400F3132C /* ArautoDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArautoDetailController.m; sourceTree = "<group>"; };
 		EB9F89D81E1652BE00908000 /* IconModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconModel.h; sourceTree = "<group>"; };
 		EB9F89D91E1652BE00908000 /* IconModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -691,6 +669,9 @@
 				9295197F1D7D06FE00787997 /* NotificationCell.xib */,
 				92F363231DC9C3AD0030DCE0 /* MTitleLabel.h */,
 				92F363241DC9C3AD0030DCE0 /* MTitleLabel.m */,
+				EB84F0FC1E275490005B1C4D /* DetailCCell.h */,
+				EB84F0FD1E275490005B1C4D /* DetailCCell.m */,
+				EB84F0FE1E275490005B1C4D /* DetailCCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -757,8 +738,6 @@
 				EB9C932C1E027F4700F3132C /* ZworksChartTBVC.m */,
 				EB9C932E1E028BC200F3132C /* SinarioDetailController.h */,
 				EB9C932F1E028BC200F3132C /* SinarioDetailController.m */,
-				EB9C93311E028BE400F3132C /* ArautoDetailController.h */,
-				EB9C93321E028BE400F3132C /* ArautoDetailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -813,14 +792,6 @@
 		92951A021D7D0B0100787997 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				92951A051D7D0B0100787997 /* OtherTableViewController.h */,
-				92951A061D7D0B0100787997 /* OtherTableViewController.m */,
-				92951A0F1D7D0B0100787997 /* SickPersonTableViewController.h */,
-				92951A101D7D0B0100787997 /* SickPersonTableViewController.m */,
-				929A83E71D92735D004560F8 /* PatientDetailsTableViewController.h */,
-				92951A081D7D0B0100787997 /* PatientDetailsTableViewController.m */,
-				92951A0B1D7D0B0100787997 /* ScenarioTableViewController.h */,
-				92951A0C1D7D0B0100787997 /* ScenarioTableViewController.m */,
 				EB4A560A1E00D69400A2F1C2 /* OtherController.h */,
 				EB4A560B1E00D69400A2F1C2 /* OtherController.m */,
 				EB4A56121E00F26100A2F1C2 /* SetController.h */,
@@ -869,14 +840,6 @@
 		92951A1C1D7D0B0100787997 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				92951A1D1D7D0B0100787997 /* DFChildTableViewCell.h */,
-				92951A1E1D7D0B0100787997 /* DFChildTableViewCell.m */,
-				92951A1F1D7D0B0100787997 /* DoorFeelTableViewCell.h */,
-				92951A201D7D0B0100787997 /* DoorFeelTableViewCell.m */,
-				92951A211D7D0B0100787997 /* PatientDetailsTableViewCell.h */,
-				92951A221D7D0B0100787997 /* PatientDetailsTableViewCell.m */,
-				92951A231D7D0B0100787997 /* SickPersonTableViewCell.h */,
-				92951A241D7D0B0100787997 /* SickPersonTableViewCell.m */,
 				92951A251D7D0B0100787997 /* Sonota.storyboard */,
 				EB4A560D1E00DB3E00A2F1C2 /* OtherCollectionCell.h */,
 				EB4A560E1E00DB3E00A2F1C2 /* OtherCollectionCell.m */,
@@ -1464,6 +1427,7 @@
 				929519861D7D06FE00787997 /* NotificationCell.xib in Resources */,
 				E9D4459C1D010FE600CFF364 /* Assets.xcassets in Resources */,
 				EB4A56191E00F32300A2F1C2 /* SetTableViewCell.xib in Resources */,
+				EB84F1001E275490005B1C4D /* DetailCCell.xib in Resources */,
 				92951A361D7D0B0100787997 /* Sonota.storyboard in Resources */,
 				92AF7BC71D98AADA00FC30E9 /* DetailChartCell.xib in Resources */,
 				E9D445971D010FE500CFF364 /* Main.storyboard in Resources */,
@@ -1498,9 +1462,7 @@
 				929519F01D7D0A6000787997 /* NursingNotesTableViewController.m in Sources */,
 				92F362F61DC9B1C80030DCE0 /* NSString+MJExtension.m in Sources */,
 				92F362DE1DC9B1C80030DCE0 /* WHUCalendarCell.m in Sources */,
-				92951A281D7D0B0100787997 /* PatientDetailsTableViewController.m in Sources */,
 				92F362F71DC9B1C80030DCE0 /* MJRefreshAutoFooter.m in Sources */,
-				92951A351D7D0B0100787997 /* SickPersonTableViewCell.m in Sources */,
 				92F362F01DC9B1C80030DCE0 /* MJPropertyKey.m in Sources */,
 				92951A311D7D0B0100787997 /* SickPersonModel.m in Sources */,
 				92F362D71DC9B1C80030DCE0 /* AFHTTPSessionManager.m in Sources */,
@@ -1511,10 +1473,8 @@
 				929519F71D7D0A6100787997 /* LifesTableViewCell.m in Sources */,
 				EB4A56181E00F32300A2F1C2 /* SetTableViewCell.m in Sources */,
 				92F362DB1DC9B1C80030DCE0 /* AFURLResponseSerialization.m in Sources */,
-				EB9C93331E028BE400F3132C /* ArautoDetailController.m in Sources */,
 				EB4A56141E00F26100A2F1C2 /* SetController.m in Sources */,
 				92F362DA1DC9B1C80030DCE0 /* AFURLRequestSerialization.m in Sources */,
-				92951A321D7D0B0100787997 /* DFChildTableViewCell.m in Sources */,
 				92F362F81DC9B1C80030DCE0 /* MJRefreshBackFooter.m in Sources */,
 				EB5D36601E139A1800CEBF4E /* UULineChart.m in Sources */,
 				EB581AD31E1C993A0076BAFD /* EmergencyAController.m in Sources */,
@@ -1569,7 +1529,6 @@
 				928C621F1DC8708A009B5974 /* MProfileInfoParam.m in Sources */,
 				92F363181DC9B2F60030DCE0 /* NSDate+Extension.m in Sources */,
 				92F362FD1DC9B1C80030DCE0 /* MJRefreshAutoNormalFooter.m in Sources */,
-				92951A271D7D0B0100787997 /* OtherTableViewController.m in Sources */,
 				92F362ED1DC9B1C80030DCE0 /* MJExtensionConst.m in Sources */,
 				92F362F21DC9B1C80030DCE0 /* NSObject+MJClass.m in Sources */,
 				92F363071DC9B1C80030DCE0 /* MJRefreshConst.m in Sources */,
@@ -1578,16 +1537,13 @@
 				EB9C92EB1E015BBC00F3132C /* SinarioTableViewCell.m in Sources */,
 				EB5D365F1E139A1800CEBF4E /* UUColor.m in Sources */,
 				92F362EF1DC9B1C80030DCE0 /* MJProperty.m in Sources */,
-				92951A2C1D7D0B0100787997 /* SickPersonTableViewController.m in Sources */,
 				EB4A560C1E00D69400A2F1C2 /* OtherController.m in Sources */,
-				92951A331D7D0B0100787997 /* DoorFeelTableViewCell.m in Sources */,
 				92951A291D7D0B0100787997 /* ProfileTableViewController.m in Sources */,
 				92F363011DC9B1C80030DCE0 /* MJRefreshBackStateFooter.m in Sources */,
 				EB5D365D1E139A1800CEBF4E /* UUChart.m in Sources */,
 				EB581AE51E1CCAFD0076BAFD /* FAImageView.m in Sources */,
 				92F362FF1DC9B1C80030DCE0 /* MJRefreshBackGifFooter.m in Sources */,
 				92F3624E1DC9930A0030DCE0 /* UIImage+Mj.m in Sources */,
-				92951A341D7D0B0100787997 /* PatientDetailsTableViewCell.m in Sources */,
 				928C621A1DC8705D009B5974 /* MCustDeleteParam.m in Sources */,
 				92F3624A1DC9908D0030DCE0 /* MBatteryButton.m in Sources */,
 				928C61FB1DC857B5009B5974 /* MNoticeInfoUpdateParam.m in Sources */,
@@ -1597,7 +1553,6 @@
 				92F362E31DC9B1C80030DCE0 /* WHUCalendarYMSelectView.m in Sources */,
 				92F362F91DC9B1C80030DCE0 /* MJRefreshComponent.m in Sources */,
 				92F362F11DC9B1C80030DCE0 /* MJPropertyType.m in Sources */,
-				92951A2A1D7D0B0100787997 /* ScenarioTableViewController.m in Sources */,
 				EB5D365B1E139A1800CEBF4E /* UUBar.m in Sources */,
 				928C62251DC8738A009B5974 /* MProfileInfoUpdateParam.m in Sources */,
 				928C62021DC86812009B5974 /* MCustTool.m in Sources */,
@@ -1615,6 +1570,7 @@
 				92F363041DC9B1C80030DCE0 /* MJRefreshNormalHeader.m in Sources */,
 				EB692A161E24BAAE007682EE /* ScenarioCellFrame.m in Sources */,
 				EB9C930B1E026A2900F3132C /* ZworksChartVTBCell.m in Sources */,
+				EB84F0FF1E275490005B1C4D /* DetailCCell.m in Sources */,
 				92F362471DC984200030DCE0 /* MSensorDataParam.m in Sources */,
 				928C621B1DC8705D009B5974 /* MCustInfoParam.m in Sources */,
 				E9D4458E1D010FE500CFF364 /* main.m in Sources */,

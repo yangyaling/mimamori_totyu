@@ -51,7 +51,7 @@
     [self setupTabbarItemWithIndex:3 imageName:@"others-0" selectedImageName:@"others"];
     
     [[UITabBarItem appearance]setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor]} forState:UIControlStateNormal];
-    [[UITabBarItem appearance]setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:86.0/255.0 green:171.0/255.0 blue:228.0/255.0 alpha:1.0f]} forState:UIControlStateSelected];
+    [[UITabBarItem appearance]setTitleTextAttributes:@{NSForegroundColorAttributeName:NITColor(252, 82, 115)} forState:UIControlStateSelected];
     
     
 }

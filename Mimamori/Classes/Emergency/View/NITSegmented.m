@@ -41,7 +41,7 @@
         
         _defaultBackgroundColor =  NITColor(211, 211, 211);
         
-        _selectedBackgroundColor = NITColor(76, 164, 255);
+        _selectedBackgroundColor = NITColor(252, 85, 115);
         
         _selectedTitleColor = [UIColor whiteColor];
         

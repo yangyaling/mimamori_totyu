@@ -9,14 +9,18 @@
 
 
 #import "MainNotificationController.h"
+
 #import "DetailController.h"
 
 
 #import "NotificationCell.h"
+
 #import "WHUCalendarPopView.h"
+
 #import "NotificationModel.h"
 
 #import "MTitleLabel.h"
+
 #import "MNoticeTool.h"
 
 @interface MainNotificationController ()<NotificationCellDelegate,CalendarPopDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -432,12 +436,13 @@
 - (void)addContenViewSubUI {
     
     UIButton *CalendarButton = [[UIButton alloc] initWithFrame:CGRectMake(16, 3, 35, 35)];
+    [CalendarButton setTitleColor:NITColor(252, 85, 115) forState:UIControlStateNormal];
     
     [CalendarButton setImage:[UIImage imageNamed:@"Calendar"] forState:UIControlStateNormal];
     
     UISegmentedControl *timeSegement = [[UISegmentedControl alloc] initWithItems:@[@"全て",@"アラート",@"支援"]];
     
-    timeSegement.tintColor = NITColor(123, 182, 254);
+    timeSegement.tintColor = NITColor(252, 55, 95);
     
     timeSegement.selectedSegmentIndex = 0;
     
@@ -483,6 +488,10 @@
     } else {
         
         dlc.isanauto = YES;
+        
+        dlc.usernumber = model.userid1;
+        
+        dlc.type = model.type;
     }
 }
 

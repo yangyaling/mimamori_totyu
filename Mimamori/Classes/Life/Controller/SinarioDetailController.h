@@ -10,4 +10,10 @@
 
 @interface SinarioDetailController : UITableViewController
 
+
+/**
+ *  user0
+ */
+@property (nonatomic, copy) NSString *user0;
+
 @end

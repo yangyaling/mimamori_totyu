@@ -11,7 +11,7 @@
 #import "DetailChartViewController.h"
 #import "ZworksChartModel.h"
 
-#define Surplus 93
+#define Surplus 118
 
 @interface DetailScrollController ()
 
@@ -51,8 +51,10 @@ static NSString * const reuseIdentifier = @"Cell";
     for (int i = 0; i < self.SumPage; i++) {
         
         NSString *dateStr = [NSDate otherDay:[NSDate date] symbols:LGFMinus dayNum:fabs(i-6.0)];
+        UIStoryboard *lifesb = [UIStoryboard storyboardWithName:@"Life" bundle:nil];
+        DetailChartViewController *VC = [lifesb instantiateViewControllerWithIdentifier:@"DetailChartView"];
         
-        DetailChartViewController *VC  = [[DetailChartViewController alloc] init];
+//        DetailChartViewController *VC  = [[DetailChartViewController alloc] init];
         
         VC.dateString = dateStr;
         VC.nodeId = self.chartModel.nodeid;

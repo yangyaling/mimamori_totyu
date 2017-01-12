@@ -80,12 +80,12 @@
 #define NITGetScenarioInfo @"http://mimamori2.azurewebsites.net/zwgetscenariodtlinfo.php"
 
 
-#define NITUpdateScenarioInfo @"http://mimamori.azurewebsites.net/zwupdatescenarioinfo.php"
+#define NITUpdateScenarioInfo @"http://mimamori2.azurewebsites.net/zwupdatescenarioinfo.php"
 
 /**
  lift   URL
  */
-#define NITGetDailyDeviceInfo @"http://mimamori2.azurewebsites.net/zwgetdailydeviceinfo2.php"
+#define NITGetDailyDeviceInfo @"http://mimamori2.azurewebsites.net/zwgetdailydeviceinfo.php"
 
 #define NITGetWeeklyDeviceInfo @"http://mimamori2.azurewebsites.net/zwgetweeklydeviceinfo.php"
 

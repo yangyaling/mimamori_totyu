@@ -80,6 +80,12 @@
             [self.lifeTableView.mj_header endRefreshing];
         }
         if (array.count>0) {
+            //保存detailinfo的数组转换成json数据格式
+            NSError *parseError = nil;
+            NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
+            NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+            NITLog(@"%@",str);
+            
             NSArray *tmpArr = [LifeUserListModel mj_objectArrayWithKeyValuesArray:array];
             self.custArr= tmpArr.count ? [NSMutableArray arrayWithArray:tmpArr] : [NSMutableArray new];
             [self.lifeTableView reloadData];
@@ -180,6 +186,7 @@
         
         vc.userid0 = self.deliverModel.userid0;
         vc.title = self.deliverModel.dispname;
+        vc.ariresult = self.deliverModel.resultname;
         vc.username = self.deliverModel.user0name;
         vc.roomID = self.deliverModel.roomid;
         vc.picpath = self.deliverModel.picpath;

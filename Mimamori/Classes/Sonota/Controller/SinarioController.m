@@ -301,6 +301,9 @@
         
         [sender setTitle:@"編集"];
         self.cellnum = 0;
+        
+        [self saveScenario:nil]; //跟新或者追加
+        
         //取消编辑状态
         [self.tableView setEditing:NO animated:YES];
         
@@ -363,7 +366,7 @@
             NITLog(@"%ld",alldatas.count);
             // 网络请求，追加或更新
 //            [MBProgressHUD showError:@"シナリオネームを入力してください"];
-            [self updateScenarioInfo:scenarioarr];
+            [self updateScenarioInfo:alldatas];
         }else{
             [MBProgressHUD  showError:@"入力項目をチェックしてください!"];
         }
@@ -380,21 +383,24 @@
     
     NSString *url = NITUpdateScenarioInfo;
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
-    [parametersDict setValue:[NITUserDefaults objectForKey:@"userid1"] forKey:@"userid1"];
-    [parametersDict setValue:self.user0 forKey:@"userid0"];
-//    if (self.saveType == 1) {
-        [parametersDict setValue:self.scenarioID forKey:@"scenarioid"];
-//    }
-    [parametersDict setValue:self.sinarioText.text forKey:@"scenarioname"];
-    [parametersDict setValue:[[NSDate date]needDateStatus:HaveHMSType] forKey:@"updatedate"];
+    
+    parametersDict[@"userid1"] = [NITUserDefaults objectForKey:@"userid1"];
+    
+    parametersDict[@"userid0"] = self.user0;
+    
+    parametersDict[@"scenarioid"] = self.scenarioID;
+    
+    parametersDict[@"scenarioname"] = self.sinarioText.text;
+    
+    parametersDict[@"updatedate"] = [[NSDate date]needDateStatus:HaveHMSType];
     
     //保存detailinfo的数组转换成json数据格式
     NSError *parseError = nil;
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-    [parametersDict setValue:str forKey:@"scenariodtlinfo"];
     
-    
+    parametersDict[@"scenariodtlinfo"] = str;
+    //
     [self.session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -412,16 +418,18 @@
                 [self.navigationController popViewControllerAnimated:YES];
                 
                 // 如果刚刚添加的scenario检知到异常
-                if ([[responseObject objectForKey:@"result"]intValue] == 0) {
-                    if ([self.delegate respondsToSelector:@selector(warningScenarioAdded:)]) {
+                if ([[responseObject objectForKey:@"result"] integerValue] == 0) {
+                    if ([self.delegate respondsToSelector:@selector(warningScenarioAddedShow:)]) {
                         NSString *message = [NSString stringWithFormat:@"<センサー> %@%@",self.user0name,_sinarioText.text];
-                        [self.delegate warningScenarioAdded:message];
+                        [self.delegate warningScenarioAddedShow:message];
                     }
                     
                 }
                 
             });
             
+        } else {
+            [MBProgressHUD showError:@"後ほど試してください"];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NITLog(@"zwupdatescenarioinfo failed");
@@ -452,8 +460,6 @@
         NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
         NSMutableArray *array = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
         NSArray *deletearr = array[indexPath.row];
-        
-        
         
         //删除一个cell  pick上添加当前删除的displayname
         

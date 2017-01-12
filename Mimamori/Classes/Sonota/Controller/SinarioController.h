@@ -11,16 +11,15 @@
 @class Device;
 
 @protocol ScenarioVcDelegate <NSObject>
-@optional
 
--(void)warningScenarioAdded:(NSString *)message;
+-(void)warningScenarioAddedShow:(NSString *)message;
 
 @end
 
 
 @interface SinarioController : UIViewController
 
-@property(nonatomic, weak) id<ScenarioVcDelegate> delegate;
+@property(nonatomic, weak) id<ScenarioVcDelegate>delegate;
 
 @property (nonatomic, copy) Device *device;
 

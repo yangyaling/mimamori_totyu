@@ -26,6 +26,11 @@
 
 
 /**
+ *  ariresult
+ */
+@property (nonatomic, copy) NSString *ariresult;
+
+/**
  *  picpath
  */
 @property (nonatomic, copy) NSString *picpath;

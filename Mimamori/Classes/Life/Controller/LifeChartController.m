@@ -18,13 +18,17 @@
 
 #import "MozTopAlertView.h"
 
+#import "SinarioDetailController.h"
+
+#import "DetailController.h"
+
 #define Surplus 345
 #define NITVersionKey @"version"
 
 @interface LifeChartController ()<PopUpdateChartDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageIcon;
-@property (strong, nonatomic) IBOutlet UIView *leftbgView;
+@property (strong, nonatomic) IBOutlet UIView      *leftbgView;
 
 @property (strong, nonatomic) IBOutlet UIButton *arautoButton;
 @property (strong, nonatomic) IBOutlet UIButton *sinarioButton;
@@ -42,6 +46,9 @@
 @property (strong, nonatomic) NSMutableArray            *CLArray;
 @property (nonatomic) int                                              xnum;
 
+@property (nonatomic,strong) UIView                       *hoverView;
+
+@property (nonatomic,strong) UIImageView                  *bigImg;
 
 @end
 
@@ -54,10 +61,18 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     
     self.imageIcon.layer.cornerRadius = 6;
     self.imageIcon.layer.masksToBounds = YES;
+    self.imageIcon.userInteractionEnabled = YES;
     self.leftbgView.layer.cornerRadius = 6;
     self.arautoButton.layer.cornerRadius = 6;
     self.sinarioButton.layer.cornerRadius = 6;
     
+    if ([self.ariresult isEqualToString:@"異常検知あり"]) {
+        self.arautoButton.enabled = YES;
+        
+    } else {
+         self.arautoButton.enabled = NO;
+        [self.arautoButton setTitle:@"なし❌" forState:UIControlStateNormal];
+    }
     
     [self.segmentControl setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
     
@@ -74,6 +89,10 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
         });
     }
     
+    
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewClick)];
+    [self.imageIcon addGestureRecognizer:gesture];
+    
     [self.myCollection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     [self collectionViewsets];
@@ -87,6 +106,39 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     
     [self chooesfirst];
 }
+
+
+/**
+  放大图片
+ */
+- (void)imageViewClick {
+    self.hoverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, NITScreenW, NITScreenH)];
+    self.hoverView.backgroundColor = [UIColor blackColor];
+    [self.hoverView addTapAction:@selector(moveToOrigin) target:self];
+    self.hoverView.alpha = 0.0f;
+    [self.navigationController.view addSubview:self.hoverView];
+    
+    self.bigImg = [[UIImageView alloc]init];
+    [self.navigationController.view addSubview:self.bigImg];
+    
+    self.bigImg.image = self.imageIcon.image;
+    CGFloat widthI = self.bigImg.image.size.width;
+    CGFloat heightI = self.bigImg.image.size.height;
+    CGFloat maxW = NITScreenW;
+    CGFloat maxH = NITScreenH - 100;
+    if (widthI > NITScreenW) {
+        heightI = maxW / widthI * heightI;
+        widthI = maxW;
+    }
+    if (heightI > maxH) {
+        heightI = maxH;
+    }
+    //            ZLLog(@"%f-%f",widthI,heightI);
+    [self moveToCenterWidth:widthI withHeight:heightI];
+    [self.bigImg addTapAction:@selector(moveToOrigin) target:self];
+}
+
+
 //选择根控制器
 - (void)chooesfirst{
 // /   获取当前的版本号
@@ -111,13 +163,37 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 
 
 
+/**
+   anato页面的跳转
+
+ */
 - (IBAction)ArautoPush:(UIButton *)sender {
     
-    [self performSegueWithIdentifier:@"aripush" sender:self];
+    DetailController *dtc = [[DetailController alloc] init];
+    dtc.isanauto = YES;
+    [self.navigationController pushViewController:dtc animated:YES];
+    
 }
 
+
+/**
+   scenario一览页面的跳转
+ 
+ */
 - (IBAction)SinarioPush:(UIButton *)sender {
     [self performSegueWithIdentifier:@"sinariopush" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"sinariopush"]){
+        
+        SinarioDetailController * sdc = segue.destinationViewController;
+        
+        sdc.user0 = self.userid0;
+        
+    }
+    
 }
 
 
@@ -135,7 +211,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
  */
 -(void)getSensorDataInfoWithType:(MSensorDataType)type{
     
-    [MBProgressHUD showMessage:@"後ほど..." toView:self.view];
+    [MBProgressHUD showMessage:@"" toView:self.view];
     // 请求参数
     MSensorDataParam *param = [[MSensorDataParam alloc]init];
     
@@ -146,7 +222,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     param.userid0 = self.userid0;
     //日単位
     if (type == MSensorDataTypeDaily) {
-        param.deviceclass = @"0";
+        param.deviceclass = @"1";
         param.nodeid = self.roomID;
     }
     //NSError	NSError	domain: @"NSURLErrorDomain" - code: 18446744073709550615
@@ -269,6 +345,31 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return NO ;  //cell无法被点击
+}
+
+//显示大图片到屏幕中心
+- (void)moveToCenterWidth:(CGFloat)widthI withHeight:(CGFloat)heightI
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        self.hoverView.alpha = 1.0f;
+        self.bigImg.frame = CGRectMake((NITScreenW - widthI)/2.0, (NITScreenH - heightI)/2.0 , widthI, heightI);
+    } completion:^(BOOL finished) {
+        self.view.userInteractionEnabled = YES;
+    }];
+}
+
+//移除图
+- (void)moveToOrigin
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        self.hoverView.alpha = 0.0f;
+        self.bigImg.frame = CGRectMake(NITScreenW/2.0, NITScreenH/2.0, 6, 6);
+    } completion:^(BOOL finished) {
+        [self.hoverView removeFromSuperview];
+        [self.bigImg removeFromSuperview];
+        //        self.hoverView = nil;
+        self.bigImg = nil;
+    }];
 }
 
 

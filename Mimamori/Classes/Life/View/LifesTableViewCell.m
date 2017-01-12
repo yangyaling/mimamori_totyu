@@ -31,6 +31,10 @@
  *  状态文字
  */
 @property (weak, nonatomic) IBOutlet UILabel *stateText;
+
+@property (strong, nonatomic) IBOutlet UILabel *dipname;
+
+
 @end
 
 @implementation LifesTableViewCell
@@ -89,7 +93,8 @@
 -(void)settingData{
     
     //　表示名
-    self.name.text = self.CellModel.dispname;
+    NSString *strname = [NSString stringWithFormat:@"%@(%@)",self.CellModel.user0name,self.CellModel.roomname];
+    self.name.text = strname;
     
     
     //　温度

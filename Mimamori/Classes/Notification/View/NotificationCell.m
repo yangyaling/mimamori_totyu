@@ -58,7 +58,7 @@
         [self.Srue setHidden:NO];
         [self.Srue setTitle:@"確認必要" forState:UIControlStateNormal];
         [self.Srue setEnabled:YES];
-        self.Srue.backgroundColor = NITColor(76, 164, 255);
+        self.Srue.backgroundColor = NITColor(252, 85, 115);
         
     } else {
         [self.Srue setHidden:NO];

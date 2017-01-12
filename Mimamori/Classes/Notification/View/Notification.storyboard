@@ -31,7 +31,7 @@
                                     <segment title="一覧"/>
                                     <segment title="履歴"/>
                                 </segments>
-                                <color key="tintColor" red="0.45050104079999997" green="0.70424345919999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.9882352941176471" green="0.21568627450980393" blue="0.37254901960784315" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="NoticeSelectSegement:" destination="kgU-Jl-XGt" eventType="valueChanged" id="Gd5-XK-RTV"/>
                                 </connections>
@@ -64,7 +64,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X9n-ii-Z9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-793" y="-340"/>
+            <point key="canvasLocation" x="-716" y="-450"/>
         </scene>
         <!--Post Letter Controller-->
         <scene sceneID="zYN-0l-Kcm">
@@ -252,7 +252,7 @@
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cao-TE-2ZU">
                                 <rect key="frame" x="146" y="477" width="158" height="41"/>
-                                <color key="backgroundColor" red="0.45216836729999998" green="0.70089285710000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.9882352941176471" green="0.32156862745098036" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="gTq-WJ-19D"/>
                                     <constraint firstAttribute="width" constant="158" id="vTO-XI-9U2"/>
@@ -291,14 +291,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WL6-0p-uZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-338" y="-473"/>
+            <point key="canvasLocation" x="-64" y="-494"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LvE-TZ-g9h">
             <objects>
                 <navigationController storyboardIdentifier="notifivationStoryBoard" automaticallyAdjustsScrollViewInsets="NO" id="MgO-Xh-J2k" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Fu-OY-pmZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1Fu-OY-pmZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

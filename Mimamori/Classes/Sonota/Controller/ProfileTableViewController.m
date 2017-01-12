@@ -14,7 +14,7 @@
 
 #import "MProfileInfoUpdateParam.h"
 
-@interface ProfileTableViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface ProfileTableViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
 /**
  *  姓名
  */
@@ -66,9 +66,18 @@
 
 @property (nonatomic, strong) NSData                     *imagedata;
 
+@property (nonatomic,strong) UIView                       *hoverView;
+
+@property (nonatomic,strong) UIImageView                  *bigImg;
+
+
+
 @end
 
+
+
 @implementation ProfileTableViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -81,6 +90,15 @@
         self.userIcon.image = [UIImage imageWithData:self.imagedata];
 //        NITLog(@"照片：2 ---%@",self.imagedata);
     }
+    
+    
+    // 缩放手势
+//    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchView:)];
+//    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]
+//                                                    initWithTarget:self
+//                                                    action:@selector(handlePan:)];
+//    [self.bigImg addGestureRecognizer:panGestureRecognizer];
+//    [self.bigImg addGestureRecognizer:pinchGestureRecognizer];
     
 }
 
@@ -97,7 +115,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [MBProgressHUD showMessage:@"後ほど..." toView:WindowView];
+        [MBProgressHUD showMessage:@"" toView:WindowView];
         [self tapClick];
     }
 }
@@ -144,7 +162,7 @@
  *  更新プロフィール
  */
 -(void)updateProfileInfo{
-    [MBProgressHUD showMessage:@"後ほど..." toView:WindowView];
+    [MBProgressHUD showMessage:@"" toView:WindowView];
     NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
     // 请求参数
     MProfileInfoUpdateParam *param = [[MProfileInfoUpdateParam alloc]init];
@@ -242,6 +260,50 @@
     
 }
 
+//移动图片
+//- (void) handlePan:(UIPanGestureRecognizer*) recognizer
+//{
+//    CGPoint translation = [recognizer translationInView:self.view];
+//    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
+//                                         recognizer.view.center.y + translation.y);
+//    [recognizer setTranslation:CGPointZero inView:self.view];
+//    
+//}
+////手势方法缩小图片
+//- (void)pinchView:(UIPinchGestureRecognizer *)pinchGestureRecognizer   {
+//    UIView *view = pinchGestureRecognizer.view;
+//    if (pinchGestureRecognizer.state == UIGestureRecognizerStateBegan || pinchGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+//        view.transform = CGAffineTransformScale(view.transform, pinchGestureRecognizer.scale, pinchGestureRecognizer.scale);
+//        pinchGestureRecognizer.scale = 1;
+//    }
+//}
+
+//显示大图片到屏幕中心
+- (void)moveToCenterWidth:(CGFloat)widthI withHeight:(CGFloat)heightI
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        self.hoverView.alpha = 1.0f;
+        self.bigImg.frame = CGRectMake((NITScreenW - widthI)/2.0, (NITScreenH - heightI)/2.0 , widthI, heightI);
+    } completion:^(BOOL finished) {
+        self.view.userInteractionEnabled = YES;
+    }];
+}
+
+//移除图
+- (void)moveToOrigin
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        self.hoverView.alpha = 0.0f;
+        self.bigImg.frame = CGRectMake(NITScreenW/2.0, NITScreenH/2.0, 6, 6);
+    } completion:^(BOOL finished) {
+        [self.hoverView removeFromSuperview];
+        [self.bigImg removeFromSuperview];
+        //        self.hoverView = nil;
+        self.bigImg = nil;
+    }];
+}
+
+
 //进入本地相册
 /*选择拍照/本地相册*/
 - (void)tapClick {
@@ -250,6 +312,8 @@
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     imagePicker.allowsEditing = YES;
     imagePicker.delegate = self;
+    
+    
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *cc = [UIAlertAction actionWithTitle:@"写真を撮る" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
@@ -257,19 +321,46 @@
         [self presentViewController:imagePicker animated:YES completion:nil];
     }];
     
-//    UIAlertAction *aa = [UIAlertAction actionWithTitle:@"从手机相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//        
-//        [self presentViewController:imagePicker animated:YES completion:nil];
-//    }];
-    UIAlertAction *ua = [UIAlertAction actionWithTitle:@"キャンセル" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *aa = [UIAlertAction actionWithTitle:@"写真を拡大する" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        self.hoverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, NITScreenW, NITScreenH)];
+        self.hoverView.backgroundColor = [UIColor blackColor];
+        [self.hoverView addTapAction:@selector(moveToOrigin) target:self];
+        self.hoverView.alpha = 0.0f;
+        [self.navigationController.view addSubview:self.hoverView];
+        
+        self.bigImg = [[UIImageView alloc]init];
+        [self.navigationController.view addSubview:self.bigImg];
+        
+        self.bigImg.image = self.userIcon.image;
+        CGFloat widthI = self.bigImg.image.size.width;
+        CGFloat heightI = self.bigImg.image.size.height;
+        CGFloat maxW = NITScreenW;
+        CGFloat maxH = NITScreenH - 100;
+        if (widthI > NITScreenW) {
+            heightI = maxW / widthI * heightI;
+            widthI = maxW;
+        }
+        if (heightI > maxH) {
+            heightI = maxH;
+        }
+        //            ZLLog(@"%f-%f",widthI,heightI);
+        [self moveToCenterWidth:widthI withHeight:heightI];
+        [self.bigImg addTapAction:@selector(moveToOrigin) target:self];
+    }];
+    UIAlertAction *ua = [UIAlertAction actionWithTitle:@"キャンセル" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
     }];
+    [ac addAction:aa];
     [ac addAction:cc];
-//    [ac addAction:aa];
+    
     [ac addAction:ua];
     [self presentViewController:ac animated:YES completion:nil];
     
 }
+
+
+
 
 
 -(UIImage *)watermarkImage:(UIImage *)img withName:(NSString *)name
@@ -308,19 +399,22 @@
 #pragma mark --  imagePicker delegate Action
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     if (picker.allowsEditing) {
-        UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+        UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         
         NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
         
-        UIImage *updateimg =  [self watermarkImage:image withName:updatedate];
+        UIImage *scaleImage = [self scaleImage:image toScale:0.3];
         
+        UIImage *updateimg =  [self watermarkImage:scaleImage withName:updatedate];
+        
+        //图片压缩，因为原图都是很大的，不必要传原图
         NSData *imageData = UIImageJPEGRepresentation(updateimg, 0.5);
         
         
 //        NITLog(@"照片：1 ---%@",imageData);
         self.imagedata = imageData;
 //
-        
+        //UIImagePickerControllerMediaType
         //UIImagePickerControllerCropRect
         //UIImagePickerControllerEditedImage
         //UIImagePickerControllerOriginalImage
@@ -330,6 +424,17 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     
 }
+
+#pragma mark- 缩放图片
+-(UIImage *)scaleImage:(UIImage *)image toScale:(float)scaleSize
+{
+    UIGraphicsBeginImageContext(CGSizeMake(image.size.width*scaleSize,image.size.height*scaleSize));
+    [image drawInRect:CGRectMake(0, 0, image.size.width * scaleSize, image.size.height *scaleSize)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];

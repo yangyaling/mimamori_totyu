@@ -76,7 +76,7 @@
     param.nowdate = date;
     param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
     param.userid0 = self.userid0;
-    param.deviceclass = @"1";
+    param.deviceclass = @"2";
     param.nodeid = self.nodeId;
     
     [MSensorDataTool sensorDataWithParam:param type:MSensorDataTypeDaily success:^(NSArray *array) {

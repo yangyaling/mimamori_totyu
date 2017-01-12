@@ -21,6 +21,19 @@
 @property (nonatomic, strong) NSString                         *contents;
 
 
+
+
+/**
+    usernumber
+ */
+@property (nonatomic, assign) NSInteger                           usernumber;
+
+/**
+   type
+ */
+@property (nonatomic, assign) NSInteger                           type;
+
+
 @property (nonatomic, assign) BOOL              isanauto;
 
 

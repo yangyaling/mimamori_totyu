@@ -67,6 +67,7 @@
     self.tableView.tableFooterView = [[UIView alloc]init];
     
     [self.sensorSegment setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]} forState:UIControlStateNormal];
+    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
 
     
@@ -230,7 +231,7 @@
 
 #pragma mark - ScenarioVcDelegate
 
--(void)warningScenarioAdded:(NSString *)message{
+-(void)warningScenarioAddedShow:(NSString *)message{
     AudioServicesPlaySystemSound(1007);
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"アラート"
                                                                    message:message
@@ -242,6 +243,8 @@
                                             }]];
     [self.navigationController presentViewController:alert animated:YES completion:nil];
 }
+
+
 
 
 - (IBAction)selectAction:(UISegmentedControl *)sender {
@@ -326,6 +329,7 @@
         
         ProfileTableViewController * ptvc = segue.destinationViewController;
         ptvc.userid0 = self.profileUser0;
+        ptvc.title = @"プロフィール設定";
         ptvc.pmodel = self.profileArray.firstObject;
         
     } else if ([segue.identifier isEqualToString:@"scenarioInfoPush"]) {
@@ -341,7 +345,10 @@
         src.user0name = self.profileUser0name;
         
         src.user0 = self.profileUser0;
+        src.delegate = self;
     } else {
+        
+        src.user0 = self.profileUser0;
         
         src.roomID = self.roomID;
         src.isRefresh = NO;;
