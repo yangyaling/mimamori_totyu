@@ -35,13 +35,14 @@
     [super viewDidLoad];
     
     if (self.isanauto) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
         [self.username removeFromSuperview];
         [self.roomID removeFromSuperview];
         [self.time removeFromSuperview];
         [self.textView removeFromSuperview];
         
         [self CreateTableViewUI];
-        [self.pushButton setHidden:NO];
+//        [self.pushButton setHidden:NO];
     } else {
         self.pushButton.layer.cornerRadius = 6;
         self.textView.layer.cornerRadius = 6;
@@ -62,10 +63,11 @@
  创建tableviewUI
  */
 - (void)CreateTableViewUI {
-    _MyTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, NITScreenW, NITScreenH) style:UITableViewStylePlain];
+    _MyTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, NITScreenW, NITScreenH - 113) style:UITableViewStylePlain];
     _MyTableView.delegate = self;
     _MyTableView.dataSource = self;
     _MyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    _MyTableView.backgroundColor = [UIColor redColor];
     [self.view addSubview:_MyTableView];
     
     self.MyTableView.tableFooterView = [[UIView alloc]init];
@@ -89,12 +91,14 @@
         [self.MyTableView.mj_header endRefreshing];
         if (array.count >0) {
             self.alldatas = [NSMutableArray arrayWithArray:array];
+        } else {
+            NITLog(@"aratoinfo请求失败");
         }
         
         [self.MyTableView reloadData];
         
     } failure:^(NSError *error) {
-        
+        NITLog(@"aratoinfo请求失败:%@",[error localizedDescription]);
         [self.MyTableView.mj_header endRefreshing];
         
     
@@ -143,10 +147,23 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, NITScreenW,60)];
+    UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, NITScreenW,65)];
     
-    UILabel *label = [UILabel alloc] initWithFrame:CGRectMake(15, 5, <#CGFloat width#>, <#CGFloat height#>)
+    UILabel *labelname = [[UILabel alloc] initWithFrame:CGRectMake(15, 5, 300, 25)];
+    UILabel *labelscenario = [[UILabel alloc] initWithFrame:CGRectMake(15, 35, 300, 25)];
+    UILabel *labeltime = [[UILabel alloc] initWithFrame:CGRectMake(NITScreenW - 135, 35, 120, 25)];
     
+    labeltime.textAlignment = NSTextAlignmentRight;
+    
+    labelname.text = @"<アラート>入居者名";
+    
+    labelscenario.text = @"热中症";
+    
+    labeltime.text = @"2022-24-55 24-58-55";
+    
+    [titleView addSubview:labelname];
+    [titleView addSubview:labelscenario];
+    [titleView addSubview:labeltime];
     
     return titleView;
 }
