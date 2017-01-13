@@ -11,7 +11,7 @@
 
 #import "NITPicker.h"
 #import "SinarioTableViewCell.h"
-#import "AFNetworking.h"
+
 #import "Device.h"
 #import "ScenarioCellFrame.h"
 
@@ -38,8 +38,9 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+    [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
     // Do any additional setup after loading the view.
+    
     self.cellnum = 0;
     
     self.sinarioText.text = self.textname;
@@ -51,7 +52,6 @@
     
     self.sinariobutton.layer.cornerRadius = 6;
     self.tableView.tableFooterView = [[UIView alloc]init];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     
     self.session = [AFHTTPSessionManager manager];
     self.session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
@@ -246,7 +246,7 @@
     
     
     [saveButton setTitle: @"登 録" forState: UIControlStateNormal];
-    saveButton.backgroundColor = NITColor(123, 182, 254);
+    saveButton.backgroundColor = NITColor(252, 85, 115);
     [saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [saveButton addTarget:self action:@selector(saveScenario:) forControlEvents:UIControlEventTouchUpInside];
     

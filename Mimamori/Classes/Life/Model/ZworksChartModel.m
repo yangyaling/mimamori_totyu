@@ -15,6 +15,8 @@
 //2.怎样存储这些属性
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
+    
+    [aCoder encodeObject:_picpath forKey:@"picpath"];
     [aCoder encodeObject:_deviceid forKey:@"deviceid"];
     [aCoder encodeObject:_devicename forKey:@"devicename"];
     [aCoder encodeObject:_deviceunit forKey:@"deviceunit"];
@@ -32,7 +34,9 @@
 //2.怎样解析（读取）这些属性
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
+    
     if (self = [super init]) {
+        _picpath = [aDecoder decodeObjectForKey:@"picpath"];
         _deviceid = [aDecoder decodeObjectForKey:@"deviceid"];
         _devicename = [aDecoder decodeObjectForKey:@"devicename"];
         _deviceunit = [aDecoder decodeObjectForKey:@"deviceunit"];

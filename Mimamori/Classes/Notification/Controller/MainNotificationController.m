@@ -23,6 +23,8 @@
 
 #import "MNoticeTool.h"
 
+#import "AriScenarioController.h"
+
 @interface MainNotificationController ()<NotificationCellDelegate,CalendarPopDelegate,UITableViewDelegate,UITableViewDataSource>
 
 
@@ -59,6 +61,7 @@
     
     [self.segmentC setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
     
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     //ログインFlag -> 0 (ログイン済)
     [NITUserDefaults setObject:@"0" forKey:@"loginFlg"];
     
@@ -163,6 +166,7 @@
     self.onstauts = NO;  //非日历选择日期状态
     
     [self.POPCalendar removeFromSuperview];   //每次刷新先删除日历
+    [MBProgressHUD showMessage:@"" toView:self.view];
     //1. 通知リストを取得
     if (self.segmentindex == 0) {
         
@@ -170,7 +174,7 @@
       
         
     } else {
-        [MBProgressHUD showMessage:@"" toView:self.view];
+        
         [self noticeInfoWithDate:[NSDate SharedToday] andHistoryflg:@"1" withNoticetype:[NSString stringWithFormat:@"%ld",self.typenum]];
     }
 }
@@ -290,7 +294,6 @@
         
         [self.MyTableView.mj_header endRefreshing];
         
-        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
         
         if (array.count == 0) {
             [MBProgressHUD hideHUDForView:self.view];
@@ -423,8 +426,16 @@
     if (model.type == 2) {
         [self performSegueWithIdentifier:@"pushPostC" sender:self];
     } else {
-        [self performSegueWithIdentifier:@"pushanauto" sender:self];
+        UIStoryboard *lifeStoryBoard = [UIStoryboard storyboardWithName:@"Life" bundle:nil];
         
+        AriScenarioController *secondViewController = [lifeStoryBoard instantiateViewControllerWithIdentifier:@"AriScenarioID"];
+        
+        secondViewController.usernumber = model.userid1;
+        secondViewController.username = model.username;
+        secondViewController.isPushOrPop = NO;
+        //跳转事件
+        [self.navigationController pushViewController:secondViewController animated:YES];
+
     }
     
 }
@@ -467,15 +478,15 @@
 #pragma mark - Other
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSIndexPath *indexPath = self.MyTableView.indexPathForSelectedRow;
     
-    NotificationModel *model = self.noticesArray[indexPath.row];
-    
-    DetailController *dlc = segue.destinationViewController;
     
     if ([segue.identifier isEqualToString:@"pushPostC"]) {
         
-        dlc.isanauto = NO;
+        NSIndexPath *indexPath = self.MyTableView.indexPathForSelectedRow;
+        
+        NotificationModel *model = self.noticesArray[indexPath.row];
+        
+        DetailController *dlc = segue.destinationViewController;
         
         dlc.titles = [NSString stringWithFormat:@"<支援要請>%@",model.username];
         
@@ -485,13 +496,6 @@
         
         dlc.contents = model.content;
         
-    } else {
-        
-        dlc.isanauto = YES;
-        
-        dlc.usernumber = model.userid1;
-        
-        dlc.type = model.type;
     }
 }
 

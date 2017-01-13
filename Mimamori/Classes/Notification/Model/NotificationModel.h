@@ -15,7 +15,7 @@
 
 @property (nonatomic, assign) NSInteger                       noticeid;
 
-@property (nonatomic, assign) NSInteger                       userid1;
+@property (nonatomic, copy) NSString                         *userid1;
 
 @property (nonatomic, assign) NSString                       *groupid;
 

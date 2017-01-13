@@ -40,7 +40,7 @@
 
     // SegmentedControlのフォントを設定
     [self.segmentControl setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
-    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     // 空のセルを表示させない
     self.lifeTableView.tableFooterView = [[UIView alloc]init];
     
@@ -185,7 +185,10 @@
         LifeChartController *vc = segue.destinationViewController;
         
         vc.userid0 = self.deliverModel.userid0;
-        vc.title = self.deliverModel.dispname;
+        NSString *tt = [NSString stringWithFormat:@"%@(%@)",self.deliverModel.user0name,self.deliverModel.roomname];
+        
+        vc.title = tt;
+        
         vc.ariresult = self.deliverModel.resultname;
         vc.username = self.deliverModel.user0name;
         vc.roomID = self.deliverModel.roomid;

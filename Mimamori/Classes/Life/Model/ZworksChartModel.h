@@ -10,6 +10,10 @@
 
 @interface ZworksChartModel : NSObject<NSCoding>
 /**
+ *  picpath
+ */
+@property (nonatomic, copy) NSString                               *picpath;
+/**
  *  Node Id
  */
 @property (nonatomic, copy) NSString                               *nodeid;

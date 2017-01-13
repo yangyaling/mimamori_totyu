@@ -25,7 +25,7 @@ typedef enum{
  *  @param success 请求成功的回调
  *  @param failure 请求失败的回调
  */
-+(void)sensorDataWithParam:(MSensorDataParam *)param type:(MSensorDataType)type success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure;
++(void)sensorDataWithParam:(MSensorDataParam *)param type:(MSensorDataType)type success:(void (^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
 
 
 

@@ -75,7 +75,7 @@
 //        self.notifEvent.text = _notice.title;
 //        
     if (notice.type == 1) {
-        NSString *string = [NSString stringWithFormat:@"<センサー>%@",notice.groupname];
+        NSString *string = [NSString stringWithFormat:@"<アラート>%@",notice.username];
         self.notifType.text = string;
         self.notifEvent.text = notice.title;
         

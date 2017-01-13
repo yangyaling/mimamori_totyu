@@ -11,7 +11,7 @@
 #import "DetailChartViewController.h"
 #import "ZworksChartModel.h"
 
-#define Surplus 118
+#define Surplus 125
 
 @interface DetailScrollController ()
 

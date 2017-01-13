@@ -73,7 +73,7 @@
     self.roomname.layer.borderWidth = 0.5;
     self.roomname.layer.borderColor = NITColor(200, 200, 200).CGColor;
     
-    self.segmentbar.tintColor = NITColor(123, 182, 254);
+//    self.segmentbar.tintColor = NITColor(123, 182, 254);
     
 }
 

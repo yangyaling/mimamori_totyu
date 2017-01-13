@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *valueRp;
 
+@property (strong, nonatomic) IBOutlet UIView *bgview;
 
 
 

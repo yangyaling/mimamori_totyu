@@ -20,6 +20,7 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="温度" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rop-cc-6Hv">
                         <rect key="frame" x="15" y="40" width="60" height="25"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.30182990771812079" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="37X-Vu-ssp"/>
                             <constraint firstAttribute="width" constant="60" id="S09-MR-NLa"/>
@@ -30,12 +31,14 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="湿度" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98r-yB-4nI">
                         <rect key="frame" x="15" y="70" width="60" height="25"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.29960151006711411" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2n-1h-iUB">
                         <rect key="frame" x="15" y="5" width="160" height="30"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.30054530201342283" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="dgo-jW-Mc2"/>
                             <constraint firstAttribute="width" constant="160" id="rM0-7z-uWE"/>
@@ -107,18 +110,21 @@
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="明るさ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cw8-oy-3yx">
                         <rect key="frame" x="15" y="100" width="60" height="25"/>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="0.29960151010000002" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="開関" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8r-vN-9mm">
                         <rect key="frame" x="15" y="130" width="60" height="25"/>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="0.29960151010000002" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOH-FX-rhQ">
                         <rect key="frame" x="155" y="130" width="163" height="25"/>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="0.29960151010000002" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>

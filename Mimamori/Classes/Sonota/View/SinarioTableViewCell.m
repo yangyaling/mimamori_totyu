@@ -103,7 +103,12 @@
     
     
     //门 - 人感
-    self.doalabel.text = dicOne[@"devicename"];
+    if ([dicOne[@"devicename"] isEqualToString:@"ドア"]) {
+        self.doalabel.text = @"開閉";
+    } else {
+        self.doalabel.text = dicOne[@"devicename"];
+    }
+    
     NSString *strT4 = [NSString stringWithFormat:@"%@%@",dicOne[@"time"],dicOne[@"timeunit"]];
     [self.doatime setTitle:strT4 forState:UIControlStateNormal];
     self.doaState.text = dicOne[@"rpoint"];

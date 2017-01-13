@@ -170,6 +170,7 @@
 		EB9C932D1E027F4700F3132C /* ZworksChartTBVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C932C1E027F4700F3132C /* ZworksChartTBVC.m */; };
 		EB9C93301E028BC200F3132C /* SinarioDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C932F1E028BC200F3132C /* SinarioDetailController.m */; };
 		EB9F89DA1E1652BE00908000 /* IconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F89D91E1652BE00908000 /* IconModel.m */; };
+		EBDFE8821E287439007D3320 /* AriScenarioController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBDFE8811E287439007D3320 /* AriScenarioController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -504,6 +505,8 @@
 		EB9C932F1E028BC200F3132C /* SinarioDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinarioDetailController.m; sourceTree = "<group>"; };
 		EB9F89D81E1652BE00908000 /* IconModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconModel.h; sourceTree = "<group>"; };
 		EB9F89D91E1652BE00908000 /* IconModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconModel.m; sourceTree = "<group>"; };
+		EBDFE8801E287439007D3320 /* AriScenarioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AriScenarioController.h; sourceTree = "<group>"; };
+		EBDFE8811E287439007D3320 /* AriScenarioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AriScenarioController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -738,6 +741,8 @@
 				EB9C932C1E027F4700F3132C /* ZworksChartTBVC.m */,
 				EB9C932E1E028BC200F3132C /* SinarioDetailController.h */,
 				EB9C932F1E028BC200F3132C /* SinarioDetailController.m */,
+				EBDFE8801E287439007D3320 /* AriScenarioController.h */,
+				EBDFE8811E287439007D3320 /* AriScenarioController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1563,6 +1568,7 @@
 				928C61FE1DC8625E009B5974 /* MNoticeInfoUploadParam.m in Sources */,
 				92F362FC1DC9B1C80030DCE0 /* MJRefreshAutoGifFooter.m in Sources */,
 				EB581AEC1E1D1F350076BAFD /* DetailController.m in Sources */,
+				EBDFE8821E287439007D3320 /* AriScenarioController.m in Sources */,
 				92F362F31DC9B1C80030DCE0 /* NSObject+MJCoding.m in Sources */,
 				928C62321DC890CC009B5974 /* MScenarioDeleteParam.m in Sources */,
 				92AF7BCD1D98C82100FC30E9 /* DetailScrollController.m in Sources */,

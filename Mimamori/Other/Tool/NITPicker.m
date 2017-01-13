@@ -190,12 +190,12 @@
     }else if (scenariotype == 6){
         // 2.通知代理
         if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
-            [self.mydelegate PickerDelegateSelectString:select withDic:selectdic];
+            [self.mydelegate PickerDelegateSelectString:select withDic:nil];
         }
         
     } else if (scenariotype == 7) {
         if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
-             [self.mydelegate PickerDelegateSelectString:select withDic:selectdic];
+             [self.mydelegate PickerDelegateSelectString:nil withDic:selectdic];
         }
     } else {
         NSString *str = [NSString stringWithFormat:@"%@H",select];

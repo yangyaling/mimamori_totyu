@@ -22,6 +22,8 @@
 
 #import "DetailController.h"
 
+#import "AriScenarioController.h"
+
 #define Surplus 345
 #define NITVersionKey @"version"
 
@@ -58,7 +60,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
     self.imageIcon.layer.cornerRadius = 6;
     self.imageIcon.layer.masksToBounds = YES;
     self.imageIcon.userInteractionEnabled = YES;
@@ -79,14 +81,6 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     NSData *imgdata =  [NITUserDefaults objectForKey:self.userid0];
     if (imgdata) {
         self.imageIcon.image = [UIImage imageWithData:imgdata];
-    } else {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.picpath]];
-            if (dataicon) {
-                self.imageIcon.image = [UIImage imageWithData:dataicon];
-                [NITUserDefaults setObject:dataicon forKey:self.userid0];
-            }
-        });
     }
     
     
@@ -100,8 +94,6 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 //    self.xnum = 0;
     // 取得日单位的数据
     [self getSensorDataInfoWithType:MSensorDataTypeDaily];
-    
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     
     
     [self chooesfirst];
@@ -168,11 +160,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 
  */
 - (IBAction)ArautoPush:(UIButton *)sender {
-    
-    DetailController *dtc = [[DetailController alloc] init];
-    dtc.isanauto = YES;
-    [self.navigationController pushViewController:dtc animated:YES];
-    
+    [self performSegueWithIdentifier:@"aratopush" sender:self];
 }
 
 
@@ -192,6 +180,14 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
         
         sdc.user0 = self.userid0;
         
+    }else if ([segue.identifier isEqualToString:@"aratopush"]) {
+        AriScenarioController * asc = segue.destinationViewController;
+        
+        asc.usernumber = self.userid0;
+        
+        asc.username = self.username;
+        
+        asc.isPushOrPop = YES;
     }
     
 }
@@ -223,21 +219,35 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     //日単位
     if (type == MSensorDataTypeDaily) {
         param.deviceclass = @"1";
-        param.nodeid = self.roomID;
     }
     //NSError	NSError	domain: @"NSURLErrorDomain" - code: 18446744073709550615
     
     
-    [MSensorDataTool sensorDataWithParam:param type:type success:^(NSArray *array) {
+    [MSensorDataTool sensorDataWithParam:param type:type success:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.view];
         
-        NSArray *tmpArr = [ZworksChartModel mj_objectArrayWithKeyValuesArray:array];
+        NSArray *tmpArr = [ZworksChartModel mj_objectArrayWithKeyValuesArray:dic[@"deviceinfo"]];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSString *imagestr = dic[@"picpath"];
+            if (imagestr.length) {
+                NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:imagestr]];
+                if (dataicon) {
+                    self.imageIcon.image = [UIImage imageWithData:dataicon];
+                    [NITUserDefaults setObject:dataicon forKey:self.userid0];
+                }
+            } else {
+                NITLog(@"图片地址为空");
+            }
+        });
         if (tmpArr.count == 0) {
             [_ZworksDataArray removeAllObjects];
             [MBProgressHUD showError:@"データがありません"];
         }else{
             _ZworksDataArray = [NSMutableArray arrayWithArray:tmpArr];
             ZworksChartModel *model = _ZworksDataArray[0];
+            
+            
+            
             _CLArray = [NSMutableArray arrayWithArray:model.devicevalues];
             
             self.controlarr = [NSMutableArray new];

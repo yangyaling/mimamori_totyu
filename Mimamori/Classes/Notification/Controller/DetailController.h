@@ -11,7 +11,6 @@
 @interface DetailController : UIViewController
 
 
-
 @property (nonatomic, strong) NSString                         *titles;
 
 @property (nonatomic, strong) NSString                         *address;
@@ -20,21 +19,6 @@
 
 @property (nonatomic, strong) NSString                         *contents;
 
-
-
-
-/**
-    usernumber
- */
-@property (nonatomic, assign) NSInteger                           usernumber;
-
-/**
-   type
- */
-@property (nonatomic, assign) NSInteger                           type;
-
-
-@property (nonatomic, assign) BOOL              isanauto;
 
 
 

@@ -46,6 +46,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+     [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
+    
+    self.title = @"ユーザ情報";
     
     // 初始化session对象
     _session = [AFHTTPSessionManager manager];
@@ -55,8 +58,11 @@
     //GroupInfo
     NSArray *tmpArr = [NotificationModel mj_objectArrayWithKeyValuesArray:[NITUserDefaults objectForKey:@"allGroupData"]];
     self.allGroupData = tmpArr.count > 0 ? [NSMutableArray arrayWithArray:tmpArr] : [NSMutableArray new];
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getUserInfo)];
+    
+    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     //UserInfo
-    [self getUserInfo];
 }
 
 
@@ -78,6 +84,7 @@
     [_session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self.tableView.mj_header endRefreshing];
         NSArray *userinfo = [responseObject objectForKey:@"userinfo"];
         if (userinfo){
             NSArray *tmpArr = [SelfModel mj_objectArrayWithKeyValuesArray:userinfo];
@@ -92,9 +99,10 @@
             //setup PickerView
             NSInteger row = [self.groupid intValue] -1;
             [self.groupPicker selectRow:row inComponent:0 animated:NO];
-            
+            [self.tableView reloadData];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self.tableView.mj_header endRefreshing];
         NITLog(@"zwgetuserinfo请求失败");
     }];
     

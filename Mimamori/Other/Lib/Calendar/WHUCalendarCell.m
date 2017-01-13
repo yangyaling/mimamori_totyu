@@ -74,12 +74,12 @@
 -(void)setHighlighted:(BOOL)highlighted{
     [super setHighlighted:highlighted];
     if(highlighted){
-        self.layer.backgroundColor=[UIColor colorWithRed:0.02 green:0.45 blue:0.67 alpha:0.3].CGColor;
+        self.layer.backgroundColor= NITColorAlpha(252, 82, 115, 1).CGColor;
         self.lbl.textColor=[UIColor whiteColor];
         self.dbl.textColor=[UIColor whiteColor];
     }
     else{
-        self.layer.backgroundColor=[UIColor whiteColor].CGColor;
+        self.layer.backgroundColor= [UIColor whiteColor].CGColor;
         if(_isDayInCurMonth){
             self.lbl.textColor=[UIColor blackColor];
         }
@@ -94,7 +94,7 @@
     [super setSelected:selected];
     if(selected){
         
-        self.layer.backgroundColor=[UIColor colorWithRed:0.02 green:0.45 blue:0.67 alpha:1].CGColor;
+        self.layer.backgroundColor=NITColorAlpha(252, 82, 115, 1).CGColor;
         self.lbl.textColor=[UIColor whiteColor];
         self.dbl.textColor=[UIColor whiteColor];
         
@@ -124,7 +124,7 @@
     [path closePath];
     CAShapeLayer* layer=[CAShapeLayer layer];
     layer.contentsScale=w;
-    layer.fillColor=NITColorAlpha(19, 146, 255, 0.76).CGColor;
+    layer.fillColor=NITColorAlpha(252, 82, 115, 0.76).CGColor;
     layer.path=path.CGPath;
     [self.layer addSublayer:layer];
     self.infoLayer=layer;

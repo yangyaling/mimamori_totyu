@@ -40,6 +40,7 @@
     //设置每个item的大小为100*100
     layout.itemSize = CGSizeMake((self.view.width - 90) / 2.0, 70);
     
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     
     [self.collectionview setCollectionViewLayout:layout];
     

@@ -157,7 +157,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     UIButton* preBtn=[self makeButtonWithText:@"先月"];
     
     
-    [preBtn setBackgroundColor:NITColorAlpha(19, 146, 255, 0.76)];
+    [preBtn setBackgroundColor:NITColorAlpha(252, 85, 115, 0.76)];
     
     preBtn.layer.borderWidth = 1;
     
@@ -177,7 +177,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
     
     UIButton* nextBtn=[self makeButtonWithText:@"来月"];
     
-    [nextBtn setBackgroundColor:NITColorAlpha(19, 146, 255, 0.76)];
+    [nextBtn setBackgroundColor:NITColorAlpha(252, 85, 115, 0.76)];
     
     nextBtn.layer.masksToBounds = YES;
     
@@ -643,7 +643,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
             preBtn.layer.cornerRadius = 5;
             preBtn.layer.borderWidth = 1;
             preBtn.layer.borderColor = NITColorAlpha(225, 225, 225, 0.8).CGColor;
-            [preBtn setBackgroundColor:NITColorAlpha(19, 146, 255, 0.76)];
+            [preBtn setBackgroundColor:NITColorAlpha(252, 85, 115, 0.76)];
             _yLeftBtn=preBtn;
             preBtn.tag=3000;
             [preBtn addTarget:self action:@selector(yearMonthSelectAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -656,7 +656,7 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
             nextBtn.layer.cornerRadius = 5;
             nextBtn.layer.borderWidth = 1;
             nextBtn.layer.borderColor = NITColorAlpha(225, 225, 225, 0.8).CGColor;
-            [nextBtn setBackgroundColor:NITColorAlpha(19, 146, 255, 0.76)];
+            [nextBtn setBackgroundColor:NITColorAlpha(252, 85, 115, 0.76)];
             _yRightBtn=nextBtn;
             nextBtn.tag=4000;
             nextBtn.frame=_mRightBtn.frame;

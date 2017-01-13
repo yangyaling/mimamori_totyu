@@ -79,7 +79,8 @@
     param.deviceclass = @"2";
     param.nodeid = self.nodeId;
     
-    [MSensorDataTool sensorDataWithParam:param type:MSensorDataTypeDaily success:^(NSArray *array) {
+    [MSensorDataTool sensorDataWithParam:param type:MSensorDataTypeDaily success:^(NSDictionary *dic) {
+        NSArray *array = dic[@"deviceinfo"];
         if (array.count > 0) {
             // 0.数组 -> 　模型数组
             NSArray *tmpArr = [ZworksChartModel mj_objectArrayWithKeyValuesArray:array];

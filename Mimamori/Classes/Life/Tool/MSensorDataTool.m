@@ -11,7 +11,7 @@
 
 @implementation MSensorDataTool
 
-+(void)sensorDataWithParam:(MSensorDataParam *)param type:(MSensorDataType)type success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure{
++(void)sensorDataWithParam:(MSensorDataParam *)param type:(MSensorDataType)type success:(void (^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
     NSString *url;
     switch (type) {
             
@@ -29,8 +29,8 @@
     }
     [MHttpTool postWithURL:url params:param.mj_keyValues success:^(id json) {
         if (success) {
-            NSArray *tmpArray = [json objectForKey:@"deviceinfo"];
-            success(tmpArray);
+            NSDictionary *tmpdic = json;
+            success(tmpdic);
         }
     } failure:^(NSError *error) {
         if (failure) {

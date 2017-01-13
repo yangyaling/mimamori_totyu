@@ -57,7 +57,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.saveButton.layer.cornerRadius = 6;
@@ -68,7 +68,6 @@
     
     [self.sensorSegment setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]} forState:UIControlStateNormal];
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
 
     
     

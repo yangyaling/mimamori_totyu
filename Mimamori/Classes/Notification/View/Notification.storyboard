@@ -59,7 +59,6 @@
                         <outlet property="contenView" destination="hs2-IE-eKM" id="dhf-fv-dUE"/>
                         <outlet property="segmentC" destination="hSt-Ix-8vH" id="f0d-Fe-9xU"/>
                         <segue destination="IZ9-fa-AoV" kind="push" identifier="pushPostC" id="1GQ-Ko-26c"/>
-                        <segue destination="IZ9-fa-AoV" kind="push" identifier="pushanauto" id="lEV-DG-cI5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X9n-ii-Z9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -198,7 +197,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y1u-in-n4T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="371" y="-400"/>
+            <point key="canvasLocation" x="2374" y="-494"/>
         </scene>
         <!--詳細-->
         <scene sceneID="EHh-MT-w8z">
@@ -212,7 +211,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;支援要請&gt;XXXXXXXXXXXXX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRc-r6-Iz9">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRc-r6-Iz9">
                                 <rect key="frame" x="15" y="89" width="290" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="KK9-87-vSL"/>
@@ -221,7 +220,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUBBDO23CC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaY-bc-4KK">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaY-bc-4KK">
                                 <rect key="frame" x="15" y="129" width="119" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="zYM-kJ-dgq"/>
@@ -230,7 +229,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015-22-22 22:22:22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XuA-fm-LNP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XuA-fm-LNP">
                                 <rect key="frame" x="135" y="134" width="170" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="71m-Yk-gFy"/>
@@ -246,32 +245,17 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="3Xs-gh-d4j"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cao-TE-2ZU">
-                                <rect key="frame" x="146" y="477" width="158" height="41"/>
-                                <color key="backgroundColor" red="0.9882352941176471" green="0.32156862745098036" blue="0.45098039215686275" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="41" id="gTq-WJ-19D"/>
-                                    <constraint firstAttribute="width" constant="158" id="vTO-XI-9U2"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <state key="normal" title="状況確認 ➡️ ">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="9Wu-EP-Gqw" firstAttribute="leading" secondItem="cNM-6e-uUf" secondAttribute="leading" constant="15" id="0yk-Bw-za2"/>
-                            <constraint firstItem="Mcp-ed-Mho" firstAttribute="top" secondItem="cao-TE-2ZU" secondAttribute="bottom" constant="50" id="3bI-Vc-PC7"/>
                             <constraint firstItem="zaY-bc-4KK" firstAttribute="leading" secondItem="lRc-r6-Iz9" secondAttribute="leading" id="4C0-fN-FYA"/>
                             <constraint firstAttribute="trailing" secondItem="9Wu-EP-Gqw" secondAttribute="trailing" constant="15" id="5tL-AC-n1q"/>
                             <constraint firstItem="XuA-fm-LNP" firstAttribute="trailing" secondItem="lRc-r6-Iz9" secondAttribute="trailing" id="609-q5-ufy"/>
                             <constraint firstItem="lRc-r6-Iz9" firstAttribute="top" secondItem="D8Q-qe-1KI" secondAttribute="bottom" constant="25" id="6Rk-VR-0m7"/>
-                            <constraint firstAttribute="trailing" secondItem="cao-TE-2ZU" secondAttribute="trailing" constant="16" id="G8d-6w-JcM"/>
                             <constraint firstAttribute="trailing" secondItem="lRc-r6-Iz9" secondAttribute="trailing" constant="15" id="NjK-pI-cUv"/>
                             <constraint firstItem="zaY-bc-4KK" firstAttribute="top" secondItem="lRc-r6-Iz9" secondAttribute="bottom" constant="10" id="cFY-5b-qFO"/>
                             <constraint firstItem="lRc-r6-Iz9" firstAttribute="leading" secondItem="cNM-6e-uUf" secondAttribute="leading" constant="15" id="cic-KC-aKm"/>
@@ -282,7 +266,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="詳細" id="IaL-WD-99C"/>
                     <connections>
-                        <outlet property="pushButton" destination="cao-TE-2ZU" id="yah-O7-sbz"/>
                         <outlet property="roomID" destination="zaY-bc-4KK" id="t05-0e-iZw"/>
                         <outlet property="textView" destination="9Wu-EP-Gqw" id="wqy-yJ-pzr"/>
                         <outlet property="time" destination="XuA-fm-LNP" id="2ja-Gp-5ya"/>
@@ -291,14 +274,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WL6-0p-uZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-64" y="-494"/>
+            <point key="canvasLocation" x="285" y="-521"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LvE-TZ-g9h">
             <objects>
                 <navigationController storyboardIdentifier="notifivationStoryBoard" automaticallyAdjustsScrollViewInsets="NO" id="MgO-Xh-J2k" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1Fu-OY-pmZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Fu-OY-pmZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -312,7 +295,4 @@
             <point key="canvasLocation" x="-1228" y="-51"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="lEV-DG-cI5"/>
-    </inferredMetricsTieBreakers>
 </document>

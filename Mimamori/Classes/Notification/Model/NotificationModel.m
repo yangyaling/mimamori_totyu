@@ -11,4 +11,12 @@
 
 @implementation NotificationModel
 
++ (NSDictionary *)replacedKeyFromPropertyName{
+    return @{
+             @"groupid" : @"id",
+             @"groupname" : @"name"
+             };
+}
+
+
 @end
