@@ -30,7 +30,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 
-@interface SensorController ()<ScenarioVcDelegate>
+@interface SensorController ()<ScenarioVcDelegate,NowRloadDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView         *tableView;
 
@@ -101,6 +101,9 @@
 
 
 -(void)dealloc {
+    NSArray *arr = nil;
+    [NITUserDefaults setObject:arr forKey:@"mainondedatakey"];
+    
     [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
@@ -271,6 +274,11 @@
     param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
     param.userid0 = self.profileUser0;
     
+    NSDictionary *maindic = [NITUserDefaults objectForKey:@"mainondedatakey"];
+    
+    param.mainnodeid = maindic[@"mainnodeid"];
+    param.mainnodename = maindic[@"mainnodename"];
+    
     NSArray *array = [NITUserDefaults objectForKey:@"sensorallnodes"];
     NSError *parseError = nil;
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
@@ -404,9 +412,16 @@
         
         cell.cellnumber = indexPath.row;
         
+        cell.delegate = self;
+        
+        if ([devices.nodeid isEqualToString:devices.mainnodeid]) {
+            cell.sensorname.textColor = NITColor(252, 82, 115);
+        }
         cell.sensorname.text = devices.nodename;
         
         cell.roomname.text = devices.displayname;
+        
+        cell.nodeid = devices.nodeid;
         
         [cell.segmentbar setSelectedSegmentIndex:[devices.place integerValue] - 1];
         
@@ -425,6 +440,14 @@
         return cell;
     }
     
+}
+
+
+/**
+   刷新当前的tb  显示更新的mainnode
+ */
+-(void)NowRefreshScreen {
+    [self.tableView reloadData];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

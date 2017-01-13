@@ -31,7 +31,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
+    
+    
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getCustList)];

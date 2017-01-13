@@ -16,4 +16,8 @@
 
 @property (nonatomic, copy) NSString                               *place;
 
+@property (nonatomic, copy) NSString                               *mainnodeid;
+
+@property (nonatomic, copy) NSString                               *mainnodename;
+
 @end

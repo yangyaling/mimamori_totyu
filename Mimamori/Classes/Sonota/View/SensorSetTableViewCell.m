@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) NITPicker       *picker;
 
+@property (nonatomic, strong) NSString        *mainname;
 
 @property (nonatomic, strong) NSMutableArray       *allarray;
 
@@ -43,6 +44,25 @@
 //    [WindowView addSubview:_picker];
 //    
 //}
+- (IBAction)mainNodeidSelect:(UIButton *)sender {
+    
+    self.sensorname.textColor = NITColor(252, 82, 115);
+    NSMutableArray *allarr = [NSMutableArray new];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
+    
+    for (NSDictionary *dic in arr) {
+        NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:dic];
+        [nodesdic setValue:self.nodeid forKey:@"mainnodeid"];
+        [allarr addObject:nodesdic];
+    }
+    [NITUserDefaults setObject:allarr forKey:@"sensorallnodes"];
+    [self updateMainnodenameInfo];
+    
+    if ([self.delegate respondsToSelector:@selector(NowRefreshScreen)]) {
+        [self.delegate NowRefreshScreen];
+    }
+    
+}
 
 
 - (IBAction)selectPlaceNumber:(UISegmentedControl *)sender {
@@ -53,21 +73,29 @@
     [nodesdic setValue:value forKey:@"place"];
     [arr replaceObjectAtIndex:self.cellnumber withObject:nodesdic];
     [NITUserDefaults setObject:arr forKey:@"sensorallnodes"];
+    [self updateMainnodenameInfo];
+}
+
+
+- (void)updateMainnodenameInfo {
+    if (self.segmentbar.selectedSegmentIndex == 0) {
+        _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"外"];
+    } else {
+        _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"内"];
+    }
     
+    [NITUserDefaults setObject:@{@"mainnodeid":self.nodeid,@"mainnodename":_mainname} forKey:@"mainondedatakey"];
 }
 
 
 - (void)awakeFromNib
-
 {
-    
     [super awakeFromNib];
     
     
     self.sensorname.layer.cornerRadius = 5;
     self.sensorname.layer.borderWidth = 0.5;
     self.sensorname.layer.borderColor = NITColor(200, 200, 200).CGColor;
-    self.sensorname.backgroundColor = [UIColor whiteColor];
 //    NITColor(115 , 180, 225);
     self.roomname.layer.cornerRadius = 5;
     self.roomname.layer.borderWidth = 0.5;
@@ -88,6 +116,8 @@
 //
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
+    [self updateMainnodenameInfo];
+    
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
     NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellnumber]];
     [nodesdic setValue:textField.text forKey:@"displayname"];

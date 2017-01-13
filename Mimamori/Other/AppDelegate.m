@@ -29,6 +29,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [[UINavigationBar appearance] setTintColor:NITColor(252, 85, 115)];
+    
     NSString *vcstr = [NITUserDefaults objectForKey:@"loginFlg"];
     // ログインFlag
     NSString *VcID = [vcstr isEqualToString:@"0"] ?  MainVC: LoginVC;

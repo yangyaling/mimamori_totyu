@@ -19,19 +19,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="D1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWx-6E-hEt">
-                        <rect key="frame" x="8" y="12" width="47" height="35"/>
+                        <rect key="frame" x="8" y="12" width="35" height="35"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.29771392617449666" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="47" id="1bm-dk-4Lm"/>
+                            <constraint firstAttribute="width" constant="35" id="1bm-dk-4Lm"/>
                             <constraint firstAttribute="height" constant="35" id="jIq-4A-XT6"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="e0X-F2-Yuq">
-                        <rect key="frame" x="252" y="12" width="90" height="36"/>
+                        <rect key="frame" x="260" y="12" width="80" height="36"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="90" id="5L6-bV-0Lj"/>
+                            <constraint firstAttribute="width" constant="80" id="5L6-bV-0Lj"/>
                             <constraint firstAttribute="height" constant="35" id="XdR-Ob-7pL"/>
                         </constraints>
                         <segments>
@@ -44,7 +44,7 @@
                         </connections>
                     </segmentedControl>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VZf-zl-81j">
-                        <rect key="frame" x="58" y="12" width="191" height="35"/>
+                        <rect key="frame" x="53" y="12" width="197" height="35"/>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <textInputTraits key="textInputTraits"/>
@@ -52,16 +52,28 @@
                             <outlet property="delegate" destination="-1" id="NXo-el-LuX"/>
                         </connections>
                     </textField>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jM4-ZT-zOm">
+                        <rect key="frame" x="8" y="12" width="35" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="2hF-Tp-JcC"/>
+                            <constraint firstAttribute="width" constant="35" id="PQG-P5-a3F"/>
+                        </constraints>
+                        <connections>
+                            <action selector="mainNodeidSelect:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6jh-jR-3zt"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="dWx-6E-hEt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="0zF-Ga-SBO"/>
                     <constraint firstItem="dWx-6E-hEt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="32b-Ig-zyf"/>
-                    <constraint firstItem="e0X-F2-Yuq" firstAttribute="leading" secondItem="VZf-zl-81j" secondAttribute="trailing" constant="3" id="TGe-MK-Jhy"/>
+                    <constraint firstItem="e0X-F2-Yuq" firstAttribute="leading" secondItem="VZf-zl-81j" secondAttribute="trailing" constant="10" id="TGe-MK-Jhy"/>
+                    <constraint firstItem="jM4-ZT-zOm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="arn-K9-V99"/>
                     <constraint firstItem="VZf-zl-81j" firstAttribute="height" secondItem="dWx-6E-hEt" secondAttribute="height" id="c0C-gQ-KHo"/>
                     <constraint firstItem="e0X-F2-Yuq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="g2z-G0-7uI"/>
-                    <constraint firstItem="VZf-zl-81j" firstAttribute="leading" secondItem="dWx-6E-hEt" secondAttribute="trailing" constant="3" id="oXW-d1-M3y"/>
+                    <constraint firstItem="jM4-ZT-zOm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="jeC-gM-QJC"/>
+                    <constraint firstItem="VZf-zl-81j" firstAttribute="leading" secondItem="dWx-6E-hEt" secondAttribute="trailing" constant="10" id="oXW-d1-M3y"/>
                     <constraint firstItem="VZf-zl-81j" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="tMu-aa-8bY"/>
-                    <constraint firstAttribute="trailing" secondItem="e0X-F2-Yuq" secondAttribute="trailing" constant="8" id="vBN-cT-0St"/>
+                    <constraint firstAttribute="trailing" secondItem="e0X-F2-Yuq" secondAttribute="trailing" constant="10" id="vBN-cT-0St"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -69,7 +81,7 @@
                 <outlet property="segmentbar" destination="e0X-F2-Yuq" id="pjt-AM-s0a"/>
                 <outlet property="sensorname" destination="dWx-6E-hEt" id="MT7-hN-Mt8"/>
             </connections>
-            <point key="canvasLocation" x="-764" y="-80"/>
+            <point key="canvasLocation" x="-917" y="-113"/>
         </tableViewCell>
     </objects>
 </document>
