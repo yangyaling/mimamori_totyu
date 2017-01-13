@@ -23,6 +23,8 @@
 
 @property (nonatomic,strong) AFHTTPSessionManager       *session;
 
+@property (nonatomic, strong) NSString                  *roomname;
+
 @end
 
 @implementation AriScenarioController
@@ -30,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
-    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     NSString *string = [NSString stringWithFormat:@"<アラート>%@",self.username];
     self.aratoUser.text = string;
     
@@ -67,7 +69,7 @@
         if (self.alldatas.count >0) {
             self.Rtime.text = [self.alldatas.firstObject objectForKey:@"registdate"];
             self.roomnum.text = [self.alldatas.firstObject objectForKey:@"scenarioname"];
-            
+            self.roomname = [self.alldatas.firstObject objectForKey:@"roomname"];
             [self.tableView reloadData];
         }
         
@@ -93,7 +95,8 @@
         lcc.ariresult = @"異常検知あり";
         lcc.username = self.username;
         lcc.userid0 = self.usernumber;
-        lcc.title = self.username;
+        NSString *strtt = [NSString stringWithFormat:@"%@(%@)",self.username,self.roomname];
+        lcc.title = strtt;
         //跳转事件
         [self.navigationController pushViewController:lcc animated:YES];
     }
