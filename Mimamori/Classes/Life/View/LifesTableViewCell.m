@@ -19,6 +19,13 @@
  *  温度
  */
 @property (weak, nonatomic) IBOutlet UILabel *temperature;
+
+
+/**
+  湿度
+ */
+@property (strong, nonatomic) IBOutlet UILabel *humidity;
+
 /**
  *  亮度
  */
@@ -102,10 +109,19 @@
     //　温度
     NSString *tvalue = self.CellModel.tvalue;
     if (tvalue.length) {
-        self.temperature.text = [NSString stringWithFormat:@"%@%@",tvalue,self.CellModel.tunit];
+        self.temperature.text = [NSString stringWithFormat:@"%.1f%@",[tvalue floatValue],self.CellModel.tunit];
     }else{
         self.temperature.text = @"";
     }
+    
+    
+//    NSString *tvalue = self.CellModel.b;
+//    if (tvalue.length) {
+//        self.temperature.text = [NSString stringWithFormat:@"%@%@",tvalue,self.CellModel.tunit];
+//    }else{
+//        self.temperature.text = @"";
+//    }
+    
     
     //　明るさ
     NSString *luminance = self.CellModel.bd;

@@ -14,7 +14,11 @@
 
 #import "MProfileInfoUpdateParam.h"
 
-@interface ProfileTableViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>
+#import "GGActionSheet.h"
+
+@interface ProfileTableViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,GGActionSheetDelegate>
+
+@property(nonatomic,strong) GGActionSheet *actionSheetTitle;
 /**
  *  姓名
  */
@@ -115,9 +119,17 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0 && indexPath.row == 0) {
-        [MBProgressHUD showMessage:@"" toView:WindowView];
-        [self tapClick];
+        [self.actionSheetTitle showGGActionSheet];
+        
     }
+}
+
+-(GGActionSheet *)actionSheetTitle {
+    if (!_actionSheetTitle) {
+        _actionSheetTitle = [GGActionSheet ActionSheetWithTitleArray:@[@"写真を撮る",@"写真を拡大する"] andTitleColorArray:@[NITColor(252, 85, 115),[UIColor darkGrayColor]] delegate:self];
+        _actionSheetTitle.cancelDefaultColor = [UIColor lightGrayColor];
+    }
+    return _actionSheetTitle;
 }
 
 
@@ -304,25 +316,16 @@
 }
 
 
-//进入本地相册
-/*选择拍照/本地相册*/
-- (void)tapClick {
-    [MBProgressHUD hideHUDForView:WindowView];
-    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    imagePicker.allowsEditing = YES;
-    imagePicker.delegate = self;
-    
-    
-    UIAlertController *ac = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cc = [UIAlertAction actionWithTitle:@"写真を撮る" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
+#pragma mark - GGActionSheet代理方法
+-(void)GGActionSheetClickWithIndex:(int)index{
+    if (index == 0) {
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePicker.allowsEditing = YES;
+        imagePicker.delegate = self;
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [self presentViewController:imagePicker animated:YES completion:nil];
-    }];
-    
-    UIAlertAction *aa = [UIAlertAction actionWithTitle:@"写真を拡大する" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
+    } else if (index == 1) {
         self.hoverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, NITScreenW, NITScreenH)];
         self.hoverView.backgroundColor = [UIColor blackColor];
         [self.hoverView addTapAction:@selector(moveToOrigin) target:self];
@@ -347,19 +350,10 @@
         //            ZLLog(@"%f-%f",widthI,heightI);
         [self moveToCenterWidth:widthI withHeight:heightI];
         [self.bigImg addTapAction:@selector(moveToOrigin) target:self];
-    }];
-    UIAlertAction *ua = [UIAlertAction actionWithTitle:@"キャンセル" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    } else {
         
-    }];
-    [ac addAction:aa];
-    [ac addAction:cc];
-    
-    [ac addAction:ua];
-    [self presentViewController:ac animated:YES completion:nil];
-    
+    }
 }
-
-
 
 
 

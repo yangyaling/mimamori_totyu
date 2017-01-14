@@ -91,7 +91,7 @@
 -(void)keyboardWillShow:(NSNotification *)note
 {
     CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 65, 0);
 }
 #pragma mark 键盘消失
 -(void)keyboardWillHide:(NSNotification *)note
@@ -165,7 +165,7 @@
     param.userid0 = self.profileUser0;
     
     [MScenarioTool scenarioListWithParam:param success:^(NSArray *array) {
-        
+        [MBProgressHUD hideHUDForView:self.view];
         if (array.count > 0) {
             
             NSDictionary *dic = array.firstObject;
@@ -193,7 +193,7 @@
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD hideHUDForView:self.view];
         NSArray *sensordatas = [NITUserDefaults objectForKey:@"sensorallnodes"];
         
         sensordatas = nil;
@@ -269,15 +269,19 @@
 }
 
 - (IBAction)SaveSelectedData:(UIButton *)sender {
+    [MBProgressHUD showMessage:@"" toView:self.view];
 //    sensorallnodes
     MScenarioListParam *param = [[MScenarioListParam alloc]init];
     param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
     param.userid0 = self.profileUser0;
     
     NSDictionary *maindic = [NITUserDefaults objectForKey:@"mainondedatakey"];
+    NSString *mainid = maindic[@"mainnodeid"];
+    if (mainid.length) {
+        param.mainnodeid = mainid;
+        param.mainnodename = maindic[@"mainnodename"];
+    }
     
-    param.mainnodeid = maindic[@"mainnodeid"];
-    param.mainnodename = maindic[@"mainnodename"];
     
     NSArray *array = [NITUserDefaults objectForKey:@"sensorallnodes"];
     NSError *parseError = nil;
@@ -289,13 +293,13 @@
 //    NITLog(@"userid1:%@\n userid0:%@\n place:%@",param.userid1,param.userid0,param.place);
     
     [MScenarioTool sensorUpdateWithParam:param success:^(NSString *code) {
-        
+        [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"%@",code);
         [self saveNodeIdDatas];
-        [MBProgressHUD showSuccess:@""];
+        [MBProgressHUD showSuccess:@"設定済"];
         
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD hideHUDForView:self.view];
     }];
     
 }

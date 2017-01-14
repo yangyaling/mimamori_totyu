@@ -8,7 +8,7 @@
 
 #define bgcolor [UIColor whiteColor]//self背景色
 #define pickertextcolor [UIColor blackColor]
-#define righttitlecolor [UIColor colorWithRed:100.0/255.0 green:150.0/255.0 blue:235.0/255.0 alpha:1.0]
+#define righttitlecolor [UIColor colorWithRed:12.0/255.0 green:10.0/255.0 blue:12.0/255.0 alpha:1.0]
 #define lefttitlecolor [UIColor colorWithRed:255.0/255.0 green:80.0/255.0 blue:80.0/255.0 alpha:1.0]
 #define pathcolor [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0].CGColor
 

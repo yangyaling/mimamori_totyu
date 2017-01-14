@@ -56,7 +56,11 @@
         [allarr addObject:nodesdic];
     }
     [NITUserDefaults setObject:allarr forKey:@"sensorallnodes"];
-    [self updateMainnodenameInfo];
+//    [self updateMainnodenameInfo:self.nodeid andNodename:nil withType:6];
+    if (self.segmentbar.selectedSegmentIndex == 0) _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"外"];
+    if (self.segmentbar.selectedSegmentIndex == 1) _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"内"];
+    [NITUserDefaults setObject:@{@"mainnodeid":self.nodeid,@"mainnodename":_mainname} forKey:@"mainondedatakey"];
+    
     
     if ([self.delegate respondsToSelector:@selector(NowRefreshScreen)]) {
         [self.delegate NowRefreshScreen];
@@ -73,18 +77,27 @@
     [nodesdic setValue:value forKey:@"place"];
     [arr replaceObjectAtIndex:self.cellnumber withObject:nodesdic];
     [NITUserDefaults setObject:arr forKey:@"sensorallnodes"];
-    [self updateMainnodenameInfo];
+    [self updateMainnodenameInfoaNodename:nil withType:sender.selectedSegmentIndex];
 }
 
 
-- (void)updateMainnodenameInfo {
-    if (self.segmentbar.selectedSegmentIndex == 0) {
-        _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"外"];
-    } else {
-        _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"内"];
+- (void)updateMainnodenameInfoaNodename:(NSString *)mainnodename withType:(NSInteger)outnum {
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[NITUserDefaults objectForKey:@"mainondedatakey"]];
+    NSString *mainid = dic[@"mainnodeid"];
+    if (mainid.length) {
+        if (mainnodename.length) {
+            if (self.segmentbar.selectedSegmentIndex == 0) _mainname = [NSString stringWithFormat:@"%@ (%@)",mainnodename,@"外"];
+            if (self.segmentbar.selectedSegmentIndex == 1) _mainname = [NSString stringWithFormat:@"%@ (%@)",mainnodename,@"内"];
+            
+        } else {
+            if (outnum == 0) _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"外"];
+            if (outnum == 1) _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"内"];
+        }
+        dic[@"mainnodename"] = _mainname;
+        [NITUserDefaults setObject:dic forKey:@"mainondedatakey"];
     }
     
-    [NITUserDefaults setObject:@{@"mainnodeid":self.nodeid,@"mainnodename":_mainname} forKey:@"mainondedatakey"];
 }
 
 
@@ -116,7 +129,7 @@
 //
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-    [self updateMainnodenameInfo];
+    [self updateMainnodenameInfoaNodename:textField.text withType:2];
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
     NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellnumber]];
