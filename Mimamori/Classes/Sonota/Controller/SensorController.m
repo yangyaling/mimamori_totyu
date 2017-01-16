@@ -405,7 +405,6 @@
     }
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.isSensorTableView) {
         SensorSetTableViewCell *cell = [SensorSetTableViewCell cellWithTableView:tableView];

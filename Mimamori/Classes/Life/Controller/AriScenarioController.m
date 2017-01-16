@@ -71,6 +71,8 @@
             self.roomnum.text = [self.alldatas.firstObject objectForKey:@"scenarioname"];
             self.roomname = [self.alldatas.firstObject objectForKey:@"roomname"];
             [self.tableView reloadData];
+        } else {
+            NITLog(@"aratoinfo没数据");
         }
         
         
