@@ -46,7 +46,7 @@
 //}
 - (IBAction)mainNodeidSelect:(UIButton *)sender {
     
-    self.sensorname.textColor = NITColor(252, 82, 115);
+    self.sensorname.textColor = NITColor(252, 58, 92);
     NSMutableArray *allarr = [NSMutableArray new];
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
     

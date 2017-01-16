@@ -57,7 +57,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.saveButton.layer.cornerRadius = 6;
@@ -156,7 +156,7 @@
 
 
 /**
- *  シナリオ一覧取得
+ * sensor  / シナリオ  一覧取得
  */
 -(void)getScenarioList{
     
@@ -219,7 +219,7 @@
     
     [MScenarioTool scenarioDeleteWithParam:param success:^(NSString *code) {
         if ([code isEqualToString:@"200"]) {
-            
+            [MBProgressHUD showSuccess:@"削除済み"];
             [self  getScenarioList];
             
         } else {
@@ -296,7 +296,7 @@
         [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"%@",code);
         [self saveNodeIdDatas];
-        [MBProgressHUD showSuccess:@"設定済"];
+        [MBProgressHUD showSuccess:@"設定済み"];
         
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
@@ -419,7 +419,7 @@
         cell.delegate = self;
         
         if ([devices.nodeid isEqualToString:devices.mainnodeid]) {
-            cell.sensorname.textColor = NITColor(252, 82, 115);
+            cell.sensorname.textColor = NITColor(252, 58, 92);
         }
         cell.sensorname.text = devices.nodename;
         

@@ -183,6 +183,7 @@
 		EBE719231E2A13E60008ABE2 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE719151E2A13E60008ABE2 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		EBE719241E2A13E60008ABE2 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE719171E2A13E60008ABE2 /* View+MASAdditions.m */; };
 		EBE719251E2A13E60008ABE2 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE7191A1E2A13E60008ABE2 /* ViewController+MASAdditions.m */; };
+		EBE7192B1E2C76C50008ABE2 /* ScenarioModel.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBE7192A1E2C76C50008ABE2 /* ScenarioModel.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -547,6 +548,7 @@
 		EBE719181E2A13E60008ABE2 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		EBE719191E2A13E60008ABE2 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		EBE7191A1E2A13E60008ABE2 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		EBE7192A1E2C76C50008ABE2 /* ScenarioModel.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ScenarioModel.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -851,6 +853,7 @@
 				92951A0A1D7D0B0100787997 /* ProfileTableViewController.m */,
 				EB9C92E51E0157CD00F3132C /* SinarioController.h */,
 				EB9C92E61E0157CD00F3132C /* SinarioController.m */,
+				EBE7192A1E2C76C50008ABE2 /* ScenarioModel.plist */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1511,6 +1514,7 @@
 				EB4A56191E00F32300A2F1C2 /* SetTableViewCell.xib in Resources */,
 				EB84F1001E275490005B1C4D /* DetailCCell.xib in Resources */,
 				92951A361D7D0B0100787997 /* Sonota.storyboard in Resources */,
+				EBE7192B1E2C76C50008ABE2 /* ScenarioModel.plist in Resources */,
 				92AF7BC71D98AADA00FC30E9 /* DetailChartCell.xib in Resources */,
 				E9D445971D010FE500CFF364 /* Main.storyboard in Resources */,
 				9291E49E1D9A029100FB8FC4 /* test.plist in Resources */,

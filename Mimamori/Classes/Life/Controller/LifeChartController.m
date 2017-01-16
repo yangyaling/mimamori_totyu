@@ -24,7 +24,7 @@
 
 #import "AriScenarioController.h"
 
-#define Surplus 345
+#define Surplus 330
 #define NITVersionKey @"version"
 
 @interface LifeChartController ()<PopUpdateChartDelegate>
@@ -60,7 +60,6 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
     self.imageIcon.layer.cornerRadius = 6;
     self.imageIcon.layer.masksToBounds = YES;
     self.imageIcon.userInteractionEnabled = YES;
@@ -227,7 +226,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
         [MBProgressHUD hideHUDForView:self.view];
         
         NSArray *tmpArr = [ZworksChartModel mj_objectArrayWithKeyValuesArray:dic[@"deviceinfo"]];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSString *imagestr = dic[@"picpath"];
             if (imagestr.length) {
                 NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:imagestr]];
@@ -238,7 +237,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
             } else {
                 NITLog(@"图片地址为空");
             }
-        });
+//        });
         if (tmpArr.count == 0) {
             [_ZworksDataArray removeAllObjects];
             [MBProgressHUD showError:@"データがありません"];
@@ -264,7 +263,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
                 [self.controlarr addObject:ChartC]; //viewC放到数组里面
             }
             
-            _myCollection.contentSize = CGSizeMake(NITScreenW,NITScreenH-Surplus);
+            _myCollection.contentSize = self.myCollection.size;
             _myCollection.contentOffset = CGPointMake((NITScreenW)*_CLArray.count-1, 0);
             [_myCollection reloadData];
         }

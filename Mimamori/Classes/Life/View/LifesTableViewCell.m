@@ -108,6 +108,7 @@
     self.dipname.text = strdipname;
     //　温度
     NSString *tvalue = self.CellModel.tvalue;
+    
     if (tvalue.length) {
         self.temperature.text = [NSString stringWithFormat:@"%.1f%@",[tvalue floatValue],self.CellModel.tunit];
     }else{
@@ -115,12 +116,12 @@
     }
     
     
-//    NSString *tvalue = self.CellModel.b;
-//    if (tvalue.length) {
-//        self.temperature.text = [NSString stringWithFormat:@"%@%@",tvalue,self.CellModel.tunit];
-//    }else{
-//        self.temperature.text = @"";
-//    }
+    NSString *hvalue = self.CellModel.hvalue;
+    if (hvalue.length) {
+        self.humidity.text = [NSString stringWithFormat:@"%.1f%@",[hvalue floatValue],self.CellModel.hunit];
+    }else{
+        self.humidity.text = @"";
+    }
     
     
     //　明るさ

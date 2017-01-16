@@ -11,7 +11,7 @@
 #import "DetailChartViewController.h"
 #import "ZworksChartModel.h"
 
-#define Surplus 125
+#define Surplus 113
 
 @interface DetailScrollController ()
 
@@ -27,7 +27,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     [super viewDidLoad];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     
     //タイトル
     self.navigationItem.title = [NSString stringWithFormat:@"%@（%@）",self.chartModel.devicename,self.chartModel.nodename];
@@ -54,6 +54,8 @@ static NSString * const reuseIdentifier = @"Cell";
         UIStoryboard *lifesb = [UIStoryboard storyboardWithName:@"Life" bundle:nil];
         DetailChartViewController *VC = [lifesb instantiateViewControllerWithIdentifier:@"DetailChartView"];
         
+        VC.self.automaticallyAdjustsScrollViewInsets = YES;
+//        vc.automaticallyAdjustsScrollViewInsets = NO;
 //        DetailChartViewController *VC  = [[DetailChartViewController alloc] init];
         
         VC.dateString = dateStr;
@@ -97,6 +99,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.collectionView.contentOffset = CGPointMake(self.selectindex * NITScreenW, 0);
     
     [self.collectionView reloadData];
+    
 }
 
 

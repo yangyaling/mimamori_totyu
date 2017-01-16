@@ -31,13 +31,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     NSString *string = [NSString stringWithFormat:@"<アラート>%@",self.username];
     self.aratoUser.text = string;
     
-    self.pushButton.layer.cornerRadius = 5;
     
+    self.pushButton.layer.cornerRadius = 5;
+    self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
@@ -144,12 +144,6 @@
     
     return cell;
     
-}
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    
-    return 60;
 }
 
 

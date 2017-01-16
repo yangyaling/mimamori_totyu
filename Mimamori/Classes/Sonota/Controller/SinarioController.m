@@ -30,6 +30,8 @@
 
 @property (nonatomic,strong) AFHTTPSessionManager       *session;
 
+@property (nonatomic, assign) BOOL                       isSelectModelScenario;
+
 @end
 
 @implementation SinarioController
@@ -38,10 +40,11 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
     // Do any additional setup after loading the view.
     
     self.cellnum = 0;
+    
+    self.isSelectModelScenario = NO;  //雏形开关
     
     self.sinarioText.text = self.textname;
     
@@ -74,6 +77,7 @@
     NSString *url = NITGetScenarioInfo;
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     parametersDict[@"roomid"] = self.roomID;
+    
     if (self.isRefresh) {
         parametersDict[@"scenarioid"] = self.scenarioID;
     }
@@ -88,11 +92,95 @@
         if (tmpArr) {
 //            NITLog(@"%@",tmpArr);
             
-            NSData * data = [NSKeyedArchiver archivedDataWithRootObject:tmpArr];
-            [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
+            if (self.isSelectModelScenario) {
+                
+                NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"ScenarioModel" ofType:@"plist"];
+                NSArray *arr = [[NSDictionary dictionaryWithContentsOfFile:plistPath] objectForKey:self.sinarioText.text];
+                
+                NSMutableArray *allarr = [NSMutableArray arrayWithArray:tmpArr];
+                NSMutableArray *newarr = [NSMutableArray array];
+                
+                int arcselectcount = arc4random() % tmpArr.count;
+                
+                NSArray *arctmps = tmpArr[arcselectcount]; //随机取一个样本模型
+                //getmodel
+                NSMutableDictionary *Monedic
+                 = [NSMutableDictionary dictionaryWithDictionary:[arctmps objectAtIndex:0]];
+                NSMutableDictionary *Mtwodic
+                 = [NSMutableDictionary dictionaryWithDictionary:[arctmps objectAtIndex:1]];
+                NSMutableDictionary *Mthreedic
+                 = [NSMutableDictionary dictionaryWithDictionary:[arctmps objectAtIndex:2]];
+                NSMutableDictionary *Mfourdic
+                 = [NSMutableDictionary dictionaryWithDictionary:[arctmps objectAtIndex:3]];
+                
+                //model
+                NSDictionary *onedic = arr.firstObject;
+                NSDictionary *twodic = [arr objectAtIndex:1];
+                NSDictionary *threedic = [arr objectAtIndex:2];
+                NSDictionary *fourdic = arr.lastObject;
+                
+                int atime = (arc4random() % 3) + 1;
+                float btime = ((arc4random() % 6) + 1)/2.0;
+                float ctime = ((arc4random() % 5) + 1)/2.0;
+                int dtime = (arc4random() % 3) + 1;
+                
+                int avalue = (arc4random() % 10) + 20;
+                int bvalue = (arc4random() % 19) + 50;
+                int cvalue = (arc4random() % 30) + 66;
+                
+                
+                NSString *atstr = [NSString stringWithFormat:@"%d",atime];
+                NSString *btstr = [NSString stringWithFormat:@"%.1f",btime];
+                NSString *ctstr = [NSString stringWithFormat:@"%.1f",ctime];
+                NSString *dtstr = [NSString stringWithFormat:@"%d",dtime];
+                
+                NSString *avstr = [NSString stringWithFormat:@"%d",avalue];
+                NSString *bvstr = [NSString stringWithFormat:@"%d",bvalue];
+                NSString *cvstr = [NSString stringWithFormat:@"%d",cvalue];
+                
+                //one
+                [Monedic setObject:@"1" forKey:@"detailno"];
+                [Monedic setObject:atstr forKey:@"time"];
+                [Monedic setObject:onedic[@"value"] forKey:@"value"];
+                
+                //two
+                [Mtwodic setObject:@"1" forKey:@"detailno"];
+                [Mtwodic setObject:btstr forKey:@"time"];
+                [Mtwodic setObject:avstr forKey:@"value"];
+                [Mtwodic setObject:twodic[@"rpoint"] forKey:@"rpoint"];
+                
+                //three
+                [Mthreedic setObject:@"1" forKey:@"detailno"];
+                [Mthreedic setObject:ctstr forKey:@"time"];
+                [Mthreedic setObject:bvstr forKey:@"value"];
+                [Mthreedic setObject:threedic[@"rpoint"] forKey:@"rpoint"];
+                
+                //four
+                [Mfourdic setObject:@"1" forKey:@"detailno"];
+                [Mfourdic setObject:dtstr forKey:@"time"];
+                [Mfourdic setObject:cvstr forKey:@"value"];
+                [Mfourdic setObject:fourdic[@"rpoint"] forKey:@"rpoint"];
+                
+                [newarr addObject:Monedic];
+                [newarr addObject:Mtwodic];
+                [newarr addObject:Mthreedic];
+                [newarr addObject:Mfourdic];
+                
+                [allarr replaceObjectAtIndex:arcselectcount withObject:newarr];
+                
+                NSData * data = [NSKeyedArchiver archivedDataWithRootObject:allarr];
+                [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
+                self.allarray = [NSMutableArray arrayWithArray:allarr];
+            } else {
+                
+                NSData * data = [NSKeyedArchiver archivedDataWithRootObject:tmpArr];
+                [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
+                self.allarray = [NSMutableArray arrayWithArray:tmpArr];
+//                                 [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"scenariodtlinfoarr"]]];
+            }
             
             
-            self.allarray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"scenariodtlinfoarr"]]];
+            
             
             [self.tableView reloadData];
         }
@@ -118,6 +206,14 @@
     if (addcell.count == 0) {
         
         self.sinarioText.text = sinario;
+        
+        self.isRefresh = NO;
+        
+        self.isSelectModelScenario = YES;
+        
+        [self.tableView.mj_header beginRefreshing];
+        
+        
         
     } else {
         NSInteger index = [addcell[@"idx"] integerValue];
@@ -557,8 +653,6 @@
         return 172;
     }
     
-    
-    
 }
 
 
@@ -586,5 +680,22 @@
     }
     return _allarray;
 }
+
+
+
+
+//                NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//                //获取完整路径
+//                NSString *documentsPath = [path objectAtIndex:0];
+//                NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"ScenarioModel.plist"];
+//                NSMutableArray *arr = [NSMutableArray new];
+//                NSMutableDictionary *usersDic = [[NSMutableDictionary alloc ] init];
+//
+//                [usersDic setObject:tmpArr[0] forKey:@"ModelOne"];
+//                [usersDic setObject:tmpArr[0] forKey:@"ModelTwo"];
+//                [usersDic setObject:tmpArr[0] forKey:@"ModelThree"];
+//                [arr addObject:usersDic];
+//                //写入文件
+//                [usersDic writeToFile:plistPath atomically:YES];
 
 @end

@@ -46,6 +46,14 @@
  */
 @property (nonatomic, copy) NSString                         *tunit;
 /**
+ *  湿度
+ */
+@property (nonatomic, copy) NSString                         *hvalue;
+/**
+ *  湿度単位
+ */
+@property (nonatomic, copy) NSString                         *hunit;
+/**
  *  明るさ
  */
 @property (nonatomic, copy) NSString                         *bvalue;

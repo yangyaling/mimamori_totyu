@@ -85,7 +85,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
     self.userIcon.layer.cornerRadius = 6;
     self.userIcon.layer.masksToBounds = YES;
     

@@ -28,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
 //        [self.pushButton setHidden:NO];
     self.textView.layer.cornerRadius = 6;
     self.textView.layer.borderWidth = 2.5;

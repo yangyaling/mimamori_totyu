@@ -29,6 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     // 判断这个nodeID的所有deviceID的这一天的data是否缓存过，如果缓存过

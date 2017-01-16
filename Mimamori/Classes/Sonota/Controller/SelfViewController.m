@@ -46,7 +46,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-     [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
     
     self.title = @"ユーザ情報";
     

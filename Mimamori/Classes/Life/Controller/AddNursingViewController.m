@@ -38,7 +38,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationController.navigationBar setTintColor:NITColor(252, 85, 115)];
     // 初始化session对象
     _session = [AFHTTPSessionManager manager];
     // 设置请求接口回来时支持什么类型的数组

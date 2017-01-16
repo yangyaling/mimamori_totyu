@@ -81,10 +81,10 @@
         }
         if (array.count>0) {
             //保存detailinfo的数组转换成json数据格式
-            NSError *parseError = nil;
-            NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
-            NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-            NITLog(@"%@",str);
+//            NSError *parseError = nil;
+//            NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
+//            NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+//            NITLog(@"%@",str);
             
             NSArray *tmpArr = [LifeUserListModel mj_objectArrayWithKeyValuesArray:array];
             self.custArr= tmpArr.count ? [NSMutableArray arrayWithArray:tmpArr] : [NSMutableArray new];
