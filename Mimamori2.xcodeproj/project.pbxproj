@@ -38,7 +38,6 @@
 		929519921D7D078B00787997 /* ABFillButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295198D1D7D078B00787997 /* ABFillButton.m */; };
 		929519931D7D078B00787997 /* Emergency.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9295198E1D7D078B00787997 /* Emergency.storyboard */; };
 		929519941D7D078B00787997 /* NITSegmented.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519901D7D078B00787997 /* NITSegmented.m */; };
-		929519ED1D7D0A6000787997 /* AddNursingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519CC1D7D0A6000787997 /* AddNursingViewController.m */; };
 		929519EF1D7D0A6000787997 /* LifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519D01D7D0A6000787997 /* LifeViewController.m */; };
 		929519F01D7D0A6000787997 /* NursingNotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519D21D7D0A6000787997 /* NursingNotesTableViewController.m */; };
 		929519F21D7D0A6000787997 /* NursingNotesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519D71D7D0A6000787997 /* NursingNotesModel.m */; };
@@ -184,6 +183,8 @@
 		EBE719241E2A13E60008ABE2 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE719171E2A13E60008ABE2 /* View+MASAdditions.m */; };
 		EBE719251E2A13E60008ABE2 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE7191A1E2A13E60008ABE2 /* ViewController+MASAdditions.m */; };
 		EBE7192B1E2C76C50008ABE2 /* ScenarioModel.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBE7192A1E2C76C50008ABE2 /* ScenarioModel.plist */; };
+		EBE7192E1E2DAF850008ABE2 /* VoiceRecognitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE7192D1E2DAF850008ABE2 /* VoiceRecognitionController.m */; };
+		EBE719341E2E2CAB0008ABE2 /* RecordingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE719331E2E2CAB0008ABE2 /* RecordingStatus.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,8 +264,6 @@
 		9295198E1D7D078B00787997 /* Emergency.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Emergency.storyboard; sourceTree = "<group>"; };
 		9295198F1D7D078B00787997 /* NITSegmented.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITSegmented.h; sourceTree = "<group>"; };
 		929519901D7D078B00787997 /* NITSegmented.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITSegmented.m; sourceTree = "<group>"; };
-		929519CB1D7D0A6000787997 /* AddNursingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNursingViewController.h; sourceTree = "<group>"; };
-		929519CC1D7D0A6000787997 /* AddNursingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNursingViewController.m; sourceTree = "<group>"; };
 		929519CF1D7D0A6000787997 /* LifeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeViewController.h; sourceTree = "<group>"; };
 		929519D01D7D0A6000787997 /* LifeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeViewController.m; sourceTree = "<group>"; };
 		929519D11D7D0A6000787997 /* NursingNotesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NursingNotesTableViewController.h; sourceTree = "<group>"; };
@@ -549,6 +548,10 @@
 		EBE719191E2A13E60008ABE2 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		EBE7191A1E2A13E60008ABE2 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		EBE7192A1E2C76C50008ABE2 /* ScenarioModel.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ScenarioModel.plist; sourceTree = "<group>"; };
+		EBE7192C1E2DAF850008ABE2 /* VoiceRecognitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceRecognitionController.h; sourceTree = "<group>"; };
+		EBE7192D1E2DAF850008ABE2 /* VoiceRecognitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceRecognitionController.m; sourceTree = "<group>"; };
+		EBE719321E2E2CAB0008ABE2 /* RecordingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingStatus.h; sourceTree = "<group>"; };
+		EBE719331E2E2CAB0008ABE2 /* RecordingStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingStatus.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -769,20 +772,20 @@
 			children = (
 				929519CF1D7D0A6000787997 /* LifeViewController.h */,
 				929519D01D7D0A6000787997 /* LifeViewController.m */,
-				92AF7BCB1D98C82100FC30E9 /* DetailScrollController.h */,
-				92AF7BCC1D98C82100FC30E9 /* DetailScrollController.m */,
-				92AF7BC01D98AA8E00FC30E9 /* DetailChartViewController.h */,
-				92AF7BC11D98AA8E00FC30E9 /* DetailChartViewController.m */,
-				929519D11D7D0A6000787997 /* NursingNotesTableViewController.h */,
-				929519D21D7D0A6000787997 /* NursingNotesTableViewController.m */,
-				929519CB1D7D0A6000787997 /* AddNursingViewController.h */,
-				929519CC1D7D0A6000787997 /* AddNursingViewController.m */,
 				EB9C92ED1E02425600F3132C /* LifeChartController.h */,
 				EB9C92EE1E02425600F3132C /* LifeChartController.m */,
 				EB9C932B1E027F4700F3132C /* ZworksChartTBVC.h */,
 				EB9C932C1E027F4700F3132C /* ZworksChartTBVC.m */,
 				EB9C932E1E028BC200F3132C /* SinarioDetailController.h */,
 				EB9C932F1E028BC200F3132C /* SinarioDetailController.m */,
+				92AF7BCB1D98C82100FC30E9 /* DetailScrollController.h */,
+				92AF7BCC1D98C82100FC30E9 /* DetailScrollController.m */,
+				92AF7BC01D98AA8E00FC30E9 /* DetailChartViewController.h */,
+				92AF7BC11D98AA8E00FC30E9 /* DetailChartViewController.m */,
+				929519D11D7D0A6000787997 /* NursingNotesTableViewController.h */,
+				929519D21D7D0A6000787997 /* NursingNotesTableViewController.m */,
+				EBE7192C1E2DAF850008ABE2 /* VoiceRecognitionController.h */,
+				EBE7192D1E2DAF850008ABE2 /* VoiceRecognitionController.m */,
 				EBDFE8801E287439007D3320 /* AriScenarioController.h */,
 				EBDFE8811E287439007D3320 /* AriScenarioController.m */,
 			);
@@ -821,6 +824,8 @@
 				929519E51D7D0A6000787997 /* NursingNotesTableViewCell.m */,
 				92F362481DC9908D0030DCE0 /* MBatteryButton.h */,
 				92F362491DC9908D0030DCE0 /* MBatteryButton.m */,
+				EBE719321E2E2CAB0008ABE2 /* RecordingStatus.h */,
+				EBE719331E2E2CAB0008ABE2 /* RecordingStatus.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1545,6 +1550,7 @@
 				92F362E01DC9B1C80030DCE0 /* WHUCalendarItem.m in Sources */,
 				929519F91D7D0A6100787997 /* NursingNotesTableViewCell.m in Sources */,
 				92951A2D1D7D0B0100787997 /* ProfileModel.m in Sources */,
+				EBE719341E2E2CAB0008ABE2 /* RecordingStatus.m in Sources */,
 				EBE718FF1E2A12B80008ABE2 /* GGActionSheet.m in Sources */,
 				929519F01D7D0A6000787997 /* NursingNotesTableViewController.m in Sources */,
 				92F362F61DC9B1C80030DCE0 /* NSString+MJExtension.m in Sources */,
@@ -1568,6 +1574,7 @@
 				92F362F81DC9B1C80030DCE0 /* MJRefreshBackFooter.m in Sources */,
 				EB5D36601E139A1800CEBF4E /* UULineChart.m in Sources */,
 				EB581AD31E1C993A0076BAFD /* EmergencyAController.m in Sources */,
+				EBE7192E1E2DAF850008ABE2 /* VoiceRecognitionController.m in Sources */,
 				92951A301D7D0B0100787997 /* SelfModel.m in Sources */,
 				927C311B1D89447B00E097D2 /* Device.m in Sources */,
 				92F362FA1DC9B1C80030DCE0 /* MJRefreshFooter.m in Sources */,
@@ -1625,7 +1632,6 @@
 				92F362F21DC9B1C80030DCE0 /* NSObject+MJClass.m in Sources */,
 				92F363071DC9B1C80030DCE0 /* MJRefreshConst.m in Sources */,
 				929519921D7D078B00787997 /* ABFillButton.m in Sources */,
-				929519ED1D7D0A6000787997 /* AddNursingViewController.m in Sources */,
 				EB9C92EB1E015BBC00F3132C /* SinarioTableViewCell.m in Sources */,
 				EB5D365F1E139A1800CEBF4E /* UUColor.m in Sources */,
 				92F362EF1DC9B1C80030DCE0 /* MJProperty.m in Sources */,

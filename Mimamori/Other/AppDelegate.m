@@ -30,10 +30,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [[UINavigationBar appearance] setTintColor:NITColor(252, 85, 115)];
-    
-    NSString *vcstr = [NITUserDefaults objectForKey:@"loginFlg"];
+    NSString *plistPath = [NITDocumentDirectory stringByAppendingPathComponent:@"loginFlgRecord.plist"];
+    NSDictionary *vcdic = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+//    NSString *vcstr = [NITUserDefaults objectForKey:@"OldloginFlgKey"];
     // ログインFlag
-    NSString *VcID = [vcstr isEqualToString:@"0"] ?  MainVC: LoginVC;
+    NSString *VcID = [vcdic[@"OldloginFlgKey"] isEqualToString:@"mimamori2"] ?  MainVC: LoginVC;
+//    NSString *VcID = [vcstr isEqualToString:@"mimamori2"] ?  MainVC: LoginVC;
     self.window.rootViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:VcID];
     
     //串行队列 异步任务 (非常非常有用！！！!!!!)
@@ -112,12 +114,10 @@
     for (int i = 0; i<self.alertArr.count; i++) {
         NotificationModel *notice = [self.alertArr objectAtIndex:i];
         NSString *typeStr =@"";
-        if (notice.type == 0) {
-            typeStr = @"<支援要請>";
-        }else if (notice.type == 1){
+        if (notice.type == 1){
             typeStr = @"<センサー>";
-        }else if (notice.type == 2){
-            typeStr = @"<お知らせ>";
+        }else{
+            typeStr = @"<支援要請>";
         }
         NSString *contentStr = [NSString stringWithFormat:@"%@%@ %@%@",typeStr,notice.groupname,notice.title,@"\n"];
         [contentArray addObject:contentStr];
@@ -142,10 +142,8 @@
         //notification.userInfo=@{@"id":@1,@"content":contentArray};//绑定到通知上的其他附加信息
         
         [[UIApplication sharedApplication] scheduleLocalNotification:notification];//调用通知
-        
     // 5 发送AlertController
         [self showAlertWithContents:contentArray];
-
     }
     
 }
@@ -242,6 +240,7 @@
                     [self.alertArr addObject:notice];
                 }
             }
+            
             self.readNoticeIdArr = [NSArray arrayWithArray:noticeIdArr];
             
             

@@ -15,8 +15,8 @@
 // 传感器数据缓存沙盒路径
 #define NITDataPath [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"Data"]
 
-
-#define NITDocumentDirectory NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//Directory存储
+#define NITDocumentDirectory NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject
 // 沙盒路径
 #define NITFilePath NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject
 
@@ -81,7 +81,6 @@
 
 #define NITGetScenarioInfo @"http://mimamori2.azurewebsites.net/zwgetscenariodtlinfo.php"
 
-
 #define NITUpdateScenarioInfo @"http://mimamori2.azurewebsites.net/zwupdatescenarioinfo.php"
 
 /**
@@ -93,7 +92,11 @@
 
 #define NITGetMonthlyDeviceInfo @"http://mimamori2.azurewebsites.net/zwgetmonthlydeviceinfo.php"
 
+#define NITGetCarememoDateList @"http://mimamori2.azurewebsites.net/zwgetcarememodatelist.php"
 
+#define NITGetCarememoInfo @"http://mimamori2.azurewebsites.net/zwgetcarememoinfo.php"
+
+#define NITUpdateCarememoInfo @"http://mimamori2.azurewebsites.net/zwupdatecarememoinfo.php"
 
 /**
  notice   URL

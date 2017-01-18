@@ -26,7 +26,15 @@
     
     _muniteTime.text = CellModel.memotime;
     
-    _contentTextView.text = CellModel.content;
+    NSData *strdata = [CellModel.content dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *parseError = nil;
+//    id strdic
+    NSArray *strarr = [NSJSONSerialization JSONObjectWithData:strdata options:NSJSONReadingMutableLeaves error:&parseError];
+//    NITLog(@"%@\n%@",[strdic objectForKey:@"excretion"],[strdic objectForKey:@"temperature"]);
+    NSDictionary *strdic  = [strarr.firstObject copy];
+    NSString *newcontent = [NSString stringWithFormat:@" 体温:%@; \n 血压:%@; \n 排泄:%@; \n 食事:%@; \n その他:%@",strdic[@"excretion"],strdic[@"temperature"],strdic[@"bloodpressure"],strdic[@"eat"],strdic[@"other"]];
+    
+    _contentTextView.text = newcontent;
 }
 
 @end

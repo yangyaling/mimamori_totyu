@@ -62,8 +62,15 @@
     [self.segmentC setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
+    
     //ログインFlag -> 0 (ログイン済)
-    [NITUserDefaults setObject:@"0" forKey:@"loginFlg"];
+    
+    NSString *plistPath = [NITDocumentDirectory stringByAppendingPathComponent:@"loginFlgRecord.plist"];
+    NSDictionary *oldKey = @{@"OldloginFlgKey":@"mimamori2"};
+    [oldKey writeToFile:plistPath atomically:YES];
+    
+//    [NITUserDefaults setObject:@"mimamori2" forKey:@"OldloginFlgKey"];
+//    [NITUserDefaults synchronize];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     

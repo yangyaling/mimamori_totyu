@@ -8,12 +8,10 @@
 
 #import "NursingNotesTableViewController.h"
 #import "NursingNotesTableViewCell.h"
-#import "AddNursingViewController.h"
+#import "VoiceRecognitionController.h"
 
 #import "WHUCalendarPopView.h"
 #import "NursingNotesModel.h"
-
-#import "AFNetworking.h"
 
 
 typedef enum {
@@ -69,7 +67,7 @@ typedef enum {
     self.nursingNotesTable.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullRefresh)];
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.nursingNotesTable.mj_header];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" 生活" style:UIBarButtonItemStyleDone target:self action:@selector(clickLeftBarButtonItem)];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" 生活" style:UIBarButtonItemStyleDone target:self action:@selector(clickLeftBarButtonItem)];
     
 //    [NITNotificationCenter addObserver:self selector:@selector(TapHideCalendar) name:@"HideCalendar" object:nil];
     
@@ -107,7 +105,7 @@ typedef enum {
 }
 
 -(void)getDatesForCalendar{
-    NSString *url = @"http://mimamori.azurewebsites.net/zwgetcarememodatelist.php";
+    NSString *url = NITGetCarememoDateList;
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     [parametersDict setValue:self.userid0 forKey:@"userid0"];
     
@@ -137,7 +135,7 @@ typedef enum {
  *  @param type 今日/選択日付
  */
 - (void)loadNewDataWithType:(ParametersType)type andDate:(NSString *)date{
-    NSString *url = @"http://mimamori.azurewebsites.net/zwgetcarememoinfo.php";
+    NSString *url = NITGetCarememoInfo;
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     [parametersDict setValue:self.userid0 forKey:@"userid0"];
     if (type == SelectDateType) {
@@ -172,8 +170,8 @@ typedef enum {
 - (void)setupCalendarDates:(NSArray *)array
 {
     
-    self.POPCalendar = [[WHUCalendarPopView alloc] initWithFrame:CGRectMake(0, 105, NITScreenW, NITScreenH - 155) withArray:array];
-    
+    self.POPCalendar = [[WHUCalendarPopView alloc] initWithFrame:CGRectMake(0, 95, NITScreenW, NITScreenH - 155) withArray:array];
+    self.POPCalendar.calendarDelegate = self;
     [self.view addSubview:self.POPCalendar];
     typeof(self) __weak weakSelf = self;
     self.POPCalendar.onDateSelectBlk=^(NSDate* date){
@@ -239,13 +237,13 @@ typedef enum {
 {
     UIView *bgView = [[UIView alloc]init];
     
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.nursingNotesTable.width, 30)];
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, self.nursingNotesTable.width, 30)];
     
     titleLabel.text = self.allDataArray[section];
     
     titleLabel.textColor = [UIColor whiteColor];
     
-    bgView.backgroundColor = NITColor(115, 180, 255);
+    bgView.backgroundColor = NITColor(252, 85, 115);
     
     [bgView addSubview:titleLabel];
     
@@ -281,14 +279,14 @@ typedef enum {
 {
     if ([segue.identifier isEqualToString:@"addNursingPushTwo"]) {
         
-        AddNursingViewController * vc = segue.destinationViewController;
+        VoiceRecognitionController * vc = segue.destinationViewController;
         vc.dispname =  self.dispname;
         vc.userid0 = self.userid0;
     }
 }
 
-- (void)dealloc {
-    [NITNotificationCenter removeObserver:self name:@"HideCalendar" object:nil];
-}
+//- (void)dealloc {
+//    [NITNotificationCenter removeObserver:self name:@"HideCalendar" object:nil];
+//}
 
 @end

@@ -12,9 +12,9 @@
 #import "LifesTableViewCell.h"
 #import "LifeUserListModel.h"
 
-#import "AddNursingViewController.h"
 #import "NursingNotesTableViewController.h"
 
+#import "VoiceRecognitionController.h"
 //#import "ZworksChartViewController.h"
 
 #import "MCustTool.h"
@@ -70,11 +70,14 @@
  */
 -(void)getCustList{
 
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    
     MCustInfoParam *param = [[MCustInfoParam alloc]init];
     param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
     param.hassensordata = @"1";
     
     [MCustTool custInfoWithParam:param success:^(NSArray *array) {
+        [MBProgressHUD hideHUDForView:self.view];
         if (array.count == 0) {
             [MBProgressHUD showError:@"見守り対象者を追加してください"];
             [self.lifeTableView.mj_header endRefreshing];
@@ -91,6 +94,7 @@
             [self.lifeTableView reloadData];
         }
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"zwgetcustlist请求失败");
         [self.lifeTableView.mj_header endRefreshing];
         [MBProgressHUD showError:@"後ほど試してください"];
@@ -175,7 +179,7 @@
     if ([segue.identifier isEqualToString:@"nursingNotesPush"]) {
 
         NursingNotesTableViewController * vc = segue.destinationViewController;
-        vc.dispname = self.deliverModel.dispname;
+        vc.dispname = self.deliverModel.user0name;
         vc.userid0 = self.deliverModel.userid0;
     
         
@@ -198,8 +202,8 @@
     }else if([segue.identifier isEqualToString:@"addNursingPush"]){
         
         //添加介护记录
-        AddNursingViewController *vc = segue.destinationViewController;
-        vc.dispname = self.deliverModel.dispname;
+        VoiceRecognitionController *vc = segue.destinationViewController;
+        vc.dispname = self.deliverModel.user0name;
         vc.userid0 = self.deliverModel.userid0;
     }
     

@@ -48,13 +48,24 @@
 
 - (IBAction)OutAtion:(UIButton *)sender {
     UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:nil message:@"ログアウトします。よろしいですか。" preferredStyle: UIAlertControllerStyleAlert];
-    [alert2 addAction:[UIAlertAction actionWithTitle:@"はい" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"はい" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         // 1. ログインFlag -> 1(未登録)
-        [NITUserDefaults setObject:@"1" forKey:@"loginFlg"];
         // 2. 删除缓存数据(data)
         NSFileManager *manager = [NSFileManager defaultManager];
-        
+        NSString *plistPath = [NITDocumentDirectory stringByAppendingPathComponent:@"loginFlgRecord.plist"];
         [manager removeItemAtPath:NITDataPath error:nil];
+        BOOL blDele= [manager removeItemAtPath:plistPath error:nil];
+        if (blDele) {
+            NITLog(@"登录记录清除成功");
+        }else {
+            NSLog(@"dele fail");
+            [MBProgressHUD showError:@"delete fail"];
+            return ;
+        }
+//        [NITUserDefaults setObject:@"1" forKey:@"loginFlg"];
+        
+        
         
         // 3 删除缓存数据(既読のお知らせアラート)
         [NITUserDefaults removeObjectForKey:@"readnotice"];
@@ -65,11 +76,16 @@
         
         // 5.移除定时器
         [appDelegate removeTimer];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"いいえ" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-    }]];
+    }];
     
-    [alert2 addAction:[UIAlertAction actionWithTitle:@"いいえ" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-    }]];
+    [cancel setValue:NITColor(252, 55, 100) forKey:@"_titleTextColor"];
+    [okAction setValue:[UIColor lightGrayColor] forKey:@"_titleTextColor"];
+    
+    [alert2 addAction:cancel];
+    [alert2 addAction:okAction];
     [self presentViewController:alert2 animated:true completion:nil];
 }
 
