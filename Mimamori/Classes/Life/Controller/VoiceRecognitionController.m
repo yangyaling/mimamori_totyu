@@ -33,6 +33,8 @@
 @property (nonatomic, strong) NSDateFormatter *fmt;
 @property (nonatomic,strong) AFHTTPSessionManager       *session;
 
+@property (nonatomic, assign) BOOL                    isSave;
+
 @end
 
 @implementation VoiceRecognitionController
@@ -41,6 +43,7 @@
     
     [super viewDidLoad];
     
+    self.isSave = YES;
     self.title = @"介護メモ入力";
     
     _session = [AFHTTPSessionManager manager];
@@ -96,6 +99,8 @@
     [self.session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [MBProgressHUD hideHUDForView:self.view];
+        self.isSave = YES;
         if ([[responseObject objectForKey:@"code"] isEqualToString:@"200"]) {
             
             [MBProgressHUD  showSuccess:@"追加しました!"];
@@ -107,6 +112,8 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        self.isSave = YES;
+        [MBProgressHUD hideHUDForView:self.view];
          NITLog(@"追加失败");
         [MBProgressHUD  showError:@"後ほど試してください"];
     }];
@@ -119,22 +126,26 @@
 - (void)overButton:(id)sender {
     
     if (!self.temperatureText.text.length) {
-        [MBProgressHUD showError:@""];
+        [MBProgressHUD showError:@"体温を入力して下さい"];
         return;
     }
     if (!self.bloodpressureText.text.length) {
-        [MBProgressHUD showError:@""];
+        [MBProgressHUD showError:@"血圧を入力して下さい"];
         return;
     }
-//    if (!self.excretionText.text.length) {
-//        [MBProgressHUD showError:@""];
-//        return;
-//    }
-//    if (!self.eatText.text.length) {
-//        [MBProgressHUD showError:@""];
-//        return;
-//    }
-    [self updateCareMemoInfo];
+    if (!self.excretionText.text.length) {
+        [MBProgressHUD showError:@"排泄状況を入力して下さい"];
+        return;
+    }
+    if (!self.eatText.text.length) {
+        [MBProgressHUD showError:@"食事状況を入力して下さい"];
+        return;
+    }
+    if (self.isSave) {
+        self.isSave = NO;
+        [self updateCareMemoInfo];
+        [MBProgressHUD showMessage:@"" toView:self.view];
+    }
 }
 
 
