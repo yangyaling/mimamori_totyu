@@ -119,7 +119,7 @@
         }else{
             typeStr = @"<支援要請>";
         }
-        NSString *contentStr = [NSString stringWithFormat:@"%@%@ %@%@",typeStr,notice.groupname,notice.title,@"\n"];
+        NSString *contentStr = [NSString stringWithFormat:@"%@%@ %@%@",typeStr,notice.username,notice.title,@"\n"];
         [contentArray addObject:contentStr];
     }
     
@@ -222,7 +222,10 @@
 -(void)getNoticeInfo{
     MNoticeInfoParam *param = [[MNoticeInfoParam alloc]init];
     param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
-    param.selectdate = [[NSDate date]needDateStatus:HaveHMSType];
+    param.startdate = [NSDate SharedToday];
+    param.historyflg = @"0";
+    param.noticetype = @"0";
+    
     
     [MNoticeTool noticeInfoWithParam:param success:^(NSArray *array) {
         [MBProgressHUD hideHUD];
