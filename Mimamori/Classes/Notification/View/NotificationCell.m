@@ -73,17 +73,19 @@
 //        NSString *string = [NSString stringWithFormat:@"%@%@",@"",_notice.username];
 //        self.notifType.text = string;
 //        self.notifEvent.text = _notice.title;
-//        
+//
+    
+    self.notifEvent.text = notice.title;
+    self.inputTime.text = notice.registdate;
+    
     if (notice.type == 1) {
         NSString *string = [NSString stringWithFormat:@"<アラート>%@",notice.username];
         self.notifType.text = string;
-        self.notifEvent.text = notice.title;
         
     } else  {
         NSString *string = [NSString stringWithFormat:@"<支援要請>%@",notice.username];
         self.notifType.text = string;
-        self.notifEvent.text = notice.title;
-        self.inputTime.text = notice.registdate;
+        
     }
     
     //最終更新時間
@@ -91,7 +93,6 @@
 //    if ([date isKindOfClass:[NSDictionary class]]) {
 //        NSString *dateStr = [date valueForKey:@"date"];
 //
-//        
 //    }
     
     
