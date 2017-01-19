@@ -294,18 +294,17 @@
     [MNoticeTool noticeInfoWithParam:param success:^(NSArray *array) {
         
         [MBProgressHUD hideHUDForView:self.view];
+        [self.MyTableView.mj_header endRefreshing];
         self.noticesArray = [NotificationModel mj_objectArrayWithKeyValuesArray:array];
         
         //　最終更新時間を更新
         self.refreshDate = [NSString stringWithFormat:@"%@\n最終更新時間:%@",[NSDate SharedToday],[[NSDate date] needDateStatus:HMSType]];
         
-        [self.MyTableView.mj_header endRefreshing];
-        
         
         if (array.count == 0) {
-            [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showError:@"通知がありません"];
         }
+        
         if (!self.onstauts) {
             if (self.typenum == 0) {
                 [self setupCalendarDates:[self.datelists0 copy]];// 创建日历 - 选择日期

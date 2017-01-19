@@ -225,15 +225,17 @@
     param.selectdate = [[NSDate date]needDateStatus:HaveHMSType];
     
     [MNoticeTool noticeInfoWithParam:param success:^(NSArray *array) {
+        [MBProgressHUD hideHUD];
         if (array.count>0) {
             NSArray *noticeArr = [NotificationModel mj_objectArrayWithKeyValuesArray:array];
             
             self.alertArr = [[NSMutableArray alloc]init];
-            NSMutableArray *noticeIdArr = [[NSMutableArray alloc]init];
+//            NSMutableArray *noticeIdArr = [[NSMutableArray alloc]init];
             for (NotificationModel *notice in noticeArr) {
+                
                 // 0. 把お知らせ(type->2)的noticeid保存起来用来过滤(点击ok按钮后缓存)
-                if (notice.type == 2) {
-                    [noticeIdArr addObject:[NSString stringWithFormat:@"%ld",(long)notice.noticeid]];            }
+//                if (notice.type == 2) {
+//                    [noticeIdArr addObject:[NSString stringWithFormat:@"%ld",(long)notice.noticeid]];            }
                 
                 // 1.把statues->0（確認必要）的拎出来
                 if (notice.status == 0) {
@@ -241,15 +243,18 @@
                 }
             }
             
-            self.readNoticeIdArr = [NSArray arrayWithArray:noticeIdArr];
+//            self.readNoticeIdArr = [NSArray arrayWithArray:noticeIdArr];
             
             
             // 2.过滤数据，安排发送通知
             [self scheduleNotifications];
+        } else {
+            NITLog(@"h后台notice请求数据空");
         }
 
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD hideHUD];
+        NITLog(@"h后台notice请求fail");
     }];
     
 
@@ -260,13 +265,17 @@
  */
 -(void)getGroupInfo{
     [MGroupTool groupInfoWithsuccess:^(NSArray *array) {
+        [MBProgressHUD hideHUD];
         //缓存groupinfo
         if (array.count > 0) {
             [NITUserDefaults setObject:[array copy] forKey:@"allGroupData"];
             [NITUserDefaults synchronize];
+        } else {
+            NITLog(@"zwgetgroupinfo请求数据空");
         }
 
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUD];
         NITLog(@"zwgetgroupinfo请求失败");
     }];
 }
