@@ -231,12 +231,12 @@
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"解析失败 %@",error);
-            [[RecordingStatus Status] hideRecordingStatus:@"失败！"];
+            [[RecordingStatus Status] hideRecordingStatus:@"認識できませんでした、再入力下さい！！"];
         }];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"上传失败 %@",error);
-        [[RecordingStatus Status] hideRecordingStatus:@"失败！"];
+        [[RecordingStatus Status] hideRecordingStatus:@"認識できませんでした、再入力下さい！"];
     }];
 }
 
