@@ -62,7 +62,7 @@
                                         <rect key="frame" x="0.0" y="28" width="328" height="98"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dbu-nj-FWi" id="fNr-gP-cda">
-                                            <rect key="frame" x="0.0" y="0.0" width="328" height="97"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="328" height="98"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAt-3z-vCW">
@@ -669,7 +669,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mbu-dH-J2P" id="mJ2-eW-uKO">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -986,7 +986,7 @@
                             <outlet property="delegate" destination="UkS-AO-pEa" id="0aV-NC-xsZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="介護記録" id="a3E-l0-2Ic"/>
+                    <navigationItem key="navigationItem" title="介護メモ入力" id="a3E-l0-2Ic"/>
                     <connections>
                         <outlet property="SayButton" destination="17v-P5-qA8" id="mjc-zf-Om8"/>
                         <outlet property="bloodpressureText" destination="yb1-uy-bHk" id="A1j-G8-tay"/>
@@ -999,7 +999,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dj1-Fu-Zaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2899" y="-1111"/>
+            <point key="canvasLocation" x="-3084" y="-1124"/>
         </scene>
     </scenes>
     <resources>

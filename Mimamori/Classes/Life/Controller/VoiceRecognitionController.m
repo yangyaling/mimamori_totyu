@@ -44,7 +44,6 @@
     [super viewDidLoad];
     
     self.isSave = YES;
-    self.title = @"介護メモ入力";
     
     _session = [AFHTTPSessionManager manager];
     // 设置请求接口回来时支持什么类型的数组
@@ -129,6 +128,7 @@
         [MBProgressHUD showError:@"体温を入力して下さい"];
         return;
     }
+    
     if (!self.bloodpressureText.text.length) {
         [MBProgressHUD showError:@"血圧を入力して下さい"];
         return;
@@ -176,16 +176,21 @@
 }
 
 -(void)getrecorder:(UIButton*)sender{
+    
     [[RecordingStatus Status]stopAnimate];
+    
     NSLog(@"松开");
+    
     sender.backgroundColor = [UIColor darkGrayColor];
     
-    
     [_recorder stop];//停止录音
+    
     [_session.operationQueue cancelAllOperations];
     
     // 2.设置非校验证书模式     manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+    
     _session.securityPolicy.allowInvalidCertificates = YES;
+    
     [_session.securityPolicy setValidatesDomainName:NO];
     
     
@@ -215,15 +220,25 @@
             NSDictionary *success = responseObject;
             
             if ([[success valueForKey:@"label"]isEqualToString:@"体温"]) {
+                
                 _temperatureText.text = [success valueForKey:@"speech"];
+                
             }else if([[success valueForKey:@"label"]isEqualToString:@"血圧"]){
+                
                 _bloodpressureText.text = [success valueForKey:@"speech"];
+                
             }else if([[success valueForKey:@"label"]isEqualToString:@"排泄"]){
+                
                 _excretionText.text = [success valueForKey:@"speech"];
+                
             }else if([[success valueForKey:@"label"]isEqualToString:@"食事"]){
+                
                 _eatText.text = [success valueForKey:@"speech"];
+                
             }else if([[success valueForKey:@"label"]isEqualToString:@"その他"]){
+                
                 _otherText.text = [success valueForKey:@"speech"];
+                
             }
             
             

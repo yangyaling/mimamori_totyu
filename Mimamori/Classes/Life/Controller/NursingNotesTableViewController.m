@@ -78,11 +78,13 @@ typedef enum {
     [super viewWillAppear:YES];
     
     self.nursingNameLabel.text = self.dispname;
-    
+    [MBProgressHUD showMessage:@"" toView:self.view];
     [self pullRefresh];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [MBProgressHUD hideHUDForView:self.view];
     [self.nursingNotesTable.mj_header endRefreshing];
 }
 
@@ -112,7 +114,7 @@ typedef enum {
     [self.session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+        [MBProgressHUD hideHUDForView:self.view];
         NSArray *dateArr = [responseObject objectForKey:@"datelist"];
         if (dateArr) {
             
@@ -123,7 +125,7 @@ typedef enum {
         
         [self.nursingNotesTable.mj_header endRefreshing];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        [MBProgressHUD hideHUDForView:self.view];
         [self.nursingNotesTable.mj_header endRefreshing];
     }];
 }
@@ -146,6 +148,7 @@ typedef enum {
     [self.session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [MBProgressHUD hideHUDForView:self.view];
         NSDictionary *memos = [responseObject objectForKey:@"carememos"];
         if (memos) {
             self.allDataDict = memos.count>0 ? [NSMutableDictionary dictionaryWithDictionary:memos] : [NSMutableDictionary new];
@@ -157,6 +160,7 @@ typedef enum {
         [self.nursingNotesTable.mj_header endRefreshing];
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [MBProgressHUD hideHUDForView:self.view];
         
         [self.nursingNotesTable.mj_header endRefreshing];
         [MBProgressHUD showError:@"後ほど試してください"];
@@ -186,6 +190,7 @@ typedef enum {
         if (timesStart > timesEnd) {
             [MBProgressHUD showError:@"過去の時間を選択してください"];
         } else {
+            [MBProgressHUD showMessage:@"" toView:weakSelf.view];
             [weakSelf loadNewDataWithType:SelectDateType andDate:dateString];
         }
         weakSelf.isCounter = YES;
