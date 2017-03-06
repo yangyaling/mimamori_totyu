@@ -78,11 +78,11 @@
     }];
 }
 
-//- (IBAction)addCustButton:(id)sender {
-//    
-//    [self performSegueWithIdentifier:@"addCustPush" sender:self];
-//    
-//}
+- (IBAction)addCustButton:(id)sender {
+    
+    [self performSegueWithIdentifier:@"addCustPush" sender:self];
+    
+}
 
 
 

@@ -43,6 +43,84 @@
     [_ABButton setFillPercent:1.0];
     [_ABButton setEmptyButtonPressing:YES];
     [_ABButton configureButtonWithHightlightedShadowAndZoom:YES];
+    
+    
+    
+    
+//    int year,month,day;
+//    int sum = 0;
+//    int leap,error=0;
+//    printf("please intput year,month,day?");
+//    scanf("%d,%d,%d",&year,&month,&day);
+//    switch(month)
+//    {
+//        case 1:
+//            sum = 0;
+//            break;
+//        case 2:
+//            sum = 31;
+//            break;
+//        case 3:
+//            sum = 31 + 28;
+//            break;
+//        case 4:
+//            sum = 31 + 28 + 31;
+//            break;
+//        case 5:
+//            sum = 31 + 28 + 31 + 30;
+//            break;
+//        case 6:
+//            sum = 31 + 28 + 31 + 30 + 31;
+//            break;
+//        case 7:
+//            sum = 31 + 28 + 31 + 30 + 31 + 30;
+//            break;
+//        case 8:
+//            sum = 31 + 28 + 31 + 30 + 31 + 30 + 31;
+//            break;
+//        case 9:
+//            sum = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31;
+//            break;
+//        case 10:
+//            sum = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30;
+//            break;
+//        case 11:
+//            sum = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31;
+//            break;
+//        case 12:
+//            sum = 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30;
+//            break;
+//        default:
+//            printf("month is error,please check it.");
+//            error = 1;
+//            break;
+//    }
+//    
+//    if (error != 1)
+//    {
+//        sum += day;
+//        
+//        if ((year % 100 == 0 && year % 400 == 0 ) || (year % 4 == 0 && year % 100 != 0))
+//        {
+//            leap = 1;
+//        }
+//        else
+//        {
+//            leap = 0;
+//        }
+//        
+//        if (leap == 1 && month > 2)
+//        {
+//            sum += 1;
+//        }
+//        
+//        printf("it is the %d day in year.",sum);
+//    }
+//    system("pause");
+    
+    
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {

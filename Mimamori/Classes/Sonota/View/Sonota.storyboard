@@ -107,7 +107,14 @@
                             <outlet property="delegate" destination="hsj-yv-zXb" id="Na2-wV-f9A"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="見守り設定" id="yyB-On-JqE"/>
+                    <navigationItem key="navigationItem" title="見守り設定" id="yyB-On-JqE">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="VgX-lA-XSM">
+                            <color key="tintColor" red="0.98823529409999999" green="0.2156862745" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="addCustButton:" destination="hsj-yv-zXb" id="d6u-5K-ifn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="pfM-EA-pgU" kind="push" identifier="setcellpush" id="Ovz-59-74F"/>
                         <segue destination="Ley-Sc-UQa" kind="push" identifier="addCustPush" id="vJ6-en-Hnk"/>
@@ -115,7 +122,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oSM-bs-BaR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1029" y="-1733"/>
+            <point key="canvasLocation" x="-973" y="-1746"/>
         </scene>
         <!--Sensor Controller-->
         <scene sceneID="XjU-8u-WMA">

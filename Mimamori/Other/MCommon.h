@@ -46,7 +46,7 @@
 #define NITScreenW [UIScreen mainScreen].bounds.size.width
 #define NITScreenH [UIScreen mainScreen].bounds.size.height
 
-
+#define NSNullJudge(str) (str)==[NSNull null] ? @"" : (str)
 
 #define WindowView [UIApplication sharedApplication].windows.lastObject
 
@@ -56,11 +56,13 @@
  sonota   URL
  */
 
+
 #define NITGetCustList @"http://mimamori2.azurewebsites.net/zwgetcustlist.php"
 
 #define NITDeleteCustList @"http://mimamori2.azurewebsites.net/zwdeletecust.php"
 
 #define NITAddCustList @"http://mimamori2.azurewebsites.net/zwaddcust.php"
+
 
 
 #define NITGetCustInfo @"http://mimamori2.azurewebsites.net/zwgetcustinfo.php"

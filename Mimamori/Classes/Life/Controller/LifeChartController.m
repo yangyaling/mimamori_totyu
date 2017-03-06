@@ -227,9 +227,11 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
         
         NSArray *tmpArr = [ZworksChartModel mj_objectArrayWithKeyValuesArray:dic[@"deviceinfo"]];
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *imagestr = dic[@"picpath"];
-            if (imagestr.length) {
-                NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:imagestr]];
+//            NSString *imagestr = ;
+        
+        NSString *str = NSNullJudge(dic[@"picpath"]);
+            if (str.length) {
+                NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:str]];
                 if (dataicon) {
                     self.imageIcon.image = [UIImage imageWithData:dataicon];
                     [NITUserDefaults setObject:dataicon forKey:self.userid0];

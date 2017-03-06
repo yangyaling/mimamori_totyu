@@ -10,6 +10,9 @@
 #import "OtherCollectionCell.h"
 #import "AppDelegate.h"
 
+#import "MHttpTool.h"
+
+
 @interface OtherController ()<UIApplicationDelegate>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionview;
@@ -43,6 +46,13 @@
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     
     [self.collectionview setCollectionViewLayout:layout];
+    
+//    NSDictionary *dic = @{@"registdate":[[NSDate date] needDateStatus:HMSType]};
+//    [MHttpTool postWithURL:@"http://mimamori2.azurewebsites.net/dashboard/zwgetvznoticeinfo.php" params:dic success:^(id json) {
+//        NITLog(@"%@",json);
+//    } failure:^(NSError *error) {
+//        NITLog(@"%@",error);
+//    }];
     
 }
 
