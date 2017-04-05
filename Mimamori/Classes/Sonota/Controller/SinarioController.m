@@ -34,8 +34,8 @@
 
 @end
 
-@implementation SinarioController
 
+@implementation SinarioController
 
 - (void)viewDidLoad {
     
@@ -68,10 +68,9 @@
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    
     [super viewWillAppear:YES];
-    
 }
+
 
 -(void)getScenariodtlInfo{
     NSString *url = NITGetScenarioInfo;
@@ -261,12 +260,12 @@
         //UITableViewScrollPositionMiddle
         //UITableViewScrollPositionBottom
         //UITableViewScrollPositionTop
-        
     }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
+    
 }
 
 - (IBAction)PickShow:(UIButton *)sender {

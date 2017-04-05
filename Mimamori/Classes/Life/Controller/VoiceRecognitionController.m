@@ -89,6 +89,8 @@
     dics[@"eat"] = self.eatText.text;
     dics[@"other"] = self.otherText.text;
     [allarr addObject:dics];
+    
+    
     NSError *parseError = nil;
     NSData  *json = [NSJSONSerialization dataWithJSONObject:allarr options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];

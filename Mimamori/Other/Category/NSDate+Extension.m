@@ -15,6 +15,8 @@
 {
     
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    [fmt setTimeZone:[NSTimeZone systemTimeZone]];
+    [fmt setLocale:[NSLocale systemLocale]];
     if (type == HaveHMSType) {
         fmt.dateFormat = @"yyyy-MM-dd HH:mm:ss";
         return [fmt stringFromDate:self];

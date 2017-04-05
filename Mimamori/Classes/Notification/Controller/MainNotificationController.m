@@ -191,7 +191,7 @@
 // タイトルを設定
 - (void)setupTitleView {
     MTitleLabel *label = [MTitleLabel titleLabel];
-    label.frame = CGRectMake(0, 0, 200, 40);
+    label.frame = CGRectMake(0, 0, 280, 40);
     self.navigationItem.titleView = label;
     self.titleLabel = label;
 }

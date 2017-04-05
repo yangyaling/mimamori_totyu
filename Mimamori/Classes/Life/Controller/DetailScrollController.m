@@ -66,10 +66,9 @@ static NSString * const reuseIdentifier = @"Cell";
         [self addChildViewController:VC];
         
         [self.controllersArray addObject:VC]; //viewC放到数组里面
-        
     }
-   
 }
+
 
 
 
