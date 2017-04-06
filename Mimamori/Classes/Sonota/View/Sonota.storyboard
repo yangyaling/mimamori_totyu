@@ -841,6 +841,7 @@
                         <outlet property="drug" destination="gb8-Xc-Loy" id="Dej-6T-OMp"/>
                         <outlet property="health" destination="HOj-hk-6M2" id="vpJ-8I-fWr"/>
                         <outlet property="kakaritsuke" destination="b2A-ij-ZMs" id="Meb-dj-p36"/>
+                        <outlet property="myTableView" destination="Tc0-2g-Nia" id="kog-7h-Kpd"/>
                         <outlet property="other" destination="ffM-9E-xiG" id="Zhn-jV-pb2"/>
                         <outlet property="save" destination="FWs-xJ-bgS" id="VpX-7C-3XU"/>
                         <outlet property="sex" destination="DZP-p9-Y9A" id="NKt-LQ-68E"/>
