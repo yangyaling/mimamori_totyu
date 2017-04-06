@@ -20,11 +20,9 @@
     
     BOOL hasAMPM = containsA.location != NSNotFound;
     
-//    [fmt setTimeZone:[NSTimeZone systemTimeZone]];
-//    [fmt setLocale:[NSLocale systemLocale]];
-    
     if (type == HaveHMSType) {
-        
+        [fmt setTimeZone:[NSTimeZone systemTimeZone]];
+        [fmt setLocale:[NSLocale systemLocale]];
         fmt.dateFormat =  @"yyyy-MM-dd HH:mm:ss";
         
         return [fmt stringFromDate:self];
