@@ -25,13 +25,13 @@
     
     if (type == HaveHMSType) {
         
-        fmt.dateFormat =  hasAMPM ? @"yyyy-MM-dd hh:mm:ss" : @"yyyy-MM-dd HH:mm:ss";
+        fmt.dateFormat =  hasAMPM ? @"yyyy-MM-dd aa hh:mm:ss" : @"yyyy-MM-dd HH:mm:ss";
         
         return [fmt stringFromDate:self];
         
     }else if (type == HaveHMType){
         
-        fmt.dateFormat =  hasAMPM ? @"yyyy-MM-dd hh:mm:ss" : @"yyyy-MM-dd HH:mm:ss";
+        fmt.dateFormat =  hasAMPM ? @"yyyy-MM-dd aa hh:mm:ss" : @"yyyy-MM-dd HH:mm:ss";
         
         return [fmt stringFromDate:self];
         
@@ -43,7 +43,7 @@
         
     } else if(type == HMSType){
         
-        fmt.dateFormat =  hasAMPM ? @"hh:mm:ss" : @"HH:mm:ss";
+        fmt.dateFormat =  hasAMPM ? @"aa hh:mm:ss" : @"HH:mm:ss";
         
         return [fmt stringFromDate:self];
     }
