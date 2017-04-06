@@ -69,8 +69,8 @@
     NSDictionary *oldKey = @{@"OldloginFlgKey":@"mimamori2"};
     [oldKey writeToFile:plistPath atomically:YES];
     
-//    [NITUserDefaults setObject:@"mimamori2" forKey:@"OldloginFlgKey"];
-//    [NITUserDefaults synchronize];
+    //    [NITUserDefaults setObject:@"mimamori2" forKey:@"OldloginFlgKey"];
+    //    [NITUserDefaults synchronize];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -84,6 +84,7 @@
     [self dateList];  //加载日历履历数据
     
     
+    
     self.isCounter = YES; //日历弹出开关
     
     self.segmentindex = 0;   //  选择器1  num
@@ -95,17 +96,17 @@
 
 
 /**
-  创建tableviewUI
+ 创建tableviewUI
  */
 - (void)CreateTableViewUI {
     _MyTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, NITScreenW, NITScreenH) style:UITableViewStylePlain];
     _MyTableView.delegate = self;
     _MyTableView.dataSource = self;
-//    _MyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    //    _MyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_MyTableView];
     
     self.MyTableView.tableFooterView = [[UIView alloc]init];
-
+    
     self.MyTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullRefresh)];
     [NITRefreshInit MJRefreshNormalHeaderInitTwo:(MJRefreshNormalHeader*)self.MyTableView.mj_header];
 }
@@ -178,7 +179,7 @@
     if (self.segmentindex == 0) {
         
         [self noticeInfoWithDate:[NSDate SharedToday] andHistoryflg:@"0" withNoticetype:@"0"];
-      
+        
         
     } else {
         
@@ -199,7 +200,7 @@
 
 
 /**
-   初始化日历   根据已有日期每次重新创建
+ 初始化日历   根据已有日期每次重新创建
  */
 -(void)setupCalendarDates:(NSArray *)array{
     
@@ -296,6 +297,11 @@
         [MBProgressHUD hideHUDForView:self.view];
         [self.MyTableView.mj_header endRefreshing];
         self.noticesArray = [NotificationModel mj_objectArrayWithKeyValuesArray:array];
+        
+        //系统时间 - 12/24 时制  判断
+        
+        
+        
         
         //　最終更新時間を更新
         self.refreshDate = [NSString stringWithFormat:@"%@\n最終更新時間:%@",[NSDate SharedToday],[[NSDate date] needDateStatus:HMSType]];
@@ -440,14 +446,14 @@
         secondViewController.isPushOrPop = NO;
         //跳转事件
         [self.navigationController pushViewController:secondViewController animated:YES];
-
+        
     }
     
 }
 
 
 /**
-  添加日历、履历UI
+ 添加日历、履历UI
  */
 - (void)addContenViewSubUI {
     

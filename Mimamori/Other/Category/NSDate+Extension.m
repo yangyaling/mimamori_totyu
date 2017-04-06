@@ -10,29 +10,50 @@
 
 @implementation NSDate (Extension)
 
-
 - (NSString *)needDateStatus:(DateStatus)type
 {
-    
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    [fmt setTimeZone:[NSTimeZone systemTimeZone]];
-    [fmt setLocale:[NSLocale systemLocale]];
+    
+    NSString *formatStringForHours = [NSDateFormatter dateFormatFromTemplate:@"j" options:0 locale:[NSLocale currentLocale]];
+    
+    NSRange containsA = [formatStringForHours rangeOfString:@"a"];
+    
+    BOOL hasAMPM = containsA.location != NSNotFound;
+    
+//    [fmt setTimeZone:[NSTimeZone systemTimeZone]];
+//    [fmt setLocale:[NSLocale systemLocale]];
+    
     if (type == HaveHMSType) {
-        fmt.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+        
+        fmt.dateFormat =  hasAMPM ? @"yyyy-MM-dd hh:mm:ss" : @"yyyy-MM-dd HH:mm:ss";
+        
         return [fmt stringFromDate:self];
+        
     }else if (type == HaveHMType){
-        fmt.dateFormat = @"yyyy-MM-dd HH:mm";
+        
+        fmt.dateFormat =  hasAMPM ? @"yyyy-MM-dd hh:mm:ss" : @"yyyy-MM-dd HH:mm:ss";
+        
         return [fmt stringFromDate:self];
+        
     }else if (type == NotHaveType) {
+        
         fmt.dateFormat = @"yyyy-MM-dd";
+        
         return [fmt stringFromDate:self];
+        
     } else if(type == HMSType){
-        fmt.dateFormat = @"HH:mm:ss";
+        
+        fmt.dateFormat =  hasAMPM ? @"hh:mm:ss" : @"HH:mm:ss";
+        
         return [fmt stringFromDate:self];
     }
+    
     else if (type == mojiType){
+        
         fmt.dateFormat = @"yyyy年MM月dd日";
+        
         return [fmt stringFromDate:self];
+        
     }
     
     return nil;
