@@ -25,13 +25,13 @@
     
     if (type == HaveHMSType) {
         
-        fmt.dateFormat =  hasAMPM ? @"yyyy-MM-dd aa hh:mm:ss" : @"yyyy-MM-dd HH:mm:ss";
+        fmt.dateFormat =  @"yyyy-MM-dd HH:mm:ss";
         
         return [fmt stringFromDate:self];
         
     }else if (type == HaveHMType){
         
-        fmt.dateFormat =  hasAMPM ? @"yyyy-MM-dd aa hh:mm:ss" : @"yyyy-MM-dd HH:mm:ss";
+        fmt.dateFormat = @"yyyy-MM-dd HH:mm:ss";
         
         return [fmt stringFromDate:self];
         

@@ -67,8 +67,15 @@
     _otherText.backgroundColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0];
     
     [[NSRunLoop currentRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
+    
+    NSString *formatStringForHours = [NSDateFormatter dateFormatFromTemplate:@"j" options:0 locale:[NSLocale currentLocale]];
+    
+    NSRange containsA = [formatStringForHours rangeOfString:@"a"];
+    
+    BOOL hasAMPM = containsA.location != NSNotFound;
+    
     _fmt = [[NSDateFormatter alloc] init];
-    _fmt.dateFormat = @"yyyy年MM月dd日 HH:mm:ss";
+    _fmt.dateFormat = hasAMPM ? @"yyyy年MM月dd日 aa hh:mm:ss": @"yyyy年MM月dd日 HH:mm:ss";
     _timeLabel.text = [_fmt stringFromDate:[NSDate date]];
 }
 
