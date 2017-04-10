@@ -136,6 +136,7 @@ typedef enum {
  *
  *  @param type 今日/選択日付
  */
+
 - (void)loadNewDataWithType:(ParametersType)type andDate:(NSString *)date{
     NSString *url = NITGetCarememoInfo;
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
@@ -149,7 +150,9 @@ typedef enum {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUDForView:self.view];
+        
         NSDictionary *memos = [responseObject objectForKey:@"carememos"];
+        
         if (memos) {
             self.allDataDict = memos.count>0 ? [NSMutableDictionary dictionaryWithDictionary:memos] : [NSMutableDictionary new];
             

@@ -35,6 +35,8 @@
 
 @property (nonatomic, assign) BOOL                    isSave;
 
+
+
 @end
 
 @implementation VoiceRecognitionController
@@ -46,6 +48,7 @@
     self.isSave = YES;
     
     _session = [AFHTTPSessionManager manager];
+    
     // 设置请求接口回来时支持什么类型的数组
     _session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
     
@@ -142,14 +145,17 @@
         [MBProgressHUD showError:@"血圧を入力して下さい"];
         return;
     }
+    
     if (!self.excretionText.text.length) {
         [MBProgressHUD showError:@"排泄状況を入力して下さい"];
         return;
     }
+    
     if (!self.eatText.text.length) {
         [MBProgressHUD showError:@"食事状況を入力して下さい"];
         return;
     }
+    
     if (self.isSave) {
         self.isSave = NO;
         [self updateCareMemoInfo];
@@ -164,7 +170,6 @@
 }
 
 -(void)TouchUpOutside:(UIButton*)sender{
-    
     [self getrecorder:sender];
 }
 
@@ -205,7 +210,7 @@
     
     NSDictionary *parameter = @{@"uuid":@"d9f99b4b4d3290aa5a1d"};
     
-    [_session POST:@"https://138.91.27.119/api/asr/senddata" parameters:parameter constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [_session POST:@"https://40.74.124.183/api/asr/senddata" parameters:parameter constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         [formData appendPartWithFileURL:_recorder.url name:@"file" fileName:@"sample.wav" mimeType:@"audio/x-wav" error:nil];
     } progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -217,7 +222,7 @@
         NSLog(@"senddata上传成功 %@",responseObject);
         NSDictionary *success = responseObject;
         NSDictionary *parameterTwo = @{@"uuid":@"d9f99b4b4d3290aa5a1d",@"id":[success valueForKey:@"id"],@"key":[success valueForKey:@"key"]};
-        [_session POST:@"https://138.91.27.119/api/asr/recognize" parameters:parameterTwo constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [_session POST:@"https://40.74.124.183/api/asr/recognize" parameters:parameterTwo constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             
         } progress:^(NSProgress * _Nonnull uploadProgress) {
             float progress = 1.0 * uploadProgress.completedUnitCount / uploadProgress.totalUnitCount;
@@ -262,12 +267,12 @@
         NSLog(@"上传失败 %@",error);
         [[RecordingStatus Status] hideRecordingStatus:@"認識できませんでした、再入力下さい！"];
     }];
+    
 }
 
 
 -(void)TouchDown:(UIButton*)sender
 {
-    
     sender.backgroundColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.9 alpha:1.0];
     
     [[RecordingStatus Status]commonInit];
