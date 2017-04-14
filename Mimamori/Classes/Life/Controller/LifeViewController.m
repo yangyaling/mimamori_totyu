@@ -152,6 +152,8 @@
     
     self.deliverModel = lifesCell.CellModel;
     
+    
+    
     [self performSegueWithIdentifier:@"addNursingPush" sender:self];
     
 }

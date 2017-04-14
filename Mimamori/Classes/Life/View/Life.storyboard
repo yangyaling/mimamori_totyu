@@ -97,6 +97,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsFontSizeToFitWidth" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="21.34℃" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSB-Ci-wgG">
                                                     <rect key="frame" x="20" y="67" width="60" height="21"/>
@@ -196,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zhq-3N-URy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3474" y="-1958"/>
+            <point key="canvasLocation" x="-3405" y="-2040"/>
         </scene>
         <!--Life Chart Controller-->
         <scene sceneID="xI5-1p-Nkl">
@@ -1007,6 +1010,6 @@
         <image name="speek" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SWQ-ur-0cC"/>
+        <segue reference="nm3-C5-hDf"/>
     </inferredMetricsTieBreakers>
 </document>
