@@ -15,7 +15,7 @@
             <objects>
                 <navigationController storyboardIdentifier="lifeStoryBoard" automaticallyAdjustsScrollViewInsets="NO" id="ChG-zX-oRz" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zIh-ra-G4d">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="zIh-ra-G4d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -479,7 +479,7 @@
         <scene sceneID="mtt-51-uxY">
             <objects>
                 <collectionViewController id="PqR-AC-0Tp" customClass="DetailScrollController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="3tZ-Yv-zl9">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="3tZ-Yv-zl9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BwM-mW-3zG">
@@ -709,15 +709,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l5X-hw-hv5">
-                                                    <rect key="frame" x="90" y="15" width="222" height="0.0"/>
+                                                    <rect key="frame" x="50" y="15" width="262" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9l-DH-pkf">
-                                                    <rect key="frame" x="8" y="4" width="80" height="21"/>
+                                                    <rect key="frame" x="8" y="4" width="40" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="QkT-C2-nZX"/>
+                                                        <constraint firstAttribute="width" constant="40" id="QkT-C2-nZX"/>
                                                         <constraint firstAttribute="height" constant="21" id="ka1-J2-25T"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -999,7 +999,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dj1-Fu-Zaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3084" y="-1124"/>
+            <point key="canvasLocation" x="-3088" y="-1311"/>
         </scene>
     </scenes>
     <resources>
