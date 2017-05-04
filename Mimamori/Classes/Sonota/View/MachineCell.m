@@ -20,7 +20,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 
 - (void)setDatasDic:(NSDictionary *)datasDic {
@@ -63,18 +62,6 @@
 }
 
 
-//- (IBAction)showPick:(UIButton *)sender {
-//    
-//    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];
-//    
-//    _picker.mydelegate = self;
-//    
-//    [WindowView addSubview:_picker];
-//    
-//}
-
-
-
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
     [textField setBackgroundColor:NITColor(253, 164, 181)];
@@ -86,16 +73,36 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
+//    custid = 0002;
+//    custname = "(A)\U30cb\U30c3\U30bb\U30a4\U3000\U82b1\U5b50\U3055\U3093";
+//    nodename = M3;
+//    oldcustid = 0002;
+//    oldserial = 32303136303632323030303030333936;
+//    serial = 32303136303632323030303030333936;
     [textField setBackgroundColor:[UIColor whiteColor]];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:_datasDic];
-    if (textField.tag == 1) {
-        [dic setObject:textField.text forKey:@"staffid"];
-    } else {
-        [dic setObject:textField.text forKey:@"nickname"];
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arr[self.cellindex]];
+    switch (textField.tag) {
+        case 1:
+            [dic setObject:textField.text forKey:@"serial"];
+            break;
+        case 2:
+            [dic setObject:textField.text forKey:@"nodename"];
+            break;
+        case 3:
+            [dic setObject:textField.text forKey:@"custid"];
+            break;
+        case 4:
+            [dic setObject:textField.text forKey:@"custname"];
+            break;
+        default:
+            break;
     }
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
+
+
     [arr replaceObjectAtIndex:self.cellindex withObject:dic];
-    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
+    [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
     
 }
 

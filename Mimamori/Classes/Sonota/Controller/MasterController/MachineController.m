@@ -21,8 +21,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *facilityNameTF;
 @property (nonatomic, assign) BOOL                   isEdit;
 @property (nonatomic, strong) NSMutableArray        *allDatas;
-@property (nonatomic, strong) NSString              *maxId;
-@property (nonatomic, assign) NSInteger             numxxid;
 
 @end
 
@@ -34,9 +32,6 @@
     self.footView.alpha = 0;
     
     NSArray *arr = nil;
-//    NSMutableArray *arr = [NSMutableArray array];
-//    NSDictionary *dict = @{@"sn":@"14315",@"sensorid":@"0001",@"custname":@"jiakk"};
-//    [arr addObject:dict];
     [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getSensorInfo)];
@@ -56,25 +51,72 @@
     _facilityBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
-#pragma mark 键盘出现
--(void)keyboardWillShow:(NSNotification *)note
-{
-    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height, 0);
-}
-#pragma mark 键盘消失
--(void)keyboardWillHide:(NSNotification *)note
-{
-    self.tableView.contentInset = UIEdgeInsetsZero;
+
+- (IBAction)editCell:(UIButton *)sender {
+    if ([sender.titleLabel.text isEqualToString:@"編集"]) {
+        [sender setTitle:@"完了" forState:UIControlStateNormal];
+        self.isEdit = YES;
+        [self ViewAnimateStatas:120];
+
+    }else{
+        [sender setTitle:@"編集" forState:UIControlStateNormal];
+        self.footView.height = 0;
+        self.footView.alpha = 0;
+    }
+
 }
 
--(void)dealloc {
+
+
+- (IBAction)addCell:(id)sender {
     
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+    //    custid = 0002;
+    //    custname = "(A)\U30cb\U30c3\U30bb\U30a4\U3000\U82b1\U5b50\U3055\U3093";
+    //    nodename = M3;
+    //    oldcustid = 0002;
+    //    oldserial = 32303136303632323030303030333936;
+    //    serial = 32303136303632323030303030333936;
+    [arr addObject:@{@"custid":@"",@"custname":@"",@"nodename":@"",@"oldcustid":@"",@"oldserial":@"",@"serial":@""}];
+    [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
+    
+    [CATransaction setCompletionBlock:^{
+        
+        [self.tableView reloadData];
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
+    }];
     
 }
 
+- (IBAction)saveInfo:(id)sender {
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    
+    NSArray *array = [NITUserDefaults objectForKey:@"SENSORINFO"];
+    NSError *parseError = nil;
+    NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
+    NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+    NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+    NSDictionary *dic = @{@"sslist":str,@"facilitycd":facilitycd};
+    [MHttpTool postWithURL:NITUpdateSSInfo params:dic success:^(id json) {
+        [MBProgressHUD hideHUDForView:self.view];
+        if (json) {
+            NSString *code = [json objectForKey:@"code"];
+            NITLog(@"%@",code);
+            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+            self.footView.height = 0;
+            self.footView.alpha = 0;
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        NITLog(@"%@",error);
+    }];
+    [CATransaction setCompletionBlock:^{
+        [self.tableView reloadData];
+    }];
+    
+}
+
+#pragma mark - Action Handle
 
 /** 機器情報取得 */
 - (void)getSensorInfo{
@@ -113,23 +155,7 @@
         NITLog(@"%@",error);
         
     }];
-    [self.tableView.mj_header endRefreshing];
     
-}
-
-- (IBAction)editCell:(UIButton *)sender {
-    if ([sender.titleLabel.text isEqualToString:@"編集"]) {
-        [sender setTitle:@"完了" forState:UIControlStateNormal];
-        self.isEdit = YES;
-        [self ViewAnimateStatas:120];
-
-    }else{
-        [sender setTitle:@"編集" forState:UIControlStateNormal];
-        self.footView.height = 0;
-        self.footView.alpha = 0;
-    }
-    
-
 }
 
 -(void)ViewAnimateStatas:(double)statas {
@@ -143,61 +169,6 @@
         }];
     }];
 }
-
-- (IBAction)addCell:(id)sender {
-    NSString *laststr = [self.maxId substringFromIndex:self.maxId.length - 5];
-    NSString *fiststr = [self.maxId substringToIndex:self.maxId.length - 5];
-    
-    NSInteger numId = [laststr integerValue] + self.numxxid;
-    
-    NSString *staffidstr = [NSString stringWithFormat:@"%@%05i",fiststr,(int)numId];
-    
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
-    
-
-    [arr addObject:@{@"sn":@"",@"sensorid":@"",@"custname":@""}];
-    [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
-    
-    self.numxxid++;
-    
-    
-    [CATransaction setCompletionBlock:^{
-        
-        [self.tableView reloadData];
-        //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
-    }];
-    
-}
-
-- (IBAction)saveInfo:(id)sender {
-    [MBProgressHUD showMessage:@"" toView:self.view];
-    
-    NSArray *array = [NITUserDefaults objectForKey:@"SENSORINFO"];
-    NSError *parseError = nil;
-    NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
-    NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-    
-    NSDictionary *dic = @{@"sslist":str};
-    
-    [MHttpTool postWithURL:NITUpdateSSInfo params:dic success:^(id json) {
-        [MBProgressHUD hideHUDForView:self.view];
-        if (json) {
-            NSString *code = [json objectForKey:@"code"];
-            NITLog(@"%@",code);
-            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-            self.footView.height = 0;
-            self.footView.alpha = 0;
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view];
-        NITLog(@"%@",error);
-    }];
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
-    }];
-    
-}
-
 
 
 #pragma mark - Table view data source
@@ -224,6 +195,25 @@
     }
     
     return cell;
+    
+}
+
+#pragma mark 键盘出现
+-(void)keyboardWillShow:(NSNotification *)note
+{
+    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height, 0);
+}
+#pragma mark 键盘消失
+-(void)keyboardWillHide:(NSNotification *)note
+{
+    self.tableView.contentInset = UIEdgeInsetsZero;
+}
+
+-(void)dealloc {
+    
+    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     
 }
 
