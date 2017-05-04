@@ -206,7 +206,7 @@
                 <outlet property="temperatureTD" destination="Dsi-Lb-NTi" id="yzQ-vq-Ki5"/>
                 <outlet property="temperaturetime" destination="fXw-y8-qDs" id="7Yv-5h-swV"/>
             </connections>
-            <point key="canvasLocation" x="-1480" y="-365"/>
+            <point key="canvasLocation" x="-1217.5" y="-374"/>
         </tableViewCell>
     </objects>
 </document>
