@@ -119,6 +119,9 @@
 #define NITGetSPInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetspinfo.php"
 
 
+/**　機器情報　*/
+#define NITGetSSInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetssinfo.php"
+#define NITUpdateSSInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdatessinfo.php"
 
 /**
  lift   URL
