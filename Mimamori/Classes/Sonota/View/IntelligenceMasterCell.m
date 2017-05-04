@@ -49,6 +49,7 @@
         [self.igNameMemo setEnabled:NO];
     }
     
+    
     self.igTextLabel.text = datasDic[@"cd"];
     self.yiniText.text = datasDic[@"initial"];
     self.igName.text = datasDic[@"name"];
@@ -67,7 +68,9 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:_datasDic];
+    [textField setBackgroundColor:[UIColor whiteColor]];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"COMPANYINFO"]];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:array[self.cellindex]];
     
     switch (textField.tag) {
         case 1:

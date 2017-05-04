@@ -32,7 +32,7 @@
 }
 
 -(void)setUI {
-    _titleArray = @[@"設置場所マスタ" ,@"企業マスタ",@"シナリオマスタ"];
+    _titleArray = @[@"設置場所マスタ" ,@"企業マスタ",@"施設マスタ",@"シナリオマスタ"];
     //创建一个layout布局类
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     
@@ -93,10 +93,9 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     } else if (indexPath.item == 1){
                 [self performSegueWithIdentifier:@"pusdIntelligenceMaster" sender:self];
     } else if (indexPath.item == 2){
-                [self performSegueWithIdentifier:@"pushSinarioMaster" sender:self];
-        
+        [self performSegueWithIdentifier:@"pushFacilityMaster" sender:self];
     } else {
-        
+        [self performSegueWithIdentifier:@"pushSinarioMaster" sender:self];
     }
 }
 

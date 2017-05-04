@@ -92,6 +92,7 @@
 
 //时间段的选择
 - (IBAction)selectedTimeButton:(UISegmentedControl *)sender {
+    
     if (sender.selectedSegmentIndex != 4) {
         [self.leftTimeButton setEnabled:NO];
         [self.rightTimeButton setEnabled:NO];
@@ -525,7 +526,7 @@
         NSMutableArray *array = [NSMutableArray new];
         
         
-        if (![dicOne[@"time"] isEqualToString:@"-"]) {
+        if (![dicOne[@"time"] isEqualToString:@"-"] && ![dicOne[@"rpoint"] isEqualToString:@"-"]) {
             [array addObject:dicOne];
         }
         

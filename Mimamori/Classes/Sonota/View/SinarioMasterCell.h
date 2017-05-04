@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SinarioMasterCell : UITableViewCell
-
+@property (nonatomic, strong) NSDictionary            *datasDic;
 @end

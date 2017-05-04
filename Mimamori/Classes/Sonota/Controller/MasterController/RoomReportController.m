@@ -1,32 +1,42 @@
 //
-//  HomeMasterController.m
+//  RoomReportController.m
 //  Mimamori2
 //
-//  Created by totyu2 on 2017/5/2.
+//  Created by totyu2 on 2017/5/4.
 //  Copyright © 2017年 totyu3. All rights reserved.
 //
 
-#import "HomeMasterController.h"
-#import "HomeMasterCell.h"
+#import "RoomReportController.h"
+#import "RoomReportCell.h"
 
-@interface HomeMasterController ()
-@property (strong, nonatomic) IBOutlet DropButton *facilityBtn;
+@interface RoomReportController ()
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UIView *footView;
+@property (strong, nonatomic) IBOutlet UITextField *hostID;
 
+@property (strong, nonatomic) IBOutlet UITextField *facilityName1;
+
+@property (strong, nonatomic) IBOutlet DropButton   *facilityBtn;
+
+@property (strong, nonatomic) IBOutlet UITableView  *tableView;
+@property (strong, nonatomic) IBOutlet UIView       *footView;
 
 @property (nonatomic, assign) BOOL                   isEdit;
+
 @property (strong, nonatomic) IBOutlet UIButton     *editButton;
+
 @property (nonatomic, strong) NSMutableArray        *allDatas;
+
 @end
 
-@implementation HomeMasterController
+@implementation RoomReportController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.footView.height = 0;
     self.footView.alpha = 0;
+    //    [self.footView setHidden:NO];
+    
     NSArray *arr = nil;
     [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
     
@@ -42,7 +52,6 @@
     [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     [NITNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
     
 }
 
@@ -87,11 +96,11 @@
             NSArray *stafflist = [json objectForKey:@"stafflist"];
             
 //            self.maxId = [json objectForKey:@"maxstaffid"];
-//
+            
             NSArray *baseinfos = [json objectForKey:@"baseinfo"];
             
 //            self.companyName.text = [baseinfos.firstObject objectForKey:@"companyname"];
-//            
+            
 //            self.facilityName.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
             
             NSArray *btnL = [json objectForKey:@"usertypelist"];
@@ -163,15 +172,15 @@
     
 //    NSString *laststr = [self.maxId substringFromIndex:self.maxId.length - 5];
 //    NSString *fiststr = [self.maxId substringToIndex:self.maxId.length - 5];
-    
+//    
 //    NSInteger numId = [laststr integerValue] + self.numxxid;
-//
+//    
 //    NSString *staffidstr = [NSString stringWithFormat:@"%@%05i",fiststr,(int)numId];
-    
+//    
 //    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
 //    [arr addObject:@{@"nickname":@"",@"staffid":staffidstr,@"usertype":@"",@"usertypename":@""}];
 //    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
-    
+//    
 //    self.numxxid++;
     
     
@@ -217,8 +226,6 @@
     }];
     
 }
-
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -229,11 +236,11 @@
     
     NSArray *arr = [NITUserDefaults objectForKey:@"STAFFINFO"];
     return arr.count;
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeMasterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeMasterCell" forIndexPath:indexPath];
+    
+    RoomReportCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoomReportCell" forIndexPath:indexPath];
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
     cell.editOp = self.isEdit;
     cell.cellindex = indexPath.row;
@@ -241,8 +248,21 @@
     if (dic) {
         cell.datasDic = dic.copy;
     }
+    
     return cell;
     
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return YES;
+}
+
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return UITableViewCellEditingStyleNone;
 }
 
 @end

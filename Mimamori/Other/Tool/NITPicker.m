@@ -269,6 +269,9 @@
             case 99:
                 [dicOne setObject:select forKey:@"time"];
                 break;
+            case 111:
+                [dicOne setObject:select forKey:@"rpoint"];
+                break;
             case 55:
                 [dicTwo setObject:select forKey:@"value"];
                 [dicTwo setObject:select2 forKey:@"rpoint"];
@@ -716,8 +719,16 @@
             _names = [NSMutableArray arrayWithObjects:@"夜間活動",@"熱中症",@"活動なし", nil];
             
         } else if (scenariotype == 8) {
+            NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
             
-            _names = [NSMutableArray arrayWithObjects:@"-",@"反応あり",@"反応なし", nil];
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+            NSDictionary *dicOne = [arr[self.cellindex] firstObject];
+            //门 - 人感
+            if ([dicOne[@"devicename"] isEqualToString:@"ドア"]) {
+                _names = [NSMutableArray arrayWithObjects:@"-",@"使用あり",@"使用なし", nil];
+            } else {
+                _names = [NSMutableArray arrayWithObjects:@"-",@"反応あり",@"反応なし", nil];
+            }
             
         } else if (scenariotype == 9) {
             NSArray *arr = [NITUserDefaults objectForKey:@"tempdisplaylist"];

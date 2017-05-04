@@ -14,4 +14,6 @@
 
 @property (nonatomic, assign) BOOL                    isEdit;
 
+@property (nonatomic, copy) NSString                      *maxid;
+
 @end

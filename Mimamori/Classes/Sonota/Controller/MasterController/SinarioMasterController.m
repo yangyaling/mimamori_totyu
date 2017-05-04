@@ -15,7 +15,10 @@
 @property (strong, nonatomic) IBOutlet DropButton *facilityBtn;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, assign) BOOL                    isOpen;
+@property (nonatomic, assign) BOOL                  isOpen;
+@property (nonatomic, strong) NSMutableArray        *allDatas;
+
+@property (nonatomic, strong) NSString              *maxid;
 
 @end
 
@@ -27,6 +30,10 @@
     self.tableView.tableFooterView = [[UIView alloc]init];
     
     self.isOpen = YES;
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getnlInfo)];
+    
+    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -36,6 +43,38 @@
 }
 
 
+//数据请求
+- (void)getnlInfo {
+    
+    [MHttpTool postWithURL:NITGetSPList params:nil success:^(id json) {
+        
+        
+        
+        [self.tableView.mj_header endRefreshing];
+        
+        if (json) {
+            NSArray *tmpArr = [json objectForKey:@"splist"];
+            
+            self.maxid = [json objectForKey:@"maxprotoid"];
+            
+            _allDatas = [NSMutableArray arrayWithArray:tmpArr.mutableCopy];
+            
+            
+            [self.tableView reloadData];
+            
+        } else {
+            
+            NITLog(@"没数据");
+            
+        }
+        
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        NITLog(@"%@",error);
+    }];
+    
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -44,12 +83,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 1;
+    return self.allDatas.count;
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SinarioMasterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SinarioMasterCell" forIndexPath:indexPath];
+    NSDictionary *dic = _allDatas[indexPath.row];
+    if (dic) {
+        cell.datasDic = dic.copy;
+    }
     
     return cell;
     
@@ -72,13 +115,18 @@
     
     EditSinarioController *esc = segue.destinationViewController;
     
+    
+    
     if (self.isOpen) {
+        NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
         esc.labelTitle = @"詳細";
         esc.isEdit = YES;
+        esc.maxid = [self.allDatas[indexPath.row] objectForKey:@"protoid"];
         
     } else {
         esc.labelTitle = @"新规追加";
         esc.isEdit = NO;
+        esc.maxid = self.maxid;
         
     }
 }

@@ -61,10 +61,14 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     [textField setBackgroundColor:[UIColor whiteColor]];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:_datasDic];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"NLINFO"]];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:array[self.cellindex]];
     if (textField.tag == 1) {
+        
         [dic setObject:textField.text forKey:@"cd"];
+        
     } else {
+        
         [dic setObject:textField.text forKey:@"name"];
     }
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"NLINFO"]];

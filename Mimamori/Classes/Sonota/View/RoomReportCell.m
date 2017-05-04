@@ -1,27 +1,25 @@
 //
-//  HomeMasterCell.m
+//  RoomReportCell.m
 //  Mimamori2
 //
-//  Created by totyu2 on 2017/5/2.
+//  Created by totyu2 on 2017/5/4.
 //  Copyright © 2017年 totyu3. All rights reserved.
 //
 
-#import "HomeMasterCell.h"
+#import "RoomReportCell.h"
 #import "NITPicker.h"
-
-@interface HomeMasterCell ()<MyPickerDelegate>
+@interface RoomReportCell ()<MyPickerDelegate>
 @property (nonatomic, strong) NITPicker            *picker;
 
 @end
 
 
-@implementation HomeMasterCell
+@implementation RoomReportCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
-
 
 - (void)setDatasDic:(NSDictionary *)datasDic {
     
@@ -36,9 +34,9 @@
         [self statusEdit:NO withColor:NITColor(235, 235, 241)];
     }
     
-//    self.text1.text = datasDic[@"staffid"];
-//    [self.pickButton setTitle:datasDic[@"usertypename"] forState:UIControlStateNormal];
-//    self.text2.text = datasDic[@"nickname"];
+    //    self.text1.text = datasDic[@"staffid"];
+    //    [self.pickButton setTitle:datasDic[@"usertypename"] forState:UIControlStateNormal];
+    //    self.text2.text = datasDic[@"nickname"];
     
 }
 
@@ -52,14 +50,14 @@
         
         
     } else {
-//        [self.text1 setEnabled:noOp];
-//        [self.text1 setBackgroundColor:color];
-//        
-//        [self.pickButton setEnabled:noOp];
-//        [self.pickButton setBackgroundColor:color];
-//        
-//        [self.text2 setEnabled:noOp];
-//        [self.text2 setBackgroundColor:color];
+        //        [self.text1 setEnabled:noOp];
+        //        [self.text1 setBackgroundColor:color];
+        //
+        //        [self.pickButton setEnabled:noOp];
+        //        [self.pickButton setBackgroundColor:color];
+        //
+        //        [self.text2 setEnabled:noOp];
+        //        [self.text2 setBackgroundColor:color];
         
     }
 }
@@ -116,4 +114,5 @@
     }
     return  YES;
 }
+
 @end

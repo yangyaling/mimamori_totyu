@@ -187,6 +187,9 @@
 		EB9C93301E028BC200F3132C /* SinarioDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C932F1E028BC200F3132C /* SinarioDetailController.m */; };
 		EB9F89DA1E1652BE00908000 /* IconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F89D91E1652BE00908000 /* IconModel.m */; };
 		EBBA26E71EB318E300E69F23 /* PlaceSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA26E61EB318E300E69F23 /* PlaceSettingCell.m */; };
+		EBBA97D11EBB4428004AA177 /* FacilityMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA97D01EBB4428004AA177 /* FacilityMasterController.m */; };
+		EBBA97D41EBB497F004AA177 /* RoomReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA97D31EBB497F004AA177 /* RoomReportController.m */; };
+		EBBA97D71EBB4A85004AA177 /* RoomReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA97D61EBB4A85004AA177 /* RoomReportCell.m */; };
 		EBD3746A1EB09DD900B10CCB /* DropButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD374691EB09DD900B10CCB /* DropButton.m */; };
 		EBDFE8821E287439007D3320 /* AriScenarioController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBDFE8811E287439007D3320 /* AriScenarioController.m */; };
 		EBE175131EAF172300A6E23A /* NITDropDowm.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE175121EAF172300A6E23A /* NITDropDowm.m */; };
@@ -573,6 +576,12 @@
 		EB9F89D91E1652BE00908000 /* IconModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconModel.m; sourceTree = "<group>"; };
 		EBBA26E51EB318E300E69F23 /* PlaceSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceSettingCell.h; sourceTree = "<group>"; };
 		EBBA26E61EB318E300E69F23 /* PlaceSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceSettingCell.m; sourceTree = "<group>"; };
+		EBBA97CF1EBB4428004AA177 /* FacilityMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacilityMasterController.h; sourceTree = "<group>"; };
+		EBBA97D01EBB4428004AA177 /* FacilityMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacilityMasterController.m; sourceTree = "<group>"; };
+		EBBA97D21EBB497F004AA177 /* RoomReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomReportController.h; sourceTree = "<group>"; };
+		EBBA97D31EBB497F004AA177 /* RoomReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomReportController.m; sourceTree = "<group>"; };
+		EBBA97D51EBB4A85004AA177 /* RoomReportCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomReportCell.h; sourceTree = "<group>"; };
+		EBBA97D61EBB4A85004AA177 /* RoomReportCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomReportCell.m; sourceTree = "<group>"; };
 		EBD374681EB09DD900B10CCB /* DropButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropButton.h; sourceTree = "<group>"; };
 		EBD374691EB09DD900B10CCB /* DropButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropButton.m; sourceTree = "<group>"; };
 		EBDFE8801E287439007D3320 /* AriScenarioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AriScenarioController.h; sourceTree = "<group>"; };
@@ -971,6 +980,8 @@
 				EB74552B1EB879B600DA4874 /* UserMasterCell.m */,
 				EB7455301EB880A900DA4874 /* HomeMasterCell.h */,
 				EB7455311EB880A900DA4874 /* HomeMasterCell.m */,
+				EBBA97D51EBB4A85004AA177 /* RoomReportCell.h */,
+				EBBA97D61EBB4A85004AA177 /* RoomReportCell.m */,
 				EBE718FD1E2A12B80008ABE2 /* GGActionSheet.h */,
 				EBE718FE1E2A12B80008ABE2 /* GGActionSheet.m */,
 				EB4A560D1E00DB3E00A2F1C2 /* OtherCollectionCell.h */,
@@ -1447,6 +1458,8 @@
 				EB74550A1EB81D6500DA4874 /* PlaceSettingController.m */,
 				EB74550F1EB81DB200DA4874 /* IntelligenceMasterController.h */,
 				EB7455101EB81DB200DA4874 /* IntelligenceMasterController.m */,
+				EBBA97CF1EBB4428004AA177 /* FacilityMasterController.h */,
+				EBBA97D01EBB4428004AA177 /* FacilityMasterController.m */,
 				EB7455151EB82CCE00DA4874 /* SinarioMasterController.h */,
 				EB7455161EB82CCE00DA4874 /* SinarioMasterController.m */,
 				EB74551B1EB8399A00DA4874 /* EditSinarioController.h */,
@@ -1457,6 +1470,8 @@
 				EB7455281EB8791C00DA4874 /* UserMasterController.m */,
 				EB74552D1EB8808600DA4874 /* HomeMasterController.h */,
 				EB74552E1EB8808600DA4874 /* HomeMasterController.m */,
+				EBBA97D21EBB497F004AA177 /* RoomReportController.h */,
+				EBBA97D31EBB497F004AA177 /* RoomReportController.m */,
 			);
 			path = MasterController;
 			sourceTree = "<group>";
@@ -1714,6 +1729,7 @@
 				92F362E21DC9B1C80030DCE0 /* WHUCalendarView.m in Sources */,
 				92F363251DC9C3AD0030DCE0 /* MTitleLabel.m in Sources */,
 				92F363091DC9B1C80030DCE0 /* UIScrollView+MJRefresh.m in Sources */,
+				EBBA97D41EBB497F004AA177 /* RoomReportController.m in Sources */,
 				92F362DD1DC9B1C80030DCE0 /* WHUCalendarCal.m in Sources */,
 				92F363191DC9B2F60030DCE0 /* UIView+Extension.m in Sources */,
 				92E2D2A51DE3DE6800EADB78 /* MimamoriTabBarController.m in Sources */,
@@ -1786,6 +1802,7 @@
 				EB7455141EB826E600DA4874 /* IntelligenceMasterCell.m in Sources */,
 				EBDFE8821E287439007D3320 /* AriScenarioController.m in Sources */,
 				92F362F31DC9B1C80030DCE0 /* NSObject+MJCoding.m in Sources */,
+				EBBA97D71EBB4A85004AA177 /* RoomReportCell.m in Sources */,
 				928C62321DC890CC009B5974 /* MScenarioDeleteParam.m in Sources */,
 				92AF7BCD1D98C82100FC30E9 /* DetailScrollController.m in Sources */,
 				EB9C93281E02730F00F3132C /* MBProgressHUD+MJ.m in Sources */,
@@ -1821,6 +1838,7 @@
 				EB9C92DC1E01109800F3132C /* SensorController.m in Sources */,
 				EBE719231E2A13E60008ABE2 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				EB7455291EB8791C00DA4874 /* UserMasterController.m in Sources */,
+				EBBA97D11EBB4428004AA177 /* FacilityMasterController.m in Sources */,
 				929519F81D7D0A6100787997 /* NITMPButton.m in Sources */,
 				E9D445DE1D0112AD00CFF364 /* AppDelegate.m in Sources */,
 				92951A001D7D0AC200787997 /* LifeUserListModel.m in Sources */,

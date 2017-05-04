@@ -54,6 +54,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.cxID.text = self.maxid;
+    
     self.titleView.text = self.labelTitle;
     self.leftTimeButton.layer.borderWidth = 0.6;
     self.rightTimeButton.layer.borderWidth = 0.6;
@@ -75,37 +77,75 @@
         [self.signLabel setHidden:YES];
         [self.editButton setHidden:YES];
         [self buttonStatus:YES withColor:[UIColor whiteColor]];
-//        [self.leftTimeButton setEnabled:NO];
-//        [self.rightTimeButton setEnabled:NO];
-        
-        
-       
     }
+    
+    [self getnlInfo];
+}
+
+
+//数据请求
+- (void)getnlInfo {
+    
+    NSDictionary *dic = @{@"protoid":self.maxid};
+    
+    [MHttpTool postWithURL:NITGetSPInfo params:dic success:^(id json) {
+        
+        [self.tableView.mj_header endRefreshing];
+        
+        if (self.isEdit) {
+            if (json) {
+                NSArray *tmpArr = [json objectForKey:@"splist"];
+                
+                NSDictionary *dicOne = tmpArr.firstObject;
+                
+                NSDictionary *dicTwo = [tmpArr objectAtIndex:1];
+                
+                NSDictionary *dicThree = [tmpArr objectAtIndex:2];
+                
+                NSDictionary *dicFour = tmpArr.lastObject;
+                
+                self.sinarioName.text = [json objectForKey:@"protoname"];
+                
+                
+                //温度
+                NSString *strT1 = [NSString stringWithFormat:@"%@H",dicOne[@"time"]];
+                NSString *strV1 = [NSString stringWithFormat:@"%@%@%@",dicOne[@"value"],@"℃",dicOne[@"rpoint"]];
+                [self.wdButton1 setTitle:strT1 forState:UIControlStateNormal];
+                [self.wdButton2 setTitle:strV1 forState:UIControlStateNormal];
+                
+                
+                //湿度
+                NSString *strT2 = [NSString stringWithFormat:@"%@H",dicTwo[@"time"]];
+                NSString *strV2 = [NSString stringWithFormat:@"%@%@%@",dicTwo[@"value"],@"%",dicTwo[@"rpoint"]];
+                [self.sdButton1 setTitle:strT2 forState:UIControlStateNormal];
+                [self.sdButton2 setTitle:strV2 forState:UIControlStateNormal];
+                
+                //照明
+                NSString *strT3 = [NSString stringWithFormat:@"%@H",dicThree[@"time"]];
+                NSString *strV3 = [NSString stringWithFormat:@"%@%@%@",dicThree[@"value"],@"%",dicThree[@"rpoint"]];
+                [self.zmButton1 setTitle:strT3 forState:UIControlStateNormal];
+                [self.zmButton2 setTitle:strV3 forState:UIControlStateNormal];
+                
+                //门 - 人感
+                NSString *strT4 = [NSString stringWithFormat:@"%@H",dicFour[@"time"]];
+                NSString *strV4 = [NSString stringWithFormat:@"%@%@%@",dicFour[@"value"],@"-",dicFour[@"rpoint"]];
+                [self.rgButton1 setTitle:strT4 forState:UIControlStateNormal];
+                [self.rgButton2 setTitle:strV4 forState:UIControlStateNormal];
+            }
+            [self.tableView reloadData];
+            
+        } else {
+            
+            
+        }
+        
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        NITLog(@"%@",error);
+    }];
     
 }
 
--(void)buttonStatus:(BOOL)noOp withColor:(UIColor *)color {
-    
-    [self.wdButton1 setEnabled:noOp];
-    [self.wdButton1 setBackgroundColor:color];
-    [self.wdButton2 setEnabled:noOp];
-    [self.wdButton2 setBackgroundColor:color];
-    
-    [self.sdButton1 setEnabled:noOp];
-    [self.sdButton1 setBackgroundColor:color];
-    [self.sdButton2 setEnabled:noOp];
-    [self.sdButton2 setBackgroundColor:color];
-    
-    [self.zmButton1 setEnabled:noOp];
-    [self.zmButton1 setBackgroundColor:color];
-    [self.zmButton2 setEnabled:noOp];
-    [self.zmButton2 setBackgroundColor:color];
-    
-    [self.rgButton1 setEnabled:noOp];
-    [self.rgButton1 setBackgroundColor:color];
-    [self.rgButton2 setEnabled:noOp];
-    [self.rgButton2 setBackgroundColor:color];
-}
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
@@ -237,6 +277,29 @@
         return NO;
     }
     return  YES;
+}
+
+-(void)buttonStatus:(BOOL)noOp withColor:(UIColor *)color {
+    
+    [self.wdButton1 setEnabled:noOp];
+    [self.wdButton1 setBackgroundColor:color];
+    [self.wdButton2 setEnabled:noOp];
+    [self.wdButton2 setBackgroundColor:color];
+    
+    [self.sdButton1 setEnabled:noOp];
+    [self.sdButton1 setBackgroundColor:color];
+    [self.sdButton2 setEnabled:noOp];
+    [self.sdButton2 setBackgroundColor:color];
+    
+    [self.zmButton1 setEnabled:noOp];
+    [self.zmButton1 setBackgroundColor:color];
+    [self.zmButton2 setEnabled:noOp];
+    [self.zmButton2 setBackgroundColor:color];
+    
+    [self.rgButton1 setEnabled:noOp];
+    [self.rgButton1 setBackgroundColor:color];
+    [self.rgButton2 setEnabled:noOp];
+    [self.rgButton2 setBackgroundColor:color];
 }
 
 

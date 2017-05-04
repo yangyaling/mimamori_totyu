@@ -90,7 +90,8 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     [textField setBackgroundColor:[UIColor whiteColor]];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:_datasDic];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:array[self.cellindex]];
     if (textField.tag == 1) {
         [dic setObject:textField.text forKey:@"staffid"];
     } else {
