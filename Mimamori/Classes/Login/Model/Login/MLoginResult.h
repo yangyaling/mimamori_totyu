@@ -20,4 +20,6 @@
 
 @property (nonatomic, copy) NSString                               *password;
 
+@property (nonatomic, copy) NSString                               *usertype;
+
 @end

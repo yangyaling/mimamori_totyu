@@ -21,15 +21,17 @@
 
 @interface LifeViewController ()<LifesTableViewCellDelegate>
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl  *segmentControl;
 
-@property (weak, nonatomic) IBOutlet UITableView *lifeTableView;
+@property (weak, nonatomic) IBOutlet UITableView         *lifeTableView;
 
-@property (nonatomic,strong) LifeUserListModel          *deliverModel;
+@property (nonatomic,strong) LifeUserListModel           *deliverModel;
 
-@property (strong, nonatomic) NSMutableArray            *custArr; //LifeUserListModel模型数组
+@property (strong, nonatomic) NSMutableArray             *custArr; //LifeUserListModel模型数组
 
-@property (nonatomic, assign) int                       segmentNum;
+@property (nonatomic, assign) int                        segmentNum;
+@property (strong, nonatomic) IBOutlet DropButton        *facilitiesBtn;
+
 
 @end
 
@@ -39,7 +41,10 @@
     [super viewDidLoad];
 
     // SegmentedControlのフォントを設定
-    [self.segmentControl setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
+//    [self.segmentControl setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
+    
+//    [self.view setTranslatesAutoresizingMaskIntoConstraints:YES];
+    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     // 空のセルを表示させない
     self.lifeTableView.tableFooterView = [[UIView alloc]init];
@@ -50,9 +55,17 @@
     self.segmentNum = 0;
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:NO];
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
+    [self.lifeTableView.mj_header beginRefreshing];
+}
 
--(void)viewWillAppear:(BOOL)animated{
-
+/**
+   设施下拉框代理
+ */
+-(void)SelectedListName:(NSDictionary *)clickDic; {
+    
     [self.lifeTableView.mj_header beginRefreshing];
 }
 
@@ -70,14 +83,15 @@
  */
 -(void)getCustList{
 
-    [MBProgressHUD showMessage:@"" toView:self.view];
+//    [MBProgressHUD showMessage:@"" toView:self.view];
     
     MCustInfoParam *param = [[MCustInfoParam alloc]init];
-    param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
+    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+    param.facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     param.hassensordata = @"1";
     
     [MCustTool custInfoWithParam:param success:^(NSArray *array) {
-        [MBProgressHUD hideHUDForView:self.view];
+//        [MBProgressHUD hideHUDForView:self.view];
         if (array.count == 0) {
             [MBProgressHUD showError:@"見守り対象者を追加してください"];
             [self.lifeTableView.mj_header endRefreshing];
@@ -94,7 +108,7 @@
             [self.lifeTableView reloadData];
         }
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view];
+//        [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"zwgetcustlist请求失败");
         [self.lifeTableView.mj_header endRefreshing];
         [MBProgressHUD showError:@"後ほど試してください"];
@@ -113,12 +127,12 @@
     // 1.创建cell
     LifesTableViewCell *cell = [LifesTableViewCell cellWithTableView:self.lifeTableView];
     
-    
-    if (self.segmentNum == 0) {
-        cell.segmentIndex = 0;
-    }else if (self.segmentNum == 1){
-        cell.segmentIndex = 1;
-    }
+//    
+//    if (self.segmentNum == 0) {
+//        cell.segmentIndex = 0;
+//    }else if (self.segmentNum == 1){
+//        cell.segmentIndex = 1;
+//    }
     // 2.传递模型
     cell.CellModel = self.custArr[indexPath.row];
     
@@ -134,14 +148,8 @@
 {
     self.deliverModel = self.custArr[indexPath.row];
     
-    //介護記録へ遷移
-    if (self.segmentNum == 1) {
-        [self performSegueWithIdentifier:@"nursingNotesPush" sender:self];
-    }
-    //グラフへ遷移
-    else if (self.segmentNum == 0) {
-        [self performSegueWithIdentifier:@"sensorDataPush" sender:self];
-    }
+    [self performSegueWithIdentifier:@"sensorDataPush" sender:self];
+    
 }
 
 #pragma mark - LifesTableViewCellDelegate
@@ -151,8 +159,6 @@
 -(void)addBtnClicked:(LifesTableViewCell*)lifesCell{
     
     self.deliverModel = lifesCell.CellModel;
-    
-    
     
     [self performSegueWithIdentifier:@"addNursingPush" sender:self];
     
@@ -180,10 +186,10 @@
     //介護記録へ遷移
     if ([segue.identifier isEqualToString:@"nursingNotesPush"]) {
 
-        NursingNotesTableViewController * vc = segue.destinationViewController;
-        vc.dispname = self.deliverModel.user0name;
-        vc.userid0 = self.deliverModel.userid0;
-    
+//        NursingNotesTableViewController * vc = segue.destinationViewController;
+//        vc.dispname = self.deliverModel.user0name;
+//        vc.userid0 = self.deliverModel.userid0;
+//    
         
     //グラフへ遷移
     }else if([segue.identifier isEqualToString:@"sensorDataPush"]){
@@ -191,9 +197,11 @@
         LifeChartController *vc = segue.destinationViewController;
         
         vc.userid0 = self.deliverModel.userid0;
-        NSString *tt = [NSString stringWithFormat:@"%@(%@)",self.deliverModel.user0name,self.deliverModel.roomname];
         
-        vc.title = tt;
+        NSString *tt = [NSString stringWithFormat:@"%@(%@)",self.deliverModel.user0name,self.deliverModel.roomid];
+        
+        vc.viewTitle = tt;
+//        [vc.navigationItem setHidesBackButton:YES];
         
         vc.ariresult = self.deliverModel.resultname;
         vc.username = self.deliverModel.user0name;
@@ -204,9 +212,9 @@
     }else if([segue.identifier isEqualToString:@"addNursingPush"]){
         
         //添加介护记录
-        VoiceRecognitionController *vc = segue.destinationViewController;
-        vc.dispname = self.deliverModel.user0name;
-        vc.userid0 = self.deliverModel.userid0;
+//        VoiceRecognitionController *vc = segue.destinationViewController;
+//        vc.dispname = self.deliverModel.user0name;
+//        vc.userid0 = self.deliverModel.userid0;
     }
     
 }

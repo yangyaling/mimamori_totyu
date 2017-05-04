@@ -18,64 +18,66 @@
 
 @interface ProfileTableViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,GGActionSheetDelegate>
 
-@property(nonatomic,strong) GGActionSheet *actionSheetTitle;
+@property(nonatomic,strong) GGActionSheet                  *actionSheetTitle;
 /**
  *  姓名
  */
-@property (strong, nonatomic) IBOutlet UITextField *user0name;
+@property (strong, nonatomic) IBOutlet UITextField         *user0name;
 /**
  *  性别
  */
-@property (strong, nonatomic) IBOutlet UITextField *sex;
+@property (strong, nonatomic) IBOutlet UITextField         *sex;
 /**
  *  生日
  */
-@property (strong, nonatomic) IBOutlet UITextField *birthday;
+@property (strong, nonatomic) IBOutlet UITextField         *birthday;
 /**
  *  地址
  */
-@property (strong, nonatomic) IBOutlet UITextField *address;
+@property (strong, nonatomic) IBOutlet UITextField         *address;
 /**
  *  经常就诊的医生
  */
-@property (strong, nonatomic) IBOutlet UITextField *kakaritsuke;
+@property (strong, nonatomic) IBOutlet UITextField         *kakaritsuke;
 /**
  *  服药情况
  */
-@property (strong, nonatomic) IBOutlet UITextView *drug;
+@property (strong, nonatomic) IBOutlet UITextView          *drug;
 /**
  *  诊断结果
  */
-@property (strong, nonatomic) IBOutlet UITextView *health;
+@property (strong, nonatomic) IBOutlet UITextView          *health;
 /**
  *  其它注意事项
  */
-@property (strong, nonatomic) IBOutlet UITextView *other;
+@property (strong, nonatomic) IBOutlet UITextView          *other;
 /**
  *  最终更新日期
  */
-@property (weak, nonatomic) IBOutlet UILabel *updatedate;
+@property (weak, nonatomic) IBOutlet UILabel               *updatedate;
 /**
  *  最终更新者名
  */
-@property (weak, nonatomic) IBOutlet UILabel *updatename;
+@property (weak, nonatomic) IBOutlet UILabel               *updatename;
 /**
  *  保存按钮
  */
-@property (strong, nonatomic) IBOutlet UIButton          *save;
+@property (strong, nonatomic) IBOutlet UIButton            *save;
 
 //@property (nonatomic, strong) NSMutableArray             *profileArray;
 
-@property (strong, nonatomic) IBOutlet UIImageView       *userIcon;
+@property (strong, nonatomic) IBOutlet UIImageView         *userIcon;
 
-@property (nonatomic, strong) NSData                     *imagedata;
+@property (nonatomic, strong) NSData                       *imagedata;
 
-@property (nonatomic,strong) UIView                       *hoverView;
+@property (nonatomic,strong) UIView                        *hoverView;
 
-@property (nonatomic,strong) UIImageView                  *bigImg;
+@property (nonatomic,strong) UIImageView                   *bigImg;
 
-@property (strong, nonatomic) IBOutlet UITableView       *myTableView;
+@property (strong, nonatomic) IBOutlet UITableView         *myTableView;
+@property (strong, nonatomic) IBOutlet DropButton          *facilitiesBtn;
 
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 
@@ -86,16 +88,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.userIcon.layer.cornerRadius = 6;
-    self.userIcon.layer.masksToBounds = YES;
+    self.titleLabel.text = self.titleStr;
     
-    self.imagedata = [NITUserDefaults objectForKey:self.userid0];
-    if (self.imagedata) {
-        self.userIcon.image = [UIImage imageWithData:self.imagedata];
-//        NITLog(@"照片：2 ---%@",self.imagedata);
+    
+    if (self.userid0.length > 0) {
+        self.imagedata = [NITUserDefaults objectForKey:self.userid0];
+        if (self.imagedata) {
+            self.userIcon.image = [UIImage imageWithData:self.imagedata];
+            //        NITLog(@"照片：2 ---%@",self.imagedata);
+        }
     }
     
-    
+    //赋值基本信息数据
+    [self setupData];
     // 缩放手势
 //    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchView:)];
 //    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]
@@ -104,14 +109,11 @@
 //    [self.bigImg addGestureRecognizer:panGestureRecognizer];
 //    [self.bigImg addGestureRecognizer:pinchGestureRecognizer];
     
-    
-    
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    //[self.tableView.mj_header beginRefreshing];
-    [self setupData];
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -127,11 +129,13 @@
 }
 
 -(GGActionSheet *)actionSheetTitle {
+    
     if (!_actionSheetTitle) {
         _actionSheetTitle = [GGActionSheet ActionSheetWithTitleArray:@[@"写真を撮る",@"写真を拡大する"] andTitleColorArray:@[NITColor(252, 85, 115),[UIColor darkGrayColor]] delegate:self];
         _actionSheetTitle.cancelDefaultColor = [UIColor lightGrayColor];
     }
     return _actionSheetTitle;
+    
 }
 
 
@@ -181,14 +185,14 @@
     // 请求参数
     MProfileInfoUpdateParam *param = [[MProfileInfoUpdateParam alloc]init];
     IconModel *iconM = [[IconModel alloc] init];
-    iconM.userid0 = self.userid0;
+    iconM.custid = self.userid0;
     iconM.updatedate = updatedate;
     NSString *imageDataStr = [self.imagedata base64EncodedStringWithOptions:0];
     
     iconM.picdata = imageDataStr;
     
-    param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
-    param.userid0 = self.userid0;
+    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+    param.custid = self.userid0;
     param.user0name = self.user0name.text;
     param.sex = self.sex.text;
     param.birthday = self.birthday.text;
@@ -225,8 +229,6 @@
         NITLog(@"%@",error.localizedDescription);
         [MBProgressHUD showError:@"アップロード失敗"];
     }];
-    
-    
 }
 
 //　点击保存按钮

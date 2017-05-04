@@ -18,6 +18,8 @@
 
 #define pickerlabelframe2 CGRectMake(0, 0,_nitpicker.frame.size.width,30)//picker标题
 
+#define pickerlabelframe3 CGRectMake(0, 0,_nitpicker.frame.size.width / 4.0, 30)
+
 #define nitpickerframe CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height*0.8)//主picker
 #define leftbuttonframe CGRectMake(self.bounds.origin.x, self.bounds.size.height*0.8, self.bounds.size.width/2, self.bounds.size.height*0.2)//取消按钮
 #define rightbuttonframe CGRectMake(self.bounds.size.width/2, self.bounds.size.height*0.8, self.bounds.size.width/2, self.bounds.size.height*0.2)//确定按钮
@@ -30,6 +32,8 @@
     //以下对象无需 get set
     NSString*select;
     NSString*select2;
+    NSString*select3;
+    NSString*select4;
     NSDictionary *selectdic;
     int scenariotype;
 }
@@ -37,11 +41,16 @@
 @property (nonatomic, strong) UIButton                   *leftbtn;
 @property (nonatomic, strong) UIButton                   *rightbtn;
 @property (nonatomic, strong) CAShapeLayer             *pathlayer;
+@property (nonatomic, strong) NSMutableArray           *onedayHours;
+@property (nonatomic, strong) NSMutableArray           *onedayMinute;
+@property (nonatomic, strong) NSMutableArray           *userList;
+
 @property (nonatomic, strong) NSMutableArray           *time;
 @property (nonatomic, strong) NSMutableArray           *value;
 @property (nonatomic, strong) NSMutableArray           *type;
 @property (nonatomic, strong) NSMutableArray           *names;
 @property (nonatomic, strong) UIButton                   *thisbutton;
+
 
 @property (nonatomic, strong) Device                   *model;
 
@@ -78,6 +87,18 @@
                 break;
             case 11:
                 scenariotype =7;
+                break;
+            case 111:
+                scenariotype =8;
+                break;
+            case 112:
+                scenariotype =9;
+                break;
+            case 113:
+                scenariotype =10;
+                break;
+            case 114:
+                scenariotype =11;
                 break;
                 
             default:
@@ -159,6 +180,21 @@
         case 7:
             selectdic = self.names[0];
             break;
+        case 8:
+            select = self.names[0];
+            break;
+        case 9:
+            select = self.names[0];
+            break;
+        case 10:
+            select = self.onedayHours[0];
+            select2 = self.onedayMinute[0];
+//            select3 = self.onedayHours[0];
+//            select4 = self.onedayMinute[0];
+            break;
+        case 11:
+            select = [self.userList[0] objectForKey:@"name"];
+            break;
             
         default:
             break;
@@ -197,22 +233,29 @@
         if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
              [self.mydelegate PickerDelegateSelectString:nil withDic:selectdic];
         }
+    } else if (scenariotype == 10) {
+        NSString *str = [NSString stringWithFormat:@"%@%@",select,select2];
+        [self.thisbutton setTitle:str forState:UIControlStateNormal];
+        [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     } else {
-        NSString *str = [NSString stringWithFormat:@"%@H",select];
+        NSString *str = [NSString stringWithFormat:@"%@",select];
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     
-    NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
-    NSArray *deletearr = arr[self.cellindex];
-    NSMutableArray *newarr = [NSMutableArray new];
+    if (scenariotype != 9) {
+        NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
     
-    NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:deletearr[0]];
-    NSMutableDictionary *dicTwo = [NSMutableDictionary dictionaryWithDictionary:deletearr[1]];
-    NSMutableDictionary *dicThree = [NSMutableDictionary dictionaryWithDictionary:deletearr[2]];
-    NSMutableDictionary *dicFour = [NSMutableDictionary dictionaryWithDictionary:deletearr[3]];
     
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+        NSArray *deletearr = arr[self.cellindex];
+        NSMutableArray *newarr = [NSMutableArray new];
+        
+        NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:deletearr[0]];
+        NSMutableDictionary *dicTwo = [NSMutableDictionary dictionaryWithDictionary:deletearr[1]];
+        NSMutableDictionary *dicThree = [NSMutableDictionary dictionaryWithDictionary:deletearr[2]];
+        NSMutableDictionary *dicFour = [NSMutableDictionary dictionaryWithDictionary:deletearr[3]];
+        
         switch (self.thisbutton.tag) {
             case 22:
                 [dicTwo setObject:select forKey:@"time"];
@@ -243,17 +286,47 @@
             default:
                 break;
         }
+        
+        [newarr addObject:dicOne];
+        [newarr addObject:dicTwo];
+        [newarr addObject:dicThree];
+        [newarr addObject:dicFour];
+        
+        [arr replaceObjectAtIndex:self.cellindex withObject:newarr];
+        
+        NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:arr];
+        
+        [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
+    } else if(scenariotype == 9) {
+        
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
+        
+        NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
+        
+        [nodesdic setValue:selectdic[@"cd"] forKey:@"displaycd"];
+        [nodesdic setValue:select forKey:@"displayname"];
+        [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+        [NITUserDefaults setObject:data forKey:@"sensorallnodes"];
+        
+    } else if (scenariotype == 11) {
+        
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
+        
+        NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
+        
+        [nodesdic setValue:selectdic[@"cd"] forKey:@"usertype"];
+        
+        [nodesdic setValue:selectdic[@"name"] forKey:@"usertypename"];
+        
+        [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
+        
+        [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
+        
+    } else {
+        
+    }
     
-    [newarr addObject:dicOne];
-    [newarr addObject:dicTwo];
-    [newarr addObject:dicThree];
-    [newarr addObject:dicFour];
-    
-    [arr replaceObjectAtIndex:self.cellindex withObject:newarr];
-    
-    NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:arr];
-    
-    [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
     
 //    NITLog(@"nodesdic:%@",arr);
     //\U5c45\U5ba4\U5165\U53e3
@@ -296,7 +369,6 @@
 //    NSData * datas = [NSKeyedArchiver archivedDataWithRootObject:scenarioarr];
 //    [NITUserDefaults setObject:datas forKey:@"scenariodtlinfoarr"];
     
-    
     [self removeFromSuperview];
 }
 
@@ -305,9 +377,13 @@
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     if (scenariotype == 2 || scenariotype == 3 ||scenariotype == 4) {
         return 2;
+        
+    } else if (scenariotype == 10){
+        return 4;
     } else {
         return 1;
     }
+    
     
 }
 
@@ -325,6 +401,26 @@
         }
     } else if(scenariotype==5) {
         return 0;
+    } else if (scenariotype == 10) {
+        
+        if (component == 0) {
+            
+            return 0;
+            
+        } else if (component == 1) {
+            
+            return self.onedayHours.count;
+            
+            
+        } else if (component == 2) {
+            
+            return self.onedayMinute.count;
+            
+        } else {
+            return 0;
+        }
+    }else if (scenariotype == 11) {
+        return self.userList.count;
     } else {
         return self.names.count;
     }
@@ -350,36 +446,53 @@
     
     if (scenariotype == 2 || scenariotype == 3 ||scenariotype == 4) {
         text.frame = pickerlabelframe;
-//        if (scenariotype==0) {
-//            text.text = self.time[row];
-//        }else if(scenariotype==1){
-//            text.text = self.value[row];
-//        }else if(scenariotype==2){
-//            text.text = self.type[row];
-//        } else if(scenariotype==3) {
-//            text.text = self.names[row];
-//        } else if(scenariotype==4){
+        
             if (component == 0) {
+                
                 text.text = self.value[row];
+                
             } else {
+                
                 text.text = self.type[row];
+                
             }
-//        } else {
-//            text.text = self.names[row];
+        
         
         [view addSubview:text];
+        
+        return view;
+        
+    } else if (scenariotype == 10) {
+        
+        text.frame = pickerlabelframe3;
+        
+        if (component  == 1) {
+            
+            text.text = self.onedayHours[row];
+            
+        } else if (component  == 2) {
+            
+            text.text = self.onedayMinute[row];
+            
+        }
+        
+        [view addSubview:text];
+        
         return view;
     } else {
         text.frame = pickerlabelframe2;
         
-//        if (scenariotype==0) {
-//            text.text = self.names[row];
-//        }else
         if(scenariotype==1){
+            
             text.text = self.time[row];
+            
         }  else if (scenariotype == 7){
             text.text = [self.names[row] objectForKey:@"displayname"];
             
+        }else if(scenariotype == 9){
+            text.text = [self.names[row] objectForKey:@"name"];
+        } else if(scenariotype == 11){
+            text.text = [self.userList[row] objectForKey:@"name"];
         } else {
             text.text = self.names[row];
         }
@@ -408,8 +521,37 @@
     } else if (scenariotype == 7) {
         selectdic = self.names[row];
         
-    } else {
+    } else if (scenariotype == 10) {
+        switch (component) {
+            case 1:
+                select = self.onedayHours[row];
+                break;
+            case 2:
+                select2 = self.onedayMinute[row];
+                break;
+//            case 2:
+//                select3 = self.onedayHours[row];
+//                break;
+//            case 3:
+//                select4 = self.onedayMinute[row];
+//                break;
+            
+            default:
+                break;
+        }
+
         
+    } else if(scenariotype == 9){
+    
+        selectdic = self.names[row];
+        select = [self.names[row] objectForKey:@"name"];
+        
+    }else if(scenariotype == 11){
+        
+        selectdic = self.userList[row];
+        select = [self.userList[row] objectForKey:@"name"];
+        
+    } else {
         select = self.names[row];
     }
 }
@@ -512,6 +654,7 @@
 }
 
 - (NSArray *)getdata {
+    
     NSMutableArray *arr = [NSMutableArray new];
     [arr addObject:@"-"];
     for (int i = 0; i<100; i++) {
@@ -520,29 +663,89 @@
     return arr;
 }
 
+
 -(NSMutableArray *)time{
     if (!_time) {
         _time = [NSMutableArray new];
         [_time addObject:@"-"];
         for (int i = 1; i<48; i++) {
-            [_time addObject:[NSString stringWithFormat:@"%.1f",i / 2.0]];
+            [_time addObject:[NSString stringWithFormat:@"%.1fH",i / 2.0]];
         }
     }
     return _time;
 }
 
+
+-(NSMutableArray *)onedayHours {
+    if (!_onedayHours) {
+        _onedayHours = [NSMutableArray new];
+        [_onedayHours addObject:@"-"];
+        for (int i = 1; i<24; i++) {
+            if (i<10) {
+                [_onedayHours addObject:[NSString stringWithFormat:@"0%d  ：",i]];
+            } else {
+                [_onedayHours addObject:[NSString stringWithFormat:@"%d  ：",i]];
+            }
+        }
+    }
+    return _onedayHours;
+}
+
+
+-(NSMutableArray *)onedayMinute {
+    if (!_onedayMinute) {
+        _onedayMinute = [NSMutableArray new];
+        [_onedayMinute addObject:@"-"];
+        for (int i = 1; i<60; i++) {
+            if (i<10) {
+                [_onedayMinute addObject:[NSString stringWithFormat:@"0%d",i]];
+            } else {
+                [_onedayMinute addObject:[NSString stringWithFormat:@"%d",i]];
+            }
+        }
+    }
+    return _onedayMinute;
+}
+
 -(NSMutableArray *)names{
+    
     if (!_names) {
+        
         if (scenariotype == 6) {
+            
             _names = [NSMutableArray arrayWithObjects:@"夜間活動",@"熱中症",@"活動なし", nil];
             
+        } else if (scenariotype == 8) {
+            
+            _names = [NSMutableArray arrayWithObjects:@"-",@"反応あり",@"反応なし", nil];
+            
+        } else if (scenariotype == 9) {
+            NSArray *arr = [NITUserDefaults objectForKey:@"tempdisplaylist"];
+            _names = [NSMutableArray arrayWithArray:arr];
+            
         } else {
+            
            NSArray *arr = [[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"] copy];
             _names = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] : [NSMutableArray new];
+            
         }
+        
     }
     return _names;
 }
+
+-(NSMutableArray *)userList {
+    if (!_userList) {
+        
+        NSArray *arr = [NITUserDefaults objectForKey:@"usertypelist"];
+        
+        _userList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
+        
+    }
+    return _userList;
+}
+
+//朝-昼-夜
 
 -(UIButton *)thisbutton{
     if (!_thisbutton) {

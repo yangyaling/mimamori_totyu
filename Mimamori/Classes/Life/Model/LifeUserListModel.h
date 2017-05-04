@@ -36,7 +36,7 @@
 /**
  *  roomname
  */
-@property (nonatomic, copy) NSString                         *roomname;
+@property (nonatomic, copy) NSString                         *roomcd;
 /**
  *  温度
  */

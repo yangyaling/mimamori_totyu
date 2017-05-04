@@ -18,19 +18,26 @@
 @interface SinarioController ()<MyPickerDelegate>
 
 
-@property (strong, nonatomic) IBOutlet UITextField *sinarioText;
+@property (strong, nonatomic) IBOutlet UITextField         *sinarioText;
 
-@property (strong, nonatomic) IBOutlet UIButton *sinariobutton;
+@property (strong, nonatomic) IBOutlet UIButton            *sinariobutton;
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NITPicker       *picker;
+@property (strong, nonatomic) IBOutlet UITableView         *tableView;
+@property (nonatomic, strong) NITPicker                    *picker;
 @property (nonatomic, assign) NSInteger                    cellnum;
 
-@property (nonatomic, strong) NSMutableArray                    *allarray;
+@property (nonatomic, strong) NSMutableArray               *allarray;
 
-@property (nonatomic,strong) AFHTTPSessionManager       *session;
+@property (nonatomic,strong) AFHTTPSessionManager          *session;
 
-@property (nonatomic, assign) BOOL                       isSelectModelScenario;
+@property (nonatomic, assign) BOOL                         isSelectModelScenario;
+@property (strong, nonatomic) IBOutlet UIButton            *editButton;
+
+
+@property (strong, nonatomic) IBOutlet UIButton            *leftTimeButton;
+@property (strong, nonatomic) IBOutlet UIButton            *rightTimeButton;
+@property (strong, nonatomic) IBOutlet UISegmentedControl  *daySegment;
+
 
 @end
 
@@ -41,6 +48,14 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.leftTimeButton.layer.borderWidth = 0.6;
+    self.rightTimeButton.layer.borderWidth = 0.6;
+    self.leftTimeButton.layer.borderColor = NITColor(211, 211, 211).CGColor;
+    self.rightTimeButton.layer.borderColor = NITColor(211, 211, 211).CGColor;
+    self.leftTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
+    self.rightTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
+    [self.leftTimeButton setEnabled:NO];
+    [self.rightTimeButton setEnabled:NO];
     
     self.cellnum = 0;
     
@@ -48,12 +63,21 @@
     
     self.sinarioText.text = self.textname;
     
-    NSArray *nodes =  [NITUserDefaults objectForKey:@"addnodeiddatas"];
+    NSArray *nodes = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"addnodeiddatas"]]];
+    
     if (nodes.count > 0) {
-        [NITUserDefaults setObject:nodes.copy forKey:@"tempdeaddnodeiddatas"];
+        NSData * data = [NSKeyedArchiver archivedDataWithRootObject:nodes];
+        
+        [NITUserDefaults setObject:data forKey:@"tempdeaddnodeiddatas"];
     }
     
-    self.sinariobutton.layer.cornerRadius = 6;
+    if (self.hideBarButton) {
+        [self.daySegment setEnabled:NO];
+        [self.editButton setHidden:YES];
+        [self.sinarioText setUserInteractionEnabled:NO];
+        [self.sinariobutton setEnabled:NO];
+    }
+    
     self.tableView.tableFooterView = [[UIView alloc]init];
     
     self.session = [AFHTTPSessionManager manager];
@@ -62,8 +86,56 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getScenariodtlInfo)];
     
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
-    [MBProgressHUD showMessage:@"" toView:self.view];
+//    [MBProgressHUD showMessage:@"" toView:self.view];
     
+}
+
+//时间段的选择
+- (IBAction)selectedTimeButton:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex != 4) {
+        [self.leftTimeButton setEnabled:NO];
+        [self.rightTimeButton setEnabled:NO];
+        self.leftTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
+        self.rightTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
+    }
+    
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+            [self.leftTimeButton setTitle:@"- -" forState:UIControlStateNormal];
+            [self.rightTimeButton setTitle:@"- -" forState:UIControlStateNormal];
+            break;
+        case 1:
+            [self.leftTimeButton setTitle:@"04  ： 00" forState:UIControlStateNormal];
+            [self.rightTimeButton setTitle:@"09  ： 00" forState:UIControlStateNormal];
+            break;
+        case 2:
+            [self.leftTimeButton setTitle:@"09  ： 00" forState:UIControlStateNormal];
+            [self.rightTimeButton setTitle:@"18  ： 00" forState:UIControlStateNormal];
+            break;
+        case 3:
+            [self.leftTimeButton setTitle:@"18  ： 00" forState:UIControlStateNormal];
+            [self.rightTimeButton setTitle:@"04  ： 00" forState:UIControlStateNormal];
+            break;
+        case 4:
+            [self.leftTimeButton setEnabled:YES];
+            [self.rightTimeButton setEnabled:YES];
+            self.leftTimeButton.backgroundColor = [UIColor whiteColor];
+            self.rightTimeButton.backgroundColor = [UIColor whiteColor];
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+
+//其他时间的点击弹窗
+- (IBAction)timeButtonClick:(UIButton *)sender {
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:0];
+    
+    _picker.mydelegate = self;
+    
+    [WindowView addSubview:_picker];
 }
 
 
@@ -99,9 +171,11 @@
                 [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
                 self.allarray = [NSMutableArray arrayWithArray:allarr];
                 
-                NSArray *nodes =  [NITUserDefaults objectForKey:@"addnodeiddatas"];
+                NSArray *nodes =  [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"addnodeiddatas"]]];
                 if (nodes.count > 0) {
-                    [NITUserDefaults setObject:nodes.copy forKey:@"tempdeaddnodeiddatas"];
+                    NSData * data = [NSKeyedArchiver archivedDataWithRootObject:nodes];
+                    
+                    [NITUserDefaults setObject:data forKey:@"tempdeaddnodeiddatas"];
                 }
             } else {
                 
@@ -254,7 +328,7 @@
 //        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 //        [self.tableView endUpdates];
         NSIndexPath *indexPath=[NSIndexPath indexPathForRow:index inSection:0];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation  :UITableViewRowAnimationNone];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
         //UITableViewScrollPositionNone
         //UITableViewScrollPositionMiddle
@@ -262,9 +336,13 @@
         //UITableViewScrollPositionTop
     }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.tableView reloadData];
+//    });
+    
+   [CATransaction setCompletionBlock:^{
+       [self.tableView reloadData];
+   }];
     
 }
 
@@ -309,8 +387,6 @@
     cell.cellarr = self.allarray[indexPath.row];
 //    
 
-    
-    
 //    if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0) return cell;
     
     if (self.cellnum == 0) { //cell是否可以编辑
@@ -372,7 +448,7 @@
 
 - (void)addScenarioCell:(UIButton *)sender {
     
-    NSArray *array =[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"];
+    NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
     
     if (array.count != 0) {
         _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:0];
@@ -387,22 +463,25 @@
     }
 }
 
+- (IBAction)gobacktoC:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 /**
     编辑
  */
-- (IBAction)EditBarButton:(UIBarButtonItem *)sender {
-    if ([sender.title isEqualToString:@"編集"]) {
-        [sender setTitle:@"完了"];
+- (IBAction)EditBarButton:(UIButton *)sender {
+    if ([sender.titleLabel.text isEqualToString:@"編集"]) {
+        [sender setTitle:@"完了" forState:UIControlStateNormal];
         
         self.cellnum = 100;
         
         //进入编辑状态
         [self.tableView setEditing:YES animated:YES];
     }else{
+        [sender setTitle:@"編集" forState:UIControlStateNormal];
         
-        [sender setTitle:@"編集"];
         self.cellnum = 0;
         
         [self saveScenario:nil]; //跟新或者追加
@@ -410,12 +489,14 @@
         //取消编辑状态
         [self.tableView setEditing:NO animated:YES];
         
-        
     }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
     
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.tableView reloadData];
+//    });
+    [CATransaction setCompletionBlock:^{
+        [self.tableView reloadData];
+    }];
     
 }
 
@@ -428,7 +509,6 @@
  */
 - (void)saveScenario:(UIButton *)sender {
 //    BOOL scenariosuccess = YES;
-    
     
     NSMutableArray *alldatas = [NSMutableArray new];
     NSData * data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
@@ -489,9 +569,9 @@
     NSString *url = NITUpdateScenarioInfo;
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     
-    parametersDict[@"userid1"] = [NITUserDefaults objectForKey:@"userid1"];
+    parametersDict[@"staffid"] = [NITUserDefaults objectForKey:@"userid1"];
     
-    parametersDict[@"userid0"] = self.user0;
+    parametersDict[@"custid"] = self.user0;
     
     parametersDict[@"scenarioid"] = self.scenarioID;
     
@@ -509,7 +589,7 @@
     [self.session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [MBProgressHUD hideHUDForView:self.view];
+//        [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"zwupdatescenarioinfo success %@",responseObject);
         //追加成功，显示信息
         if ([[responseObject valueForKey:@"code"]isEqualToString:@"200"]) {
@@ -538,7 +618,7 @@
             [MBProgressHUD showError:@"後ほど試してください"];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD hideHUDForView:self.view];
+//        [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"zwupdatescenarioinfo failed");
         [MBProgressHUD showError:@"後ほど試してください"];
     }];
@@ -570,12 +650,14 @@
         
         //删除一个cell  pick上添加当前删除的displayname
         
-        NSMutableArray *disparray = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]];
+        NSMutableArray *disparray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData: [NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
         NSString *disstr = [deletearr.firstObject objectForKey:@"displayname"];
         NSDictionary *disdic = @{@"displayname":disstr,@"idx":@(indexPath.row)};
         [disparray insertObject:disdic atIndex:0];
         
-        [NITUserDefaults setObject:disparray forKey:@"tempdeaddnodeiddatas"];
+        NSData * datas = [NSKeyedArchiver archivedDataWithRootObject:disparray];
+        
+        [NITUserDefaults setObject:datas forKey:@"tempdeaddnodeiddatas"];
         
         
         //删除总数组当行cell的所有数据  再缓存新的临时数组
@@ -585,6 +667,8 @@
             [dicOne setObject:@"0" forKey:@"detailno"];
             [newarr addObject:dicOne];
         }
+        
+        
         
 //        NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:deletearr.firstObject];
 //
@@ -615,9 +699,13 @@
         
     }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.tableView reloadData];
+//    });
+    
+    [CATransaction setCompletionBlock:^{
         [self.tableView reloadData];
-    });
+    }];
 }
 
 
@@ -651,7 +739,7 @@
         return 0;
     } else {
         
-        NSMutableArray *tmparray = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]];
+        NSMutableArray *tmparray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
         if (tmparray.count > 0) {
             for (NSDictionary *dic in tmparray) {
                 if ([dic[@"idx"] integerValue] == indexPath.row) {
@@ -660,8 +748,10 @@
                 }
             }
         }
-        [NITUserDefaults setObject:tmparray forKey:@"tempdeaddnodeiddatas"];
-        return 172;
+        NSData * datas = [NSKeyedArchiver archivedDataWithRootObject:tmparray];
+        
+        [NITUserDefaults setObject:datas forKey:@"tempdeaddnodeiddatas"];
+        return 162;
     }
     
 }

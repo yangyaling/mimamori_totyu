@@ -94,7 +94,7 @@
     UIImageView *imageV = [[UIImageView alloc] initWithFrame:imageframe];
     [imageV setContentMode:UIViewContentModeScaleAspectFit];
     bgview.backgroundColor =  [[UIColor lightGrayColor]colorWithAlphaComponent:0.1];
-    [label setText:[NSString stringWithFormat:@"%@（%@）",model.devicename,model.nodename]];
+    [label setText:[NSString stringWithFormat:@"%@（%@）%@",model.devicename,model.nodename,model.displayname]];
     [label setFont:[UIFont systemFontOfSize:14]];
     label.textAlignment = NSTextAlignmentCenter; //居中文字
     if ([model.batterystatus intValue] == 1) {

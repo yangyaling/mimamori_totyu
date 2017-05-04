@@ -13,16 +13,21 @@
 #import "Scenario.h"
 #import "MScenarioTool.h"
 
-@interface SinarioDetailController ()
+#import "SinarioController.h"
 
-@property (nonatomic, strong) NSMutableArray               *scenarioArray;
+@interface SinarioDetailController ()<DropClickDelegate>
 
+@property (nonatomic, strong) NSMutableArray                 *scenarioArray;
+@property (strong, nonatomic) IBOutlet UITableView           *tableView;
+@property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 @end
 
 @implementation SinarioDetailController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getScenarioList)];
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
@@ -30,6 +35,20 @@
 }
 
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:NO];
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
+}
+
+/**
+ 弹出下拉设施菜单
+ 
+ @param sender
+ */
+-(void)showSelectedList {
+    
+    
+}
 
 /**
  *  シナリオ一覧取得
@@ -37,8 +56,8 @@
 -(void)getScenarioList{
     
     MScenarioListParam *param = [[MScenarioListParam alloc]init];
-    param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
-    param.userid0 = self.user0;
+    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+    param.custid = self.user0;
     
     [MScenarioTool scenarioListWithParam:param success:^(NSArray *array) {
         
@@ -79,6 +98,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     AddTableViewCell *cell = [AddTableViewCell cellWithTableView:tableView];
     
     Scenario *sc = self.scenarioArray[indexPath.row];
@@ -89,6 +109,35 @@
     
     return cell;
 }
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIStoryboard *lifeStoryBoard = [UIStoryboard storyboardWithName:@"Sonota" bundle:nil];
+    
+    SinarioController *svc = [lifeStoryBoard instantiateViewControllerWithIdentifier:@"PushSinarioC"];
+    
+    Scenario *sc = self.scenarioArray[indexPath.row];
+    
+    svc.roomID = self.roomId;
+    
+    svc.scenarioID = sc.scenarioid;
+    
+    svc.isRefresh = YES;
+    
+    svc.textname = sc.scenarioname;
+    
+    svc.user0 = self.user0;
+    
+    svc.hideBarButton = YES;
+    
+//    svc.delegate = self;
+    //跳转事件
+    [self.navigationController pushViewController:svc animated:YES];
+    
+    
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

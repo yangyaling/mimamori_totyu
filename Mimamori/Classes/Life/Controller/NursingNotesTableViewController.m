@@ -124,9 +124,13 @@ typedef enum {
         }
         
         [self.nursingNotesTable.mj_header endRefreshing];
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
         [MBProgressHUD hideHUDForView:self.view];
+        
         [self.nursingNotesTable.mj_header endRefreshing];
+        
     }];
 }
 

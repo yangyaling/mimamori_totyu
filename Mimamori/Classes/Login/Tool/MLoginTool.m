@@ -34,7 +34,21 @@
             NSArray *zsessioninfo = [json objectForKey:@"zsessioninfo"];
             NSArray *tmp = [MSessionInfoResult mj_objectArrayWithKeyValuesArray:zsessioninfo];
             success(tmp);
+        }
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
 
++(void)getFacilityInfoWithParam:(MSessionInfoParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure {
+    [MHttpTool postWithURL:NITGetfacilityList params:param.mj_keyValues success:^(id json) {
+        if (success) {
+            // 字典数组转模型数组
+            NSArray *facilitylist = [json objectForKey:@"facilitylist"];
+            success(facilitylist);
+            
         }
     } failure:^(NSError *error) {
         if (failure) {

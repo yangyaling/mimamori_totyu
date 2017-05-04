@@ -20,6 +20,7 @@
 
 @property (nonatomic, strong) NSMutableArray       *allarray;
 
+
 @end
 
 @implementation SensorSetTableViewCell
@@ -36,26 +37,37 @@
     return cell;
     
 }
+- (IBAction)showPicker:(UIButton *)sender {
+    
+    NSArray *arr = [NITUserDefaults objectForKey:@"tempdisplaylist"];
+    if (arr.count > 0) {
+        _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellnumber];
+        [WindowView addSubview:_picker];
+    } else {
+//        [MBProgressHUD showError:@""];
+        NITLog(@"displaylist为空");
+    }
+}
 
 
 //- (IBAction)clickPick:(UIButton *)sender {
 //    
-//    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:self.cellnumber];
-//    [WindowView addSubview:_picker];
-//    
+
+//
 //}
 - (IBAction)mainNodeidSelect:(UIButton *)sender {
     
     self.sensorname.textColor = NITColor(252, 58, 92);
     NSMutableArray *allarr = [NSMutableArray new];
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
     
     for (NSDictionary *dic in arr) {
         NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:dic];
         [nodesdic setValue:self.nodeid forKey:@"mainnodeid"];
         [allarr addObject:nodesdic];
     }
-    [NITUserDefaults setObject:allarr forKey:@"sensorallnodes"];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:allarr];
+    [NITUserDefaults setObject:data forKey:@"sensorallnodes"];
 //    [self updateMainnodenameInfo:self.nodeid andNodename:nil withType:6];
     if (self.segmentbar.selectedSegmentIndex == 0) _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"外"];
     if (self.segmentbar.selectedSegmentIndex == 1) _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"内"];
@@ -66,17 +78,19 @@
         [self.delegate NowRefreshScreen];
     }
     
+    
 }
 
 
 - (IBAction)selectPlaceNumber:(UISegmentedControl *)sender {
 //    NSString *Path = [NITFilePath stringByAppendingFormat:@"/%@.plist",@"sensorplacelist"];
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
     NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellnumber]];
     NSString *value = [NSString stringWithFormat:@"%ld",sender.selectedSegmentIndex + 1];
     [nodesdic setValue:value forKey:@"place"];
     [arr replaceObjectAtIndex:self.cellnumber withObject:nodesdic];
-    [NITUserDefaults setObject:arr forKey:@"sensorallnodes"];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+    [NITUserDefaults setObject:data forKey:@"sensorallnodes"];
     [self updateMainnodenameInfoaNodename:nil withType:sender.selectedSegmentIndex];
 }
 
@@ -114,6 +128,10 @@
     self.roomname.layer.borderWidth = 0.5;
     self.roomname.layer.borderColor = NITColor(200, 200, 200).CGColor;
     
+    self.pickBtn.layer.cornerRadius = 5;
+    self.pickBtn.layer.borderWidth = 0.5;
+    self.pickBtn.layer.borderColor = NITColor(200, 200, 200).CGColor;
+    
 //    self.segmentbar.tintColor = NITColor(123, 182, 254);
     
 }
@@ -131,11 +149,12 @@
 {
     [self updateMainnodenameInfoaNodename:textField.text withType:2];
     
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
     NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellnumber]];
-    [nodesdic setValue:textField.text forKey:@"displayname"];
+    [nodesdic setValue:textField.text forKey:@"memo"];
     [arr replaceObjectAtIndex:self.cellnumber withObject:nodesdic];
-    [NITUserDefaults setObject:arr forKey:@"sensorallnodes"];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+    [NITUserDefaults setObject:data forKey:@"sensorallnodes"];
 }
 
 @end

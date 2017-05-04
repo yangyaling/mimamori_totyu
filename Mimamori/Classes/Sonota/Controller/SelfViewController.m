@@ -12,7 +12,7 @@
 
 #import "AFNetworking.h"
 
-@interface SelfViewController ()
+@interface SelfViewController ()<DropClickDelegate>
 /**
  *  nikeName
  */
@@ -37,6 +37,7 @@
 
 
 @property (nonatomic, strong) SelfModel *user;
+@property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 
 
 @end
@@ -46,22 +47,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    self.title = @"ユーザ情報";
-    
     // 初始化session对象
     _session = [AFHTTPSessionManager manager];
     // 设置请求接口回来时支持什么类型的数组
     _session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    
+    [self.navigationItem setHidesBackButton:YES];
     //GroupInfo
     NSArray *tmpArr = [NotificationModel mj_objectArrayWithKeyValuesArray:[NITUserDefaults objectForKey:@"allGroupData"]];
     self.allGroupData = tmpArr.count > 0 ? [NSMutableArray arrayWithArray:tmpArr] : [NSMutableArray new];
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getUserInfo)];
+    [self getUserInfo];
+//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getUserInfo)];
+//    
+//    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
+//    //UserInfo
     
-    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
-    //UserInfo
+    [MBProgressHUD showMessage:@"" toView:WindowView];
 }
 
 
@@ -69,21 +70,25 @@
     [MBProgressHUD hideHUD];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    //[self loadNewData];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:NO];
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
+
+
+
 -(void)getUserInfo{
-    NSString *url = @"http://mimamori2.azurewebsites.net/zwgetuserinfo.php";
+    NSString *url = NITGetUserInfo;
 
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     NSString *userid1 = [NITUserDefaults objectForKey:@"userid1"];
-    [parametersDict setValue:userid1 forKey:@"userid1"];
+    [parametersDict setValue:userid1 forKey:@"staffid"];
     
     [_session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self.tableView.mj_header endRefreshing];
+        [MBProgressHUD hideHUDForView:WindowView];
         NSArray *userinfo = [responseObject objectForKey:@"userinfo"];
         if (userinfo){
             NSArray *tmpArr = [SelfModel mj_objectArrayWithKeyValuesArray:userinfo];
@@ -101,7 +106,7 @@
             [self.tableView reloadData];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self.tableView.mj_header endRefreshing];
+        [MBProgressHUD hideHUDForView:WindowView];
         NITLog(@"zwgetuserinfo请求失败");
     }];
     
@@ -109,11 +114,12 @@
 
 
 -(void)updateUserInfo{
-    NSString *url = @"http://mimamori2.azurewebsites.net/zwupdateuserinfo.php";
+    [MBProgressHUD showMessage:@"" toView:WindowView];
+    NSString *url = NITUpdateUserInfo;
     
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     NSString *userid1 = [NITUserDefaults objectForKey:@"userid1"];
-    [parametersDict setValue:userid1 forKey:@"userid1"];
+    [parametersDict setValue:userid1 forKey:@"staffid"];
     [parametersDict setValue:self.nickName.text forKey:@"nickname"];
     [parametersDict setValue:self.groupid forKey:@"groupid"];
     [parametersDict setValue:self.email.text forKey:@"email"];
@@ -125,6 +131,7 @@
     [self.session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [MBProgressHUD hideHUDForView:WindowView];
         //更新模型
         self.user.nickname = self.nickName.text;
         self.user.email = self.email.text;
@@ -138,6 +145,7 @@
         
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [MBProgressHUD hideHUDForView:WindowView];
         NITLog(@"zwupdateuserinfo请求失败");
         
         [MBProgressHUD showError:@"後ほど試してください"];

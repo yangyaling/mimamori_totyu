@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="172" id="KGk-i7-Jjw" customClass="SinarioTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="330" height="172"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="162" id="KGk-i7-Jjw" customClass="SinarioTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="331" height="162"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="330" height="171"/>
+                <rect key="frame" x="0.0" y="0.0" width="331" height="161.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="温度" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rop-cc-6Hv">
@@ -64,7 +64,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" tag="55" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dsi-Lb-NTi">
-                        <rect key="frame" x="155" y="40" width="163" height="25"/>
+                        <rect key="frame" x="155" y="40" width="164" height="25"/>
                         <state key="normal" title="- -">
                             <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
@@ -91,7 +91,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" tag="66" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KuL-o4-UFE">
-                        <rect key="frame" x="155" y="70" width="163" height="25"/>
+                        <rect key="frame" x="155" y="70" width="164" height="25"/>
                         <state key="normal" title="- -">
                             <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
@@ -100,7 +100,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" tag="77" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpU-Iq-OWS">
-                        <rect key="frame" x="155" y="100" width="163" height="25"/>
+                        <rect key="frame" x="155" y="100" width="164" height="25"/>
                         <state key="normal" title="- -">
                             <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
@@ -122,13 +122,6 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOH-FX-rhQ">
-                        <rect key="frame" x="155" y="130" width="163" height="25"/>
-                        <color key="backgroundColor" white="0.66666666669999997" alpha="0.29960151010000002" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <button opaque="NO" tag="99" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hu7-Si-kiD">
                         <rect key="frame" x="85" y="130" width="60" height="25"/>
                         <state key="normal" title="-">
@@ -138,26 +131,36 @@
                             <action selector="PickShow:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YEk-X3-mh1"/>
                         </connections>
                     </button>
+                    <button opaque="NO" tag="111" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JCC-wO-Bhm">
+                        <rect key="frame" x="155" y="130" width="164" height="25"/>
+                        <state key="normal" title="- -">
+                            <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="PickShow:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tcy-TL-wat"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="hu7-Si-kiD" firstAttribute="top" secondItem="A8r-vN-9mm" secondAttribute="top" id="1bp-CT-jZ5"/>
                     <constraint firstItem="Cw8-oy-3yx" firstAttribute="top" secondItem="98r-yB-4nI" secondAttribute="bottom" constant="5" id="348-W1-qPH"/>
                     <constraint firstAttribute="trailing" secondItem="Dsi-Lb-NTi" secondAttribute="trailing" constant="12" id="3IC-Rf-GMN"/>
-                    <constraint firstItem="cOH-FX-rhQ" firstAttribute="top" secondItem="hu7-Si-kiD" secondAttribute="top" id="4f2-1U-GdS"/>
                     <constraint firstItem="Dsi-Lb-NTi" firstAttribute="top" secondItem="Rop-cc-6Hv" secondAttribute="top" id="67Q-du-znB"/>
                     <constraint firstItem="vMa-Xw-WIc" firstAttribute="trailing" secondItem="fXw-y8-qDs" secondAttribute="trailing" id="6YS-h5-9lh"/>
                     <constraint firstItem="Rop-cc-6Hv" firstAttribute="top" secondItem="J2n-1h-iUB" secondAttribute="bottom" constant="5" id="6tQ-BE-EOj"/>
                     <constraint firstItem="J2n-1h-iUB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="7m9-NP-ut3"/>
+                    <constraint firstItem="JCC-wO-Bhm" firstAttribute="bottom" secondItem="hu7-Si-kiD" secondAttribute="bottom" id="Ado-m0-IVq"/>
                     <constraint firstItem="fXw-y8-qDs" firstAttribute="top" secondItem="Rop-cc-6Hv" secondAttribute="top" id="Cid-wa-ZXI"/>
                     <constraint firstItem="F1i-xg-f4t" firstAttribute="bottom" secondItem="Cw8-oy-3yx" secondAttribute="bottom" id="FL7-fD-SWe"/>
                     <constraint firstItem="fXw-y8-qDs" firstAttribute="leading" secondItem="Rop-cc-6Hv" secondAttribute="trailing" constant="10" id="G38-uT-dsA"/>
                     <constraint firstItem="hu7-Si-kiD" firstAttribute="trailing" secondItem="fXw-y8-qDs" secondAttribute="trailing" id="GVT-rG-7ta"/>
                     <constraint firstItem="Rop-cc-6Hv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="GaG-SC-d1z"/>
+                    <constraint firstItem="JCC-wO-Bhm" firstAttribute="leading" secondItem="bpU-Iq-OWS" secondAttribute="leading" id="Ikw-Pa-Fx6"/>
                     <constraint firstItem="KuL-o4-UFE" firstAttribute="leading" secondItem="Dsi-Lb-NTi" secondAttribute="leading" id="Iwy-A9-gQi"/>
                     <constraint firstItem="vMa-Xw-WIc" firstAttribute="top" secondItem="98r-yB-4nI" secondAttribute="top" id="KfW-6H-evG"/>
                     <constraint firstItem="Dsi-Lb-NTi" firstAttribute="leading" secondItem="fXw-y8-qDs" secondAttribute="trailing" constant="10" id="Moi-vZ-RId"/>
                     <constraint firstItem="98r-yB-4nI" firstAttribute="leading" secondItem="Rop-cc-6Hv" secondAttribute="leading" id="NXb-98-UMa"/>
-                    <constraint firstItem="cOH-FX-rhQ" firstAttribute="trailing" secondItem="Dsi-Lb-NTi" secondAttribute="trailing" id="QDr-g7-nxx"/>
+                    <constraint firstItem="JCC-wO-Bhm" firstAttribute="top" secondItem="hu7-Si-kiD" secondAttribute="top" id="PaB-C2-9c6"/>
                     <constraint firstItem="vMa-Xw-WIc" firstAttribute="leading" secondItem="fXw-y8-qDs" secondAttribute="leading" id="QJx-LK-uUw"/>
                     <constraint firstItem="F1i-xg-f4t" firstAttribute="top" secondItem="Cw8-oy-3yx" secondAttribute="top" id="QXm-J7-Oa8"/>
                     <constraint firstItem="KuL-o4-UFE" firstAttribute="top" secondItem="vMa-Xw-WIc" secondAttribute="top" id="REm-aQ-I5p"/>
@@ -171,9 +174,7 @@
                     <constraint firstItem="bpU-Iq-OWS" firstAttribute="bottom" secondItem="F1i-xg-f4t" secondAttribute="bottom" id="Z5r-gB-OVd"/>
                     <constraint firstItem="J2n-1h-iUB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ZzX-w6-Q9h"/>
                     <constraint firstItem="hu7-Si-kiD" firstAttribute="leading" secondItem="fXw-y8-qDs" secondAttribute="leading" id="aJ7-d6-bGh"/>
-                    <constraint firstItem="cOH-FX-rhQ" firstAttribute="bottom" secondItem="hu7-Si-kiD" secondAttribute="bottom" id="c22-xm-wMC"/>
                     <constraint firstItem="bpU-Iq-OWS" firstAttribute="top" secondItem="F1i-xg-f4t" secondAttribute="top" id="cbw-Bf-vZB"/>
-                    <constraint firstItem="cOH-FX-rhQ" firstAttribute="leading" secondItem="Dsi-Lb-NTi" secondAttribute="leading" id="cdM-qg-0Sf"/>
                     <constraint firstItem="KuL-o4-UFE" firstAttribute="bottom" secondItem="vMa-Xw-WIc" secondAttribute="bottom" id="diU-34-pcY"/>
                     <constraint firstItem="Cw8-oy-3yx" firstAttribute="leading" secondItem="Rop-cc-6Hv" secondAttribute="leading" id="iEd-cU-Q5K"/>
                     <constraint firstItem="A8r-vN-9mm" firstAttribute="leading" secondItem="Rop-cc-6Hv" secondAttribute="leading" id="lFn-Oj-wVu"/>
@@ -182,6 +183,7 @@
                     <constraint firstItem="Dsi-Lb-NTi" firstAttribute="bottom" secondItem="Rop-cc-6Hv" secondAttribute="bottom" id="srP-R6-EBH"/>
                     <constraint firstItem="A8r-vN-9mm" firstAttribute="height" secondItem="Rop-cc-6Hv" secondAttribute="height" id="t06-vF-6aU"/>
                     <constraint firstItem="A8r-vN-9mm" firstAttribute="trailing" secondItem="Rop-cc-6Hv" secondAttribute="trailing" id="ti1-BS-qhy"/>
+                    <constraint firstItem="JCC-wO-Bhm" firstAttribute="trailing" secondItem="bpU-Iq-OWS" secondAttribute="trailing" id="uJ3-cD-EZE"/>
                     <constraint firstItem="fXw-y8-qDs" firstAttribute="bottom" secondItem="Rop-cc-6Hv" secondAttribute="bottom" id="umb-wp-aai"/>
                     <constraint firstItem="A8r-vN-9mm" firstAttribute="top" secondItem="Cw8-oy-3yx" secondAttribute="bottom" constant="5" id="vwN-60-gH5"/>
                     <constraint firstItem="Cw8-oy-3yx" firstAttribute="trailing" secondItem="Rop-cc-6Hv" secondAttribute="trailing" id="yFP-qJ-kWz"/>
@@ -193,7 +195,7 @@
                 <outlet property="brightness" destination="Cw8-oy-3yx" id="fNb-o1-tre"/>
                 <outlet property="brightnessTD" destination="bpU-Iq-OWS" id="bsg-7P-gBb"/>
                 <outlet property="brightnesstime" destination="F1i-xg-f4t" id="Cza-LZ-dCs"/>
-                <outlet property="doaState" destination="cOH-FX-rhQ" id="mol-0c-aCC"/>
+                <outlet property="doaState" destination="JCC-wO-Bhm" id="JCX-am-aYT"/>
                 <outlet property="doalabel" destination="A8r-vN-9mm" id="XnD-mi-x4W"/>
                 <outlet property="doatime" destination="hu7-Si-kiD" id="xzg-Ui-14w"/>
                 <outlet property="humidity" destination="98r-yB-4nI" id="1jg-wm-hvZ"/>
@@ -204,7 +206,7 @@
                 <outlet property="temperatureTD" destination="Dsi-Lb-NTi" id="yzQ-vq-Ki5"/>
                 <outlet property="temperaturetime" destination="fXw-y8-qDs" id="7Yv-5h-swV"/>
             </connections>
-            <point key="canvasLocation" x="-1157" y="-307"/>
+            <point key="canvasLocation" x="-1217.5" y="-374"/>
         </tableViewCell>
     </objects>
 </document>

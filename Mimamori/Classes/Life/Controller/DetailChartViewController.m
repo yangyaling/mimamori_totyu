@@ -76,8 +76,8 @@
     
     MSensorDataParam *param = [[MSensorDataParam alloc]init];
     param.nowdate = date;
-    param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
-    param.userid0 = self.userid0;
+    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+    param.custid = self.userid0;
     param.deviceclass = @"2";
     param.nodeid = self.nodeId;
     

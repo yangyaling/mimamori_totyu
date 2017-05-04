@@ -18,4 +18,6 @@
 
 @property (nonatomic, copy) NSString                   *roomID;
 
+@property (nonatomic, copy) NSString                   *titleStr;
+
 @end

@@ -12,6 +12,7 @@
 
 @property NSString *userid0;
 
+@property (nonatomic, copy) NSString                      *viewTitle;
 
 /**
  *  ユーザネーム

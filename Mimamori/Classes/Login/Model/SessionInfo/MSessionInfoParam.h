@@ -12,4 +12,8 @@
 
 @property (nonatomic, copy) NSString                               *email;
 
+@property (nonatomic, copy) NSString                               *staffid;
+
+@property (nonatomic, copy) NSString                               *hostcd;
+
 @end

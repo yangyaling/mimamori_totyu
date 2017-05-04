@@ -19,28 +19,31 @@
 
 #import "NotificationModel.h"
 
-#import "MTitleLabel.h"
+//#import "MTitleLabel.h"
 
 #import "MNoticeTool.h"
 
 #import "AriScenarioController.h"
 
+
 @interface MainNotificationController ()<NotificationCellDelegate,CalendarPopDelegate,UITableViewDelegate,UITableViewDataSource>
 
 
-@property (nonatomic, assign) BOOL isCounter;
+@property (nonatomic, assign) BOOL                       isCounter;
 
-@property (strong, nonatomic) UITableView *MyTableView;
+@property (strong, nonatomic) UITableView                *MyTableView;
 
-@property (nonatomic, weak) WHUCalendarPopView *POPCalendar;
+@property (nonatomic, weak) WHUCalendarPopView           *POPCalendar;
 
-@property (nonatomic, weak) MTitleLabel *titleLabel; //タイトル
-@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentC;
+@property (strong, nonatomic) IBOutlet UILabel           *titleLabel;
 
-@property (nonatomic, copy) NSString *refreshDate; //最終更新時間(タイトルに表示)
 
-@property (nonatomic, strong) NSMutableArray *noticesArray;//全ての通知アイテム
-@property (strong, nonatomic) IBOutlet UIView *contenView;
+@property (strong, nonatomic) IBOutlet UISegmentedControl*segmentC;
+
+@property (nonatomic, copy) NSString                     *refreshDate; //最終更新時間(タイトルに表示)
+
+@property (nonatomic, strong) NSMutableArray             *noticesArray;//全ての通知アイテム
+@property (strong, nonatomic) IBOutlet UIView            *contenView;
 
 @property (nonatomic, assign) NSInteger                  segmentindex;
 
@@ -51,6 +54,10 @@
 
 @property (nonatomic, assign) BOOL                       onstauts;
 
+
+@property (strong, nonatomic) IBOutlet DropButton        *facilitiesBtn;
+
+
 @end
 
 @implementation MainNotificationController
@@ -59,14 +66,19 @@
     
     [super viewDidLoad];
     
+    self.navigationItem.leftBarButtonItem =nil;
+    self.navigationItem.rightBarButtonItem =nil;
+    
     [self.segmentC setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
+//    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     
     //ログインFlag -> 0 (ログイン済)
     
     NSString *plistPath = [NITDocumentDirectory stringByAppendingPathComponent:@"loginFlgRecord.plist"];
+    
     NSDictionary *oldKey = @{@"OldloginFlgKey":@"mimamori2"};
+    
     [oldKey writeToFile:plistPath atomically:YES];
     
     //    [NITUserDefaults setObject:@"mimamori2" forKey:@"OldloginFlgKey"];
@@ -78,12 +90,7 @@
     
     [self CreateTableViewUI];  //创建tableviewUI
     
-    // タイトル
-    [self setupTitleView];
-    
     [self dateList];  //加载日历履历数据
-    
-    
     
     self.isCounter = YES; //日历弹出开关
     
@@ -92,14 +99,17 @@
     self.typenum = 0; //  选择器2  num
     
     self.onstauts = NO;  //是否是在日历选择了日期
+    
+    
 }
+
 
 
 /**
  创建tableviewUI
  */
 - (void)CreateTableViewUI {
-    _MyTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 104, NITScreenW, NITScreenH) style:UITableViewStylePlain];
+    _MyTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 139 , NITScreenW, NITScreenH - 185) style:UITableViewStylePlain];
     _MyTableView.delegate = self;
     _MyTableView.dataSource = self;
     //    _MyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -109,14 +119,19 @@
     
     self.MyTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullRefresh)];
     [NITRefreshInit MJRefreshNormalHeaderInitTwo:(MJRefreshNormalHeader*)self.MyTableView.mj_header];
+    
+    
 }
 
 
-
+-(void)SelectedListName:(NSString *)clickName {
+    NITLog(@"32131232131321ononono");
+}
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:YES];
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
     [self.MyTableView.mj_header beginRefreshing];
 }
 
@@ -144,11 +159,16 @@
         [self.MyTableView.mj_header beginRefreshing];
         [self.POPCalendar dismiss];
         [self.contenView setHidden:YES];
-        self.MyTableView.frame = CGRectMake(0, 104 , NITScreenW, NITScreenH - 150);
+        self.MyTableView.frame = CGRectMake(0, 139 , NITScreenW, NITScreenH - 185);
     } else {
         [self.MyTableView.mj_header beginRefreshing];
         [self.contenView setHidden:NO];
-        self.MyTableView.frame = CGRectMake(0, 144 , NITScreenW, NITScreenH - 193);
+        self.MyTableView.frame = CGRectMake(0, 179 , NITScreenW, NITScreenH - 228);
+        
+        //交换背景颜色
+        [self selectButtonViewTag:6];
+        [self selectButtonViewTag:8];
+        
     }
     
     [self.MyTableView reloadData];
@@ -158,12 +178,37 @@
 /**
  选择当前需要的日历数据
  */
-- (void)TimeSegmentAction:(UISegmentedControl *)sender {
+- (void)oldBtnAction:(UIButton *)sender {
+    sender.backgroundColor = NITColor(252, 85, 115);
+    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    self.typenum = sender.selectedSegmentIndex;
+    [sender setEnabled:NO];
+    
+    [self selectButtonViewTag:8];
+    self.typenum = 1;
+    self.onstauts = NO;
     
     [self.MyTableView.mj_header beginRefreshing];
     
+}
+
+-(void)selectButtonViewTag:(int)tag{
+    if (tag == 6) {
+        
+        UIButton *oldbtn = (UIButton *)[self.view viewWithTag:666666];
+        
+        oldbtn.backgroundColor = NITColor(252, 85, 115);
+        
+        [oldbtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+    } else {
+        
+        UIButton *btn  = (UIButton *)[self.view viewWithTag:888888];
+        
+        btn.backgroundColor = [UIColor whiteColor];
+        
+        [btn setTitleColor:NITColor(252, 85, 115) forState:UIControlStateNormal];
+    }
     
 }
 
@@ -174,7 +219,7 @@
     self.onstauts = NO;  //非日历选择日期状态
     
     [self.POPCalendar removeFromSuperview];   //每次刷新先删除日历
-    [MBProgressHUD showMessage:@"" toView:self.view];
+//    [MBProgressHUD showMessage:@"" toView:self.view];
     //1. 通知リストを取得
     if (self.segmentindex == 0) {
         
@@ -183,19 +228,12 @@
         
     } else {
         
-        [self noticeInfoWithDate:[NSDate SharedToday] andHistoryflg:@"1" withNoticetype:[NSString stringWithFormat:@"%ld",self.typenum]];
+        [self noticeInfoWithDate:[NSDate SharedToday] andHistoryflg:[NSString stringWithFormat:@"%ld",self.typenum]withNoticetype:@"0"];
     }
 }
 
 #pragma mark Setup UI
 
-// タイトルを設定
-- (void)setupTitleView {
-    MTitleLabel *label = [MTitleLabel titleLabel];
-    label.frame = CGRectMake(0, 0, 280, 40);
-    self.navigationItem.titleView = label;
-    self.titleLabel = label;
-}
 
 
 
@@ -204,7 +242,7 @@
  */
 -(void)setupCalendarDates:(NSArray *)array{
     
-    WHUCalendarPopView *POPCalendar = [[WHUCalendarPopView alloc] initWithFrame:CGRectMake(0, 136, NITScreenW, NITScreenH - 185) withArray:array];
+    WHUCalendarPopView *POPCalendar = [[WHUCalendarPopView alloc] initWithFrame:CGRectMake(0, 171, NITScreenW, NITScreenH - 220) withArray:array];
     
     self.POPCalendar = POPCalendar;
     
@@ -216,6 +254,7 @@
     
     // 选择日期的时候会被调用
     self.POPCalendar.onDateSelectBlk=^(NSDate* date){
+        [self selectButtonViewTag:8];
         
         NSString *selectedDate = [date needDateStatus:NotHaveType];
         
@@ -227,7 +266,7 @@
             
             self.onstauts = YES;
             
-            [MBProgressHUD showMessage:@"" toView:self.view];
+//            [MBProgressHUD showMessage:@"" toView:self.view];
             
             [weakSelf noticeInfoWithDate:selectedDate andHistoryflg:@"1" withNoticetype:@"0"];
             
@@ -246,14 +285,22 @@
 // 点击日历按钮调用
 - (void)ShowCalendar:(UIButton *)sender {
     
+    
     if (self.isCounter) {
+        sender.backgroundColor = NITColor(252, 85, 115);
+        [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
+        UIButton *btn = (UIButton *)[self.view viewWithTag:666666];
+        [btn setBackgroundColor:[UIColor whiteColor]];
+        [btn setTitleColor:NITColor(252, 85, 115) forState:UIControlStateNormal];
+        [btn setEnabled:YES];
         [self.POPCalendar show];
         
         self.isCounter = NO;
         
     } else {
-        
+        [sender setBackgroundColor:[UIColor whiteColor]];
+        [sender setTitleColor:NITColor(252, 85, 115) forState:UIControlStateNormal];
         [self.POPCalendar dismiss];
         
         self.isCounter = YES;
@@ -278,7 +325,9 @@
     // 请求参数
     MNoticeInfoParam *param = [[MNoticeInfoParam alloc]init];
     
-    param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
+    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+
+//    param.custid = @"";
     
     //除了日历选择的日期外其他参数都为 startdate
     if (self.onstauts) {
@@ -289,19 +338,16 @@
     
     param.historyflg = flg;
     
-    param.noticetype = typenum;
+    param.noticetype = @"1";
     
     
     [MNoticeTool noticeInfoWithParam:param success:^(NSArray *array) {
         
-        [MBProgressHUD hideHUDForView:self.view];
+//        [MBProgressHUD hideHUDForView:self.view];
         [self.MyTableView.mj_header endRefreshing];
         self.noticesArray = [NotificationModel mj_objectArrayWithKeyValuesArray:array];
         
         //系统时间 - 12/24 时制  判断
-        
-        
-        
         
         //　最終更新時間を更新
         self.refreshDate = [NSString stringWithFormat:@"%@\n最終更新時間:%@",[NSDate SharedToday],[[NSDate date] needDateStatus:HMSType]];
@@ -329,7 +375,7 @@
         
     } failure:^(NSError *error) {
         
-        [MBProgressHUD hideHUDForView:self.view];
+//        [MBProgressHUD hideHUDForView:self.view];
         [self.MyTableView.mj_header endRefreshing];
         
         if (self.typenum == 0) {
@@ -342,9 +388,7 @@
             [self setupCalendarDates:[self.datelists2 copy]];// 创建日历 - 选择日期
             self.isCounter = YES;
         }
-        
     }];
-    
 }
 
 
@@ -360,8 +404,8 @@
     
     [MNoticeTool noticeDatesWithParam:param success:^(NSDictionary *dic) {
         [self.MyTableView.mj_header beginRefreshing];
+        
         if (dic.count > 0) {
-            
             self.datelists0 = dic[@"datelist0"];
             self.datelists1 = dic[@"datelist1"];
             self.datelists2 = dic[@"datelist2"];
@@ -440,16 +484,16 @@
         UIStoryboard *lifeStoryBoard = [UIStoryboard storyboardWithName:@"Life" bundle:nil];
         
         AriScenarioController *secondViewController = [lifeStoryBoard instantiateViewControllerWithIdentifier:@"AriScenarioID"];
-        
-        secondViewController.usernumber = model.userid1;
+        [secondViewController.navigationItem setHidesBackButton:YES];
+        secondViewController.usernumber = model.staffid;
         secondViewController.username = model.username;
         secondViewController.isPushOrPop = NO;
         //跳转事件
         [self.navigationController pushViewController:secondViewController animated:YES];
         
     }
-    
 }
+
 
 
 /**
@@ -457,29 +501,33 @@
  */
 - (void)addContenViewSubUI {
     
-    UIButton *CalendarButton = [[UIButton alloc] initWithFrame:CGRectMake(16, 3, 35, 35)];
+    UIButton *oldBtn = [[UIButton alloc] initWithFrame:CGRectMake(NITScreenW/2 -150, 3, 150, 30)];
+    oldBtn.layer.borderWidth = 1;
+    oldBtn.layer.borderColor = NITColor(252, 85, 115).CGColor;
+    oldBtn.layer.cornerRadius = 6;
+    oldBtn.tag = 666666;
+    oldBtn.backgroundColor = NITColor(252, 85, 115);
+    oldBtn.enabled = NO;
+    [oldBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [oldBtn setTitle:@"直近1ヶ月" forState:UIControlStateNormal];
+    
+    
+    UIButton *CalendarButton = [[UIButton alloc] initWithFrame:CGRectMake(NITScreenW/2 +1, 3, 150, 30)];
     [CalendarButton setTitleColor:NITColor(252, 85, 115) forState:UIControlStateNormal];
+    [CalendarButton setTitle:@"カレンダー" forState:UIControlStateNormal];
+    CalendarButton.tag = 888888;
+    CalendarButton.layer.borderWidth = 1;
+    CalendarButton.layer.borderColor = NITColor(252, 85, 115).CGColor;
+    CalendarButton.layer.cornerRadius = 6;
+    CalendarButton.backgroundColor = [UIColor whiteColor];
     
-    [CalendarButton setImage:[UIImage imageNamed:@"Calendar"] forState:UIControlStateNormal];
-    
-    UISegmentedControl *timeSegement = [[UISegmentedControl alloc] initWithItems:@[@"全て",@"アラート",@"支援"]];
-    
-    timeSegement.tintColor = NITColor(252, 55, 95);
-    
-    timeSegement.selectedSegmentIndex = 0;
-    
-    timeSegement.frame = CGRectMake(65, 5, (self.view.width - 60) * 0.9, 30);
-    
-    [timeSegement setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
+    [oldBtn addTarget:self action:@selector(oldBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
     [CalendarButton addTarget:self action:@selector(ShowCalendar:) forControlEvents:UIControlEventTouchUpInside];
     
-    [timeSegement addTarget:self action:@selector(TimeSegmentAction:) forControlEvents:UIControlEventValueChanged];
-    
     
     [self.contenView addSubview:CalendarButton];
-    
-    [self.contenView addSubview:timeSegement];
+    [self.contenView addSubview:oldBtn];
     
     [self.contenView setHidden:YES];
 }
@@ -488,27 +536,27 @@
 
 #pragma mark - Other
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    
-    if ([segue.identifier isEqualToString:@"pushPostC"]) {
-        
-        NSIndexPath *indexPath = self.MyTableView.indexPathForSelectedRow;
-        
-        NotificationModel *model = self.noticesArray[indexPath.row];
-        
-        DetailController *dlc = segue.destinationViewController;
-        
-        dlc.titles = [NSString stringWithFormat:@"<支援要請>%@",model.username];
-        
-        dlc.address = model.title;
-        
-        dlc.putdate = model.registdate;
-        
-        dlc.contents = model.content;
-        
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    
+//    
+//    if ([segue.identifier isEqualToString:@"pushPostC"]) {
+//        
+//        NSIndexPath *indexPath = self.MyTableView.indexPathForSelectedRow;
+//        
+//        NotificationModel *model = self.noticesArray[indexPath.row];
+//        
+//        DetailController *dlc = segue.destinationViewController;
+//        
+//        dlc.titles = [NSString stringWithFormat:@"<支援要請>%@",model.username];
+//        
+//        dlc.address = model.title;
+//        
+//        dlc.putdate = model.registdate;
+//        
+//        dlc.contents = model.content;
+//        
+//    }
+//}
 
 
 @end

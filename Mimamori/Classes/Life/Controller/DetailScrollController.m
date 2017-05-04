@@ -11,17 +11,20 @@
 #import "DetailChartViewController.h"
 #import "ZworksChartModel.h"
 
-#define Surplus 113
+#define Surplus 148
 
-@interface DetailScrollController ()
+@interface DetailScrollController ()<DropClickDelegate>
+@property (strong, nonatomic) IBOutlet UICollectionView      *collectionView;
 
 @property (nonatomic, strong) NSMutableArray                 *controllersArray;  //控制器数组
+@property (strong, nonatomic) IBOutlet UILabel               *ContrlTitle;
+@property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 
 @end
 
 @implementation DetailScrollController
 
-static NSString * const reuseIdentifier = @"Cell";
+static NSString * const reuseIdentifier = @"DetailScrollCell";
 
 - (void)viewDidLoad {
     
@@ -29,8 +32,9 @@ static NSString * const reuseIdentifier = @"Cell";
     
 //    self.automaticallyAdjustsScrollViewInsets = NO;
     
+    [self.navigationItem setHidesBackButton:YES];
     //タイトル
-    self.navigationItem.title = [NSString stringWithFormat:@"%@（%@）",self.chartModel.devicename,self.chartModel.nodename];
+    self.ContrlTitle.text = [NSString stringWithFormat:@"%@（%@）",self.chartModel.devicename,self.chartModel.nodename];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     
@@ -42,7 +46,19 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:NO];
+    _facilitiesBtn = [DropButton sharedDropButton];
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
+    _facilitiesBtn.DropClickDelegate = self;
+    self.navigationItem.titleView = _facilitiesBtn;
+}
 
+/**
+ 弹出下拉设施菜单
+ 
+ @param sender
+ */
 
 - (void)setupControllers
 {
@@ -67,8 +83,8 @@ static NSString * const reuseIdentifier = @"Cell";
         
         [self.controllersArray addObject:VC]; //viewC放到数组里面
     }
+    
 }
-
 
 
 
@@ -95,11 +111,18 @@ static NSString * const reuseIdentifier = @"Cell";
     
     flowLayout.itemSize = CGSizeMake(NITScreenW, NITScreenH - Surplus);
     
-    self.collectionView.contentOffset = CGPointMake(self.selectindex * NITScreenW, 0);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.collectionView.contentOffset = CGPointMake(self.selectindex * NITScreenW, 0);
+        
+    });
     
     [self.collectionView reloadData];
     
 }
+
+
 
 
 #pragma mark <UICollectionViewDataSource>

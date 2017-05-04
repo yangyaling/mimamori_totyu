@@ -9,11 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface MLoginParam : NSObject
-
+/*
+   ホストコード
+*/
+@property (nonatomic, copy) NSString *hostcd;
 /**
  *  ユーザID
  */
-@property (nonatomic, copy) NSString *userid;
+@property (nonatomic, copy) NSString *staffid;
 /**
  *  パスワード
  */

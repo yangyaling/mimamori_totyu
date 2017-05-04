@@ -17,9 +17,7 @@
     UUChart *chartview;
 }
 
-//@property (nonatomic, strong) NSMutableArray                    *yNumbers;
-//
-//@property (strong ,nonatomic)NSMutableArray                     *mouthnumArr;
+
 
 @end
 @implementation ZworksChartVTBCell
@@ -38,20 +36,7 @@
 -(void)setCellModel:(ZworksChartModel *)CellModel{
     _CellModel = CellModel;
     
-//    NSMutableArray *tmparr = [NSMutableArray array];
-//    self.yNumbers = [NSMutableArray array];
-//    for (NSArray *arr in CellModel.devicevalues) {
-//        NSArray *ccnumber = [arr.firstObject objectForKey:@"devicevalues"];
-//        CGFloat maxValue = [[ccnumber valueForKeyPath:@"@max.floatValue"] floatValue];
-//        CGFloat minValue = [[ccnumber valueForKeyPath:@"@min.floatValue"] floatValue];
-//        [tmparr addObject:@((int)maxValue)];
-//        [tmparr addObject:@((int)minValue)];
-//    }
-//    
-//    CGFloat maxValue = [[tmparr valueForKeyPath:@"@max.floatValue"] floatValue];
-//    CGFloat minValue = [[tmparr valueForKeyPath:@"@min.floatValue"] floatValue];
-//    [self.yNumbers addObject:@((int)maxValue)];
-//    [self.yNumbers addObject:@((int)minValue)];
+    
     
     
     int celltype;

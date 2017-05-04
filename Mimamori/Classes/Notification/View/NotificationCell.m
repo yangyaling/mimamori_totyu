@@ -78,15 +78,15 @@
     self.notifEvent.text = notice.title;
     self.inputTime.text = notice.registdate;
     
-    if (notice.type == 1) {
+//    if (notice.type == 1) {
         NSString *string = [NSString stringWithFormat:@"<アラート>%@",notice.username];
         self.notifType.text = string;
         
-    } else  {
-        NSString *string = [NSString stringWithFormat:@"<支援要請>%@",notice.username];
-        self.notifType.text = string;
-        
-    }
+//    } else  {
+//        NSString *string = [NSString stringWithFormat:@"<支援要請>%@",notice.username];
+//        self.notifType.text = string;
+//        
+//    }
     
     //最終更新時間
 //    id date = [_notice valueForKey:@"registdate"];

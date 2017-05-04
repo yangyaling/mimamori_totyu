@@ -15,9 +15,14 @@
 //里面所有的内容只能用到.m文件中或者.mm
 #ifdef __OBJC__
 
+#import "DropButton.h"
+#import "NITDropDowm.h" //全局设施按钮
+
 #import "MCommon.h"
 
 #import "Masonry.h"
+
+#import "CALayer+LayerColor.h"//边框颜色
 
 #import "UIView+Extension.h"  //frame 工具
 #import "NSDate+Extension.h"  //日期 类
@@ -34,6 +39,8 @@
 #import "NITRefreshInit.h"
 //---------------------------------------------------------
 #import "AFNetworking.h"
+
+#import "MHttpTool.h"
 
 #endif /* NIT_Prefix_pch */
 

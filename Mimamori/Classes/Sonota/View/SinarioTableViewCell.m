@@ -34,6 +34,9 @@
     self.doalabel.layer.cornerRadius = 6;
     self.doaState.layer.cornerRadius = 6;
     self.doatime.layer.cornerRadius = 6;
+    self.dayState.layer.cornerRadius = 6;
+    self.timeSlot.layer.cornerRadius = 6;
+    
     
     self.sinarioButton.layer.borderWidth = 0.6;
     self.temperature.layer.borderWidth = 0.6;
@@ -48,6 +51,8 @@
     self.doalabel.layer.borderWidth = 0.6;
     self.doaState.layer.borderWidth = 0.6;
     self.doatime.layer.borderWidth = 0.6;
+    self.dayState.layer.borderWidth = 0.6;
+    self.timeSlot.layer.borderWidth = 0.6;
     
     
     self.humiditytime.layer.borderColor = NITColor(211, 211, 211).CGColor;
@@ -63,6 +68,9 @@
     self.doalabel.layer.borderColor = NITColor(211, 211, 211).CGColor;
     self.doaState.layer.borderColor = NITColor(211, 211, 211).CGColor;
     self.doatime.layer.borderColor = NITColor(211, 211, 211).CGColor;
+    self.dayState.layer.borderColor = NITColor(211, 211, 211).CGColor;
+    self.timeSlot.layer.borderColor = NITColor(211, 211, 211).CGColor;
+    
 }
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {
@@ -111,7 +119,7 @@
     
     NSString *strT4 = [NSString stringWithFormat:@"%@%@",dicOne[@"time"],dicOne[@"timeunit"]];
     [self.doatime setTitle:strT4 forState:UIControlStateNormal];
-    self.doaState.text = dicOne[@"rpoint"];
+//    [self.doaState setTitle:dicOne[@"rpoint"] forState:UIControlStateNormal];
     
     //温度
     self.temperature.text = dicTwo[@"devicename"];

@@ -38,6 +38,8 @@
 //    NSString *VcID = [vcstr isEqualToString:@"mimamori2"] ?  MainVC: LoginVC;
     self.window.rootViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:VcID];
     
+    
+    
     //串行队列 异步任务 (非常非常有用！！！!!!!)
     dispatch_async(dispatch_queue_create("SERIAL", DISPATCH_QUEUE_SERIAL), ^{
         [self getGroupInfo];
@@ -221,10 +223,10 @@
 
 -(void)getNoticeInfo{
     MNoticeInfoParam *param = [[MNoticeInfoParam alloc]init];
-    param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
+    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
     param.startdate = [NSDate SharedToday];
     param.historyflg = @"0";
-    param.noticetype = @"0";
+    param.noticetype = @"1";
     
     
     [MNoticeTool noticeInfoWithParam:param success:^(NSArray *array) {

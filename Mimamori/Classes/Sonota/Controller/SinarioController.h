@@ -35,4 +35,6 @@
 
 @property (nonatomic, copy) NSString                      *user0name;
 
+@property (nonatomic, assign) BOOL                      hideBarButton;
+
 @end

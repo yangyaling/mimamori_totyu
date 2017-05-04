@@ -33,4 +33,7 @@
  */
 +(void)sessionInfoWithParam:(MSessionInfoParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure;
 
+
++(void)getFacilityInfoWithParam:(MSessionInfoParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure;
+
 @end

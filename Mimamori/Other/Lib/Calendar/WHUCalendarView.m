@@ -233,8 +233,10 @@ typedef NS_ENUM(NSUInteger, WHUCalendarViewMonthOption) {
 //    [_topView addConstraint:[NSLayoutConstraint constraintWithItem:preBtn attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_topView attribute:NSLayoutAttributeTop multiplier:1.0f constant:+6]];
     
     
-    
     [_topView addConstraint:[NSLayoutConstraint constraintWithItem:curDateLbl attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_topView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0]];
+    
+    
+    
     [_topView addConstraint:[NSLayoutConstraint constraintWithItem:curDateLbl attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_topView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0]];
     
     

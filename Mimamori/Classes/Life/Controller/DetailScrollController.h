@@ -10,7 +10,7 @@
 
 @class ZworksChartModel;
 
-@interface DetailScrollController : UICollectionViewController
+@interface DetailScrollController : UIViewController
 
 @property (nonatomic, strong) ZworksChartModel                   *chartModel;
 

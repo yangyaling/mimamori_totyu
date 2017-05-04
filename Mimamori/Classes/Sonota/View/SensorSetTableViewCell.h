@@ -26,10 +26,10 @@
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl  *segmentbar;
 
-@property (nonatomic, copy) NSString                      *nodeid;
+@property (nonatomic, copy) NSString                       *nodeid;
 
 @property (nonatomic, assign) NSInteger                    cellnumber;
-
+@property (strong, nonatomic) IBOutlet UIButton            *pickBtn;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

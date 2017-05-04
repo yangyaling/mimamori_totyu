@@ -15,11 +15,14 @@
 
 @interface OtherController ()<UIApplicationDelegate>
 
-@property (strong, nonatomic) IBOutlet UICollectionView *collectionview;
+@property (strong, nonatomic) IBOutlet UICollectionView      *collectionview;
 
-@property (strong, nonatomic) IBOutlet UIButton        *OutButton;
+@property (strong, nonatomic) IBOutlet UIButton              *OutButton;
 
-@property (nonatomic, strong) NSArray                  *titleArray;
+@property (nonatomic, strong) NSArray                        *titleArray;
+@property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
+
+@property (nonatomic, strong) NSString                       *MasterUser;
 
 @end
 
@@ -28,7 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _titleArray = @[@"見守り設定" ,@"ユーザ情報",@"ヘルプ機能",@"お問合せ",@"管理者機能",@""];
+    _titleArray = @[@"見守り設定" ,@"ユーザ情報",@"管理者機能",@"ヘルプ機能",@"",@""];
+    //-----お問合せ
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -43,16 +47,33 @@
     //设置每个item的大小为100*100
     layout.itemSize = CGSizeMake((self.view.width - 90) / 2.0, 70);
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     
     [self.collectionview setCollectionViewLayout:layout];
     
-//    NSDictionary *dic = @{@"registdate":[[NSDate date] needDateStatus:HMSType]};
-//    [MHttpTool postWithURL:@"http://mimamori2.azurewebsites.net/dashboard/zwgetvznoticeinfo.php" params:dic success:^(id json) {
-//        NITLog(@"%@",json);
-//    } failure:^(NSError *error) {
-//        NITLog(@"%@",error);
-//    }];
+    _MasterUser = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
+    
+    
+//    NSString *string =@"sw00007";
+//    string = [string substringFromIndex:string.length - 5];
+//    NSRange range = [string rangeOfString:@"0"];//匹配得到的下标
+//    NSLog(@"rang:%@",NSStringFromRange(range));
+//    string = [string substringWithRange:range];//截取范围类的字符串
+//    NSLog(@"截取的值为：%@",string);
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:NO];
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
+}
+
+/**
+ 弹出下拉设施菜单
+ 
+ @param sender
+ */
+-(void)showSelectedList {
+    
     
 }
 
@@ -79,6 +100,21 @@
         
         // 3 删除缓存数据(既読のお知らせアラート)
         [NITUserDefaults removeObjectForKey:@"readnotice"];
+        
+        //清空设施数组
+        NSArray *alldropArray = [NITUserDefaults objectForKey:@"FacilityList"];
+        NSArray *imagesArray = [NITUserDefaults objectForKey:@"CellImagesName"];
+        NSArray *tmpimagesArray = [NITUserDefaults objectForKey:@"TempcellImagesName"];
+        NSArray *facitilityname = [NITUserDefaults objectForKey:@"TempFacilityName"];
+        alldropArray = nil;
+        imagesArray = nil;
+        tmpimagesArray = nil;
+        facitilityname = nil;
+        [NITUserDefaults setObject:alldropArray forKey:@"FacilityList"];
+        [NITUserDefaults setObject:imagesArray forKey:@"CellImagesName"];
+        [NITUserDefaults setObject:tmpimagesArray forKey:@"TempcellImagesName"];
+        [NITUserDefaults setObject:facitilityname forKey:@"TempFacilityName"];
+        
         
         // 4.返回登录页面
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -113,9 +149,10 @@
     
     OtherCollectionCell * cell  = [OtherCollectionCell CellWithCollectionView:collectionView andIndexPath:indexPath];
     
-    cell.layer.masksToBounds = YES;
     
-    cell.layer.cornerRadius = 5;
+    if ([self.MasterUser isEqualToString:@"3"] && indexPath.row == 2) {
+        cell.cellTitle.backgroundColor = [UIColor grayColor];
+    }
     
     cell.cellTitle.text = _titleArray[indexPath.item];
     
@@ -146,7 +183,9 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     } else if (indexPath.item == 1){
         [self performSegueWithIdentifier:@"selfPush" sender:self];
     } else if (indexPath.item == 2){
-        
+        if (![self.MasterUser isEqualToString:@"3"]) {
+            [self performSegueWithIdentifier:@"pushMasterC" sender:self];
+        }
     } else {
        
     }

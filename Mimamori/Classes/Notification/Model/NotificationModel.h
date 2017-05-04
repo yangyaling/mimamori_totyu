@@ -26,6 +26,8 @@
 
 @property (nonatomic, copy) NSString                         *title;
 
+@property (nonatomic, copy) NSString                         *staffid;
+
 
 
 @property (nonatomic, assign) NSInteger                       type;

@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SinarioDetailController : UITableViewController
+@interface SinarioDetailController : UIViewController
 
 
 /**
  *  user0
  */
 @property (nonatomic, copy) NSString *user0;
+
+@property (nonatomic, copy) NSString *roomId;
 
 @end

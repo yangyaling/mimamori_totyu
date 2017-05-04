@@ -10,8 +10,10 @@
 
 @interface MCustInfoParam : NSObject
 
-@property (nonatomic, copy) NSString                               *userid1;
+@property (nonatomic, copy) NSString                               *staffid;
 
 @property (nonatomic, copy) NSString                               *hassensordata;
+
+@property (nonatomic, copy) NSString                               *facilitycd;
 
 @end

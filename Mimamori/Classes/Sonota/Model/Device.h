@@ -23,6 +23,8 @@
 
 @property (nonatomic, copy) NSString *displayname;
 
+@property (nonatomic, copy) NSString *memo;
+
 @property (nonatomic, copy) NSString *mainnodeid;
 
 @property (nonatomic, copy) NSString *place;

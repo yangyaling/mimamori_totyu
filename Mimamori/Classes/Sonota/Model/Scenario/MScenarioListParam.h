@@ -10,9 +10,9 @@
 
 @interface MScenarioListParam : NSObject
 
-@property (nonatomic, copy) NSString                               *userid1;
+@property (nonatomic, copy) NSString                               *staffid;
 
-@property (nonatomic, copy) NSString                               *userid0;
+@property (nonatomic, copy) NSString                               *custid;
 
 @property (nonatomic, copy) NSString                               *place;
 

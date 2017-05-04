@@ -22,6 +22,10 @@
 
 @property (nonatomic, strong) NSMutableArray                 *allarray; //接收数组
 
+@property (nonatomic, strong) NSMutableArray                 *yNumbers;
+
+@property (strong ,nonatomic)NSMutableArray                  *mouthnumArr;
+
 @end
 
 @implementation DetailChartCell
@@ -40,13 +44,30 @@
 -(void)setChartModel:(ZworksChartModel *)chartModel{
     _allarray = [NSMutableArray array];
     
+//    NSMutableArray *tmparr = [NSMutableArray array];
+    NSArray *devicearray = chartModel.devicevalues;
+    
+    self.yNumbers = [NSMutableArray array];
+//    for (NSArray *arr in devicearray) {
+//        NSArray *ccnumber = [devicearray.firstObject objectForKey:@"devicevalues"];
+//        CGFloat maxValue = [[ccnumber valueForKeyPath:@"@max.floatValue"] floatValue];
+//        CGFloat minValue = [[ccnumber valueForKeyPath:@"@min.floatValue"] floatValue];
+//        [tmparr addObject:@((float)maxValue)];
+//        [tmparr addObject:@((float)minValue)];
+//    }
+    
+//    CGFloat maxV = [[tmparr valueForKeyPath:@"@max.floatValue"] floatValue];
+//    CGFloat minV = [[tmparr valueForKeyPath:@"@min.floatValue"] floatValue];
+//    [self.yNumbers addObject:@((double)maxV)];
+//    [self.yNumbers addObject:@((double)minV)];
+    
+    
     if (_chartView) {
         [_chartView removeFromSuperview];
     }
     
     NSString *sensorname = [NSString stringWithFormat:@"%@:%.2f%@",chartModel.devicename,[chartModel.latestvalue floatValue],chartModel.deviceunit];
     
-    NSArray *devicearray = chartModel.devicevalues;
     
     _devicedataarray = [NSArray arrayWithArray:[devicearray.firstObject objectForKey:@"devicevalues"]];
     
@@ -105,7 +126,7 @@
 
 - (NSArray *)UUChart_yValueArray4:(UUChart *)chart{
 
-    return @[self.allarray];
+    return self.allarray;
     
 }
 

@@ -12,7 +12,7 @@
 /**
  *  user0name
  */
-@property (nonatomic, copy) NSString                         *userid0;
+@property (nonatomic, copy) NSString                         *custid;
 /**
  *  sex
  */

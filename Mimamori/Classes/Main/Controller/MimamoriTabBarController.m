@@ -27,10 +27,10 @@
 -(void)setupChildControllers{
 
     UIViewController *vc1 = [self tabBarControllerWithStoryboardName:@"Notification" title:@"通知"];
-    UIViewController *vc2 =[self tabBarControllerWithStoryboardName:@"Emergency" title:@"支援要請"];
+//    UIViewController *vc2 =[self tabBarControllerWithStoryboardName:@"Emergency" title:@"支援要請"];
     UIViewController *vc3 =[self tabBarControllerWithStoryboardName:@"Life" title:@"生活"];
     UIViewController *vc4 =[self tabBarControllerWithStoryboardName:@"Sonota" title:@"その他"];
-    self.viewControllers = @[vc1,vc2,vc3,vc4];
+    self.viewControllers = @[vc1,vc3,vc4];
 }
 
 
@@ -46,9 +46,9 @@
 -(void)setupTabbarItems{
     
     [self setupTabbarItemWithIndex:0 imageName:@"notification-0" selectedImageName:@"notification"];
-    [self setupTabbarItemWithIndex:1 imageName:@"zhiyuan-0" selectedImageName:@"zhiyuan"];
-    [self setupTabbarItemWithIndex:2 imageName:@"shenghuo-0" selectedImageName:@"shenghuo"];
-    [self setupTabbarItemWithIndex:3 imageName:@"others-0" selectedImageName:@"others"];
+//    [self setupTabbarItemWithIndex:1 imageName:@"zhiyuan-0" selectedImageName:@"zhiyuan"];
+    [self setupTabbarItemWithIndex:1 imageName:@"shenghuo-0" selectedImageName:@"shenghuo"];
+    [self setupTabbarItemWithIndex:2 imageName:@"others-0" selectedImageName:@"others"];
     
     [[UITabBarItem appearance]setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor]} forState:UIControlStateNormal];
     [[UITabBarItem appearance]setTitleTextAttributes:@{NSForegroundColorAttributeName:NITColor(252, 82, 115)} forState:UIControlStateSelected];

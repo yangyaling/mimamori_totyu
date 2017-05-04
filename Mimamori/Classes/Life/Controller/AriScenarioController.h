@@ -10,6 +10,7 @@
 
 @interface AriScenarioController : UIViewController
 
+@property (nonatomic, copy) NSString                 *viewTitle;
 /**
  usernumber
  */

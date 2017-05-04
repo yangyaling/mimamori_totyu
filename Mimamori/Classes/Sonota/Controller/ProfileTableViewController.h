@@ -14,6 +14,8 @@
 
 @property NSString *userid0;
 
+@property (nonatomic, copy) NSString                      *titleStr;
+
 @property (nonatomic, strong) ProfileModel *pmodel;
 
 @end

@@ -100,7 +100,7 @@
 -(void)settingData{
     
     //　表示名
-    NSString *strname = [NSString stringWithFormat:@"%@(%@)",self.CellModel.user0name,self.CellModel.roomname];
+    NSString *strname = [NSString stringWithFormat:@"%@(%@)",self.CellModel.user0name,self.CellModel.roomid];
     
     self.name.text = strname;
     

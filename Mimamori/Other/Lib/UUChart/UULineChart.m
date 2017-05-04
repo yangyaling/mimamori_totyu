@@ -107,23 +107,26 @@
 
 -(void)setYLabels:(NSArray *)yLabels
 {
-    if ([temperature isEqualToString:@"温度"]) {
-        _yValueMax = 40;
-        _yValueMin = 0;
-    } else if ([temperature isEqualToString:@"湿度"]) {
-        _yValueMax = 100;
-        _yValueMin = 0;
-        
-    } else if ([temperature isEqualToString:@"明るさ"]) {
-        _yValueMax = 100;
-        _yValueMin = 0;
-    } else {
-        NSInteger max = 0;
-        NSInteger min = 1000000000;
+//    NSInteger maxV = [[[yLabels objectAtIndex:0] objectAtIndex:0] integerValue];
+//    NSInteger minV = [[[yLabels objectAtIndex:0] objectAtIndex:1] integerValue];
+//    if ([temperature isEqualToString:@"温度"]) {
+//        
+//        _yValueMax = maxV;
+//        _yValueMin = minV;
+//    } else if ([temperature isEqualToString:@"湿度"]) {
+//        _yValueMax = maxV;
+//        _yValueMin = minV;
+//        
+//    } else if ([temperature isEqualToString:@"明るさ"]) {
+//        _yValueMax = maxV;
+//        _yValueMin = minV;
+//    } else {
+        float max = 0;
+        float min = 1000000000;
         
         for (NSArray * ary in yLabels) {
-            for (NSString *valueString in ary) {
-                NSInteger value;
+            for (NSNumber *valueString in ary) {
+                float value;
                 //            if ([uidd isEqualToString:@"8"]&&(uiType == 0 || uiType == 4)) {
                 //                value = 50;
                 //            }else if([uidd isEqualToString:@"8"]&&(uiType == 1 || uiType == 5)){
@@ -131,10 +134,16 @@
                 //            }else if([uidd isEqualToString:@"8"]&&(uiType == 2 || uiType == 6)){
                 //                value = 100;
                 if(deviceclassid==1){
+                    
                     value = 100;
+                    
                 }else{
-                    value = [valueString integerValue];
+                    
+                    float tmpValue = [valueString floatValue];
+                    value = tmpValue;
+                    
                 }
+                
                 if (value > max) {
                     max = value;
                 }
@@ -144,18 +153,21 @@
             }
         }
         
-        if (self.showRange) {
-            _yValueMin = min;
-        }else{
-            _yValueMin = 0;
-        }
-        _yValueMax = (int)max;
+//        if (self.showRange) {
+            _yValueMin = (int)min;
+//        }
+//        else{
+//            _yValueMin = 0;
+//        }
+    
+        int Ma = ceilf(max * 1.0);
+        _yValueMax = Ma;
         
         if (_chooseRange.max!=_chooseRange.min) {
             _yValueMax = _chooseRange.max;
             _yValueMin = _chooseRange.min;
         }
-    }
+//    }
     float level = (_yValueMax-_yValueMin) /4.0;
     CGFloat chartCavanHeight = self.frame.size.height - UULabelHeight*3;
     CGFloat levelHeight = chartCavanHeight /4.0;

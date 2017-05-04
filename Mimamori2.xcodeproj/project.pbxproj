@@ -130,6 +130,7 @@
 		E9D445AA1D010FE600CFF364 /* MimamoriTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D445A91D010FE600CFF364 /* MimamoriTests.m */; };
 		E9D445B51D010FE600CFF364 /* MimamoriUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D445B41D010FE600CFF364 /* MimamoriUITests.m */; };
 		E9D445DE1D0112AD00CFF364 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D445DD1D0112AD00CFF364 /* AppDelegate.m */; };
+		EB0EE8AF1EB216B000254CB7 /* PopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0EE8AE1EB216B000254CB7 /* PopButton.m */; };
 		EB4A560C1E00D69400A2F1C2 /* OtherController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A560B1E00D69400A2F1C2 /* OtherController.m */; };
 		EB4A56101E00DB3E00A2F1C2 /* OtherCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A560E1E00DB3E00A2F1C2 /* OtherCollectionCell.m */; };
 		EB4A56111E00DB3E00A2F1C2 /* OtherCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB4A560F1E00DB3E00A2F1C2 /* OtherCollectionCell.xib */; };
@@ -151,6 +152,22 @@
 		EB5D365F1E139A1800CEBF4E /* UUColor.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D36581E139A1800CEBF4E /* UUColor.m */; };
 		EB5D36601E139A1800CEBF4E /* UULineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D365A1E139A1800CEBF4E /* UULineChart.m */; };
 		EB692A161E24BAAE007682EE /* ScenarioCellFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = EB692A151E24BAAE007682EE /* ScenarioCellFrame.m */; };
+		EB74550B1EB81D6500DA4874 /* BeRelatedController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455041EB81D6500DA4874 /* BeRelatedController.m */; };
+		EB74550C1EB81D6500DA4874 /* IntelligenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455061EB81D6500DA4874 /* IntelligenceController.m */; };
+		EB74550D1EB81D6500DA4874 /* MasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455081EB81D6500DA4874 /* MasterController.m */; };
+		EB74550E1EB81D6500DA4874 /* PlaceSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB74550A1EB81D6500DA4874 /* PlaceSettingController.m */; };
+		EB7455111EB81DB200DA4874 /* IntelligenceMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455101EB81DB200DA4874 /* IntelligenceMasterController.m */; };
+		EB7455141EB826E600DA4874 /* IntelligenceMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455131EB826E600DA4874 /* IntelligenceMasterCell.m */; };
+		EB7455171EB82CCE00DA4874 /* SinarioMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455161EB82CCE00DA4874 /* SinarioMasterController.m */; };
+		EB74551A1EB830C600DA4874 /* SinarioMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455191EB830C600DA4874 /* SinarioMasterCell.m */; };
+		EB74551D1EB8399A00DA4874 /* EditSinarioController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB74551C1EB8399A00DA4874 /* EditSinarioController.m */; };
+		EB7455201EB86A3600DA4874 /* CALayer+LayerColor.m in Sources */ = {isa = PBXBuildFile; fileRef = EB74551F1EB86A3600DA4874 /* CALayer+LayerColor.m */; };
+		EB7455231EB872BC00DA4874 /* MachineController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455221EB872BC00DA4874 /* MachineController.m */; };
+		EB7455261EB872D900DA4874 /* MachineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455251EB872D900DA4874 /* MachineCell.m */; };
+		EB7455291EB8791C00DA4874 /* UserMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455281EB8791C00DA4874 /* UserMasterController.m */; };
+		EB74552C1EB879B600DA4874 /* UserMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB74552B1EB879B600DA4874 /* UserMasterCell.m */; };
+		EB74552F1EB8808600DA4874 /* HomeMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB74552E1EB8808600DA4874 /* HomeMasterController.m */; };
+		EB7455321EB880A900DA4874 /* HomeMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455311EB880A900DA4874 /* HomeMasterCell.m */; };
 		EB84F0FF1E275490005B1C4D /* DetailCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB84F0FD1E275490005B1C4D /* DetailCCell.m */; };
 		EB84F1001E275490005B1C4D /* DetailCCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB84F0FE1E275490005B1C4D /* DetailCCell.xib */; };
 		EB9C92D81E01063600F3132C /* SensorSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C92D61E01063600F3132C /* SensorSetTableViewCell.m */; };
@@ -169,7 +186,10 @@
 		EB9C932D1E027F4700F3132C /* ZworksChartTBVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C932C1E027F4700F3132C /* ZworksChartTBVC.m */; };
 		EB9C93301E028BC200F3132C /* SinarioDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C932F1E028BC200F3132C /* SinarioDetailController.m */; };
 		EB9F89DA1E1652BE00908000 /* IconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F89D91E1652BE00908000 /* IconModel.m */; };
+		EBBA26E71EB318E300E69F23 /* PlaceSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA26E61EB318E300E69F23 /* PlaceSettingCell.m */; };
+		EBD3746A1EB09DD900B10CCB /* DropButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD374691EB09DD900B10CCB /* DropButton.m */; };
 		EBDFE8821E287439007D3320 /* AriScenarioController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBDFE8811E287439007D3320 /* AriScenarioController.m */; };
+		EBE175131EAF172300A6E23A /* NITDropDowm.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE175121EAF172300A6E23A /* NITDropDowm.m */; };
 		EBE718FF1E2A12B80008ABE2 /* GGActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE718FE1E2A12B80008ABE2 /* GGActionSheet.m */; };
 		EBE7191B1E2A13E60008ABE2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBE719011E2A13E60008ABE2 /* Info.plist */; };
 		EBE7191C1E2A13E60008ABE2 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE719031E2A13E60008ABE2 /* MASCompositeConstraint.m */; };
@@ -447,6 +467,8 @@
 		E9D445DC1D0112AD00CFF364 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E9D445DD1D0112AD00CFF364 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E9D445DF1D0112E800CFF364 /* Mimamori.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mimamori.pch; sourceTree = "<group>"; };
+		EB0EE8AD1EB216B000254CB7 /* PopButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopButton.h; sourceTree = "<group>"; };
+		EB0EE8AE1EB216B000254CB7 /* PopButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopButton.m; sourceTree = "<group>"; };
 		EB4A560A1E00D69400A2F1C2 /* OtherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherController.h; sourceTree = "<group>"; };
 		EB4A560B1E00D69400A2F1C2 /* OtherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherController.m; sourceTree = "<group>"; };
 		EB4A560D1E00DB3E00A2F1C2 /* OtherCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherCollectionCell.h; sourceTree = "<group>"; };
@@ -486,6 +508,38 @@
 		EB5D365A1E139A1800CEBF4E /* UULineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UULineChart.m; sourceTree = "<group>"; };
 		EB692A141E24BAAE007682EE /* ScenarioCellFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScenarioCellFrame.h; sourceTree = "<group>"; };
 		EB692A151E24BAAE007682EE /* ScenarioCellFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScenarioCellFrame.m; sourceTree = "<group>"; };
+		EB7455031EB81D6500DA4874 /* BeRelatedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeRelatedController.h; sourceTree = "<group>"; };
+		EB7455041EB81D6500DA4874 /* BeRelatedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeRelatedController.m; sourceTree = "<group>"; };
+		EB7455051EB81D6500DA4874 /* IntelligenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntelligenceController.h; sourceTree = "<group>"; };
+		EB7455061EB81D6500DA4874 /* IntelligenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntelligenceController.m; sourceTree = "<group>"; };
+		EB7455071EB81D6500DA4874 /* MasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterController.h; sourceTree = "<group>"; };
+		EB7455081EB81D6500DA4874 /* MasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterController.m; sourceTree = "<group>"; };
+		EB7455091EB81D6500DA4874 /* PlaceSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceSettingController.h; sourceTree = "<group>"; };
+		EB74550A1EB81D6500DA4874 /* PlaceSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceSettingController.m; sourceTree = "<group>"; };
+		EB74550F1EB81DB200DA4874 /* IntelligenceMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntelligenceMasterController.h; sourceTree = "<group>"; };
+		EB7455101EB81DB200DA4874 /* IntelligenceMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntelligenceMasterController.m; sourceTree = "<group>"; };
+		EB7455121EB826E600DA4874 /* IntelligenceMasterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntelligenceMasterCell.h; sourceTree = "<group>"; };
+		EB7455131EB826E600DA4874 /* IntelligenceMasterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntelligenceMasterCell.m; sourceTree = "<group>"; };
+		EB7455151EB82CCE00DA4874 /* SinarioMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinarioMasterController.h; sourceTree = "<group>"; };
+		EB7455161EB82CCE00DA4874 /* SinarioMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinarioMasterController.m; sourceTree = "<group>"; };
+		EB7455181EB830C600DA4874 /* SinarioMasterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinarioMasterCell.h; sourceTree = "<group>"; };
+		EB7455191EB830C600DA4874 /* SinarioMasterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinarioMasterCell.m; sourceTree = "<group>"; };
+		EB74551B1EB8399A00DA4874 /* EditSinarioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSinarioController.h; sourceTree = "<group>"; };
+		EB74551C1EB8399A00DA4874 /* EditSinarioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditSinarioController.m; sourceTree = "<group>"; };
+		EB74551E1EB86A3600DA4874 /* CALayer+LayerColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+LayerColor.h"; sourceTree = "<group>"; };
+		EB74551F1EB86A3600DA4874 /* CALayer+LayerColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+LayerColor.m"; sourceTree = "<group>"; };
+		EB7455211EB872BC00DA4874 /* MachineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineController.h; sourceTree = "<group>"; };
+		EB7455221EB872BC00DA4874 /* MachineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineController.m; sourceTree = "<group>"; };
+		EB7455241EB872D900DA4874 /* MachineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineCell.h; sourceTree = "<group>"; };
+		EB7455251EB872D900DA4874 /* MachineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineCell.m; sourceTree = "<group>"; };
+		EB7455271EB8791C00DA4874 /* UserMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserMasterController.h; sourceTree = "<group>"; };
+		EB7455281EB8791C00DA4874 /* UserMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserMasterController.m; sourceTree = "<group>"; };
+		EB74552A1EB879B600DA4874 /* UserMasterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserMasterCell.h; sourceTree = "<group>"; };
+		EB74552B1EB879B600DA4874 /* UserMasterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserMasterCell.m; sourceTree = "<group>"; };
+		EB74552D1EB8808600DA4874 /* HomeMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMasterController.h; sourceTree = "<group>"; };
+		EB74552E1EB8808600DA4874 /* HomeMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMasterController.m; sourceTree = "<group>"; };
+		EB7455301EB880A900DA4874 /* HomeMasterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMasterCell.h; sourceTree = "<group>"; };
+		EB7455311EB880A900DA4874 /* HomeMasterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMasterCell.m; sourceTree = "<group>"; };
 		EB84F0FC1E275490005B1C4D /* DetailCCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCCell.h; sourceTree = "<group>"; };
 		EB84F0FD1E275490005B1C4D /* DetailCCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCCell.m; sourceTree = "<group>"; };
 		EB84F0FE1E275490005B1C4D /* DetailCCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCCell.xib; sourceTree = "<group>"; };
@@ -517,8 +571,14 @@
 		EB9C932F1E028BC200F3132C /* SinarioDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinarioDetailController.m; sourceTree = "<group>"; };
 		EB9F89D81E1652BE00908000 /* IconModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconModel.h; sourceTree = "<group>"; };
 		EB9F89D91E1652BE00908000 /* IconModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconModel.m; sourceTree = "<group>"; };
+		EBBA26E51EB318E300E69F23 /* PlaceSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceSettingCell.h; sourceTree = "<group>"; };
+		EBBA26E61EB318E300E69F23 /* PlaceSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceSettingCell.m; sourceTree = "<group>"; };
+		EBD374681EB09DD900B10CCB /* DropButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropButton.h; sourceTree = "<group>"; };
+		EBD374691EB09DD900B10CCB /* DropButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropButton.m; sourceTree = "<group>"; };
 		EBDFE8801E287439007D3320 /* AriScenarioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AriScenarioController.h; sourceTree = "<group>"; };
 		EBDFE8811E287439007D3320 /* AriScenarioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AriScenarioController.m; sourceTree = "<group>"; };
+		EBE175111EAF172300A6E23A /* NITDropDowm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITDropDowm.h; sourceTree = "<group>"; };
+		EBE175121EAF172300A6E23A /* NITDropDowm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITDropDowm.m; sourceTree = "<group>"; };
 		EBE718FD1E2A12B80008ABE2 /* GGActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GGActionSheet.h; sourceTree = "<group>"; };
 		EBE718FE1E2A12B80008ABE2 /* GGActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GGActionSheet.m; sourceTree = "<group>"; };
 		EBE719011E2A13E60008ABE2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -720,6 +780,10 @@
 				EB84F0FC1E275490005B1C4D /* DetailCCell.h */,
 				EB84F0FD1E275490005B1C4D /* DetailCCell.m */,
 				EB84F0FE1E275490005B1C4D /* DetailCCell.xib */,
+				EBE175111EAF172300A6E23A /* NITDropDowm.h */,
+				EBE175121EAF172300A6E23A /* NITDropDowm.m */,
+				EBD374681EB09DD900B10CCB /* DropButton.h */,
+				EBD374691EB09DD900B10CCB /* DropButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -776,8 +840,6 @@
 				EB9C92EE1E02425600F3132C /* LifeChartController.m */,
 				EB9C932B1E027F4700F3132C /* ZworksChartTBVC.h */,
 				EB9C932C1E027F4700F3132C /* ZworksChartTBVC.m */,
-				EB9C932E1E028BC200F3132C /* SinarioDetailController.h */,
-				EB9C932F1E028BC200F3132C /* SinarioDetailController.m */,
 				92AF7BCB1D98C82100FC30E9 /* DetailScrollController.h */,
 				92AF7BCC1D98C82100FC30E9 /* DetailScrollController.m */,
 				92AF7BC01D98AA8E00FC30E9 /* DetailChartViewController.h */,
@@ -786,6 +848,8 @@
 				929519D21D7D0A6000787997 /* NursingNotesTableViewController.m */,
 				EBE7192C1E2DAF850008ABE2 /* VoiceRecognitionController.h */,
 				EBE7192D1E2DAF850008ABE2 /* VoiceRecognitionController.m */,
+				EB9C932E1E028BC200F3132C /* SinarioDetailController.h */,
+				EB9C932F1E028BC200F3132C /* SinarioDetailController.m */,
 				EBDFE8801E287439007D3320 /* AriScenarioController.h */,
 				EBDFE8811E287439007D3320 /* AriScenarioController.m */,
 			);
@@ -810,6 +874,7 @@
 			isa = PBXGroup;
 			children = (
 				EB581ADA1E1CCAFD0076BAFD /* TopAlertView */,
+				929519DF1D7D0A6000787997 /* Life.storyboard */,
 				EB9C93081E026A2900F3132C /* ZworksChartVTBCell.h */,
 				EB9C93091E026A2900F3132C /* ZworksChartVTBCell.m */,
 				929519E01D7D0A6000787997 /* LifesTableViewCell.h */,
@@ -817,7 +882,6 @@
 				92AF7BC31D98AADA00FC30E9 /* DetailChartCell.h */,
 				92AF7BC41D98AADA00FC30E9 /* DetailChartCell.m */,
 				92AF7BC51D98AADA00FC30E9 /* DetailChartCell.xib */,
-				929519DF1D7D0A6000787997 /* Life.storyboard */,
 				929519E21D7D0A6000787997 /* NITMPButton.h */,
 				929519E31D7D0A6000787997 /* NITMPButton.m */,
 				929519E41D7D0A6000787997 /* NursingNotesTableViewCell.h */,
@@ -844,6 +908,7 @@
 		92951A021D7D0B0100787997 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EB7455021EB81D6500DA4874 /* MasterController */,
 				EB4A560A1E00D69400A2F1C2 /* OtherController.h */,
 				EB4A560B1E00D69400A2F1C2 /* OtherController.m */,
 				EB4A56121E00F26100A2F1C2 /* SetController.h */,
@@ -893,9 +958,21 @@
 		92951A1C1D7D0B0100787997 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				92951A251D7D0B0100787997 /* Sonota.storyboard */,
+				EBBA26E51EB318E300E69F23 /* PlaceSettingCell.h */,
+				EBBA26E61EB318E300E69F23 /* PlaceSettingCell.m */,
+				EB7455121EB826E600DA4874 /* IntelligenceMasterCell.h */,
+				EB7455131EB826E600DA4874 /* IntelligenceMasterCell.m */,
+				EB7455181EB830C600DA4874 /* SinarioMasterCell.h */,
+				EB7455191EB830C600DA4874 /* SinarioMasterCell.m */,
+				EB7455241EB872D900DA4874 /* MachineCell.h */,
+				EB7455251EB872D900DA4874 /* MachineCell.m */,
+				EB74552A1EB879B600DA4874 /* UserMasterCell.h */,
+				EB74552B1EB879B600DA4874 /* UserMasterCell.m */,
+				EB7455301EB880A900DA4874 /* HomeMasterCell.h */,
+				EB7455311EB880A900DA4874 /* HomeMasterCell.m */,
 				EBE718FD1E2A12B80008ABE2 /* GGActionSheet.h */,
 				EBE718FE1E2A12B80008ABE2 /* GGActionSheet.m */,
-				92951A251D7D0B0100787997 /* Sonota.storyboard */,
 				EB4A560D1E00DB3E00A2F1C2 /* OtherCollectionCell.h */,
 				EB4A560E1E00DB3E00A2F1C2 /* OtherCollectionCell.m */,
 				EB4A560F1E00DB3E00A2F1C2 /* OtherCollectionCell.xib */,
@@ -911,6 +988,8 @@
 				EB9C92E81E015BBC00F3132C /* SinarioTableViewCell.h */,
 				EB9C92E91E015BBC00F3132C /* SinarioTableViewCell.m */,
 				EB9C92EA1E015BBC00F3132C /* SinarioTableViewCell.xib */,
+				EB0EE8AD1EB216B000254CB7 /* PopButton.h */,
+				EB0EE8AE1EB216B000254CB7 /* PopButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1046,6 +1125,8 @@
 				92F363171DC9B2F60030DCE0 /* UIView+Extension.m */,
 				92F3624C1DC9930A0030DCE0 /* UIImage+Mj.h */,
 				92F3624D1DC9930A0030DCE0 /* UIImage+Mj.m */,
+				EB74551E1EB86A3600DA4874 /* CALayer+LayerColor.h */,
+				EB74551F1EB86A3600DA4874 /* CALayer+LayerColor.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1353,6 +1434,33 @@
 			path = UUChart;
 			sourceTree = "<group>";
 		};
+		EB7455021EB81D6500DA4874 /* MasterController */ = {
+			isa = PBXGroup;
+			children = (
+				EB7455071EB81D6500DA4874 /* MasterController.h */,
+				EB7455081EB81D6500DA4874 /* MasterController.m */,
+				EB7455031EB81D6500DA4874 /* BeRelatedController.h */,
+				EB7455041EB81D6500DA4874 /* BeRelatedController.m */,
+				EB7455051EB81D6500DA4874 /* IntelligenceController.h */,
+				EB7455061EB81D6500DA4874 /* IntelligenceController.m */,
+				EB7455091EB81D6500DA4874 /* PlaceSettingController.h */,
+				EB74550A1EB81D6500DA4874 /* PlaceSettingController.m */,
+				EB74550F1EB81DB200DA4874 /* IntelligenceMasterController.h */,
+				EB7455101EB81DB200DA4874 /* IntelligenceMasterController.m */,
+				EB7455151EB82CCE00DA4874 /* SinarioMasterController.h */,
+				EB7455161EB82CCE00DA4874 /* SinarioMasterController.m */,
+				EB74551B1EB8399A00DA4874 /* EditSinarioController.h */,
+				EB74551C1EB8399A00DA4874 /* EditSinarioController.m */,
+				EB7455211EB872BC00DA4874 /* MachineController.h */,
+				EB7455221EB872BC00DA4874 /* MachineController.m */,
+				EB7455271EB8791C00DA4874 /* UserMasterController.h */,
+				EB7455281EB8791C00DA4874 /* UserMasterController.m */,
+				EB74552D1EB8808600DA4874 /* HomeMasterController.h */,
+				EB74552E1EB8808600DA4874 /* HomeMasterController.m */,
+			);
+			path = MasterController;
+			sourceTree = "<group>";
+		};
 		EB9C93221E02730F00F3132C /* MBProgressHUD_ */ = {
 			isa = PBXGroup;
 			children = (
@@ -1553,6 +1661,7 @@
 				EBE719341E2E2CAB0008ABE2 /* RecordingStatus.m in Sources */,
 				EBE718FF1E2A12B80008ABE2 /* GGActionSheet.m in Sources */,
 				929519F01D7D0A6000787997 /* NursingNotesTableViewController.m in Sources */,
+				EB74552F1EB8808600DA4874 /* HomeMasterController.m in Sources */,
 				92F362F61DC9B1C80030DCE0 /* NSString+MJExtension.m in Sources */,
 				92F362DE1DC9B1C80030DCE0 /* WHUCalendarCell.m in Sources */,
 				92F362F71DC9B1C80030DCE0 /* MJRefreshAutoFooter.m in Sources */,
@@ -1575,11 +1684,13 @@
 				EB5D36601E139A1800CEBF4E /* UULineChart.m in Sources */,
 				EB581AD31E1C993A0076BAFD /* EmergencyAController.m in Sources */,
 				EBE7192E1E2DAF850008ABE2 /* VoiceRecognitionController.m in Sources */,
+				EB7455111EB81DB200DA4874 /* IntelligenceMasterController.m in Sources */,
 				92951A301D7D0B0100787997 /* SelfModel.m in Sources */,
 				927C311B1D89447B00E097D2 /* Device.m in Sources */,
 				92F362FA1DC9B1C80030DCE0 /* MJRefreshFooter.m in Sources */,
 				929519F41D7D0A6000787997 /* ZworksChartModel.m in Sources */,
 				EB9C93301E028BC200F3132C /* SinarioDetailController.m in Sources */,
+				EB74551A1EB830C600DA4874 /* SinarioMasterCell.m in Sources */,
 				929519941D7D078B00787997 /* NITSegmented.m in Sources */,
 				EB581AE81E1CCAFD0076BAFD /* UIFont+FontAwesome.m in Sources */,
 				928C61EB1DC854A2009B5974 /* MNoticeInfoResult.m in Sources */,
@@ -1592,11 +1703,13 @@
 				92F363081DC9B1C80030DCE0 /* UIScrollView+MJExtension.m in Sources */,
 				92F3631F1DC9B3570030DCE0 /* NITTextView.m in Sources */,
 				EB9C92D81E01063600F3132C /* SensorSetTableViewCell.m in Sources */,
+				EB7455231EB872BC00DA4874 /* MachineController.m in Sources */,
 				EBE719241E2A13E60008ABE2 /* View+MASAdditions.m in Sources */,
 				EB4A56101E00DB3E00A2F1C2 /* OtherCollectionCell.m in Sources */,
 				92F363021DC9B1C80030DCE0 /* MJChiBaoZiHeader.m in Sources */,
 				EB581AE91E1CCAFD0076BAFD /* MozTopAlertView.m in Sources */,
 				929519831D7D06FE00787997 /* NotificationModel.m in Sources */,
+				EB7455201EB86A3600DA4874 /* CALayer+LayerColor.m in Sources */,
 				928C61F51DC8550B009B5974 /* MNoticeDateParam.m in Sources */,
 				92F362E21DC9B1C80030DCE0 /* WHUCalendarView.m in Sources */,
 				92F363251DC9C3AD0030DCE0 /* MTitleLabel.m in Sources */,
@@ -1605,6 +1718,7 @@
 				92F363191DC9B2F60030DCE0 /* UIView+Extension.m in Sources */,
 				92E2D2A51DE3DE6800EADB78 /* MimamoriTabBarController.m in Sources */,
 				928C61E41DC83530009B5974 /* MNoticeTool.m in Sources */,
+				EBD3746A1EB09DD900B10CCB /* DropButton.m in Sources */,
 				927C31151D893F0800E097D2 /* Scenario.m in Sources */,
 				92F362431DC983D20030DCE0 /* MSensorDataTool.m in Sources */,
 				92C3F11B1DC7449100E61A8B /* MLoginParam.m in Sources */,
@@ -1618,6 +1732,8 @@
 				928ED9B91DC9743C00144193 /* MGroupTool.m in Sources */,
 				928C61EA1DC854A2009B5974 /* MNoticeInfoParam.m in Sources */,
 				92951A2B1D7D0B0100787997 /* SelfViewController.m in Sources */,
+				EB7455171EB82CCE00DA4874 /* SinarioMasterController.m in Sources */,
+				EB74552C1EB879B600DA4874 /* UserMasterCell.m in Sources */,
 				92F362FE1DC9B1C80030DCE0 /* MJRefreshAutoStateFooter.m in Sources */,
 				927C311E1D8A654900E097D2 /* DeviceValue.m in Sources */,
 				929519801D7D06FE00787997 /* MainNotificationController.m in Sources */,
@@ -1638,7 +1754,9 @@
 				EBE7191C1E2A13E60008ABE2 /* MASCompositeConstraint.m in Sources */,
 				EB4A560C1E00D69400A2F1C2 /* OtherController.m in Sources */,
 				92951A291D7D0B0100787997 /* ProfileTableViewController.m in Sources */,
+				EB7455321EB880A900DA4874 /* HomeMasterCell.m in Sources */,
 				92F363011DC9B1C80030DCE0 /* MJRefreshBackStateFooter.m in Sources */,
+				EB74550D1EB81D6500DA4874 /* MasterController.m in Sources */,
 				EB5D365D1E139A1800CEBF4E /* UUChart.m in Sources */,
 				EB581AE51E1CCAFD0076BAFD /* FAImageView.m in Sources */,
 				92F362FF1DC9B1C80030DCE0 /* MJRefreshBackGifFooter.m in Sources */,
@@ -1651,25 +1769,31 @@
 				92F362EE1DC9B1C80030DCE0 /* MJFoundation.m in Sources */,
 				92F362E31DC9B1C80030DCE0 /* WHUCalendarYMSelectView.m in Sources */,
 				92F362F91DC9B1C80030DCE0 /* MJRefreshComponent.m in Sources */,
+				EB0EE8AF1EB216B000254CB7 /* PopButton.m in Sources */,
 				92F362F11DC9B1C80030DCE0 /* MJPropertyType.m in Sources */,
 				EB5D365B1E139A1800CEBF4E /* UUBar.m in Sources */,
 				928C62251DC8738A009B5974 /* MProfileInfoUpdateParam.m in Sources */,
 				928C62021DC86812009B5974 /* MCustTool.m in Sources */,
+				EBBA26E71EB318E300E69F23 /* PlaceSettingCell.m in Sources */,
 				92F362EC1DC9B1C80030DCE0 /* MJDictionaryCache.m in Sources */,
 				EB581AE71E1CCAFD0076BAFD /* NSString+FontAwesome.m in Sources */,
 				929519F21D7D0A6000787997 /* NursingNotesModel.m in Sources */,
 				EB9C932D1E027F4700F3132C /* ZworksChartTBVC.m in Sources */,
 				928C61FE1DC8625E009B5974 /* MNoticeInfoUploadParam.m in Sources */,
+				EB74550E1EB81D6500DA4874 /* PlaceSettingController.m in Sources */,
 				92F362FC1DC9B1C80030DCE0 /* MJRefreshAutoGifFooter.m in Sources */,
 				EB581AEC1E1D1F350076BAFD /* DetailController.m in Sources */,
+				EB7455141EB826E600DA4874 /* IntelligenceMasterCell.m in Sources */,
 				EBDFE8821E287439007D3320 /* AriScenarioController.m in Sources */,
 				92F362F31DC9B1C80030DCE0 /* NSObject+MJCoding.m in Sources */,
 				928C62321DC890CC009B5974 /* MScenarioDeleteParam.m in Sources */,
 				92AF7BCD1D98C82100FC30E9 /* DetailScrollController.m in Sources */,
 				EB9C93281E02730F00F3132C /* MBProgressHUD+MJ.m in Sources */,
+				EB7455261EB872D900DA4874 /* MachineCell.m in Sources */,
 				92F363041DC9B1C80030DCE0 /* MJRefreshNormalHeader.m in Sources */,
 				EB692A161E24BAAE007682EE /* ScenarioCellFrame.m in Sources */,
 				EBE719211E2A13E60008ABE2 /* MASViewConstraint.m in Sources */,
+				EB74550C1EB81D6500DA4874 /* IntelligenceController.m in Sources */,
 				EB9C930B1E026A2900F3132C /* ZworksChartVTBCell.m in Sources */,
 				EB84F0FF1E275490005B1C4D /* DetailCCell.m in Sources */,
 				92F362471DC984200030DCE0 /* MSensorDataParam.m in Sources */,
@@ -1686,20 +1810,24 @@
 				EBE7191D1E2A13E60008ABE2 /* MASConstraint.m in Sources */,
 				92F362F41DC9B1C80030DCE0 /* NSObject+MJKeyValue.m in Sources */,
 				92C3F10E1DC736D700E61A8B /* MLoginTool.m in Sources */,
+				EB74551D1EB8399A00DA4874 /* EditSinarioController.m in Sources */,
 				92951A261D7D0B0100787997 /* AddSickPersonTableViewController.m in Sources */,
 				92F362D81DC9B1C80030DCE0 /* AFNetworkReachabilityManager.m in Sources */,
 				92F362E11DC9B1C80030DCE0 /* WHUCalendarPopView.m in Sources */,
 				EB9C92EF1E02425600F3132C /* LifeChartController.m in Sources */,
 				92F363031DC9B1C80030DCE0 /* MJRefreshGifHeader.m in Sources */,
 				92F362DF1DC9B1C80030DCE0 /* WHUCalendarFlowLayout.m in Sources */,
+				EB74550B1EB81D6500DA4874 /* BeRelatedController.m in Sources */,
 				EB9C92DC1E01109800F3132C /* SensorController.m in Sources */,
 				EBE719231E2A13E60008ABE2 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				EB7455291EB8791C00DA4874 /* UserMasterController.m in Sources */,
 				929519F81D7D0A6100787997 /* NITMPButton.m in Sources */,
 				E9D445DE1D0112AD00CFF364 /* AppDelegate.m in Sources */,
 				92951A001D7D0AC200787997 /* LifeUserListModel.m in Sources */,
 				EB9C932A1E02730F00F3132C /* MBProgressHUD.m in Sources */,
 				928C62111DC87012009B5974 /* MProfileTool.m in Sources */,
 				92C3F11C1DC7449100E61A8B /* MLoginResult.m in Sources */,
+				EBE175131EAF172300A6E23A /* NITDropDowm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1857,7 +1985,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = KaigoMimamoriNewTest;
+				PRODUCT_BUNDLE_IDENTIFIER = KaigoMimamoriBeta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1885,7 +2013,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = KaigoMimamoriNewTest;
+				PRODUCT_BUNDLE_IDENTIFIER = KaigoMimamoriBeta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

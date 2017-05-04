@@ -16,13 +16,16 @@
 
 #import "MCustTool.h"
 
-@interface SetController ()
+@interface SetController ()<DropClickDelegate>
 
-@property (nonatomic, strong) NSArray                  *userarray;
+@property (nonatomic, strong) NSArray                        *userarray;
 
-@property (nonatomic, strong) NSArray                  *numarray;
+@property (nonatomic, strong) NSArray                        *numarray;
 
-@property (strong, nonatomic) NSMutableArray *custArr;//見守られる人
+@property (strong, nonatomic) NSMutableArray                 *custArr;//見守られる人
+
+@property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
+@property (strong, nonatomic) IBOutlet UITableView           *tableView;
 
 @end
 
@@ -33,8 +36,6 @@
     [super viewDidLoad];
     
     
-    
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getCustList)];
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
@@ -42,12 +43,21 @@
     
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    
+
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:NO];
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
     [self.tableView.mj_header beginRefreshing];
 }
 
+/**
+ 设施下拉框代理
+ */
+-(void)SelectedListName:(NSDictionary *)clickDic; {
+    
+    [self.tableView.mj_header beginRefreshing];
+}
 
 
 /**
@@ -56,7 +66,8 @@
 -(void)getCustList{
     
     MCustInfoParam *param = [[MCustInfoParam alloc]init];
-    param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
+    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+    param.facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     param.hassensordata = @"0";
     
     [MCustTool custInfoWithParam:param success:^(NSArray *array) {
@@ -101,8 +112,8 @@
         ssc.profileUser0 = selectModel.userid0;
         
         ssc.profileUser0name = selectModel.user0name;
-        NSString *strtt = [NSString stringWithFormat:@"%@(%@)",selectModel.user0name,selectModel.roomname];
-        ssc.title = strtt;
+        NSString *strtt = [NSString stringWithFormat:@"%@(%@)",selectModel.user0name,selectModel.roomid];
+        ssc.titleStr = strtt;
         
         ssc.roomID = selectModel.roomid;
     }
@@ -126,7 +137,7 @@
     
     SickPersonModel *tmpmodel = self.custArr[indexPath.row];
     
-    NSString *strname = [NSString stringWithFormat:@"%@(%@)",tmpmodel.user0name,tmpmodel.roomname];
+    NSString *strname = [NSString stringWithFormat:@"%@(%@)",tmpmodel.user0name,tmpmodel.roomid];
     
     cell.userinfolabel.text = strname;
     

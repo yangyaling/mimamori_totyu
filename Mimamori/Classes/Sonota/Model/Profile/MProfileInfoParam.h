@@ -10,6 +10,6 @@
 
 @interface MProfileInfoParam : NSObject
 
-@property (nonatomic, copy) NSString                               *userid0;
+@property (nonatomic, copy) NSString                               *custid;
 
 @end

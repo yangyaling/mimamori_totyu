@@ -12,27 +12,36 @@
 
 #import "LifeChartController.h"
 
-@interface AriScenarioController ()
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UILabel *aratoUser;
-@property (strong, nonatomic) IBOutlet UILabel *roomnum;
-@property (strong, nonatomic) IBOutlet UILabel *Rtime;
-@property (strong, nonatomic) IBOutlet UIButton *pushButton;
+@interface AriScenarioController ()<DropClickDelegate>
+@property (strong, nonatomic) IBOutlet UITableView           *tableView;
+@property (strong, nonatomic) IBOutlet UILabel               *aratoUser;
+@property (strong, nonatomic) IBOutlet UILabel               *roomnum;
+@property (strong, nonatomic) IBOutlet UILabel               *Rtime;
+@property (strong, nonatomic) IBOutlet UIButton              *pushButton;
 
-@property (nonatomic, strong) NSMutableArray                    *alldatas;
+@property (nonatomic, strong) NSMutableArray                 *alldatas;
 
-@property (nonatomic,strong) AFHTTPSessionManager       *session;
+@property (nonatomic,strong) AFHTTPSessionManager            *session;
 
-@property (nonatomic, strong) NSString                  *roomname;
+@property (nonatomic, strong) NSString                       *roomname;
+
+@property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 
 @end
 
 @implementation AriScenarioController
 
+
+//- (IBAction)gobacktoC:(id)sender {
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
+    
     NSString *string = [NSString stringWithFormat:@"<アラート>%@",self.username];
+    
     self.aratoUser.text = string;
     
     
@@ -49,12 +58,28 @@
     [MBProgressHUD showMessage:@"" toView:self.view];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:NO];
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
+}
+
+/**
+ 弹出下拉设施菜单
+ 
+ @param sender
+ */
+-(void)showSelectedList {
+    
+    
+}
+
 
 - (void)detailRefresh {
     
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     
-    parametersDict[@"userid0"] = self.usernumber;
+    parametersDict[@"custid"] = self.usernumber;
+//    self.usernumber;//?
     
     parametersDict[@"noticetype"] = @"1";
     
@@ -89,7 +114,7 @@
 
 - (IBAction)PushOrPopAction:(UIButton *)sender {
     if (self.isPushOrPop) {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:NO];
     } else {
         UIStoryboard *lifeStoryBoard = [UIStoryboard storyboardWithName:@"Life" bundle:nil];
         
@@ -97,8 +122,9 @@
         lcc.ariresult = @"異常検知あり";
         lcc.username = self.username;
         lcc.userid0 = self.usernumber;
+        
         NSString *strtt = [NSString stringWithFormat:@"%@(%@)",self.username,self.roomname];
-        lcc.title = strtt;
+        lcc.viewTitle = strtt;
         //跳转事件
         [self.navigationController pushViewController:lcc animated:YES];
     }

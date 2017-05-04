@@ -50,6 +50,8 @@
 @property (nonatomic, strong) NSMutableArray               *scenarioArray;
 
 @property (nonatomic, strong) NSMutableArray               *sensorArray;
+@property (strong, nonatomic) IBOutlet DropButton          *facilitiesBtn;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 
@@ -60,17 +62,13 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.saveButton.layer.cornerRadius = 6;
-    
-    self.setPushButton.layer.cornerRadius = 6;
+    self.titleLabel.text = self.titleStr;
     
     self.tableView.tableFooterView = [[UIView alloc]init];
     
     [self.sensorSegment setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]} forState:UIControlStateNormal];
     
 
-    
-    
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getScenarioList)];
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
@@ -124,6 +122,7 @@
 
 
 -(void)viewWillAppear:(BOOL)animated{
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
     [self.tableView.mj_header beginRefreshing];
 }
 
@@ -134,16 +133,32 @@
     
     MProfileInfoParam *param = [[MProfileInfoParam alloc]init];
     
-    param.userid0 = self.profileUser0;
+    param.custid = self.profileUser0;
     
     [MProfileTool profileInfoWithParam:param success:^(NSArray *array) {
         [MBProgressHUD hideHUDForView:self.view];
         if (array.count > 0){
             self.profileArray = [ProfileModel mj_objectArrayWithKeyValuesArray:array];
             ProfileModel *mod = self.profileArray.firstObject;
-            NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:mod.picpath]];
-            [NITUserDefaults setObject:dataicon forKey:self.profileUser0];
             
+//            NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:mod.picpath]];
+//            [NITUserDefaults setObject:dataicon forKey:self.profileUser0];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSURL * url = [NSURL URLWithString:mod.picpath];
+                
+                NSData * data = [[NSData alloc]initWithContentsOfURL:url];
+                
+                if (data != nil) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        [NITUserDefaults setObject:data forKey:self.profileUser0];
+                        
+                    });
+                }
+                
+            });
         } else {
             NITLog(@"getcustinfo空");
         }
@@ -161,8 +176,8 @@
 -(void)getScenarioList{
     
     MScenarioListParam *param = [[MScenarioListParam alloc]init];
-    param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
-    param.userid0 = self.profileUser0;
+    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+    param.custid = self.profileUser0;
     
     [MScenarioTool scenarioListWithParam:param success:^(NSArray *array) {
         [MBProgressHUD hideHUDForView:self.view];
@@ -175,14 +190,18 @@
             
             NSArray *scenarioarray = dic[@"scenariolist"];
             
+            NSArray *displays = dic[@"displaylist"];
+            
+            [NITUserDefaults setObject:displays forKey:@"tempdisplaylist"];
+            
 //            NITLog(@"scenarioarray:%@",scenarioarray);
             
             self.scenarioArray = [NSMutableArray arrayWithArray:[Scenario mj_objectArrayWithKeyValuesArray:scenarioarray]];
             
+            NSData * data = [NSKeyedArchiver archivedDataWithRootObject:sensorarray];
+            [NITUserDefaults setObject:data forKey:@"sensorallnodes"];
             
-            [NITUserDefaults setObject:sensorarray forKey:@"sensorallnodes"];
-            
-            self.sensorArray = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
+            self.sensorArray = [NSMutableArray arrayWithArray:sensorarray];
             
             [self saveNodeIdDatas];
             
@@ -194,9 +213,15 @@
         
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
-        NSArray *sensordatas = [NITUserDefaults objectForKey:@"sensorallnodes"];
+        
+        NSArray *sensordatas = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
+        
+        NSArray *arr = [NITUserDefaults objectForKey:@"tempdisplaylist"];
         
         sensordatas = nil;
+        arr = nil;
+        
+        [NITUserDefaults setObject:arr forKey:@"tempdisplaylist"];
         [NITUserDefaults setObject:sensordatas forKey:@"sensorallnodes"]; //清空 本地sensor数据，防止请求失败读上次缓存。
         
         [self.tableView.mj_header endRefreshing];
@@ -254,13 +279,13 @@
     if (sender.selectedSegmentIndex == 0){
         self.isSensorTableView = YES;
         self.saveButton.hidden = NO;
-        self.tableView.frame = CGRectMake(0, 141 , NITScreenW, NITScreenH - 250);
+        self.tableView.frame = CGRectMake(0, 176 , NITScreenW, NITScreenH - 285);
         self.addDataH = 0;
         
     } else {
         self.saveButton.hidden = YES;
         self.isSensorTableView = NO;
-        self.tableView.frame = CGRectMake(0, 141 , NITScreenW, NITScreenH - 190);
+        self.tableView.frame = CGRectMake(0, 176 , NITScreenW, NITScreenH - 225);
         self.addDataH = 45;
     }
     
@@ -272,8 +297,8 @@
     [MBProgressHUD showMessage:@"" toView:self.view];
 //    sensorallnodes
     MScenarioListParam *param = [[MScenarioListParam alloc]init];
-    param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
-    param.userid0 = self.profileUser0;
+    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+    param.custid = self.profileUser0;
     
     NSDictionary *maindic = [NITUserDefaults objectForKey:@"mainondedatakey"];
     NSString *mainid = maindic[@"mainnodeid"];
@@ -283,7 +308,7 @@
     }
     
     
-    NSArray *array = [NITUserDefaults objectForKey:@"sensorallnodes"];
+    NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
     NSError *parseError = nil;
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
@@ -293,6 +318,7 @@
 //    NITLog(@"userid1:%@\n userid0:%@\n place:%@",param.userid1,param.userid0,param.place);
     
     [MScenarioTool sensorUpdateWithParam:param success:^(NSString *code) {
+        
         [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"%@",code);
         [self saveNodeIdDatas];
@@ -310,7 +336,7 @@
  */
 - (void)saveNodeIdDatas {
     NSMutableArray *arr = [NSMutableArray new];
-    NSArray *sensorarray = [[NITUserDefaults objectForKey:@"sensorallnodes"] copy];
+    NSArray *sensorarray = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
     
     if (sensorarray.count == 0) return;
     
@@ -319,7 +345,8 @@
         NSDictionary *tmpdic = @{@"displayname":sensordic[@"displayname"],@"idx":[NSString stringWithFormat:@"%d",i]};
         [arr addObject:tmpdic];
     }
-    [NITUserDefaults setObject:arr forKey:@"addnodeiddatas"];
+    NSData * data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+    [NITUserDefaults setObject:data forKey:@"addnodeiddatas"];
     
 }
 
@@ -330,7 +357,6 @@
 }
 
 
-
 //segue跳转 profilePush
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -339,32 +365,41 @@
     if ([segue.identifier isEqualToString:@"profilePush"]) {
         
         ProfileTableViewController * ptvc = segue.destinationViewController;
+        
         ptvc.userid0 = self.profileUser0;
-        ptvc.title = @"プロフィール設定";
+        
+        ptvc.titleStr = @"プロフィール設定";
+        
         ptvc.pmodel = self.profileArray.firstObject;
         
     } else if ([segue.identifier isEqualToString:@"scenarioInfoPush"]) {
+        
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
         
         Scenario *sar = self.scenarioArray[indexPath.row];
         
         src.roomID = self.roomID;
+        
         src.scenarioID = sar.scenarioid;
+        
         src.isRefresh = YES;
+        
         src.textname = sar.scenarioname;
         
         src.user0name = self.profileUser0name;
         
         src.user0 = self.profileUser0;
+        
         src.delegate = self;
+        
     } else {
         
         src.user0 = self.profileUser0;
         
         src.roomID = self.roomID;
+        
         src.isRefresh = NO;;
     }
-    
 }
 
 
@@ -409,7 +444,7 @@
     if (self.isSensorTableView) {
         SensorSetTableViewCell *cell = [SensorSetTableViewCell cellWithTableView:tableView];
         
-        NSArray *arr = [Device mj_objectArrayWithKeyValuesArray:[NITUserDefaults objectForKey:@"sensorallnodes"]];
+        NSArray *arr = [Device mj_objectArrayWithKeyValuesArray:[NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]]];
         
         Device *devices = arr[indexPath.row];
         
@@ -422,12 +457,13 @@
         }
         cell.sensorname.text = devices.nodename;
         
-        cell.roomname.text = devices.displayname;
+        [cell.pickBtn setTitle:devices.displayname forState:UIControlStateNormal];
+        
+        cell.roomname.text = devices.memo;
         
         cell.nodeid = devices.nodeid;
         
         [cell.segmentbar setSelectedSegmentIndex:[devices.place integerValue] - 1];
-        
         
         return cell;
     } else {
@@ -439,7 +475,7 @@
         
         cell.sendtime.text = sc.updatedate;
         
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
     
