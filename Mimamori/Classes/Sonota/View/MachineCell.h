@@ -10,4 +10,9 @@
 
 @interface MachineCell : UITableViewCell
 
+@property (nonatomic, strong) NSDictionary            *datasDic;
+
+@property (nonatomic, assign) BOOL                    editOp;
+
+@property (nonatomic, assign) NSInteger               cellindex;
 @end

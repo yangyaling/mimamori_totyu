@@ -26,7 +26,6 @@
 @property (nonatomic, strong) NSMutableArray        *allDatas;
 
 @property (nonatomic, strong) NSString              *maxId;
-
 @property (nonatomic, assign) NSInteger             numxxid;
 
 @end
