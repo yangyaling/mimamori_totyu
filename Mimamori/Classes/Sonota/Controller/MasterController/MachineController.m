@@ -7,6 +7,16 @@
 //
 
 
+//{
+//    custid = 0002;
+//    custname = "(A)\U30cb\U30c3\U30bb\U30a4\U3000\U82b1\U5b50\U3055\U3093";
+//    oldcustid = 0002;
+//    oldsensorid = 0001;
+//    oldserial = 2016062200000396;
+//    sensorid = 0001;
+//    serial = 2016062200000396;
+//}
+
 #import "MachineController.h"
 #import "MachineCell.h"
 
@@ -39,6 +49,20 @@
     
     self.isEdit = NO;
     
+    // 企业名、设施名
+    self.companyNameTF.userInteractionEnabled = NO;
+    self.companyNameTF.borderStyle = UITextBorderStyleNone;
+    self.facilityNameTF.userInteractionEnabled = NO;
+    self.facilityNameTF.borderStyle = UITextBorderStyleNone;
+    
+    // 一般用户无编辑权限
+    NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
+    if ([master isEqualToString:@"3"]) {
+        self.editButton.hidden = YES;
+    }else{
+        self.editButton.hidden = NO;
+    }
+    
     //监听键盘出现和消失
     [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [NITNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -52,10 +76,14 @@
 }
 
 
+#pragma mark - Action Handle
+
+/** 点击编辑按钮 */
 - (IBAction)editCell:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
-        [sender setTitle:@"完了" forState:UIControlStateNormal];
+        [sender setTitle:@"取消" forState:UIControlStateNormal];
         self.isEdit = YES;
+        //显示加号按钮和登陆按钮
         [self ViewAnimateStatas:120];
 
     }else{
@@ -66,37 +94,33 @@
 
 }
 
-
-
+/** 点加号按钮 */
 - (IBAction)addCell:(id)sender {
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
-    //    custid = 0002;
-    //    custname = "(A)\U30cb\U30c3\U30bb\U30a4\U3000\U82b1\U5b50\U3055\U3093";
-    //    nodename = M3;
-    //    oldcustid = 0002;
-    //    oldserial = 32303136303632323030303030333936;
-    //    serial = 32303136303632323030303030333936;
-    [arr addObject:@{@"custid":@"",@"custname":@"",@"nodename":@"",@"oldcustid":@"",@"oldserial":@"",@"serial":@""}];
+    [arr addObject:@{@"custid":@"",@"custname":@"",@"sensorid":@"",@"oldcustid":@"",@"oldserial":@"",@"serial":@""}];
     [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
     
     [CATransaction setCompletionBlock:^{
-        
         [self.tableView reloadData];
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
     }];
     
 }
 
+/** 点登陆按钮 */
 - (IBAction)saveInfo:(id)sender {
     [MBProgressHUD showMessage:@"" toView:self.view];
     
+    // 准备参数
     NSArray *array = [NITUserDefaults objectForKey:@"SENSORINFO"];
     NSError *parseError = nil;
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     NSDictionary *dic = @{@"sslist":str,@"facilitycd":facilitycd};
+    
+    // 发送请求
     [MHttpTool postWithURL:NITUpdateSSInfo params:dic success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         if (json) {
@@ -116,47 +140,6 @@
     
 }
 
-#pragma mark - Action Handle
-
-/** 機器情報取得 */
-- (void)getSensorInfo{
-    
-    NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
-    NSDictionary *dic = @{@"facilitycd":facd};
-    
-    [MHttpTool postWithURL:NITGetSSInfo params:dic success:^(id json) {
-        
-        [self.tableView.mj_header endRefreshing];
-        
-        if (json) {
-            
-            NSArray *sslist = [json objectForKey:@"sslist"];
-            NSArray *baseinfos = [json objectForKey:@"baseinfo"];
-            
-            self.companyNameTF.text = [baseinfos.firstObject objectForKey:@"companyname"];
-            self.facilityNameTF.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
-            
-            _allDatas = [NSMutableArray arrayWithArray:sslist.mutableCopy];
-            
-            [NITUserDefaults setObject:sslist forKey:@"SENSORINFO"];
-            
-            [self.tableView reloadData];
-            
-        } else {
-            
-            NITLog(@"没数据");
-            
-        }
-        
-    } failure:^(NSError *error) {
-        
-        [self.tableView.mj_header endRefreshing];
-        
-        NITLog(@"%@",error);
-        
-    }];
-    
-}
 
 -(void)ViewAnimateStatas:(double)statas {
     
@@ -171,6 +154,44 @@
 }
 
 
+#pragma mark - Request
+
+/** 機器情報取得 */
+- (void)getSensorInfo{
+    // 1.准备参数
+    NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+    NSDictionary *dic = @{@"facilitycd":facd};
+    
+    // 2.发送请求
+    [MHttpTool postWithURL:NITGetSSInfo params:dic success:^(id json) {
+        
+        if (json) {
+            NSArray *sslist = [json objectForKey:@"sslist"];
+            NSArray *baseinfos = [json objectForKey:@"baseinfo"];
+            
+            self.companyNameTF.text = [baseinfos.firstObject objectForKey:@"companyname"];
+            self.facilityNameTF.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
+            
+            _allDatas = [NSMutableArray arrayWithArray:sslist.mutableCopy];
+            [NITUserDefaults setObject:sslist forKey:@"SENSORINFO"];
+            
+            [self.tableView reloadData];
+            
+        } else {
+            NITLog(@"没数据");
+        }
+        [self.tableView.mj_header endRefreshing];
+        
+    } failure:^(NSError *error) {
+        
+        [self.tableView.mj_header endRefreshing];
+        NITLog(@"%@",error);
+        
+    }];
+    
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -178,37 +199,45 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     NSArray *arr = [NITUserDefaults objectForKey:@"SENSORINFO"];
     return arr.count;
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // 1.创建cell
     MachineCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MachineCell" forIndexPath:indexPath];
+    
+    // 2.传递模型
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
-    cell.editOp = self.isEdit;
-    cell.cellindex = indexPath.row;
     NSDictionary *dic = arr[indexPath.row];
     if (dic) {
         cell.datasDic = dic.copy;
     }
+    cell.editOp = self.isEdit;
+    cell.cellindex = indexPath.row;
+    
+    // 3.设置cell点击背景色
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
     
 }
 
-#pragma mark 键盘出现
+#pragma mark － 键盘
+
 -(void)keyboardWillShow:(NSNotification *)note
 {
     CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height, 0);
 }
-#pragma mark 键盘消失
+
 -(void)keyboardWillHide:(NSNotification *)note
 {
     self.tableView.contentInset = UIEdgeInsetsZero;
 }
+
+#pragma mark － other
 
 -(void)dealloc {
     
