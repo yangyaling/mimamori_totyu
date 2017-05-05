@@ -27,11 +27,11 @@
 
 
 //其他
-@property (strong, nonatomic) IBOutlet UITextField *numField;
-
-@property (strong, nonatomic) IBOutlet UITextField *pesronNumField;
-
-@property (strong, nonatomic) IBOutlet UITextField *sonotaField;
+//@property (strong, nonatomic) IBOutlet UITextField *numField;
+//
+//@property (strong, nonatomic) IBOutlet UITextField *pesronNumField;
+//
+//@property (strong, nonatomic) IBOutlet UITextField *sonotaField;
 
 
 //@property (nonatomic, strong) NSArray              *allDatas;
@@ -46,6 +46,8 @@
     [super viewDidLoad];
     
     [self getinfo];
+    
+    self.tableView.tableFooterView = [[UIView alloc]init];
 }
 
 - (void)getinfo {
@@ -75,9 +77,9 @@
             self.fckana2Field.text = indoDic[@"facilityname2kana"];
             
             
-            self.numField.text = [NSString stringWithFormat:@"%@", indoDic[@"floorcount"]];
-            self.pesronNumField.text = [NSString stringWithFormat:@"%@", indoDic[@"roomcount"]];
-            self.sonotaField.text = indoDic[@"memo"];
+//            self.numField.text = [NSString stringWithFormat:@"%@", indoDic[@"floorcount"]];
+//            self.pesronNumField.text = [NSString stringWithFormat:@"%@", indoDic[@"roomcount"]];
+//            self.sonotaField.text = indoDic[@"memo"];
             
         }
     } failure:^(NSError *error) {
@@ -95,6 +97,7 @@
 }
 
 - (IBAction)editCell:(UIButton *)sender {
+    
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         
@@ -102,6 +105,8 @@
         //进入编辑状态
     }else{
 //        [sender setTitle:@"編集" forState:UIControlStateNormal];
+//        
+//        [self statusEdit:NO withColor:[UIColor whiteColor]];
         
         [self saveInfo]; //跟新或者追加
         
@@ -126,39 +131,38 @@
         [self.fckana2Field setBackgroundColor:color];
         
         
-        [self.numField setEnabled:noOp];
-        [self.numField setBackgroundColor:color];
-        [self.pesronNumField setEnabled:noOp];
-        [self.pesronNumField setBackgroundColor:color];
-        [self.sonotaField setEnabled:noOp];
-        [self.sonotaField setBackgroundColor:color];
+//        [self.numField setEnabled:noOp];
+//        [self.numField setBackgroundColor:color];
+//        [self.pesronNumField setEnabled:noOp];
+//        [self.pesronNumField setBackgroundColor:color];
+//        [self.sonotaField setEnabled:noOp];
+//        [self.sonotaField setBackgroundColor:color];
     } else {
-        [self.kodoField setEnabled:noOp];
-        [self.kodoField setBackgroundColor:color];
-        [self.nameField setEnabled:noOp];
-        [self.nameField setBackgroundColor:color];
-        
+//        [self.kodoField setEnabled:noOp];
+//        [self.kodoField setBackgroundColor:color];
+//        [self.nameField setEnabled:noOp];
+//        [self.nameField setBackgroundColor:color];
+//        
 //        [self.hosutoIdField setEnabled:noOp];
 //        [self.hosutoIdField setBackgroundColor:color];
 //        [self.facilityField setEnabled:noOp];
 //        [self.facilityField setBackgroundColor:color];
-        
-        [self.facilityNameField setEnabled:noOp];
-        [self.facilityNameField setBackgroundColor:color];
-        [self.fckanaField setEnabled:noOp];
-        [self.fckanaField setBackgroundColor:color];
+//        [self.facilityNameField setEnabled:noOp];
+//        [self.facilityNameField setBackgroundColor:color];
+//        [self.fckanaField setEnabled:noOp];
+//        [self.fckanaField setBackgroundColor:color];
         [self.facilityName2Field setEnabled:noOp];
         [self.facilityName2Field setBackgroundColor:color];
         [self.fckana2Field setEnabled:noOp];
         [self.fckana2Field setBackgroundColor:color];
         
         
-        [self.numField setEnabled:noOp];
-        [self.numField setBackgroundColor:color];
-        [self.pesronNumField setEnabled:noOp];
-        [self.pesronNumField setBackgroundColor:color];
-        [self.sonotaField setEnabled:noOp];
-        [self.sonotaField setBackgroundColor:color];
+//        [self.numField setEnabled:noOp];
+//        [self.numField setBackgroundColor:color];
+//        [self.pesronNumField setEnabled:noOp];
+//        [self.pesronNumField setBackgroundColor:color];
+//        [self.sonotaField setEnabled:noOp];
+//        [self.sonotaField setBackgroundColor:color];
         
     }
 }
@@ -180,9 +184,9 @@
     dic[@"facilityname2"]= self.facilityName2Field.text;
     dic[@"facilityname2kana"]= self.fckana2Field.text;
     
-    dic[@"floorcount"] = self.numField.text;
-    dic[@"roomcount"] = self.pesronNumField.text;
-    dic[@"memo"] = self.sonotaField.text;
+//    dic[@"floorcount"] = self.numField.text;
+//    dic[@"roomcount"] = self.pesronNumField.text;
+//    dic[@"memo"] = self.sonotaField.text;
     
     NSError *parseError = nil;
     
