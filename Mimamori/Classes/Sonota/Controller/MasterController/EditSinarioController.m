@@ -103,9 +103,12 @@
     
     NSDictionary *dic = @{@"protoid":self.maxid};
     
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    
     [MHttpTool postWithURL:NITGetSPInfo params:dic success:^(id json) {
         
         [self.tableView.mj_header endRefreshing];
+        [MBProgressHUD hideHUDForView:self.view];
         
 //        if (self.isEdit) {
             NSArray *tmpArr = [json objectForKey:@"splist"];
@@ -123,7 +126,7 @@
             self.sinarioName.text = [json objectForKey:@"protoname"];
         
 
-            self.ariText.text = [NSString stringWithFormat:@"%@", dicOne[@"nodetypename"]];
+            self.ariText.text = [NSString stringWithFormat:@"%@", dicOne[@"nodetype"]];
         
         
         
@@ -183,6 +186,7 @@
         
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
+        [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"%@",error);
     }];
     
@@ -203,10 +207,12 @@
         self.leftTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
         self.rightTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
     }
+    
     [self selectedTimeButtonIndex:sender.selectedSegmentIndex];
 }
 
 -(void)selectedTimeButtonIndex:(NSInteger)index{
+    self.timeIndex = index;
     switch (index) {
         case 0:
             [self.leftTimeButton setTitle:@"- -" forState:UIControlStateNormal];
@@ -304,7 +310,17 @@
 
 - (IBAction)saveInfo:(UIButton *)sender {
     
-    NSArray *tmparray = [self saveScenario]; //本地检测是否 - -
+    NSMutableArray *tmparray = [self saveScenario]; //本地检测是否 - -
+    [tmparray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:obj];
+        [dict setObject:self.ariText.text forKey:@"nodetype"];
+        if ([self.ariText.text isEqualToString:@"2"]) {
+            if ([dict[@"devicetype"] isEqualToString:@"4"]) {
+                [dict setObject:@"5" forKey:@"devicetype"];
+            }
+        }
+        [tmparray replaceObjectAtIndex:idx withObject:dict];
+    }];
     
     if (tmparray.count == 0) return;
     
@@ -357,20 +373,17 @@
  保存-遍历检查scenario数据是否填写完整
  
  */
-- (NSArray *)saveScenario {
+- (NSMutableArray *)saveScenario {
     //    BOOL scenariosuccess = YES;
 //    self.allarrays = [NSMutableArray new];
     NSMutableArray *alldatas = [NSMutableArray new];
     NSData * data = [NITUserDefaults objectForKey:SINANIOKEY];
     NSArray * scenarioarr = [[NSKeyedUnarchiver unarchiveObjectWithData:data] copy];
-    
     for (id dic in scenarioarr) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:dic];
         NSString *timestr = [NSString stringWithFormat:@"%@",dic[@"time"]];
         NSString *valuestr = [NSString stringWithFormat:@"%@",dic[@"value"]];
         NSString *rpointstr = [NSString stringWithFormat:@"%@",dic[@"rpoint"]];
-        
-        
         
         if ( ![timestr isEqualToString:@"-"] && ![valuestr isEqualToString:@"-"] && ![rpointstr isEqualToString:@"-"]) {
             if ([rpointstr isEqualToString:@"以上"]||[rpointstr isEqualToString:@"以下"]) {
@@ -382,10 +395,7 @@
             }
             [alldatas addObject:dict];
         }
-        
     }
-    
-    
     return alldatas;
     
 //    if ([alldatas.firstObject count] > 0) {

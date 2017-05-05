@@ -36,7 +36,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/RoomReportController.m"
-                  timestampString = "515682886.244977"
+                  timestampString = "515686312.645904"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "204"
@@ -51,7 +51,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/RoomReportController.m"
-                  timestampString = "515682886.24785"
+                  timestampString = "515686312.648652"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "204"
@@ -75,6 +75,70 @@
             endingLineNumber = "208"
             landmarkName = "-saveInfo:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mimamori/Classes/Sonota/Controller/MasterController/EditSinarioController.m"
+            timestampString = "515686192.667029"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
+            landmarkName = "-saveInfo:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mimamori/Classes/Sonota/Controller/MasterController/EditSinarioController.m"
+            timestampString = "515686199.860982"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "314"
+            endingLineNumber = "314"
+            landmarkName = "-saveInfo:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[EditSinarioController saveInfo:]"
+                  moduleName = "Mimamori2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/EditSinarioController.m"
+                  timestampString = "515686312.686109"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__34-[EditSinarioController saveInfo:]_block_invoke"
+                  moduleName = "Mimamori2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/EditSinarioController.m"
+                  timestampString = "515686312.689592"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "314"
+                  endingLineNumber = "314"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
