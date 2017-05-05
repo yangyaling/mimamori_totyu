@@ -7,6 +7,7 @@
 //
 
 #import "MachineCell.h"
+#import "NITPicker.h"
 
 @interface MachineCell ()
 @property (weak, nonatomic) IBOutlet UITextField *serialNoTF;
@@ -20,7 +21,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 
 - (void)setDatasDic:(NSDictionary *)datasDic {
@@ -33,7 +33,7 @@
     } else {
         [self statusEdit:NO withColor:NITColor(235, 235, 241)];
     }
-    self.sensorIdTF.text = datasDic[@"nodename"];
+    self.sensorIdTF.text = datasDic[@"sensorid"];
     self.serialNoTF.text = datasDic[@"serial"];
     self.custIdTF.text = datasDic[@"custid"];
     self.custNameTF.text = datasDic[@"custname"];
@@ -63,21 +63,14 @@
 }
 
 
-//- (IBAction)showPick:(UIButton *)sender {
-//    
-//    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];
-//    
-//    _picker.mydelegate = self;
-//    
-//    [WindowView addSubview:_picker];
-//    
-//}
-
-
-
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
     [textField setBackgroundColor:NITColor(253, 164, 181)];
+    if (textField.tag == 4) {
+#warning todo
+        // 获取对应id的ユーザネーム
+        
+    }
     
     return YES;
 }
@@ -86,20 +79,37 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
+
     [textField setBackgroundColor:[UIColor whiteColor]];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:_datasDic];
-    if (textField.tag == 1) {
-        [dic setObject:textField.text forKey:@"staffid"];
-    } else {
-        [dic setObject:textField.text forKey:@"nickname"];
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arr[self.cellindex]];
+    switch (textField.tag) {
+        case 1:
+            [dic setObject:textField.text forKey:@"serial"];
+            break;
+        case 2:
+            [dic setObject:textField.text forKey:@"sensorid"];
+            break;
+        case 3:
+            [dic setObject:textField.text forKey:@"custid"];
+            // 获取name
+            
+            break;
+        case 4:
+            [dic setObject:textField.text forKey:@"custname"];
+            break;
+        default:
+            break;
     }
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
+
     [arr replaceObjectAtIndex:self.cellindex withObject:dic];
-    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
+    [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
     
 }
 
 #pragma mark - UITextFieldDelegate
+
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
@@ -113,6 +123,8 @@
     }
     return  YES;
 }
+
+
 
 
 @end
