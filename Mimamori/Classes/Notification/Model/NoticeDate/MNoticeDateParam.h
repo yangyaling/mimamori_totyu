@@ -10,6 +10,6 @@
 
 @interface MNoticeDateParam : NSObject
 
-@property (nonatomic, copy) NSString *userid1;
+@property (nonatomic, copy) NSString *staffid;
 
 @end

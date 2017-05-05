@@ -28,7 +28,6 @@
 
 @property (nonatomic, strong) NSMutableArray               *allarray;
 
-@property (nonatomic,strong) AFHTTPSessionManager          *session;
 
 @property (nonatomic, assign) BOOL                         isSelectModelScenario;
 @property (strong, nonatomic) IBOutlet UIButton            *editButton;
@@ -80,8 +79,7 @@
     
     self.tableView.tableFooterView = [[UIView alloc]init];
     
-    self.session = [AFHTTPSessionManager manager];
-    self.session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+    
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getScenariodtlInfo)];
     
@@ -146,7 +144,6 @@
 
 
 -(void)getScenariodtlInfo{
-    NSString *url = NITGetScenarioInfo;
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     parametersDict[@"roomid"] = self.roomID;
     
@@ -154,15 +151,14 @@
         parametersDict[@"scenarioid"] = self.scenarioID;
     }
     
-    
-    [self.session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
+    [MHttpTool postWithURL:NITGetScenarioInfo params:parametersDict success:^(id json) {
+        [MBProgressHUD hideHUDForView:self.view];
         
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSArray *tmpArr = [responseObject objectForKey:@"scenariodtlinfo"];
+        NSArray *tmpArr = [json objectForKey:@"scenariodtlinfo"];
         [MBProgressHUD hideHUDForView:self.view];
         [self.tableView.mj_header endRefreshing];
         if (tmpArr) {
-//            NITLog(@"%@",tmpArr);
+            //            NITLog(@"%@",tmpArr);
             
             if (self.isSelectModelScenario) {
                 
@@ -183,22 +179,25 @@
                 NSData * data = [NSKeyedArchiver archivedDataWithRootObject:tmpArr];
                 [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
                 self.allarray = [NSMutableArray arrayWithArray:tmpArr];
-//                                 [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"scenariodtlinfoarr"]]];
+                //                                 [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"scenariodtlinfoarr"]]];
             }
             
             [self.tableView reloadData];
         }
+
+    } failure:^(NSError *error) {
+        NITLog(@"%@",error);
+        [MBProgressHUD hideHUDForView:self.view];
         
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self.tableView.mj_header endRefreshing];
+        
         NSArray *arr = nil;
         [NITUserDefaults setObject:arr forKey:@"scenariodtlinfoarr"];
         
         [NITUserDefaults setObject:arr forKey:@"tempdeaddnodeiddatas"];
-        
-        [MBProgressHUD hideHUDForView:self.view];
-        
-        [self.tableView.mj_header endRefreshing];
     }];
+    
+    
 }
 
 - (NSArray *)ScenarioModelDatasUpdate:(NSArray *)array {
@@ -567,7 +566,6 @@
  */
 -(void)updateScenarioInfo:(NSArray *)array{
     
-    NSString *url = NITUpdateScenarioInfo;
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     
     parametersDict[@"staffid"] = [NITUserDefaults objectForKey:@"userid1"];
@@ -587,13 +585,10 @@
     
     parametersDict[@"scenariodtlinfo"] = str;
     //
-    [self.session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        [MBProgressHUD hideHUDForView:self.view];
-        NITLog(@"zwupdatescenarioinfo success %@",responseObject);
+    [MHttpTool postWithURL:NITUpdateScenarioInfo params:parametersDict success:^(id json) {
+        [MBProgressHUD hideHUDForView:self.view];
         //追加成功，显示信息
-        if ([[responseObject valueForKey:@"code"]isEqualToString:@"200"]) {
+        if ([[json valueForKey:@"code"]isEqualToString:@"200"]) {
             
             if (self.isRefresh) {
                 [MBProgressHUD showSuccess:@"更新いたしました"];
@@ -605,7 +600,7 @@
                 [self.navigationController popViewControllerAnimated:YES];
                 
                 // 如果刚刚添加的scenario检知到异常
-                if ([[responseObject objectForKey:@"result"] integerValue] == 0) {
+                if ([[json objectForKey:@"result"] integerValue] == 0) {
                     if ([self.delegate respondsToSelector:@selector(warningScenarioAddedShow:)]) {
                         NSString *message = [NSString stringWithFormat:@"<センサー> %@%@",self.user0name,_sinarioText.text];
                         [self.delegate warningScenarioAddedShow:message];
@@ -618,11 +613,15 @@
         } else {
             [MBProgressHUD showError:@"後ほど試してください"];
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        [MBProgressHUD hideHUDForView:self.view];
-        NITLog(@"zwupdatescenarioinfo failed");
+        
+    } failure:^(NSError *error) {
+        NITLog(@"%@",error);
+        [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showError:@"後ほど試してください"];
+        
     }];
+    
+    
     
 }
 

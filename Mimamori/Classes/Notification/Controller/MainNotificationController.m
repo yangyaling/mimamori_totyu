@@ -400,7 +400,7 @@
 -(void)dateList{
     
     MNoticeDateParam *param = [[MNoticeDateParam alloc]init];
-    param.userid1 = [NITUserDefaults objectForKey:@"userid1"];
+    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
     
     [MNoticeTool noticeDatesWithParam:param success:^(NSDictionary *dic) {
         [self.MyTableView.mj_header beginRefreshing];

@@ -118,6 +118,14 @@
 
 #define NITGetSPInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetspinfo.php"
 
+#define NITGetHomeCustInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetcustinfo.php"
+
+#define NITUpdateHomeCustInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdatecustinfo.php"
+
+#define NITGetRoomInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetroominfo.php"
+
+#define NITUpdateRoomInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdateroominfo.php"
+
 
 /**　機器情報　*/
 #define NITGetSSInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetssinfo.php"

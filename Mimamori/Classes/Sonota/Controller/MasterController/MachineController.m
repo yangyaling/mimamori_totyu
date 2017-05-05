@@ -145,21 +145,21 @@
 }
 
 - (IBAction)addCell:(id)sender {
-    NSString *laststr = [self.maxId substringFromIndex:self.maxId.length - 5];
-    NSString *fiststr = [self.maxId substringToIndex:self.maxId.length - 5];
+//    NSString *laststr = [self.maxId substringFromIndex:self.maxId.length - 5];
+//    NSString *fiststr = [self.maxId substringToIndex:self.maxId.length - 5];
+//    
+//    NSInteger numId = [laststr integerValue] + self.numxxid;
+//    
+//    NSString *staffidstr = [NSString stringWithFormat:@"%@%05i",fiststr,(int)numId];
     
-    NSInteger numId = [laststr integerValue] + self.numxxid;
-    
-    NSString *staffidstr = [NSString stringWithFormat:@"%@%05i",fiststr,(int)numId];
-    
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
-    
-
-    [arr addObject:@{@"sn":@"",@"sensorid":@"",@"custname":@""}];
-    [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
-    
-    self.numxxid++;
-    
+//    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+//    
+//
+//    [arr addObject:@{@"sn":@"",@"sensorid":@"",@"custname":@""}];
+//    [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
+//    
+//    self.numxxid++;
+//    
     
     [CATransaction setCompletionBlock:^{
         

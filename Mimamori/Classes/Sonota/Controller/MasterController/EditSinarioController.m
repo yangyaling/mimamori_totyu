@@ -128,7 +128,7 @@
                 
                 //门 - 人感
                 NSString *strT4 = [NSString stringWithFormat:@"%@H",dicFour[@"time"]];
-                NSString *strV4 = [NSString stringWithFormat:@"%@%@%@",dicFour[@"value"],@"-",dicFour[@"rpoint"]];
+                NSString *strV4 = [NSString stringWithFormat:@"%@",dicFour[@"rpoint"]];
                 [self.rgButton1 setTitle:strT4 forState:UIControlStateNormal];
                 [self.rgButton2 setTitle:strV4 forState:UIControlStateNormal];
             }
@@ -231,10 +231,10 @@
         //        [self.tableView setEditing:NO animated:YES];/
         
     }
-    
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
-    }];
+    [self.tableView reloadData];
+//    [CATransaction setCompletionBlock:^{
+//        
+//    }];
 }
 
 - (IBAction)saveInfo:(UIButton *)sender {

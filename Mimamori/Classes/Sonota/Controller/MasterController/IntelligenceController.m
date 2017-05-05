@@ -54,8 +54,9 @@
     NSDictionary *dic = @{@"facilitycd":facd};
     [MHttpTool postWithURL:NITGetFacilityInfo params:dic success:^(id json) {
         [MBProgressHUD hideHUDForView:WindowView];
-        if (json) {
-            NSDictionary *indoDic = [json objectForKey:@"facilityinfo"];
+        NSDictionary *indoDic = [json objectForKey:@"facilityinfo"];
+        if (indoDic.count > 0) {
+            
            
             self.kodoField.text = indoDic[@"companycd"];
             self.nameField.text = indoDic[@"companyname"];
@@ -99,7 +100,7 @@
         [self statusEdit:YES withColor:[UIColor whiteColor]];
         //进入编辑状态
     }else{
-        [sender setTitle:@"編集" forState:UIControlStateNormal];
+//        [sender setTitle:@"編集" forState:UIControlStateNormal];
         
         [self saveInfo]; //跟新或者追加
         
@@ -195,13 +196,11 @@
             
             [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
             [self statusEdit:NO withColor:NITColor(235, 235, 241)];
+            [self.tableView reloadData];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:WindowView];
         NITLog(@"%@",error);
-    }];
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
     }];
     
 }

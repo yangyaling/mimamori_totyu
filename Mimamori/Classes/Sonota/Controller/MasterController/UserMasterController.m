@@ -145,7 +145,7 @@
         //进入编辑状态
 //        [self.tableView setEditing:YES animated:YES];///////////
     }else{
-        self.isEdit = NO;
+        
         
 //        [sender setTitle:@"編集" forState:UIControlStateNormal];
         
@@ -218,14 +218,13 @@
 //            [self.tableView setEditing:NO animated:YES];
             self.footView.height = 0;
             self.footView.alpha = 0;
+            self.isEdit = NO;
+            [self.tableView reloadData];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
 //        [self.tableView setEditing:NO animated:YES];
         NITLog(@"%@",error);
-    }];
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
     }];
     
 }

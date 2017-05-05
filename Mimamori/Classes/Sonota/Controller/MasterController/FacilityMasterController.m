@@ -48,10 +48,10 @@
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     NSDictionary *dic = @{@"facilitycd":facd};
     [MHttpTool postWithURL:NITGetFacilityInfo params:dic success:^(id json) {
+        
         [MBProgressHUD hideHUDForView:WindowView];
-        if (json) {
-            NSDictionary *indoDic = [json objectForKey:@"facilityinfo"];
-            
+        NSDictionary *indoDic = [json objectForKey:@"facilityinfo"];
+        if (indoDic.count >0) {
             
             self.hosutoIdField.text = indoDic[@"facilitycd"];
             self.facilityField.text = indoDic[@"hostcd"];

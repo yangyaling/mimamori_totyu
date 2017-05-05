@@ -71,9 +71,8 @@
         
         [dic setObject:textField.text forKey:@"name"];
     }
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"NLINFO"]];
-    [arr replaceObjectAtIndex:self.cellindex withObject:dic];
-    [NITUserDefaults setObject:arr forKey:@"NLINFO"];
+    [array replaceObjectAtIndex:self.cellindex withObject:dic];
+    [NITUserDefaults setObject:array forKey:@"NLINFO"];
     
 }
 

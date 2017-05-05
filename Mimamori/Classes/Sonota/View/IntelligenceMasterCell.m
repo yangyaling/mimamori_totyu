@@ -89,9 +89,8 @@
         default:
             break;
     }
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"COMPANYINFO"]];
-    [arr replaceObjectAtIndex:self.cellindex withObject:dic];
-    [NITUserDefaults setObject:arr forKey:@"COMPANYINFO"];
+    [array replaceObjectAtIndex:self.cellindex withObject:dic];
+    [NITUserDefaults setObject:array forKey:@"COMPANYINFO"];
     
 }
 

@@ -14,11 +14,15 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *footView;
+@property (strong, nonatomic) IBOutlet UITextField *companyName;
 
+@property (strong, nonatomic) IBOutlet UITextField *facilityName;
 
 @property (nonatomic, assign) BOOL                   isEdit;
 @property (strong, nonatomic) IBOutlet UIButton     *editButton;
 @property (nonatomic, strong) NSMutableArray        *allDatas;
+@property (nonatomic, strong) NSString              *maxId;
+@property (nonatomic, assign) NSInteger             numxxid;
 @end
 
 @implementation HomeMasterController
@@ -28,9 +32,10 @@
     self.footView.height = 0;
     self.footView.alpha = 0;
     NSArray *arr = nil;
-    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
+    [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
     
-    //    self.tableView.tableFooterView = [[UIView alloc]init];
+    
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getnlInfo)];
     
@@ -59,6 +64,7 @@
     CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height, 0);
 }
+
 #pragma mark 键盘消失
 -(void)keyboardWillHide:(NSNotification *)note
 {
@@ -72,43 +78,59 @@
     
 }
 
+
 //数据请求
 - (void)getnlInfo {
     
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+    
     NSDictionary *dic = @{@"facilitycd":facd};
     
-    [MHttpTool postWithURL:NITGetStaffInfo params:dic success:^(id json) {
+    [MHttpTool postWithURL:NITGetHomeCustInfo params:dic success:^(id json) {
         
         [self.tableView.mj_header endRefreshing];
         
-        if (json) {
+        NSArray *baseinfos = [json objectForKey:@"baseinfo"];
+        
+        NSArray *btnF = [json objectForKey:@"floorlist"];
+        
+        NSArray *btnR = [json objectForKey:@"roomlist"];
+        
+        NSArray *custlist = [json objectForKey:@"custlist"];
+        
+        self.maxId = [NSString stringWithFormat:@"%@", [json objectForKey:@"maxcustid"]];
+        
+        
+        if (baseinfos.count > 0) {
             
-            NSArray *stafflist = [json objectForKey:@"stafflist"];
+            self.companyName.text = [baseinfos.firstObject objectForKey:@"companyname"];
             
-//            self.maxId = [json objectForKey:@"maxstaffid"];
-//
-            NSArray *baseinfos = [json objectForKey:@"baseinfo"];
-            
-//            self.companyName.text = [baseinfos.firstObject objectForKey:@"companyname"];
-//            
-//            self.facilityName.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
-            
-            NSArray *btnL = [json objectForKey:@"usertypelist"];
-            
-            [NITUserDefaults setObject:btnL forKey:@"usertypelist"];
-            
-            _allDatas = [NSMutableArray arrayWithArray:stafflist.mutableCopy];
-            
-            [NITUserDefaults setObject:stafflist forKey:@"STAFFINFO"];
-            
-            [self.tableView reloadData];
-            
-        } else {
-            
-            NITLog(@"没数据");
+            self.facilityName.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
             
         }
+        
+        
+        if (btnF.count >0) {
+            [NITUserDefaults setObject:btnF forKey:@"FLOORLISTKEY"];
+        }
+        
+        if (btnR.count >0) {
+            [NITUserDefaults setObject:btnR forKey:@"ROOMLISTKEY"];
+        }
+        
+        
+        if (custlist.count >0) {
+            
+            _allDatas = [NSMutableArray arrayWithArray:custlist.mutableCopy];
+            
+            [NITUserDefaults setObject:custlist forKey:@"HOMECUSTINFO"];
+            
+        }
+        
+            
+        [self.tableView reloadData];
+            
+       
         
     } failure:^(NSError *error) {
         
@@ -133,7 +155,7 @@
         //进入编辑状态
         //        [self.tableView setEditing:YES animated:YES];///////////
     }else{
-        self.isEdit = NO;
+        
         
         //        [sender setTitle:@"編集" forState:UIControlStateNormal];
         
@@ -161,43 +183,48 @@
 
 - (IBAction)addCell:(id)sender {
     
-//    NSString *laststr = [self.maxId substringFromIndex:self.maxId.length - 5];
-//    NSString *fiststr = [self.maxId substringToIndex:self.maxId.length - 5];
+    if (!self.maxId.length) return;
     
-//    NSInteger numId = [laststr integerValue] + self.numxxid;
-//
-//    NSString *staffidstr = [NSString stringWithFormat:@"%@%05i",fiststr,(int)numId];
+    NSString *laststr = [self.maxId substringFromIndex:self.maxId.length - 5];
+    NSString *fiststr = [self.maxId substringToIndex:self.maxId.length - 5];
     
-//    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
-//    [arr addObject:@{@"nickname":@"",@"staffid":staffidstr,@"usertype":@"",@"usertypename":@""}];
-//    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
+    NSInteger numId = [laststr integerValue] + self.numxxid;
+
+    NSString *cusstidstr = [NSString stringWithFormat:@"%@%05i",fiststr,(int)numId];
     
-//    self.numxxid++;
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
+    [arr addObject:@{@"custid":cusstidstr,@"custname":@"",@"floorno":@"",@"roomcd":@""}];
+    [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
+    
+    self.numxxid++;
     
     
     [CATransaction setCompletionBlock:^{
         
         [self.tableView reloadData];
-//        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
     }];
     
 }
 
 
 - (IBAction)saveInfo:(id)sender {
+   
+    
+    
+    NSArray *array = [NITUserDefaults objectForKey:@"HOMECUSTINFO"];
+    if (array.count  ==  0) return;
     [MBProgressHUD showMessage:@"" toView:self.view];
-    
-    
-    NSArray *array = [NITUserDefaults objectForKey:@"STAFFINFO"];
     
     NSError *parseError = nil;
     
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     
-    NSDictionary *dic = @{@"stafflist":str};
+    NSDictionary *dic = @{@"custlist":str};
     
-    [MHttpTool postWithURL:NITUpdateStaffInfo params:dic success:^(id json) {
+    
+    [MHttpTool postWithURL:NITUpdateHomeCustInfo params:dic success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         if (json) {
             NSString *code = [json objectForKey:@"code"];
@@ -206,14 +233,13 @@
             //            [self.tableView setEditing:NO animated:YES];
             self.footView.height = 0;
             self.footView.alpha = 0;
+            self.isEdit = NO;
+            [self.tableView reloadData];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
         //        [self.tableView setEditing:NO animated:YES];
         NITLog(@"%@",error);
-    }];
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
     }];
     
 }
@@ -227,14 +253,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    NSArray *arr = [NITUserDefaults objectForKey:@"STAFFINFO"];
+    NSArray *arr = [NITUserDefaults objectForKey:@"HOMECUSTINFO"];
     return arr.count;
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeMasterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeMasterCell" forIndexPath:indexPath];
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
     cell.editOp = self.isEdit;
     cell.cellindex = indexPath.row;
     NSDictionary *dic = arr[indexPath.row];

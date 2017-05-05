@@ -7,9 +7,12 @@
 //
 
 #import "RoomReportCell.h"
-#import "NITPicker.h"
-@interface RoomReportCell ()<MyPickerDelegate>
-@property (nonatomic, strong) NITPicker            *picker;
+//#import "NITPicker.h"
+@interface RoomReportCell ()
+//<MyPickerDelegate>
+//@property (nonatomic, strong) NITPicker            *picker;
+@property (strong, nonatomic) IBOutlet UITextField *floor;
+@property (strong, nonatomic) IBOutlet UITextField *roomcd;
 
 @end
 
@@ -33,15 +36,19 @@
         
         [self statusEdit:NO withColor:NITColor(235, 235, 241)];
     }
+    NSString *floorstr = [NSString stringWithFormat:@"%@",datasDic[@"floorno"]];
+    NSString *roomstr = [NSString stringWithFormat:@"%@",datasDic[@"roomcd"]];
     
-    //    self.text1.text = datasDic[@"staffid"];
-    //    [self.pickButton setTitle:datasDic[@"usertypename"] forState:UIControlStateNormal];
-    //    self.text2.text = datasDic[@"nickname"];
+    self.floor.text = floorstr;
+    
+    self.roomcd.text = roomstr;
     
 }
 
 - (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
+    
     NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
+    
     if (!master.length) return;
     
     if ([master isEqualToString:@"3"]) {
@@ -50,29 +57,26 @@
         
         
     } else {
-        //        [self.text1 setEnabled:noOp];
-        //        [self.text1 setBackgroundColor:color];
+        [self.floor setEnabled:noOp];
+        [self.floor setBackgroundColor:color];
         //
-        //        [self.pickButton setEnabled:noOp];
-        //        [self.pickButton setBackgroundColor:color];
+        [self.roomcd setEnabled:noOp];
+        [self.roomcd setBackgroundColor:color];
         //
-        //        [self.text2 setEnabled:noOp];
-        //        [self.text2 setBackgroundColor:color];
         
     }
 }
 
 
-- (IBAction)showPick:(UIButton *)sender {
-    
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];
-    
-    _picker.mydelegate = self;
-    
-    [WindowView addSubview:_picker];
-    
-}
-
+//- (IBAction)showPick:(UIButton *)sender {
+//    
+//    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];
+//    
+//    _picker.mydelegate = self;
+//    
+//    [WindowView addSubview:_picker];
+//    
+//}
 
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -87,16 +91,15 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     [textField setBackgroundColor:[UIColor whiteColor]];
-    NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"]];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:array[self.cellindex]];
     if (textField.tag == 1) {
-        [dic setObject:textField.text forKey:@"staffid"];
+        [dic setObject:textField.text forKey:@"floorno"];
     } else {
-        [dic setObject:textField.text forKey:@"nickname"];
+        [dic setObject:textField.text forKey:@"roomcd"];
     }
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
-    [arr replaceObjectAtIndex:self.cellindex withObject:dic];
-    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
+    [array replaceObjectAtIndex:self.cellindex withObject:dic];
+    [NITUserDefaults setObject:array forKey:@"ROOMMASTERINFOKEY"];
     
 }
 

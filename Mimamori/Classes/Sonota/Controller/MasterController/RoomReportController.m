@@ -38,7 +38,7 @@
     //    [self.footView setHidden:NO];
     
     NSArray *arr = nil;
-    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
+    [NITUserDefaults setObject:arr forKey:@"ROOMMASTERINFOKEY"];
     
     //    self.tableView.tableFooterView = [[UIView alloc]init];
     
@@ -66,7 +66,9 @@
 -(void)keyboardWillShow:(NSNotification *)note
 {
     CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height, 0);
+    
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, keyBoardRect.size.height -49, 0)];
+    
 }
 #pragma mark 键盘消失
 -(void)keyboardWillHide:(NSNotification *)note
@@ -87,38 +89,35 @@
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     NSDictionary *dic = @{@"facilitycd":facd};
     
-    [MHttpTool postWithURL:NITGetStaffInfo params:dic success:^(id json) {
+    [MHttpTool postWithURL:NITGetRoomInfo params:dic success:^(id json) {
         
         [self.tableView.mj_header endRefreshing];
         
-        if (json) {
+        NSArray *baseinfos = [json objectForKey:@"baseinfo"];
+        
+        NSArray *roomlist = [json objectForKey:@"roomlist"];
+    
+        
+        if (baseinfos.count > 0) {
             
-            NSArray *stafflist = [json objectForKey:@"stafflist"];
+            self.hostID.text = [baseinfos.firstObject objectForKey:@"hostcd"];
             
-//            self.maxId = [json objectForKey:@"maxstaffid"];
-            
-            NSArray *baseinfos = [json objectForKey:@"baseinfo"];
-            
-//            self.companyName.text = [baseinfos.firstObject objectForKey:@"companyname"];
-            
-//            self.facilityName.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
-            
-            NSArray *btnL = [json objectForKey:@"usertypelist"];
-            
-            [NITUserDefaults setObject:btnL forKey:@"usertypelist"];
-            
-            _allDatas = [NSMutableArray arrayWithArray:stafflist.mutableCopy];
-            
-            [NITUserDefaults setObject:stafflist forKey:@"STAFFINFO"];
-            
-            [self.tableView reloadData];
-            
-        } else {
-            
-            NITLog(@"没数据");
+            self.facilityName1.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
             
         }
         
+        
+        
+        if (roomlist.count >0) {
+            
+            _allDatas = [NSMutableArray arrayWithArray:roomlist.mutableCopy];
+            
+            [NITUserDefaults setObject:roomlist forKey:@"ROOMMASTERINFOKEY"];
+            
+        }
+        
+        
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         
         [self.tableView.mj_header endRefreshing];
@@ -142,7 +141,7 @@
         //进入编辑状态
         //        [self.tableView setEditing:YES animated:YES];///////////
     }else{
-        self.isEdit = NO;
+        
         
         //        [sender setTitle:@"編集" forState:UIControlStateNormal];
         
@@ -170,24 +169,18 @@
 
 - (IBAction)addCell:(id)sender {
     
-//    NSString *laststr = [self.maxId substringFromIndex:self.maxId.length - 5];
-//    NSString *fiststr = [self.maxId substringToIndex:self.maxId.length - 5];
 //    
-//    NSInteger numId = [laststr integerValue] + self.numxxid;
-//    
-//    NSString *staffidstr = [NSString stringWithFormat:@"%@%05i",fiststr,(int)numId];
-//    
-//    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
-//    [arr addObject:@{@"nickname":@"",@"staffid":staffidstr,@"usertype":@"",@"usertypename":@""}];
-//    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
-//    
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"]];
+    [arr addObject:@{@"floorno":@"",@"roomcd":@""}];
+    [NITUserDefaults setObject:arr forKey:@"ROOMMASTERINFOKEY"];
+//
 //    self.numxxid++;
     
     
     [CATransaction setCompletionBlock:^{
         
         [self.tableView reloadData];
-//        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
     }];
     
 }
@@ -197,16 +190,18 @@
     [MBProgressHUD showMessage:@"" toView:self.view];
     
     
-    NSArray *array = [NITUserDefaults objectForKey:@"STAFFINFO"];
+    NSArray *array = [NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"];
     
     NSError *parseError = nil;
     
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     
-    NSDictionary *dic = @{@"stafflist":str};
+    NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     
-    [MHttpTool postWithURL:NITUpdateStaffInfo params:dic success:^(id json) {
+    NSDictionary *dic = @{@"roomlist":str,@"facilitycd":facd};
+    
+    [MHttpTool postWithURL:NITUpdateRoomInfo params:dic success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         if (json) {
             NSString *code = [json objectForKey:@"code"];
@@ -215,14 +210,13 @@
             //            [self.tableView setEditing:NO animated:YES];
             self.footView.height = 0;
             self.footView.alpha = 0;
+            self.isEdit = NO;
+            [self.tableView reloadData];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
         //        [self.tableView setEditing:NO animated:YES];
         NITLog(@"%@",error);
-    }];
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
     }];
     
 }
@@ -234,14 +228,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    NSArray *arr = [NITUserDefaults objectForKey:@"STAFFINFO"];
+    NSArray *arr = [NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"];
     return arr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    
+//    RoomReportCell
     RoomReportCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoomReportCell" forIndexPath:indexPath];
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"]];
+    
     cell.editOp = self.isEdit;
     cell.cellindex = indexPath.row;
     NSDictionary *dic = arr[indexPath.row];

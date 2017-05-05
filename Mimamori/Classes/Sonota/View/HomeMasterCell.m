@@ -10,7 +10,14 @@
 #import "NITPicker.h"
 
 @interface HomeMasterCell ()<MyPickerDelegate>
+
 @property (nonatomic, strong) NITPicker            *picker;
+@property (strong, nonatomic) IBOutlet UITextField *custID;
+@property (strong, nonatomic) IBOutlet UITextField *custName;
+@property (strong, nonatomic) IBOutlet UIButton *floorbtn;
+
+@property (strong, nonatomic) IBOutlet UIButton *roombtn;
+
 
 @end
 
@@ -35,10 +42,13 @@
         
         [self statusEdit:NO withColor:NITColor(235, 235, 241)];
     }
-    
-//    self.text1.text = datasDic[@"staffid"];
-//    [self.pickButton setTitle:datasDic[@"usertypename"] forState:UIControlStateNormal];
-//    self.text2.text = datasDic[@"nickname"];
+//
+    self.custID.text = datasDic[@"custid"];
+    self.custName.text = datasDic[@"custname"];
+    NSString *floorstr = [NSString stringWithFormat:@"%@",datasDic[@"floorno"]];
+    NSString *roomstr = [NSString stringWithFormat:@"%@",datasDic[@"roomcd"]];
+    [self.floorbtn setTitle:floorstr forState:UIControlStateNormal];
+    [self.roombtn setTitle:roomstr forState:UIControlStateNormal];
     
 }
 
@@ -52,14 +62,17 @@
         
         
     } else {
-//        [self.text1 setEnabled:noOp];
-//        [self.text1 setBackgroundColor:color];
-//        
-//        [self.pickButton setEnabled:noOp];
-//        [self.pickButton setBackgroundColor:color];
-//        
-//        [self.text2 setEnabled:noOp];
-//        [self.text2 setBackgroundColor:color];
+        [self.custID setEnabled:noOp];
+        [self.custID setBackgroundColor:color];
+        
+        [self.custName setEnabled:noOp];
+        [self.custName setBackgroundColor:color];
+        
+        [self.roombtn setEnabled:noOp];
+        [self.roombtn setBackgroundColor:color];
+        
+        [self.floorbtn setEnabled:noOp];
+        [self.floorbtn setBackgroundColor:color];
         
     }
 }
@@ -89,16 +102,15 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     [textField setBackgroundColor:[UIColor whiteColor]];
-    NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:array[self.cellindex]];
     if (textField.tag == 1) {
-        [dic setObject:textField.text forKey:@"staffid"];
+        [dic setObject:textField.text forKey:@"custid"];
     } else {
-        [dic setObject:textField.text forKey:@"nickname"];
+        [dic setObject:textField.text forKey:@"custname"];
     }
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
-    [arr replaceObjectAtIndex:self.cellindex withObject:dic];
-    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
+    [array replaceObjectAtIndex:self.cellindex withObject:dic];
+    [NITUserDefaults setObject:array forKey:@"HOMECUSTINFO"];
     
 }
 

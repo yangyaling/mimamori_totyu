@@ -45,6 +45,10 @@
 @property (nonatomic, strong) NSMutableArray           *onedayMinute;
 @property (nonatomic, strong) NSMutableArray           *userList;
 
+@property (nonatomic, strong) NSMutableArray           *custList;
+@property (nonatomic, strong) NSMutableArray           *roomList;
+
+
 @property (nonatomic, strong) NSMutableArray           *time;
 @property (nonatomic, strong) NSMutableArray           *value;
 @property (nonatomic, strong) NSMutableArray           *type;
@@ -99,6 +103,12 @@
                 break;
             case 114:
                 scenariotype =11;
+                break;
+            case 115:
+                scenariotype =12;
+                break;
+            case 116:
+                scenariotype =13;
                 break;
                 
             default:
@@ -195,6 +205,14 @@
         case 11:
             select = [self.userList[0] objectForKey:@"name"];
             break;
+        case 12:
+            
+            select = [NSString stringWithFormat:@"%@", [self.custList[0] objectForKey:@"floorno"]];
+            
+            break;
+        case 13:
+            select = [self.roomList[0] objectForKey:@"roomcd"];
+            break;
             
         default:
             break;
@@ -243,7 +261,7 @@
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     
-    if (scenariotype != 9) {
+    if (scenariotype == 1  || scenariotype == 2 || scenariotype == 3 || scenariotype == 4 || scenariotype == 8 ) {
         NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
     
     
@@ -326,6 +344,27 @@
         
         [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
         
+    } else if (scenariotype == 12){
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
+        
+        NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
+        
+        [nodesdic setValue:select forKey:@"floorno"];
+        
+        
+        [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
+        
+        [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
+    } else if (scenariotype == 13) {
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
+        
+        NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
+        
+        [nodesdic setValue:select forKey:@"roomcd"];
+        
+        [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
+        
+        [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
     } else {
         
     }
@@ -387,7 +426,6 @@
         return 1;
     }
     
-    
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
@@ -423,7 +461,17 @@
             return 0;
         }
     }else if (scenariotype == 11) {
+        
         return self.userList.count;
+        
+    } else if (scenariotype == 12) {
+        
+        return self.custList.count;
+        
+    } else if (scenariotype == 13) {
+        
+        return self.roomList.count;
+        
     } else {
         return self.names.count;
     }
@@ -496,7 +544,12 @@
             text.text = [self.names[row] objectForKey:@"name"];
         } else if(scenariotype == 11){
             text.text = [self.userList[row] objectForKey:@"name"];
-        } else {
+        } else if(scenariotype == 12){
+            NSString *str  = [NSString stringWithFormat:@"%@", [self.custList[row] objectForKey:@"floorno"]];
+            text.text = str;
+        } else if(scenariotype == 13) {
+            text.text = [self.roomList[row] objectForKey:@"roomcd"];
+        }else {
             text.text = self.names[row];
         }
         [view addSubview:text];
@@ -554,7 +607,18 @@
         selectdic = self.userList[row];
         select = [self.userList[row] objectForKey:@"name"];
         
-    } else {
+    } else if(scenariotype == 12){
+        
+        selectdic = self.custList[row];
+
+        NSString *str  = [NSString stringWithFormat:@"%@", [self.custList[row] objectForKey:@"floorno"]];
+        
+        select = str;
+        
+    } else if(scenariotype == 13){
+        selectdic = self.roomList[row];
+        select = [self.roomList[row] objectForKey:@"roomcd"];
+    }else{
         select = self.names[row];
     }
 }
@@ -756,6 +820,23 @@
     return _userList;
 }
 
+-(NSMutableArray *)custList {
+    if (!_custList) {
+        NSArray *arr = [NITUserDefaults objectForKey:@"FLOORLISTKEY"];
+        _custList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
+    }
+    return _custList;
+}
+
+-(NSMutableArray *)roomList {
+    if (!_roomList) {
+        NSArray *arr = [NITUserDefaults objectForKey:@"ROOMLISTKEY"];
+        _roomList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
+    }
+    return _roomList;
+}
+
+//HOMECUSTINFO
 //朝-昼-夜
 
 -(UIButton *)thisbutton{

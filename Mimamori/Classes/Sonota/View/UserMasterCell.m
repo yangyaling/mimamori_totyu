@@ -97,9 +97,9 @@
     } else {
         [dic setObject:textField.text forKey:@"nickname"];
     }
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
-    [arr replaceObjectAtIndex:self.cellindex withObject:dic];
-    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
+    
+    [array replaceObjectAtIndex:self.cellindex withObject:dic];
+    [NITUserDefaults setObject:array forKey:@"STAFFINFO"];
     
 }
 
