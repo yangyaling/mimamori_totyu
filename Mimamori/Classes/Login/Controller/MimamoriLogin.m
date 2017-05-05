@@ -30,9 +30,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    _hostId.text = @"host01";
-    _userId.text = @"0001";
-    _passWord.text = @"P@ssw0rd";
+//    _hostId.text = @"host01";
+//    _userId.text = @"0001";
+//    _passWord.text = @"P@ssw0rd";
     //_passWord.text = @"";
 }
 
