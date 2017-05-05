@@ -958,10 +958,10 @@
                         </userDefinedRuntimeAttributes>
                     </navigationItem>
                     <connections>
-                        <outlet property="companyNameTF" destination="GqS-8l-XYx" id="WnQ-0h-qwO"/>
+                        <outlet property="companyNameTF" destination="GqS-8l-XYx" id="PlX-wY-L0f"/>
                         <outlet property="editButton" destination="hTx-iN-Eic" id="7Ba-2e-Pnb"/>
                         <outlet property="facilityBtn" destination="uaN-SP-dkd" id="mPV-st-o6e"/>
-                        <outlet property="facilityNameTF" destination="4IU-rk-XID" id="XyZ-qh-fme"/>
+                        <outlet property="facilityNameTF" destination="4IU-rk-XID" id="Uwp-Gf-H8R"/>
                         <outlet property="footView" destination="3Kb-Cg-SJ2" id="kA6-Cg-kZ4"/>
                         <outlet property="tableView" destination="ICe-Zy-5Kb" id="Juq-LA-cva"/>
                     </connections>

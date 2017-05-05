@@ -162,8 +162,6 @@
 		EB74551A1EB830C600DA4874 /* SinarioMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455191EB830C600DA4874 /* SinarioMasterCell.m */; };
 		EB74551D1EB8399A00DA4874 /* EditSinarioController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB74551C1EB8399A00DA4874 /* EditSinarioController.m */; };
 		EB7455201EB86A3600DA4874 /* CALayer+LayerColor.m in Sources */ = {isa = PBXBuildFile; fileRef = EB74551F1EB86A3600DA4874 /* CALayer+LayerColor.m */; };
-		EB7455231EB872BC00DA4874 /* MachineController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455221EB872BC00DA4874 /* MachineController.m */; };
-		EB7455261EB872D900DA4874 /* MachineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455251EB872D900DA4874 /* MachineCell.m */; };
 		EB7455291EB8791C00DA4874 /* UserMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB7455281EB8791C00DA4874 /* UserMasterController.m */; };
 		EB74552C1EB879B600DA4874 /* UserMasterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB74552B1EB879B600DA4874 /* UserMasterCell.m */; };
 		EB74552F1EB8808600DA4874 /* HomeMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB74552E1EB8808600DA4874 /* HomeMasterController.m */; };
@@ -190,6 +188,8 @@
 		EBBA97D11EBB4428004AA177 /* FacilityMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA97D01EBB4428004AA177 /* FacilityMasterController.m */; };
 		EBBA97D41EBB497F004AA177 /* RoomReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA97D31EBB497F004AA177 /* RoomReportController.m */; };
 		EBBA97D71EBB4A85004AA177 /* RoomReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA97D61EBB4A85004AA177 /* RoomReportCell.m */; };
+		EBC3538D1EBC4B9100697DAD /* MachineController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC3538C1EBC4B9100697DAD /* MachineController.m */; };
+		EBC353901EBC4C3E00697DAD /* MachineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC3538F1EBC4C3E00697DAD /* MachineCell.m */; };
 		EBD3746A1EB09DD900B10CCB /* DropButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD374691EB09DD900B10CCB /* DropButton.m */; };
 		EBDFE8821E287439007D3320 /* AriScenarioController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBDFE8811E287439007D3320 /* AriScenarioController.m */; };
 		EBE175131EAF172300A6E23A /* NITDropDowm.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE175121EAF172300A6E23A /* NITDropDowm.m */; };
@@ -531,10 +531,6 @@
 		EB74551C1EB8399A00DA4874 /* EditSinarioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditSinarioController.m; sourceTree = "<group>"; };
 		EB74551E1EB86A3600DA4874 /* CALayer+LayerColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+LayerColor.h"; sourceTree = "<group>"; };
 		EB74551F1EB86A3600DA4874 /* CALayer+LayerColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+LayerColor.m"; sourceTree = "<group>"; };
-		EB7455211EB872BC00DA4874 /* MachineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineController.h; sourceTree = "<group>"; };
-		EB7455221EB872BC00DA4874 /* MachineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineController.m; sourceTree = "<group>"; };
-		EB7455241EB872D900DA4874 /* MachineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineCell.h; sourceTree = "<group>"; };
-		EB7455251EB872D900DA4874 /* MachineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineCell.m; sourceTree = "<group>"; };
 		EB7455271EB8791C00DA4874 /* UserMasterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserMasterController.h; sourceTree = "<group>"; };
 		EB7455281EB8791C00DA4874 /* UserMasterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserMasterController.m; sourceTree = "<group>"; };
 		EB74552A1EB879B600DA4874 /* UserMasterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserMasterCell.h; sourceTree = "<group>"; };
@@ -582,6 +578,10 @@
 		EBBA97D31EBB497F004AA177 /* RoomReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomReportController.m; sourceTree = "<group>"; };
 		EBBA97D51EBB4A85004AA177 /* RoomReportCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomReportCell.h; sourceTree = "<group>"; };
 		EBBA97D61EBB4A85004AA177 /* RoomReportCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomReportCell.m; sourceTree = "<group>"; };
+		EBC3538B1EBC4B7D00697DAD /* MachineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineController.h; sourceTree = "<group>"; };
+		EBC3538C1EBC4B9100697DAD /* MachineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineController.m; sourceTree = "<group>"; };
+		EBC3538E1EBC4C3700697DAD /* MachineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineCell.h; sourceTree = "<group>"; };
+		EBC3538F1EBC4C3E00697DAD /* MachineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineCell.m; sourceTree = "<group>"; };
 		EBD374681EB09DD900B10CCB /* DropButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropButton.h; sourceTree = "<group>"; };
 		EBD374691EB09DD900B10CCB /* DropButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropButton.m; sourceTree = "<group>"; };
 		EBDFE8801E287439007D3320 /* AriScenarioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AriScenarioController.h; sourceTree = "<group>"; };
@@ -970,12 +970,12 @@
 				92951A251D7D0B0100787997 /* Sonota.storyboard */,
 				EBBA26E51EB318E300E69F23 /* PlaceSettingCell.h */,
 				EBBA26E61EB318E300E69F23 /* PlaceSettingCell.m */,
+				EBC3538E1EBC4C3700697DAD /* MachineCell.h */,
+				EBC3538F1EBC4C3E00697DAD /* MachineCell.m */,
 				EB7455121EB826E600DA4874 /* IntelligenceMasterCell.h */,
 				EB7455131EB826E600DA4874 /* IntelligenceMasterCell.m */,
 				EB7455181EB830C600DA4874 /* SinarioMasterCell.h */,
 				EB7455191EB830C600DA4874 /* SinarioMasterCell.m */,
-				EB7455241EB872D900DA4874 /* MachineCell.h */,
-				EB7455251EB872D900DA4874 /* MachineCell.m */,
 				EB74552A1EB879B600DA4874 /* UserMasterCell.h */,
 				EB74552B1EB879B600DA4874 /* UserMasterCell.m */,
 				EB7455301EB880A900DA4874 /* HomeMasterCell.h */,
@@ -1462,10 +1462,10 @@
 				EBBA97D01EBB4428004AA177 /* FacilityMasterController.m */,
 				EB7455151EB82CCE00DA4874 /* SinarioMasterController.h */,
 				EB7455161EB82CCE00DA4874 /* SinarioMasterController.m */,
+				EBC3538B1EBC4B7D00697DAD /* MachineController.h */,
+				EBC3538C1EBC4B9100697DAD /* MachineController.m */,
 				EB74551B1EB8399A00DA4874 /* EditSinarioController.h */,
 				EB74551C1EB8399A00DA4874 /* EditSinarioController.m */,
-				EB7455211EB872BC00DA4874 /* MachineController.h */,
-				EB7455221EB872BC00DA4874 /* MachineController.m */,
 				EB7455271EB8791C00DA4874 /* UserMasterController.h */,
 				EB7455281EB8791C00DA4874 /* UserMasterController.m */,
 				EB74552D1EB8808600DA4874 /* HomeMasterController.h */,
@@ -1718,7 +1718,6 @@
 				92F363081DC9B1C80030DCE0 /* UIScrollView+MJExtension.m in Sources */,
 				92F3631F1DC9B3570030DCE0 /* NITTextView.m in Sources */,
 				EB9C92D81E01063600F3132C /* SensorSetTableViewCell.m in Sources */,
-				EB7455231EB872BC00DA4874 /* MachineController.m in Sources */,
 				EBE719241E2A13E60008ABE2 /* View+MASAdditions.m in Sources */,
 				EB4A56101E00DB3E00A2F1C2 /* OtherCollectionCell.m in Sources */,
 				92F363021DC9B1C80030DCE0 /* MJChiBaoZiHeader.m in Sources */,
@@ -1764,6 +1763,7 @@
 				92F362F21DC9B1C80030DCE0 /* NSObject+MJClass.m in Sources */,
 				92F363071DC9B1C80030DCE0 /* MJRefreshConst.m in Sources */,
 				929519921D7D078B00787997 /* ABFillButton.m in Sources */,
+				EBC353901EBC4C3E00697DAD /* MachineCell.m in Sources */,
 				EB9C92EB1E015BBC00F3132C /* SinarioTableViewCell.m in Sources */,
 				EB5D365F1E139A1800CEBF4E /* UUColor.m in Sources */,
 				92F362EF1DC9B1C80030DCE0 /* MJProperty.m in Sources */,
@@ -1806,7 +1806,6 @@
 				928C62321DC890CC009B5974 /* MScenarioDeleteParam.m in Sources */,
 				92AF7BCD1D98C82100FC30E9 /* DetailScrollController.m in Sources */,
 				EB9C93281E02730F00F3132C /* MBProgressHUD+MJ.m in Sources */,
-				EB7455261EB872D900DA4874 /* MachineCell.m in Sources */,
 				92F363041DC9B1C80030DCE0 /* MJRefreshNormalHeader.m in Sources */,
 				EB692A161E24BAAE007682EE /* ScenarioCellFrame.m in Sources */,
 				EBE719211E2A13E60008ABE2 /* MASViewConstraint.m in Sources */,
@@ -1822,6 +1821,7 @@
 				92F3631E1DC9B3570030DCE0 /* NITRefreshInit.m in Sources */,
 				92F362F51DC9B1C80030DCE0 /* NSObject+MJProperty.m in Sources */,
 				92AF7BC21D98AA8E00FC30E9 /* DetailChartViewController.m in Sources */,
+				EBC3538D1EBC4B9100697DAD /* MachineController.m in Sources */,
 				929519EF1D7D0A6000787997 /* LifeViewController.m in Sources */,
 				EB9C92E01E01367400F3132C /* AddTableViewCell.m in Sources */,
 				EBE7191D1E2A13E60008ABE2 /* MASConstraint.m in Sources */,
