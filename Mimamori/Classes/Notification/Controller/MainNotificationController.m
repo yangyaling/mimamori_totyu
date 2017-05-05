@@ -266,7 +266,7 @@
             
             self.onstauts = YES;
             
-//            [MBProgressHUD showMessage:@"" toView:self.view];
+            [MBProgressHUD showMessage:@"" toView:self.view];
             
             [weakSelf noticeInfoWithDate:selectedDate andHistoryflg:@"1" withNoticetype:@"0"];
             
@@ -343,7 +343,7 @@
     
     [MNoticeTool noticeInfoWithParam:param success:^(NSArray *array) {
         
-//        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD hideHUDForView:self.view];
         [self.MyTableView.mj_header endRefreshing];
         self.noticesArray = [NotificationModel mj_objectArrayWithKeyValuesArray:array];
         
@@ -375,7 +375,7 @@
         
     } failure:^(NSError *error) {
         
-//        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD hideHUDForView:self.view];
         [self.MyTableView.mj_header endRefreshing];
         
         if (self.typenum == 0) {

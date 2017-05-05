@@ -36,6 +36,8 @@
     [super viewDidLoad];
     
     [self getinfo];
+    
+    self.tableView.tableFooterView = [[UIView alloc]init];
 }
 
 
@@ -53,8 +55,9 @@
         NSDictionary *indoDic = [json objectForKey:@"facilityinfo"];
         if (indoDic.count >0) {
             
-            self.hosutoIdField.text = indoDic[@"facilitycd"];
-            self.facilityField.text = indoDic[@"hostcd"];
+            self.hosutoIdField.text =indoDic[@"hostcd"];
+            
+            self.facilityField.text =indoDic[@"facilitycd"];
             
             self.facilityNameField.text = indoDic[@"facilityname1"];
             
@@ -155,8 +158,8 @@
     NSMutableDictionary *dic = [NSMutableDictionary new];
     NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
     
-    dic[@"facilitycd"] = self.hosutoIdField.text;
-    dic[@"hostcd"]= self.facilityField.text;
+    dic[@"hostcd"]= self.hosutoIdField.text;
+    dic[@"facilitycd"]  = self.facilityField.text;
     dic[@"facilityname1"]= self.facilityNameField.text;
     dic[@"facilityname1kana"] = self.fckanaField.text;
     dic[@"facilityname2"]= self.facilityName2Field.text;

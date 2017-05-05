@@ -61,8 +61,9 @@
             self.kodoField.text = indoDic[@"companycd"];
             self.nameField.text = indoDic[@"companyname"];
             
-            self.hosutoIdField.text = indoDic[@"facilitycd"];
-            self.facilityField.text = indoDic[@"hostcd"];
+            self.hosutoIdField.text = indoDic[@"hostcd"];
+            
+            self.facilityField.text = indoDic[@"facilitycd"];
             
             self.facilityNameField.text = indoDic[@"facilityname1"];
             
@@ -170,8 +171,9 @@
     dic[@"companycd"]= self.kodoField.text;
     dic[@"companyname"] = self.nameField.text;
     
-    dic[@"facilitycd"] = self.hosutoIdField.text;
-    dic[@"hostcd"]= self.facilityField.text;
+    dic[@"hostcd"] = self.hosutoIdField.text;
+    
+    dic[@"facilitycd"] = self.facilityField.text;
     dic[@"facilityname1"]= self.facilityNameField.text;
     dic[@"facilityname1kana"] = self.fckanaField.text;
     dic[@"facilityname2"]= self.facilityName2Field.text;
