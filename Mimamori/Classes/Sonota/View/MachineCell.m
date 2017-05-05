@@ -81,7 +81,7 @@
 {
 
     [textField setBackgroundColor:[UIColor whiteColor]];
-    
+    NSLog(@"%@",textField.text);
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arr[self.cellindex]];
     switch (textField.tag) {

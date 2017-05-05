@@ -172,27 +172,29 @@
 }
 
 - (IBAction)addCell:(id)sender {
-    
-    NSString *laststr = [self.maxId substringFromIndex:self.maxId.length - 5];
-    NSString *fiststr = [self.maxId substringToIndex:self.maxId.length - 5];
-    
-    NSInteger numId = [laststr integerValue] + self.numxxid;
-    
-    NSString *staffidstr = [NSString stringWithFormat:@"%@%05i",fiststr,(int)numId];
-    
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
-    [arr addObject:@{@"nickname":@"",@"staffid":staffidstr,@"usertype":@"",@"usertypename":@""}];
-    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
-    
-    self.numxxid++;
-    
-    
-    [CATransaction setCompletionBlock:^{
+    if ((id)self.maxId != [NSNull null]) {
+        NSString *laststr = [self.maxId substringFromIndex:self.maxId.length - 5];
+        NSString *fiststr = [self.maxId substringToIndex:self.maxId.length - 5];
         
-        [self.tableView reloadData];
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
-    }];
-    
+        NSInteger numId = [laststr integerValue] + self.numxxid;
+        
+        NSString *staffidstr = [NSString stringWithFormat:@"%@%05i",fiststr,(int)numId];
+        
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
+        [arr addObject:@{@"nickname":@"",@"staffid":staffidstr,@"usertype":@"",@"usertypename":@""}];
+        [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
+        
+        self.numxxid++;
+        
+        
+        [CATransaction setCompletionBlock:^{
+            
+            [self.tableView reloadData];
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
+        }];
+    }else{
+        [self getnlInfo];
+    }
 }
 
 
