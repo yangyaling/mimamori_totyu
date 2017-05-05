@@ -190,6 +190,7 @@
 		EBBA97D71EBB4A85004AA177 /* RoomReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA97D61EBB4A85004AA177 /* RoomReportCell.m */; };
 		EBC3538D1EBC4B9100697DAD /* MachineController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC3538C1EBC4B9100697DAD /* MachineController.m */; };
 		EBC353901EBC4C3E00697DAD /* MachineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC3538F1EBC4C3E00697DAD /* MachineCell.m */; };
+		EBC353931EBC681D00697DAD /* NITPickerTemp.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC353921EBC681D00697DAD /* NITPickerTemp.m */; };
 		EBD3746A1EB09DD900B10CCB /* DropButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD374691EB09DD900B10CCB /* DropButton.m */; };
 		EBDFE8821E287439007D3320 /* AriScenarioController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBDFE8811E287439007D3320 /* AriScenarioController.m */; };
 		EBE175131EAF172300A6E23A /* NITDropDowm.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE175121EAF172300A6E23A /* NITDropDowm.m */; };
@@ -582,6 +583,8 @@
 		EBC3538C1EBC4B9100697DAD /* MachineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineController.m; sourceTree = "<group>"; };
 		EBC3538E1EBC4C3700697DAD /* MachineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MachineCell.h; sourceTree = "<group>"; };
 		EBC3538F1EBC4C3E00697DAD /* MachineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineCell.m; sourceTree = "<group>"; };
+		EBC353911EBC681D00697DAD /* NITPickerTemp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITPickerTemp.h; sourceTree = "<group>"; };
+		EBC353921EBC681D00697DAD /* NITPickerTemp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITPickerTemp.m; sourceTree = "<group>"; };
 		EBD374681EB09DD900B10CCB /* DropButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropButton.h; sourceTree = "<group>"; };
 		EBD374691EB09DD900B10CCB /* DropButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropButton.m; sourceTree = "<group>"; };
 		EBDFE8801E287439007D3320 /* AriScenarioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AriScenarioController.h; sourceTree = "<group>"; };
@@ -1057,6 +1060,8 @@
 				92F363121DC9B2780030DCE0 /* NITPicker.m */,
 				92C3F1081DC7345200E61A8B /* MHttpTool.h */,
 				92C3F1091DC7345200E61A8B /* MHttpTool.m */,
+				EBC353911EBC681D00697DAD /* NITPickerTemp.h */,
+				EBC353921EBC681D00697DAD /* NITPickerTemp.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1460,10 +1465,10 @@
 				EB7455101EB81DB200DA4874 /* IntelligenceMasterController.m */,
 				EBBA97CF1EBB4428004AA177 /* FacilityMasterController.h */,
 				EBBA97D01EBB4428004AA177 /* FacilityMasterController.m */,
-				EB7455151EB82CCE00DA4874 /* SinarioMasterController.h */,
-				EB7455161EB82CCE00DA4874 /* SinarioMasterController.m */,
 				EBC3538B1EBC4B7D00697DAD /* MachineController.h */,
 				EBC3538C1EBC4B9100697DAD /* MachineController.m */,
+				EB7455151EB82CCE00DA4874 /* SinarioMasterController.h */,
+				EB7455161EB82CCE00DA4874 /* SinarioMasterController.m */,
 				EB74551B1EB8399A00DA4874 /* EditSinarioController.h */,
 				EB74551C1EB8399A00DA4874 /* EditSinarioController.m */,
 				EB7455271EB8791C00DA4874 /* UserMasterController.h */,
@@ -1824,6 +1829,7 @@
 				EBC3538D1EBC4B9100697DAD /* MachineController.m in Sources */,
 				929519EF1D7D0A6000787997 /* LifeViewController.m in Sources */,
 				EB9C92E01E01367400F3132C /* AddTableViewCell.m in Sources */,
+				EBC353931EBC681D00697DAD /* NITPickerTemp.m in Sources */,
 				EBE7191D1E2A13E60008ABE2 /* MASConstraint.m in Sources */,
 				92F362F41DC9B1C80030DCE0 /* NSObject+MJKeyValue.m in Sources */,
 				92C3F10E1DC736D700E61A8B /* MLoginTool.m in Sources */,

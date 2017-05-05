@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray        *allDatas;
 
 @property (nonatomic, strong) NSString              *maxid;
+@property (strong, nonatomic) IBOutlet UIButton *addButton;
 
 @end
 
@@ -40,6 +41,7 @@
     [super viewWillAppear:NO];
     
     _facilityBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
+    [self getnlInfo];
 }
 
 
@@ -52,14 +54,21 @@
         
         [self.tableView.mj_header endRefreshing];
         
-        if (json) {
-            NSArray *tmpArr = [json objectForKey:@"splist"];
+        self.maxid = [json objectForKey:@"maxprotoid"];
+        if (self.maxid.length > 0) {
             
-            self.maxid = [json objectForKey:@"maxprotoid"];
+            [self.addButton setEnabled:YES];
             
+            [self.addButton setBackgroundColor:NITColor(243, 85, 115)];
+            
+        }
+        
+        NSArray *tmpArr = [json objectForKey:@"splist"];
+        
+        if (tmpArr.count > 0) {
+
             _allDatas = [NSMutableArray arrayWithArray:tmpArr.mutableCopy];
-            
-            
+ 
             [self.tableView reloadData];
             
         } else {

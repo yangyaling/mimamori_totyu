@@ -169,23 +169,23 @@
     
     // 2.发送请求
     [MHttpTool postWithURL:NITGetSSInfo params:dic success:^(id json) {
+        [self.tableView.mj_header endRefreshing];
+        NSArray *sslist = [json objectForKey:@"sslist"];
+        NSArray *baseinfos = [json objectForKey:@"baseinfo"];
         
-        if (json) {
-            NSArray *sslist = [json objectForKey:@"sslist"];
-            NSArray *baseinfos = [json objectForKey:@"baseinfo"];
-            
+        if (baseinfos.count >0) {
             self.companyNameTF.text = [baseinfos.firstObject objectForKey:@"companyname"];
             self.facilityNameTF.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
+        }
+        
+        if (sslist.count > 0) {
             
             _allDatas = [NSMutableArray arrayWithArray:sslist.mutableCopy];
             [NITUserDefaults setObject:sslist forKey:@"SENSORINFO"];
             
-            [self.tableView reloadData];
             
-        } else {
-            NITLog(@"没数据");
         }
-        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
         
     } failure:^(NSError *error) {
         

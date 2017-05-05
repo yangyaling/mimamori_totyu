@@ -118,6 +118,8 @@
 
 #define NITGetSPInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetspinfo.php"
 
+#define NITUpdateSPInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdatespinfo.php"
+
 #define NITGetHomeCustInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetcustinfo.php"
 
 #define NITUpdateHomeCustInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdatecustinfo.php"

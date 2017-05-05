@@ -128,10 +128,11 @@
         [self.sonotaField setBackgroundColor:color];
     } else {
         
-        [self.hosutoIdField setEnabled:noOp];
-        [self.hosutoIdField setBackgroundColor:color];
-        [self.facilityField setEnabled:noOp];
-        [self.facilityField setBackgroundColor:color];
+//        [self.hosutoIdField setEnabled:noOp];
+//        [self.hosutoIdField setBackgroundColor:color];
+//        [self.facilityField setEnabled:noOp];
+//        [self.facilityField setBackgroundColor:color];
+        
         [self.facilityNameField setEnabled:noOp];
         [self.facilityNameField setBackgroundColor:color];
         [self.fckanaField setEnabled:noOp];

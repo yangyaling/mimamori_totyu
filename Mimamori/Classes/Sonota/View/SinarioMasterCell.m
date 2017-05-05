@@ -47,7 +47,7 @@
 //    }
     
     self.protoid.text = datasDic[@"protoid"];
-    self.protoname.text = datasDic[@"ptotoname"];
+    self.protoname.text = datasDic[@"protoname"];
     
 }
 

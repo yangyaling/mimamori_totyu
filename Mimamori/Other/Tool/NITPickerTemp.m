@@ -1,11 +1,10 @@
 //
-//  NITPicker.m
-//  LGFPicker
+//  NITPickerTemp.m
+//  Mimamori2
 //
-//  Created by totyu3 on 16/8/4.
-//  Copyright © 2016年 totyu3. All rights reserved.
+//  Created by totyu2 on 2017/5/5.
+//  Copyright © 2017年 totyu3. All rights reserved.
 //
-
 #define bgcolor [UIColor whiteColor]//self背景色
 #define pickertextcolor [UIColor blackColor]
 #define righttitlecolor [UIColor colorWithRed:12.0/255.0 green:10.0/255.0 blue:12.0/255.0 alpha:1.0]
@@ -24,10 +23,9 @@
 #define leftbuttonframe CGRectMake(self.bounds.origin.x, self.bounds.size.height*0.8, self.bounds.size.width/2, self.bounds.size.height*0.2)//取消按钮
 #define rightbuttonframe CGRectMake(self.bounds.size.width/2, self.bounds.size.height*0.8, self.bounds.size.width/2, self.bounds.size.height*0.2)//确定按钮
 
-#import "NITPicker.h"
-#import "Device.h"
+#import "NITPickerTemp.h"
 
-@interface NITPicker()<UIPickerViewDelegate,UIPickerViewDataSource>
+@interface NITPickerTemp ()<UIPickerViewDelegate,UIPickerViewDataSource>
 {
     //以下对象无需 get set
     NSString*select;
@@ -56,21 +54,20 @@
 @property (nonatomic, strong) UIButton                   *thisbutton;
 
 
-@property (nonatomic, strong) Device                   *model;
 
 @property (nonatomic, assign) NSInteger                cellindex;
-
 @end
-@implementation NITPicker
 
--(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton model:(Device *)model cellNumber:(NSInteger)number {
+@implementation NITPickerTemp
+
+-(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton cellNumber:(NSInteger)number {
     self = [super initWithFrame:frame];
     if (self) {
         
         switch (selectbutton.tag) {
-//            case 11:
-//                scenariotype =0;
-//                break;
+                //            case 11:
+                //                scenariotype =0;
+                //                break;
             case 22:
             case 33:
             case 44:
@@ -114,22 +111,21 @@
             default:
                 break;
         }
-//        if (selectbutton.tag==22||selectbutton.tag==11) {
-//            
-//        }else if(selectbutton.tag==33){
-//            scenariotype =1;
-//        }else if(selectbutton.tag==44){
-//            scenariotype = 2;
-//        } else if (selectbutton.tag == 55) {
-//            scenariotype = 3;
-//        } else if (selectbutton.tag == 66){
-//            scenariotype = 4;
-//        } else {
-//            scenariotype = 5;
-//        }
+        //        if (selectbutton.tag==22||selectbutton.tag==11) {
+        //
+        //        }else if(selectbutton.tag==33){
+        //            scenariotype =1;
+        //        }else if(selectbutton.tag==44){
+        //            scenariotype = 2;
+        //        } else if (selectbutton.tag == 55) {
+        //            scenariotype = 3;
+        //        } else if (selectbutton.tag == 66){
+        //            scenariotype = 4;
+        //        } else {
+        //            scenariotype = 5;
+        //        }
         self.cellindex = number;
         self.thisbutton = selectbutton;
-        self.model = model;
         self.layer.shadowColor = [UIColor blackColor].CGColor;
         self.layer.shadowOffset = CGSizeMake(1,1);
         self.layer.shadowOpacity = 0.3;
@@ -199,8 +195,8 @@
         case 10:
             select = self.onedayHours[0];
             select2 = self.onedayMinute[0];
-//            select3 = self.onedayHours[0];
-//            select4 = self.onedayMinute[0];
+            //            select3 = self.onedayHours[0];
+            //            select4 = self.onedayMinute[0];
             break;
         case 11:
             select = [self.userList[0] objectForKey:@"name"];
@@ -249,7 +245,7 @@
         
     } else if (scenariotype == 7) {
         if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
-             [self.mydelegate PickerDelegateSelectString:nil withDic:selectdic];
+            [self.mydelegate PickerDelegateSelectString:nil withDic:selectdic];
         }
     } else if (scenariotype == 10) {
         NSString *str = [NSString stringWithFormat:@"%@%@",select,select2];
@@ -262,54 +258,48 @@
     }
     
     if (scenariotype == 1  || scenariotype == 2 || scenariotype == 3 || scenariotype == 4 || scenariotype == 8 ) {
-        if (self.cellindex == 10000) {
-            NSData *data = [NITUserDefaults objectForKey:@"EDITSINARIOINFO"];
-            NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
-            
-            NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:arr];
-            [NITUserDefaults setObject:newdata forKey:@"EDITSINARIOINFO"];
-            
-        }
-        NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
-    
-    
+        
+
+        NSData *data = [NITUserDefaults objectForKey:@"EDITSINARIOINFO"];
+
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
-        NSArray *deletearr = arr[self.cellindex];
+//        NSArray *deletearr = arr[self.cellindex];
         NSMutableArray *newarr = [NSMutableArray new];
         
-        NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:deletearr[0]];
-        NSMutableDictionary *dicTwo = [NSMutableDictionary dictionaryWithDictionary:deletearr[1]];
-        NSMutableDictionary *dicThree = [NSMutableDictionary dictionaryWithDictionary:deletearr[2]];
-        NSMutableDictionary *dicFour = [NSMutableDictionary dictionaryWithDictionary:deletearr[3]];
+        NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:arr[0]];
+        NSMutableDictionary *dicTwo = [NSMutableDictionary dictionaryWithDictionary:arr[1]];
+        NSMutableDictionary *dicThree = [NSMutableDictionary dictionaryWithDictionary:arr[2]];
+        NSMutableDictionary *dicFour = [NSMutableDictionary dictionaryWithDictionary:arr[3]];
         
         switch (self.thisbutton.tag) {
             case 22:
-                [dicTwo setObject:select forKey:@"time"];
+                [dicOne setObject:[select substringToIndex:[select length] - 1] forKey:@"time"];
                 break;
             case 33:
-                [dicThree setObject:select forKey:@"time"];
+                [dicTwo setObject:[select substringToIndex:[select length] - 1] forKey:@"time"];
                 break;
             case 44:
-                [dicFour setObject:select forKey:@"time"];
+                [dicThree setObject:[select substringToIndex:[select length] - 1] forKey:@"time"];
                 break;
             case 99:
-                [dicOne setObject:select forKey:@"time"];
+                [dicFour setObject:[select substringToIndex:[select length] - 1] forKey:@"time"];
                 break;
             case 111:
-                [dicOne setObject:select forKey:@"rpoint"];
+                [dicFour setObject:@"0" forKey:@"value"];
+                [dicFour setObject:select forKey:@"rpoint"];
                 break;
             case 55:
-                [dicTwo setObject:select forKey:@"value"];
-                [dicTwo setObject:select2 forKey:@"rpoint"];
+                [dicOne setObject:select forKey:@"value"];
+                [dicOne setObject:select2 forKey:@"rpoint"];
                 break;
             case 66:
-                [dicThree setObject:select forKey:@"value"];
-                [dicThree setObject:select2 forKey:@"rpoint"];
+                [dicTwo setObject:select forKey:@"value"];
+                [dicTwo setObject:select2 forKey:@"rpoint"];
                 
                 break;
             case 77:
-                [dicFour setObject:select forKey:@"value"];
-                [dicFour setObject:select2 forKey:@"rpoint"];
+                [dicThree setObject:select forKey:@"value"];
+                [dicThree setObject:select2 forKey:@"rpoint"];
                 
                 break;
             default:
@@ -321,11 +311,13 @@
         [newarr addObject:dicThree];
         [newarr addObject:dicFour];
         
-        [arr replaceObjectAtIndex:self.cellindex withObject:newarr];
+//        [arr replaceObjectAtIndex:self.cellindex withObject:newarr];
         
-        NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:arr];
         
-        [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
+        NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:newarr];
+        
+        [NITUserDefaults setObject:newdata forKey:@"EDITSINARIOINFO"];
+        
     } else if(scenariotype == 9) {
         
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
@@ -378,46 +370,46 @@
     }
     
     
-//    NITLog(@"nodesdic:%@",arr);
+    //    NITLog(@"nodesdic:%@",arr);
     //\U5c45\U5ba4\U5165\U53e3
     
-//      [nodesdic setObject:dicnode forKey:self.model.nodeid];
-//      [NITUserDefaults setObject:nodesdic forKey:@"sensorallnodes"];
-//        
-//    } else {
-//        NSDictionary *dic = @{@"displayname":select,@"place":@""};
-//        
-//        [nodesdic setObject:dic forKey:self.model.nodeid];
-//        [NITUserDefaults setObject:nodesdic forKey:@"sensorallnodes"];
-//    }
+    //      [nodesdic setObject:dicnode forKey:self.model.nodeid];
+    //      [NITUserDefaults setObject:nodesdic forKey:@"sensorallnodes"];
+    //
+    //    } else {
+    //        NSDictionary *dic = @{@"displayname":select,@"place":@""};
+    //
+    //        [nodesdic setObject:dic forKey:self.model.nodeid];
+    //        [NITUserDefaults setObject:nodesdic forKey:@"sensorallnodes"];
+    //    }
     
     
     //    [self.delegate selecttitle:select tag:thistag];
-//    NSData * data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
-//    NSMutableArray * scenarioarr= [NSKeyedUnarchiver unarchiveObjectWithData:data];
-//    
-//    for (int i = 0 ; i < scenarioarr.count ; i++) {
-//        //NSMutableArray *modelarray = scenarioarr[i];
-//        Device *device = [scenarioarr objectAtIndex:i];
-//        if ([device.deviceid isEqualToString:_model.deviceid]) {
-//            if (self.thisbutton.tag==11) {
-//                device.deviceValue.time = @([select integerValue]);
-//            }else if(self.thisbutton.tag==22){
-//                device.deviceValue.time = @([select integerValue]);
-//            }else if(self.thisbutton.tag==33){
-//                device.deviceValue.value = @([select integerValue]);
-//            }else if(self.thisbutton.tag==44){
-//                device.deviceValue.rpoint = select;
-//            }
-//
-////            NSMutableArray *modelarrays = [NSMutableArray array];
-////            [modelarrays addObject:device];
-//            [scenarioarr replaceObjectAtIndex:i withObject:device];
-//        }
-//    }
-//    
-//    NSData * datas = [NSKeyedArchiver archivedDataWithRootObject:scenarioarr];
-//    [NITUserDefaults setObject:datas forKey:@"scenariodtlinfoarr"];
+    //    NSData * data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+    //    NSMutableArray * scenarioarr= [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    //
+    //    for (int i = 0 ; i < scenarioarr.count ; i++) {
+    //        //NSMutableArray *modelarray = scenarioarr[i];
+    //        Device *device = [scenarioarr objectAtIndex:i];
+    //        if ([device.deviceid isEqualToString:_model.deviceid]) {
+    //            if (self.thisbutton.tag==11) {
+    //                device.deviceValue.time = @([select integerValue]);
+    //            }else if(self.thisbutton.tag==22){
+    //                device.deviceValue.time = @([select integerValue]);
+    //            }else if(self.thisbutton.tag==33){
+    //                device.deviceValue.value = @([select integerValue]);
+    //            }else if(self.thisbutton.tag==44){
+    //                device.deviceValue.rpoint = select;
+    //            }
+    //
+    ////            NSMutableArray *modelarrays = [NSMutableArray array];
+    ////            [modelarrays addObject:device];
+    //            [scenarioarr replaceObjectAtIndex:i withObject:device];
+    //        }
+    //    }
+    //
+    //    NSData * datas = [NSKeyedArchiver archivedDataWithRootObject:scenarioarr];
+    //    [NITUserDefaults setObject:datas forKey:@"scenariodtlinfoarr"];
     
     [self removeFromSuperview];
 }
@@ -506,15 +498,15 @@
     if (scenariotype == 2 || scenariotype == 3 ||scenariotype == 4) {
         text.frame = pickerlabelframe;
         
-            if (component == 0) {
-                
-                text.text = self.value[row];
-                
-            } else {
-                
-                text.text = self.type[row];
-                
-            }
+        if (component == 0) {
+            
+            text.text = self.value[row];
+            
+        } else {
+            
+            text.text = self.type[row];
+            
+        }
         
         
         [view addSubview:text];
@@ -568,8 +560,8 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-//    [_nitpicker viewForRow:row forComponent:component];
-
+    //    [_nitpicker viewForRow:row forComponent:component];
+    
     if (scenariotype==0) {
         select = [self.names[row] objectForKey:@"displayname"];
     }else if(scenariotype==1){
@@ -593,20 +585,20 @@
             case 2:
                 select2 = self.onedayMinute[row];
                 break;
-//            case 2:
-//                select3 = self.onedayHours[row];
-//                break;
-//            case 3:
-//                select4 = self.onedayMinute[row];
-//                break;
-            
+                //            case 2:
+                //                select3 = self.onedayHours[row];
+                //                break;
+                //            case 3:
+                //                select4 = self.onedayMinute[row];
+                //                break;
+                
             default:
                 break;
         }
-
+        
         
     } else if(scenariotype == 9){
-    
+        
         selectdic = self.names[row];
         select = [self.names[row] objectForKey:@"name"];
         
@@ -618,7 +610,7 @@
     } else if(scenariotype == 12){
         
         selectdic = self.custList[row];
-
+        
         NSString *str  = [NSString stringWithFormat:@"%@", [self.custList[row] objectForKey:@"floorno"]];
         
         select = str;
@@ -757,9 +749,9 @@
         [_onedayHours addObject:@"-"];
         for (int i = 1; i<24; i++) {
             if (i<10) {
-                [_onedayHours addObject:[NSString stringWithFormat:@"0%d  ：",i]];
+                [_onedayHours addObject:[NSString stringWithFormat:@"0%d:",i]];
             } else {
-                [_onedayHours addObject:[NSString stringWithFormat:@"%d  ：",i]];
+                [_onedayHours addObject:[NSString stringWithFormat:@"%d:",i]];
             }
         }
     }
@@ -791,12 +783,8 @@
             _names = [NSMutableArray arrayWithObjects:@"夜間活動",@"熱中症",@"活動なし", nil];
             
         } else if (scenariotype == 8) {
-            NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
             
-            NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
-            NSDictionary *dicOne = [arr[self.cellindex] firstObject];
-            //门 - 人感
-            if ([dicOne[@"devicename"] isEqualToString:@"ドア"]) {
+            if (self.cellindex == 2) {
                 _names = [NSMutableArray arrayWithObjects:@"-",@"使用あり",@"使用なし", nil];
             } else {
                 _names = [NSMutableArray arrayWithObjects:@"-",@"反応あり",@"反応なし", nil];
@@ -808,7 +796,7 @@
             
         } else {
             
-           NSArray *arr = [[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"] copy];
+            NSArray *arr = [[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"] copy];
             _names = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] : [NSMutableArray new];
             
         }

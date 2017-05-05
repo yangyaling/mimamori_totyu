@@ -94,33 +94,32 @@
         
         [self.tableView.mj_header endRefreshing];
         
-        if (json) {
-            
-            NSArray *stafflist = [json objectForKey:@"stafflist"];
-            
-            self.maxId = [json objectForKey:@"maxstaffid"];
-            
-            NSArray *baseinfos = [json objectForKey:@"baseinfo"];
-            
-            self.companyName.text = [baseinfos.firstObject objectForKey:@"companyname"];
-            
-            self.facilityName.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
-            
-            NSArray *btnL = [json objectForKey:@"usertypelist"];
-            
-            [NITUserDefaults setObject:btnL forKey:@"usertypelist"];
-            
+        NSArray *stafflist = [json objectForKey:@"stafflist"];
+        NSArray *baseinfos = [json objectForKey:@"baseinfo"];
+        NSArray *btnL = [json objectForKey:@"usertypelist"];
+        
+        
+        self.maxId = [json objectForKey:@"maxstaffid"];
+                
+        if (stafflist.count >0) {
             _allDatas = [NSMutableArray arrayWithArray:stafflist.mutableCopy];
             
             [NITUserDefaults setObject:stafflist forKey:@"STAFFINFO"];
+        }
+        
+        if (baseinfos.count > 0) {
+            self.companyName.text = [baseinfos.firstObject objectForKey:@"companyname"];
             
-            [self.tableView reloadData];
+            self.facilityName.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
+        }
+        
+        if (btnL.count >0) {
             
-        } else {
-            
-            NITLog(@"没数据");
+            [NITUserDefaults setObject:btnL forKey:@"usertypelist"];
             
         }
+        
+        [self.tableView reloadData];
         
     } failure:^(NSError *error) {
         
