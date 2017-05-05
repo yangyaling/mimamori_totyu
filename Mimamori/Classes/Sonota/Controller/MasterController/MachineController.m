@@ -126,6 +126,12 @@
         if (json) {
             NSString *code = [json objectForKey:@"code"];
             NITLog(@"%@",code);
+            if ([code isEqualToString:@"200"]) {
+                [MBProgressHUD showSuccess:@""];
+            }else{
+                [MBProgressHUD showError:@""];
+            }
+            
             [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
             self.footView.height = 0;
             self.footView.alpha = 0;
