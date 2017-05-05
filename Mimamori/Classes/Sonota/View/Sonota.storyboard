@@ -5589,10 +5589,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="29.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e0p-bL-RGq">
-                                                    <rect key="frame" x="8" y="0.0" width="304" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e0p-bL-RGq">
+                                                    <rect key="frame" x="10" y="4" width="300" height="22"/>
                                                     <color key="backgroundColor" red="1" green="0.33333333329999998" blue="0.45098039220000002" alpha="0.28379299496644295" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="ReI-bh-iGy"/>
+                                                    </constraints>
                                                     <state key="normal" title="居室情報　▶">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -5601,6 +5603,11 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="e0p-bL-RGq" firstAttribute="centerY" secondItem="foQ-Ma-ADO" secondAttribute="centerY" id="PmA-2k-gbK"/>
+                                                <constraint firstItem="e0p-bL-RGq" firstAttribute="leading" secondItem="foQ-Ma-ADO" secondAttribute="leading" constant="10" id="roK-08-4at"/>
+                                                <constraint firstAttribute="trailing" secondItem="e0p-bL-RGq" secondAttribute="trailing" constant="10" id="sTc-u9-cvA"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
