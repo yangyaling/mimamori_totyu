@@ -110,13 +110,13 @@
     [self.sinarioButton setTitle:dicOne[@"displayname"] forState:UIControlStateNormal];
     
     //门 - 人感
-    if ([dicOne[@"devicename"] isEqualToString:@"ドア"]) {
+    if ([dicOne[@"nodetype"] integerValue] == 2) {
         
         self.doalabel.text = @"開閉";
         
     } else {
         
-        self.doalabel.text = dicOne[@"devicename"];
+        self.doalabel.text = @"人感";
     }
     
     NSString *strT4 = [NSString stringWithFormat:@"%@%@",dicOne[@"time"],dicOne[@"timeunit"]];

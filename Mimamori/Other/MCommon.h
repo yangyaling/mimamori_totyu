@@ -95,6 +95,7 @@
 #define NITUpdateScenarioInfo @"http://mimamori2p1.azurewebsites.net/zwupdatescenarioinfo.php"
 
 
+
 /*Master管理者接口*/
 #define NITGetNLInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetnlinfo.php"
 

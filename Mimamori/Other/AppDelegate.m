@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import <AVFoundation/AVFoundation.h>
 
+
 #import "NotificationModel.h"
 #import "MNoticeTool.h"
 #import "MGroupTool.h"
@@ -18,9 +19,12 @@
 #define LoginVC @"LoginIdentifier"
 
 @interface AppDelegate ()
+
 @property (nonatomic, strong) NSMutableArray *alertArr;//全ての通知アイテム(支援要請・センサー・お知らせ)(模型数组)
 @property (nonatomic, strong) NSArray *readNoticeIdArr;//既読のお知らせ
 @property (strong, nonatomic) NSTimer *timer;
+
+@property (nonatomic, strong) AVAudioPlayer *player;
 
 @end
 
@@ -45,11 +49,38 @@
         [self getGroupInfo];
     });
     
+    
+    
     //注册本地通知
-    if ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-        [application registerUserNotificationSettings:settings];
+    
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+        //iOS10特有
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        // 必须写代理，不然无法监听通知的接收与点击
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (granted) {
+                // 点击允许
+                NSLog(@"本地通知注册成功");
+                [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+                    NSLog(@"%@", settings);
+                }];
+            } else {
+                // 点击不允许
+                NSLog(@"本地通知注册失败");
+                [MBProgressHUD showError:@""];
+            }
+        }];
+    }else if ([[UIDevice currentDevice].systemVersion floatValue] >8.0){
+        //iOS8 - iOS10
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge categories:nil]];
+        
+    }else if ([[UIDevice currentDevice].systemVersion floatValue] < 8.0) {
+        //iOS8系统以下
+        [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
     }
+    // 注册获得device Token
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
     
     //================================================================
     //[self redirectNSlogToDocumentFolder];
@@ -58,6 +89,9 @@
     // 添加定时器
     [self addTimer];
     
+    
+    [self locationNotice];
+    
     // 整理缓存
     [self clearSensorData];
     
@@ -65,11 +99,84 @@
 }
 
 
+/**
+  本地后台通知
+ */
+- (void)locationNotice {
+    
+    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge|UNAuthorizationOptionSound|UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted == true) [[UIApplication sharedApplication]registerForRemoteNotifications];
+    }];
+    
+    NSURL *url=[[NSBundle mainBundle]URLForResource:@"TestMusic" withExtension:@"m4a"];
+    _player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
+    
+    [_player setVolume:0.0];
+    
+    [_player setNumberOfLoops:LONG_MAX];
+    
+    
+//
+    [[AVAudioSession sharedInstance]setCategory: AVAudioSessionCategoryPlayback error: nil];
+    [[AVAudioSession sharedInstance]setActive:YES error: nil];
+    
+}
+
+
+
+/**
+   进入后台开始播放
+ */
+- (void)applicationDidEnterBackground:(UIApplication *)application{
+    
+    [_player play];
+    
+}
+
+// 通知的点击事件
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
+    
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    UNNotificationRequest *request = response.notification.request; // 收到推送的请求
+    UNNotificationContent *content = request.content; // 收到推送的消息内容
+    NSNumber *badge = content.badge;  // 推送消息的角标
+    NSString *body = content.body;    // 推送消息体
+    UNNotificationSound *sound = content.sound;  // 推送消息的声音
+    NSString *subtitle = content.subtitle;  // 推送消息的副标题
+    NSString *title = content.title;  // 推送消息的标题
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+//        NSLog(@"iOS10 收到远程通知:%@", [self logDic:userInfo]);
+        
+    }
+    else {
+        // 判断为本地通知
+        NSLog(@"iOS10 收到本地通知:{\\\\nbody:%@，\\\\ntitle:%@,\\\\nsubtitle:%@,\\\\nbadge：%@，\\\\nsound：%@，\\\\nuserInfo：%@\\\\n}",body,title,subtitle,badge,sound,userInfo);
+    }
+    
+    // Warning: UNUserNotificationCenter delegate received call to -userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler: but the completion handler was never called.
+    completionHandler();  // 系统要求执行这个方法
+    
+}
+
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:
+(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    NSLog(@"iOS7及以上系统，收到通知");
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
+
 -(void)applicationWillEnterForeground:(UIApplication *)application{
+    [_player pause];
+    [_player stop];
     // 消息数归0
     [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     // 取消所有的通知
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
 }
 
 
@@ -129,26 +236,67 @@
     if (contentArray.count>0) {
         NSString *sampleContent = [contentArray objectAtIndex:0];
 
-        UILocalNotification *notification=[[UILocalNotification alloc]init];
-        notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:0];
-        //notification.repeatInterval=1;
-        //notification.repeatCalendar=[NSCalendar currentCalendar];//当前日历，使用前最好设置时区等信息以便能够自动同步时间
-        notification.timeZone=[NSTimeZone defaultTimeZone];
-        notification.alertTitle = @"アラート";
-        notification.alertBody=[NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count]; //通知主体
-        notification.applicationIconBadgeNumber=contentArray.count;//应用程序图标右上角显示的消息数
-        notification.alertAction=@"OPEN"; //待机界面的滑动动作提示
-        //notification.alertLaunchImage=@"Default";//通过点击通知打开应用时的启动图
-        notification.soundName=UILocalNotificationDefaultSoundName;//收到通知时播放的声音，默认消息声音
-        //notification.soundName=@"msg.caf";//通知声音（需要真机才能听到声音）
-        //notification.userInfo=@{@"id":@1,@"content":contentArray};//绑定到通知上的其他附加信息
         
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];//调用通知
-    // 5 发送AlertController
-        [self showAlertWithContents:contentArray];
+        if([[UIDevice currentDevice].systemVersion doubleValue] >= 10.0){
+            //创建通知
+            UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:2 repeats:NO];
+            UNNotificationAction * actionone = [UNNotificationAction actionWithIdentifier:@"actionone" title:@"アラート" options:UNNotificationActionOptionNone];
+            UNNotificationCategory * category = [UNNotificationCategory categoryWithIdentifier:@"myNotificationCategoryBtn" actions:@[actionone] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+            //内容
+            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+            content.title = @"アラート";
+            content.subtitle = @"";
+            content.body = [NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count];;
+            content.badge = @(contentArray.count);
+            content.categoryIdentifier = @"myNotificationCategoryBtn";
+            content.sound = [UNNotificationSound defaultSound];
+            
+            NSString *requestIdentifier = @"sampleRequest";
+            
+            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifier
+                                                                                  content:content
+                                                                                  trigger:trigger];
+            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category, nil]];
+            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                if (!error) {
+                    NSLog(@"推送已添加成功 %@", requestIdentifier);
+                }
+            }];
+            
+        } else {
+            UILocalNotification *notification=[[UILocalNotification alloc]init];
+            notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:0];
+            //notification.repeatInterval=1;
+            //notification.repeatCalendar=[NSCalendar currentCalendar];//当前日历，使用前最好设置时区等信息以便能够自动同步时间
+            notification.timeZone=[NSTimeZone defaultTimeZone];
+            notification.alertTitle = @"アラート";
+            notification.alertBody=[NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count]; //通知主体
+            notification.applicationIconBadgeNumber=contentArray.count;//应用程序图标右上角显示的消息数
+            notification.alertAction=@"OPEN"; //待机界面的滑动动作提示
+            //notification.alertLaunchImage=@"Default";//通过点击通知打开应用时的启动图
+            notification.soundName=UILocalNotificationDefaultSoundName;//收到通知时播放的声音，默认消息声音
+            //notification.soundName=@"msg.caf";//通知声音（需要真机才能听到声音）
+            //notification.userInfo=@{@"id":@1,@"content":contentArray};//绑定到通知上的其他附加信息
+            
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification];//调用通知
+            // 5 发送AlertController
+            [self showAlertWithContents:contentArray];
+        }
+        
+        
     }
     
 }
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    
+    //如果App不在前台，需要Badge
+    if(!([UIApplication sharedApplication].applicationState == UIApplicationStateActive)){
+        completionHandler(UNNotificationPresentationOptionBadge);
+    }
+    completionHandler(UNNotificationPresentationOptionSound |UNNotificationPresentationOptionAlert);
+}
+
 
 
 -(void)showAlertWithContents:(NSArray *)array{

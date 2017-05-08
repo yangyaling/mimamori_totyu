@@ -183,6 +183,7 @@
 		EB9C932A1E02730F00F3132C /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C93271E02730F00F3132C /* MBProgressHUD.m */; };
 		EB9C932D1E027F4700F3132C /* ZworksChartTBVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C932C1E027F4700F3132C /* ZworksChartTBVC.m */; };
 		EB9C93301E028BC200F3132C /* SinarioDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C932F1E028BC200F3132C /* SinarioDetailController.m */; };
+		EB9EC7AC1EC02C5E0036E222 /* TestMusic.m4a in Resources */ = {isa = PBXBuildFile; fileRef = EB9EC7AB1EC02C5E0036E222 /* TestMusic.m4a */; };
 		EB9F89DA1E1652BE00908000 /* IconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9F89D91E1652BE00908000 /* IconModel.m */; };
 		EBBA26E71EB318E300E69F23 /* PlaceSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA26E61EB318E300E69F23 /* PlaceSettingCell.m */; };
 		EBBA97D11EBB4428004AA177 /* FacilityMasterController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBA97D01EBB4428004AA177 /* FacilityMasterController.m */; };
@@ -569,6 +570,8 @@
 		EB9C932C1E027F4700F3132C /* ZworksChartTBVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZworksChartTBVC.m; sourceTree = "<group>"; };
 		EB9C932E1E028BC200F3132C /* SinarioDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinarioDetailController.h; sourceTree = "<group>"; };
 		EB9C932F1E028BC200F3132C /* SinarioDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinarioDetailController.m; sourceTree = "<group>"; };
+		EB9EC7AB1EC02C5E0036E222 /* TestMusic.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = TestMusic.m4a; sourceTree = "<group>"; };
+		EB9EC7AD1EC02F5C0036E222 /* Mimamori2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mimamori2.entitlements; sourceTree = "<group>"; };
 		EB9F89D81E1652BE00908000 /* IconModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconModel.h; sourceTree = "<group>"; };
 		EB9F89D91E1652BE00908000 /* IconModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconModel.m; sourceTree = "<group>"; };
 		EBBA26E51EB318E300E69F23 /* PlaceSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceSettingCell.h; sourceTree = "<group>"; };
@@ -1331,6 +1334,7 @@
 		E9D445801D010FE500CFF364 = {
 			isa = PBXGroup;
 			children = (
+				EB9EC7AD1EC02F5C0036E222 /* Mimamori2.entitlements */,
 				E91969B71D2B96E0008631DC /* Reveal.framework */,
 				E9B0065C1D0FB31300C1C087 /* AVFoundation.framework */,
 				E9B0065A1D0FB30D00C1C087 /* CoreLocation.framework */,
@@ -1364,6 +1368,7 @@
 		E9D4458C1D010FE500CFF364 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EB9EC7AB1EC02C5E0036E222 /* TestMusic.m4a */,
 				E9D445951D010FE500CFF364 /* Main.storyboard */,
 				E9D4459B1D010FE600CFF364 /* Assets.xcassets */,
 				E9D4459D1D010FE600CFF364 /* LaunchScreen.storyboard */,
@@ -1594,6 +1599,11 @@
 					E9D445881D010FE500CFF364 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = ZD4G3EV24J;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					E9D445A41D010FE600CFF364 = {
 						CreatedOnToolsVersion = 7.3;
@@ -1632,6 +1642,7 @@
 			files = (
 				EB4A56111E00DB3E00A2F1C2 /* OtherCollectionCell.xib in Resources */,
 				EB9C92E11E01367400F3132C /* AddTableViewCell.xib in Resources */,
+				EB9EC7AC1EC02C5E0036E222 /* TestMusic.m4a in Resources */,
 				929519F61D7D0A6100787997 /* Life.storyboard in Resources */,
 				E9D4459F1D010FE600CFF364 /* LaunchScreen.storyboard in Resources */,
 				92F363061DC9B1C80030DCE0 /* MJRefresh.bundle in Resources */,

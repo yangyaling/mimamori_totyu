@@ -261,6 +261,10 @@
         NSString *str = [NSString stringWithFormat:@"%@%@",select,select2];
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    } else  if (scenariotype == 1) {
+        NSString *str = [NSString stringWithFormat:@"%@H",select];
+        [self.thisbutton setTitle:str forState:UIControlStateNormal];
+        [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     } else {
         NSString *str = [NSString stringWithFormat:@"%@",select];
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
@@ -302,6 +306,7 @@
                 [dicOne setObject:select forKey:@"time"];
                 break;
             case 111:
+                [dicOne setObject:@"0" forKey:@"value"];
                 [dicOne setObject:select forKey:@"rpoint"];
                 break;
             case 55:
@@ -772,7 +777,7 @@
         _time = [NSMutableArray new];
         [_time addObject:@"-"];
         for (int i = 1; i<48; i++) {
-            [_time addObject:[NSString stringWithFormat:@"%.1fH",i / 2.0]];
+            [_time addObject:[NSString stringWithFormat:@"%.1f",i / 2.0]];
         }
     }
     return _time;
@@ -785,9 +790,9 @@
         [_onedayHours addObject:@"-"];
         for (int i = 1; i<24; i++) {
             if (i<10) {
-                [_onedayHours addObject:[NSString stringWithFormat:@"0%d  ：",i]];
+                [_onedayHours addObject:[NSString stringWithFormat:@"0%d:",i]];
             } else {
-                [_onedayHours addObject:[NSString stringWithFormat:@"%d  ：",i]];
+                [_onedayHours addObject:[NSString stringWithFormat:@"%d:",i]];
             }
         }
     }
@@ -824,7 +829,7 @@
             NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
             NSDictionary *dicOne = [arr[self.cellindex] firstObject];
             //门 - 人感
-            if ([dicOne[@"devicename"] isEqualToString:@"ドア"]) {
+            if ([dicOne[@"nodetype"] integerValue] == 2) {
                 _names = [NSMutableArray arrayWithObjects:@"-",@"使用あり",@"使用なし", nil];
             } else {
                 _names = [NSMutableArray arrayWithObjects:@"-",@"反応あり",@"反応なし", nil];

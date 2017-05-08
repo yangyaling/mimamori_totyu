@@ -37,6 +37,7 @@
 @property (strong, nonatomic) IBOutlet UIButton            *rightTimeButton;
 @property (strong, nonatomic) IBOutlet UISegmentedControl  *daySegment;
 
+@property (nonatomic, assign) NSInteger                    timeIndex;
 
 @end
 
@@ -70,6 +71,13 @@
         [NITUserDefaults setObject:data forKey:@"tempdeaddnodeiddatas"];
     }
     
+    self.daySegment.selectedSegmentIndex = self.scopecd;
+    
+    if (self.starttime.length > 0 || self.endtime.length >0) {
+        [self.leftTimeButton setTitle:self.starttime forState:UIControlStateNormal];
+        [self.rightTimeButton setTitle:self.endtime forState:UIControlStateNormal];
+    }
+    
     if (self.hideBarButton) {
         [self.daySegment setEnabled:NO];
         [self.editButton setHidden:YES];
@@ -97,27 +105,32 @@
         self.leftTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
         self.rightTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
     }
+    [self selectedTimeButtonIndex:sender.selectedSegmentIndex];
     
-    switch (sender.selectedSegmentIndex) {
-            
+    
+}
+
+-(void)selectedTimeButtonIndex:(NSInteger)index{
+    self.timeIndex = index;
+    switch (index) {
         case 0:
             [self.leftTimeButton setTitle:@"- -" forState:UIControlStateNormal];
             [self.rightTimeButton setTitle:@"- -" forState:UIControlStateNormal];
             break;
             
         case 1:
-            [self.leftTimeButton setTitle:@"04  ： 00" forState:UIControlStateNormal];
-            [self.rightTimeButton setTitle:@"09  ： 00" forState:UIControlStateNormal];
+            [self.leftTimeButton setTitle:@"04:00" forState:UIControlStateNormal];
+            [self.rightTimeButton setTitle:@"09:00" forState:UIControlStateNormal];
             break;
             
         case 2:
-            [self.leftTimeButton setTitle:@"09  ： 00" forState:UIControlStateNormal];
-            [self.rightTimeButton setTitle:@"18  ： 00" forState:UIControlStateNormal];
+            [self.leftTimeButton setTitle:@"09:00" forState:UIControlStateNormal];
+            [self.rightTimeButton setTitle:@"18:00" forState:UIControlStateNormal];
             break;
             
         case 3:
-            [self.leftTimeButton setTitle:@"18：00" forState:UIControlStateNormal];
-            [self.rightTimeButton setTitle:@"04  ： 00" forState:UIControlStateNormal];
+            [self.leftTimeButton setTitle:@"18:00" forState:UIControlStateNormal];
+            [self.rightTimeButton setTitle:@"04:00" forState:UIControlStateNormal];
             break;
             
         case 4:
@@ -127,10 +140,10 @@
             self.rightTimeButton.backgroundColor = [UIColor whiteColor];
             break;
             
+            
         default:
             break;
     }
-    
 }
 
 //其他时间的点击弹窗
@@ -152,6 +165,7 @@
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     parametersDict[@"roomid"] = self.roomID;
     
+    
     if (self.isRefresh) {
         parametersDict[@"scenarioid"] = self.scenarioID;
     }
@@ -160,18 +174,47 @@
         [MBProgressHUD hideHUDForView:self.view];
         
         NSArray *tmpArr = [json objectForKey:@"scenariodtlinfo"];
+        
         [MBProgressHUD hideHUDForView:self.view];
         [self.tableView.mj_header endRefreshing];
+        
         if (tmpArr) {
-            //            NITLog(@"%@",tmpArr);
             
             if (self.isSelectModelScenario) {
                 
-                NSArray *allarr = [self ScenarioModelDatasUpdate:tmpArr].copy;
+                NSArray *tmpModelArr = [json objectForKey:@"protoinfo"];
                 
-                NSData * data = [NSKeyedArchiver archivedDataWithRootObject:allarr];
+                NSInteger scope = [[[tmpModelArr[0] firstObject] objectForKey:@"scopecd"] integerValue];
+                
+                self.timeIndex = scope;
+                
+                self.daySegment.selectedSegmentIndex = scope;
+                
+//                [self selectedTimeButtonIndex:scope];
+                
+                [self.leftTimeButton setTitle:[[tmpModelArr[0] firstObject] objectForKey:@"starttime"] forState:UIControlStateNormal];
+                [self.rightTimeButton setTitle:[[tmpModelArr[0] firstObject] objectForKey:@"endtime"] forState:UIControlStateNormal];
+                
+                int arcModelNo = arc4random() % tmpModelArr.count; //随机选择某个
+                
+                if (tmpModelArr.count == 0) return ; //雏形数组
+                
+                NSArray *allarr = [self ScenarioModelDatasUpdate:tmpArr[0] andNewArray:tmpModelArr[arcModelNo]];
+                
+                NSMutableArray *reparr = [NSMutableArray arrayWithArray:tmpArr.mutableCopy];
+                
+                [reparr replaceObjectAtIndex:0 withObject:allarr];
+                
+                if (allarr.count == 0) return;
+                
+                [self.allarray removeAllObjects];
+                
+                self.allarray = [NSMutableArray arrayWithArray:reparr.mutableCopy];
+                
+                NSData * data = [NSKeyedArchiver archivedDataWithRootObject:reparr];
+                
                 [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
-                self.allarray = [NSMutableArray arrayWithArray:allarr];
+                
                 
                 NSArray *nodes =  [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"addnodeiddatas"]]];
                 if (nodes.count > 0) {
@@ -179,7 +222,15 @@
                     
                     [NITUserDefaults setObject:data forKey:@"tempdeaddnodeiddatas"];
                 }
+                
             } else {
+//                NSInteger scope = [[[tmpArr[0] firstObject] objectForKey:@"scopecd"] integerValue];
+//                
+//                self.daySegment.selectedSegmentIndex = scope;
+//                
+//                [self selectedTimeButtonIndex:scope];
+                
+                
                 
                 NSData * data = [NSKeyedArchiver archivedDataWithRootObject:tmpArr];
                 [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
@@ -205,80 +256,56 @@
     
 }
 
-- (NSArray *)ScenarioModelDatasUpdate:(NSArray *)array {
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"ScenarioModel" ofType:@"plist"];
-    NSArray *arr = [[NSDictionary dictionaryWithContentsOfFile:plistPath] objectForKey:self.sinarioText.text];
-    
-    NSMutableArray *allarr = [NSMutableArray arrayWithArray:array];
-    NSMutableArray *newarr = [NSMutableArray array];
-    
-    int arcselectcount = arc4random() % array.count;
-    
-    NSArray *arctmps = array[arcselectcount]; //随机取一个样本模型
-    //getmodel
-    NSMutableDictionary *Monedic
-    = [NSMutableDictionary dictionaryWithDictionary:[arctmps objectAtIndex:0]];
-    NSMutableDictionary *Mtwodic
-    = [NSMutableDictionary dictionaryWithDictionary:[arctmps objectAtIndex:1]];
-    NSMutableDictionary *Mthreedic
-    = [NSMutableDictionary dictionaryWithDictionary:[arctmps objectAtIndex:2]];
-    NSMutableDictionary *Mfourdic
-    = [NSMutableDictionary dictionaryWithDictionary:[arctmps objectAtIndex:3]];
-    
-    //model
-    NSDictionary *onedic = arr.firstObject;
-    NSDictionary *twodic = [arr objectAtIndex:1];
-    NSDictionary *threedic = [arr objectAtIndex:2];
-    NSDictionary *fourdic = arr.lastObject;
-    
-    int atime = (arc4random() % 3) + 1;
-    float btime = ((arc4random() % 6) + 1)/2.0;
-    float ctime = ((arc4random() % 5) + 1)/2.0;
-    int dtime = (arc4random() % 3) + 1;
-    
-    int avalue = (arc4random() % 10) + 20;
-    int bvalue = (arc4random() % 19) + 50;
-    int cvalue = (arc4random() % 30) + 66;
+- (NSArray *)ScenarioModelDatasUpdate:(NSArray *)oldarray andNewArray:(NSArray *)newarray {
     
     
-    NSString *atstr = [NSString stringWithFormat:@"%d",atime];
-    NSString *btstr = [NSString stringWithFormat:@"%.1f",btime];
-    NSString *ctstr = [NSString stringWithFormat:@"%.1f",ctime];
-    NSString *dtstr = [NSString stringWithFormat:@"%d",dtime];
+    NSMutableArray *allarr = [NSMutableArray new];
+    for (NSDictionary *obj in oldarray) {
+        NSMutableDictionary *tempdic = [NSMutableDictionary dictionaryWithDictionary:obj];
+        [tempdic setObject:@"1" forKey:@"detailno"];
+        for (NSDictionary *dic in newarray) {
+            if ([tempdic[@"nodetype"] integerValue] == 1) {
+                if ([tempdic[@"devicetype"] integerValue] == [dic[@"devicetype"] integerValue]) {
+                    [tempdic setObject:dic[@"endtime"] forKey:@"endtime"];
+                    [tempdic setObject:dic[@"starttime"] forKey:@"starttime"];
+                    
+                    [tempdic setObject:dic[@"time"] forKey:@"time"];
+                    
+                    if ([tempdic[@"devicetype"] integerValue] == 4 || [tempdic[@"devicetype"] integerValue] == 5) {
+                        [tempdic setObject:@"0" forKey:@"value"];
+                    } else {
+                        [tempdic setObject:dic[@"value"] forKey:@"value"];
+                    }
+                    
+                    [tempdic setObject:dic[@"rpoint"] forKey:@"rpoint"];
+                    
+                } else {
+                    [tempdic setObject:dic[@"endtime"] forKey:@"endtime"];
+                    [tempdic setObject:dic[@"starttime"] forKey:@"starttime"];
+                }
+            } else {
+                if ([tempdic[@"devicetype"] integerValue] == [dic[@"devicetype"] integerValue]) {
+                    [tempdic setObject:dic[@"endtime"] forKey:@"endtime"];
+                    [tempdic setObject:dic[@"starttime"] forKey:@"starttime"];
+                    [tempdic setObject:dic[@"nodetype"] forKey:@"nodetype"];
+                    
+                    [tempdic setObject:dic[@"time"] forKey:@"time"];
+                    if ([tempdic[@"devicetype"] integerValue] == 4 || [tempdic[@"devicetype"] integerValue] == 5) {
+                        [tempdic setObject:@"0" forKey:@"value"];
+                    } else {
+                        [tempdic setObject:dic[@"value"] forKey:@"value"];
+                    }
+                    [tempdic setObject:dic[@"rpoint"] forKey:@"rpoint"];
+                } else {
+                    [tempdic setObject:dic[@"endtime"] forKey:@"endtime"];
+                    [tempdic setObject:dic[@"starttime"] forKey:@"starttime"];
+                }
+            }
+            
+        }
+        [allarr addObject:tempdic];
+    }
     
-    NSString *avstr = [NSString stringWithFormat:@"%d",avalue];
-    NSString *bvstr = [NSString stringWithFormat:@"%d",bvalue];
-    NSString *cvstr = [NSString stringWithFormat:@"%d",cvalue];
-    
-    //one
-    [Monedic setObject:@"1" forKey:@"detailno"];
-    [Monedic setObject:atstr forKey:@"time"];
-    [Monedic setObject:onedic[@"value"] forKey:@"value"];
-    
-    //two
-    [Mtwodic setObject:@"1" forKey:@"detailno"];
-    [Mtwodic setObject:btstr forKey:@"time"];
-    [Mtwodic setObject:avstr forKey:@"value"];
-    [Mtwodic setObject:twodic[@"rpoint"] forKey:@"rpoint"];
-    
-    //three
-    [Mthreedic setObject:@"1" forKey:@"detailno"];
-    [Mthreedic setObject:ctstr forKey:@"time"];
-    [Mthreedic setObject:bvstr forKey:@"value"];
-    [Mthreedic setObject:threedic[@"rpoint"] forKey:@"rpoint"];
-    
-    //four
-    [Mfourdic setObject:@"1" forKey:@"detailno"];
-    [Mfourdic setObject:dtstr forKey:@"time"];
-    [Mfourdic setObject:cvstr forKey:@"value"];
-    [Mfourdic setObject:fourdic[@"rpoint"] forKey:@"rpoint"];
-    
-    [newarr addObject:Monedic];
-    [newarr addObject:Mtwodic];
-    [newarr addObject:Mthreedic];
-    [newarr addObject:Mfourdic];
-    
-    [allarr replaceObjectAtIndex:arcselectcount withObject:newarr];
     
     return allarr;
 }
@@ -529,20 +556,27 @@
         }
         NSMutableArray *array = [NSMutableArray new];
         
-        
-        if (![dicOne[@"time"] isEqualToString:@"-"] && ![dicOne[@"rpoint"] isEqualToString:@"-"]) {
+        NSString *onetime = [NSString stringWithFormat:@"%@",dicOne[@"time"]];
+        if (![onetime isEqualToString:@"-"] && ![dicOne[@"rpoint"] isEqualToString:@"-"]) {
+            
             [array addObject:dicOne];
         }
         
-        if ( ![dicTwo[@"time"] isEqualToString:@"-"] && ![dicTwo[@"value"] isEqualToString:@"-"] && ![dicTwo[@"rpoint"] isEqualToString:@"-"]) {
+        NSString *twotime = [NSString stringWithFormat:@"%@",dicTwo[@"time"]];
+        NSString *twovalue = [NSString stringWithFormat:@"%@",dicTwo[@"value"]];
+        if ( ![twotime isEqualToString:@"-"] && ![twovalue isEqualToString:@"-"] && ![dicTwo[@"rpoint"] isEqualToString:@"-"]) {
             [array addObject:dicTwo];
         }
         
-        if (![dicThree[@"time"] isEqualToString:@"-"] && ![dicThree[@"value"] isEqualToString:@"-"] && ![dicThree[@"rpoint"] isEqualToString:@"-"] ) {
+        NSString *threetime = [NSString stringWithFormat:@"%@",dicThree[@"time"]];
+        NSString *threevalue = [NSString stringWithFormat:@"%@",dicThree[@"value"]];
+        if (![threetime isEqualToString:@"-"] && ![threevalue isEqualToString:@"-"] && ![dicThree[@"rpoint"] isEqualToString:@"-"] ) {
             [array addObject:dicThree];
         }
         
-        if (![dicFour[@"time"] isEqualToString:@"-"] && ![dicFour[@"value"] isEqualToString:@"-"] && ![dicFour[@"rpoint"] isEqualToString:@"-"]) {
+        NSString *fourtime = [NSString stringWithFormat:@"%@",dicFour[@"time"]];
+        NSString *fourvalue = [NSString stringWithFormat:@"%@",dicFour[@"value"]];
+        if (![fourtime isEqualToString:@"-"] && ![fourvalue isEqualToString:@"-"] && ![dicFour[@"rpoint"] isEqualToString:@"-"]) {
             [array addObject:dicFour];
         }
         [alldatas addObject:array];
@@ -583,6 +617,20 @@
     
     parametersDict[@"updatedate"] = [[NSDate date]needDateStatus:HaveHMSType];
     
+    parametersDict[@"scopecd"] = [NSString stringWithFormat:@"%ld",self.timeIndex];
+    
+    
+    NSString *startstr = [NSString stringWithFormat:@"%@:00",self.leftTimeButton.titleLabel.text];
+    NSString *endstr = [NSString stringWithFormat:@"%@:00",self.rightTimeButton.titleLabel.text];
+    
+    if (self.timeIndex == 0) {
+        parametersDict[@"starttime"] = NULL;
+        parametersDict[@"endtime"] = NULL;
+    } else {
+        parametersDict[@"starttime"] =startstr;
+        parametersDict[@"endtime"] = endstr;
+    }
+    
     //保存detailinfo的数组转换成json数据格式
     NSError *parseError = nil;
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
@@ -590,6 +638,7 @@
     
     parametersDict[@"scenariodtlinfo"] = str;
     //
+    //NITUpdateScenarioInfo
     [MHttpTool postWithURL:NITUpdateScenarioInfo params:parametersDict success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         //追加成功，显示信息
@@ -618,9 +667,12 @@
         } else {
             [MBProgressHUD showError:@"後ほど試してください"];
         }
+        //[2]	(null)	@"message" : @"[Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to float."
         
     } failure:^(NSError *error) {
+        
         NITLog(@"%@",error);
+        
         [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showError:@"後ほど試してください"];
         

@@ -390,6 +390,12 @@
         
         src.user0 = self.profileUser0;
         
+        src.starttime = sar.starttime;
+        
+        src.endtime = sar.endtime;
+        
+        src.scopecd = sar.scopecd;
+        
         src.delegate = self;
         
     } else {

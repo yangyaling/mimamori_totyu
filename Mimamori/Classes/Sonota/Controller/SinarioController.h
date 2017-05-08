@@ -35,6 +35,12 @@
 
 @property (nonatomic, copy) NSString                      *user0name;
 
-@property (nonatomic, assign) BOOL                      hideBarButton;
+@property (nonatomic, copy) NSString                      *endtime;
+
+@property (nonatomic, copy) NSString                      *starttime;
+
+@property (nonatomic, assign) NSInteger                   scopecd;
+
+@property (nonatomic, assign) BOOL                        hideBarButton;
 
 @end

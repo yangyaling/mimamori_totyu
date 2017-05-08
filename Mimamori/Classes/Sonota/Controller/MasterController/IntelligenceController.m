@@ -54,6 +54,7 @@
     [MBProgressHUD showMessage:@"" toView:WindowView];
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     NSDictionary *dic = @{@"facilitycd":facd};
+    
     [MHttpTool postWithURL:NITGetFacilityInfo params:dic success:^(id json) {
         [MBProgressHUD hideHUDForView:WindowView];
         NSDictionary *indoDic = [json objectForKey:@"facilityinfo"];

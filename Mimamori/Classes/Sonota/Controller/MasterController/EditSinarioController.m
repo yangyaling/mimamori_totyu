@@ -111,23 +111,25 @@
         [MBProgressHUD hideHUDForView:self.view];
         
 //        if (self.isEdit) {
-            NSArray *tmpArr = [json objectForKey:@"splist"];
-            NSDictionary *dicOne = tmpArr.firstObject;
+        NSArray *tmpArr = [json objectForKey:@"splist"];
+        NSDictionary *dicOne = tmpArr.firstObject;
         
-            NSArray *scopecdarr = @[@"なし",@"朝方",@"日中",@"夜間",@"その他"];
+        NSArray *scopecdarr = @[@"なし",@"朝方",@"日中",@"夜間",@"その他"];
         
-            self.signLabel.text = scopecdarr[[[json objectForKey:@"scopecd"] integerValue]];
+        self.signLabel.text = scopecdarr[[[json objectForKey:@"scopecd"] integerValue]];
         
-            self.mySegment.selectedSegmentIndex = [[json objectForKey:@"scopecd"] integerValue];
+        self.mySegment.selectedSegmentIndex = [[json objectForKey:@"scopecd"] integerValue];
         
-            [self selectedTimeButtonIndex:[[json objectForKey:@"scopecd"] integerValue]];
-
- 
-            self.sinarioName.text = [json objectForKey:@"protoname"];
+//        [self selectedTimeButtonIndex:[[json objectForKey:@"scopecd"] integerValue]];
         
-
-            self.ariText.text = [NSString stringWithFormat:@"%@", dicOne[@"nodetype"]];
         
+        self.sinarioName.text = [json objectForKey:@"protoname"];
+        
+        
+        self.ariText.text = [NSString stringWithFormat:@"%@", dicOne[@"nodetype"]];
+        
+        [self.leftTimeButton setTitle:[json objectForKey:@"starttime"] forState:UIControlStateNormal];
+        [self.rightTimeButton setTitle:[json objectForKey:@"endtime"] forState:UIControlStateNormal];
         
         
             if (tmpArr.count >0) {
@@ -176,16 +178,15 @@
             [NITUserDefaults setObject:data forKey:SINANIOKEY];
             
             [self.tableView reloadData];
-            
-//        } else {
-        
-            
-//        }
         
     } failure:^(NSError *error) {
+        
         [self.tableView.mj_header endRefreshing];
+        
         [MBProgressHUD hideHUDForView:self.view];
+        
         NITLog(@"%@",error);
+        
     }];
     
 }
@@ -315,6 +316,12 @@
         if ([self.ariText.text isEqualToString:@"2"]) {
             if ([dict[@"devicetype"] isEqualToString:@"4"]) {
                 [dict setObject:@"5" forKey:@"devicetype"];
+                [dict setObject:@"使用なし" forKey:@"rpoint"];
+            }
+        }else {
+            if ([dict[@"devicetype"] isEqualToString:@"5"]) {
+                [dict setObject:@"4" forKey:@"devicetype"];
+                [dict setObject:@"反応なし" forKey:@"rpoint"];
             }
         }
         [tmparray replaceObjectAtIndex:idx withObject:dict];
@@ -425,9 +432,9 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-    NSString *startstr = [NSString stringWithFormat:@"%@:00",self.leftTimeButton.titleLabel.text];
-    NSString *endstr = [NSString stringWithFormat:@"%@:00",self.rightTimeButton.titleLabel.text];
-    NITLog(@"%@-%@",startstr,endstr);
+//    NSString *startstr = [NSString stringWithFormat:@"%@:00",self.leftTimeButton.titleLabel.text];
+//    NSString *endstr = [NSString stringWithFormat:@"%@:00",self.rightTimeButton.titleLabel.text];
+//    NITLog(@"%@-%@",startstr,endstr);
     
     [textField setBackgroundColor:[UIColor whiteColor]];
     

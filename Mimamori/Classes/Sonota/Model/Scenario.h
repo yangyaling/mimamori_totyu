@@ -16,4 +16,10 @@
 
 @property (nonatomic, copy) NSString *updatedate;
 
+@property (nonatomic, assign) NSInteger scopecd;
+
+@property (nonatomic, copy) NSString *starttime;
+
+@property (nonatomic, copy) NSString *endtime;
+
 @end
