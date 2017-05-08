@@ -51,9 +51,7 @@
     
     // 企业名、设施名
     self.companyNameTF.userInteractionEnabled = NO;
-    self.companyNameTF.borderStyle = UITextBorderStyleNone;
     self.facilityNameTF.userInteractionEnabled = NO;
-    self.facilityNameTF.borderStyle = UITextBorderStyleNone;
     
     // 一般用户无编辑权限
     NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
@@ -81,16 +79,20 @@
 /** 点击编辑按钮 */
 - (IBAction)editCell:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
-        [sender setTitle:@"取消" forState:UIControlStateNormal];
+        [sender setTitle:@"完了" forState:UIControlStateNormal];
         self.isEdit = YES;
+
         //显示加号按钮和登陆按钮
         [self ViewAnimateStatas:120];
 
     }else{
-        
+         self.isEdit = NO;
         [self saveInfo:nil];
         
     }
+    [CATransaction setCompletionBlock:^{
+        [self.tableView reloadData];
+    }];
 
 }
 
@@ -159,6 +161,7 @@
 }
 
 
+
 #pragma mark - Request
 
 /** 機器情報取得 */
@@ -172,6 +175,7 @@
         [self.tableView.mj_header endRefreshing];
         NSArray *sslist = [json objectForKey:@"sslist"];
         NSArray *baseinfos = [json objectForKey:@"baseinfo"];
+        NSArray *custlist = [json objectForKey:@"custlist"];
         
         if (baseinfos.count >0) {
             self.companyNameTF.text = [baseinfos.firstObject objectForKey:@"companyname"];
@@ -182,8 +186,9 @@
             
             _allDatas = [NSMutableArray arrayWithArray:sslist.mutableCopy];
             [NITUserDefaults setObject:sslist forKey:@"SENSORINFO"];
-            
-            
+        }
+        if (custlist.count > 0) {
+            [NITUserDefaults setObject:custlist forKey:@"custidlist"];
         }
         [self.tableView reloadData];
         
@@ -243,6 +248,14 @@
 }
 
 #pragma mark － other
+
+/**
+ 设施下拉框代理
+ */
+-(void)SelectedListName:(NSDictionary *)clickDic; {
+    
+    [self.tableView.mj_header beginRefreshing];
+}
 
 -(void)dealloc {
     

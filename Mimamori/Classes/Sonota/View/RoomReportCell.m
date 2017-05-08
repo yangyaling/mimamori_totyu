@@ -29,18 +29,15 @@
     _datasDic=datasDic;
     
     if (self.editOp) {
-        
         [self statusEdit:YES withColor:[UIColor whiteColor]];
         
     } else {
-        
         [self statusEdit:NO withColor:NITColor(235, 235, 241)];
     }
     NSString *floorstr = [NSString stringWithFormat:@"%@",datasDic[@"floorno"]];
     NSString *roomstr = [NSString stringWithFormat:@"%@",datasDic[@"roomcd"]];
     
     self.floor.text = floorstr;
-    
     self.roomcd.text = roomstr;
     
 }
@@ -59,12 +56,12 @@
     } else {
         [self.floor setEnabled:noOp];
         [self.floor setBackgroundColor:color];
-        //
+        
         [self.roomcd setEnabled:noOp];
         [self.roomcd setBackgroundColor:color];
-        //
         
     }
+    
 }
 
 

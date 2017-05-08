@@ -44,9 +44,9 @@
 @property (nonatomic, strong) NSMutableArray           *onedayHours;
 @property (nonatomic, strong) NSMutableArray           *onedayMinute;
 @property (nonatomic, strong) NSMutableArray           *userList;
-
 @property (nonatomic, strong) NSMutableArray           *custList;
 @property (nonatomic, strong) NSMutableArray           *roomList;
+@property (nonatomic, strong) NSMutableArray           *custidList;
 
 
 @property (nonatomic, strong) NSMutableArray           *time;
@@ -109,6 +109,9 @@
                 break;
             case 116:
                 scenariotype =13;
+                break;
+            case 117:
+                scenariotype =14;
                 break;
                 
             default:
@@ -212,6 +215,9 @@
             break;
         case 13:
             select = [self.roomList[0] objectForKey:@"roomcd"];
+            break;
+        case 14:
+            select = [self.custidList[0] objectForKey:@"custid"];
             break;
             
         default:
@@ -373,6 +379,17 @@
         [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
         
         [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
+    } else if (scenariotype == 14) {
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+        NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
+        [nodesdic setValue:select forKey:@"custid"];
+        [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
+        [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
+        
+        // 2.通知代理
+        if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
+            [self.mydelegate PickerDelegateSelectString:select withDic:nil];
+        }
     } else {
         
     }
@@ -480,7 +497,12 @@
         
         return self.roomList.count;
         
-    } else {
+    } else if (scenariotype == 14) {
+        
+        return self.custidList.count;
+        
+    }
+    else {
         return self.names.count;
     }
 }
@@ -557,6 +579,8 @@
             text.text = str;
         } else if(scenariotype == 13) {
             text.text = [self.roomList[row] objectForKey:@"roomcd"];
+        } else if(scenariotype == 14) {
+            text.text = [self.custidList[row] objectForKey:@"custid"];
         }else {
             text.text = self.names[row];
         }
@@ -626,7 +650,11 @@
     } else if(scenariotype == 13){
         selectdic = self.roomList[row];
         select = [self.roomList[row] objectForKey:@"roomcd"];
-    }else{
+    } else if(scenariotype == 14){
+        selectdic = self.custidList[row];
+        select = [self.custidList[row] objectForKey:@"custid"];
+    }
+    else{
         select = self.names[row];
     }
 }
@@ -842,6 +870,16 @@
         _roomList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
     }
     return _roomList;
+}
+
+-(NSMutableArray *)custidList {
+    if (!_custidList) {
+        
+        NSArray *arr = [NITUserDefaults objectForKey:@"custidlist"];
+        _custidList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
+        
+    }
+    return _custidList;
 }
 
 //HOMECUSTINFO
