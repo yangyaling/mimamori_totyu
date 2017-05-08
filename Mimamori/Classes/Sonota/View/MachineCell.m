@@ -90,7 +90,6 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     self.custIdBtn.backgroundColor = [UIColor whiteColor];
     self.custNameTF.backgroundColor = [UIColor whiteColor];
-
     [textField setBackgroundColor:NITColor(253, 164, 181)];
     
     return YES;
