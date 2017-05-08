@@ -9,7 +9,9 @@
 #import "MachineCell.h"
 #import "NITPicker.h"
 
-@interface MachineCell ()<MyPickerDelegate>
+@interface MachineCell ()<MyPickerDelegate>{
+    NSString *usertype;
+}
 @property (weak, nonatomic) IBOutlet UITextField *serialNoTF;
 @property (weak, nonatomic) IBOutlet UITextField *sensorIdTF;
 @property (weak, nonatomic) IBOutlet UITextField *custIdTF;
@@ -23,6 +25,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    usertype = USERTYPE;
 }
 
 - (void)setDatasDic:(NSDictionary *)datasDic {
@@ -44,13 +48,9 @@
 }
 
 - (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
-    NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
-    if (!master.length) return;
-    
-    if ([master isEqualToString:@"3"]) {
-        
-    } else if ([master isEqualToString:@"2"]) {
-        
+    if ([usertype isEqualToString:@"2"]) {
+        [self.serialNoTF setEnabled:NO];
+        [self.serialNoTF setBackgroundColor:TextFieldNormalColor];
         
     } else {
         [self.sensorIdTF setEnabled:noOp];

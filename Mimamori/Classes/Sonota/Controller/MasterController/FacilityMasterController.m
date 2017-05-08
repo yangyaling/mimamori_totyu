@@ -4,11 +4,13 @@
 //
 //  Created by totyu2 on 2017/5/4.
 //  Copyright © 2017年 totyu3. All rights reserved.
-//
+//　施設マスタ
 
 #import "FacilityMasterController.h"
 
-@interface FacilityMasterController ()
+@interface FacilityMasterController (){
+    NSString *usertype;
+}
 @property (strong, nonatomic) IBOutlet DropButton     *facilityBtn;
 //设施情报
 @property (strong, nonatomic) IBOutlet UITextField *hosutoIdField;
@@ -34,6 +36,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // 権限
+    usertype = USERTYPE;
+    if ([usertype isEqualToString:@"1"]) {
+        self.editButton.hidden = NO;
+    }else{
+        self.editButton.hidden = YES;
+    }
     
     [self getinfo];
     

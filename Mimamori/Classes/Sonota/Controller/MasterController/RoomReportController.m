@@ -9,7 +9,9 @@
 #import "RoomReportController.h"
 #import "RoomReportCell.h"
 
-@interface RoomReportController ()
+@interface RoomReportController (){
+    NSString *usertype;
+}
 
 @property (strong, nonatomic) IBOutlet UITextField *hostID;
 
@@ -35,7 +37,14 @@
     
     self.footView.height = 0;
     self.footView.alpha = 0;
-    //    [self.footView setHidden:NO];
+    
+    // 権限
+    usertype = USERTYPE;
+    if ([usertype isEqualToString:@"1"]) {
+        self.editButton.hidden = NO;
+    }else{
+        self.editButton.hidden = YES;
+    }
     
     NSArray *arr = nil;
     [NITUserDefaults setObject:arr forKey:@"ROOMMASTERINFOKEY"];

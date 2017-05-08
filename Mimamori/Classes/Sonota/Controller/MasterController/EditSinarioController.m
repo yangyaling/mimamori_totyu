@@ -11,7 +11,9 @@
 
 #import "EditSinarioController.h"
 #import "NITPickerTemp.h"
-@interface EditSinarioController ()<MyPickerDelegate>
+@interface EditSinarioController ()<MyPickerDelegate>{
+    NSString *usertype;
+}
 @property (strong, nonatomic) IBOutlet DropButton          *facilityBtn;
 
 @property (strong, nonatomic) IBOutlet UILabel             *titleView;
@@ -60,6 +62,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // 権限
+    usertype = USERTYPE;
+    if ([usertype isEqualToString:@"1"]) {
+        self.editButton.hidden = NO;
+    }else{
+        self.editButton.hidden = YES;
+    }
     
     self.cxID.text = self.maxid;
     

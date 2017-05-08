@@ -4,7 +4,7 @@
 //
 //  Created by totyu2 on 2017/5/2.
 //  Copyright © 2017年 totyu3. All rights reserved.
-//
+// 機器情報
 
 
 //{
@@ -20,7 +20,9 @@
 #import "MachineController.h"
 #import "MachineCell.h"
 
-@interface MachineController ()
+@interface MachineController (){
+    NSString *usertype;
+}
 @property (strong, nonatomic) IBOutlet DropButton *facilityBtn;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -41,6 +43,13 @@
     self.footView.height = 0;
     self.footView.alpha = 0;
     
+    usertype = USERTYPE;
+    if ([usertype isEqualToString:@"1"] || [usertype isEqualToString:@"2"]) {
+        self.editButton.hidden = NO;
+    }else{
+        self.editButton.hidden = YES;
+    }
+    
     NSArray *arr = nil;
     [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
     
@@ -52,14 +61,6 @@
     // 企业名、设施名
     self.companyNameTF.userInteractionEnabled = NO;
     self.facilityNameTF.userInteractionEnabled = NO;
-    
-    // 一般用户无编辑权限
-    NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
-    if ([master isEqualToString:@"3"]) {
-        self.editButton.hidden = YES;
-    }else{
-        self.editButton.hidden = NO;
-    }
     
     //监听键盘出现和消失
     [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -81,9 +82,12 @@
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         self.isEdit = YES;
-
-        //显示加号按钮和登陆按钮
-        [self ViewAnimateStatas:120];
+        
+        if ([usertype isEqualToString:@"1"]) {
+            //显示加号按钮和登陆按钮
+            [self ViewAnimateStatas:120];
+        }
+        
 
     }else{
          self.isEdit = NO;

@@ -16,16 +16,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mimamori/Classes/Sonota/View/RoomReportCell.m"
-            timestampString = "515894422.006791"
+            filePath = "Mimamori/Classes/Sonota/Controller/MasterController/EditSinarioController.m"
+            timestampString = "515955073.364805"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "-setDatasDic:"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "-getnlInfo"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mimamori/Classes/Sonota/View/MachineCell.m"
-            timestampString = "515902003.924774"
+            filePath = "Mimamori/Classes/Sonota/Controller/MasterController/EditSinarioController.m"
+            timestampString = "515955136.712309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "-PickerDelegateSelectString:withDic:"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "-getnlInfo"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

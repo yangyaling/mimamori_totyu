@@ -10,38 +10,42 @@
 
 @interface PlaceSettingCell ()
 
-
-
 @end
 
 @implementation PlaceSettingCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 
 
 - (void)setDatasDic:(NSDictionary *)datasDic {
     
     _datasDic=datasDic;
-    
+
+    // 編集
     if (self.editOp) {
-        
         [self.numCd setEnabled:YES];
-        
         [self.cdName setEnabled:YES];
         
         [self.numCd setBackgroundColor:[UIColor whiteColor]];
         [self.cdName setBackgroundColor:[UIColor whiteColor]];
-        
+
+    // 表示
     } else {
         [self.numCd setEnabled:NO];
-        
         [self.cdName setEnabled:NO];
-        [self.numCd setBackgroundColor:NITColor(235, 235, 241)];
-        [self.cdName setBackgroundColor:NITColor(235, 235, 241)];
         
+        [self.numCd setBackgroundColor:TextFieldNormalColor];
+        [self.cdName setBackgroundColor:TextFieldNormalColor];
+        
+    }
+    
+    // コード編集不可
+    NSString *cd = datasDic[@"cd"];
+    if (cd.length) {
+        [self.numCd setEnabled:NO];
+        [self.numCd setBackgroundColor:TextFieldNormalColor];
     }
     
     self.numCd.text = datasDic[@"cd"];
@@ -51,7 +55,7 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
-    [textField setBackgroundColor:NITColor(253, 164, 181)];
+    [textField setBackgroundColor:TextFieldNormalColor];
     
     return YES;
 }
