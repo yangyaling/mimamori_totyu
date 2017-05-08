@@ -99,22 +99,27 @@
     }
     
     switch (sender.selectedSegmentIndex) {
+            
         case 0:
             [self.leftTimeButton setTitle:@"- -" forState:UIControlStateNormal];
             [self.rightTimeButton setTitle:@"- -" forState:UIControlStateNormal];
             break;
+            
         case 1:
             [self.leftTimeButton setTitle:@"04  ： 00" forState:UIControlStateNormal];
             [self.rightTimeButton setTitle:@"09  ： 00" forState:UIControlStateNormal];
             break;
+            
         case 2:
             [self.leftTimeButton setTitle:@"09  ： 00" forState:UIControlStateNormal];
             [self.rightTimeButton setTitle:@"18  ： 00" forState:UIControlStateNormal];
             break;
+            
         case 3:
-            [self.leftTimeButton setTitle:@"18  ： 00" forState:UIControlStateNormal];
+            [self.leftTimeButton setTitle:@"18：00" forState:UIControlStateNormal];
             [self.rightTimeButton setTitle:@"04  ： 00" forState:UIControlStateNormal];
             break;
+            
         case 4:
             [self.leftTimeButton setEnabled:YES];
             [self.rightTimeButton setEnabled:YES];
@@ -294,8 +299,6 @@
         
         [self.tableView.mj_header beginRefreshing];
         
-        
-        
     } else {
         NSInteger index = [addcell[@"idx"] integerValue];
         
@@ -374,9 +377,11 @@
     SinarioTableViewCell *cell = [SinarioTableViewCell cellWithTableView:tableView];
     
     NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+    
     NSArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
     self.allarray = [NSMutableArray arrayWithArray:arr];
+    
 //    self.allarray = [Device mj_objectArrayWithKeyValuesArray:arr.copy];
     
 //    if (_allarray.count == 0) return cell;

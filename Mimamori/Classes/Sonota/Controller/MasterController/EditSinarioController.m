@@ -169,10 +169,8 @@
                         
                     }
                 }
-                
-                
-                
             }
+        
             NSData * data = [NSKeyedArchiver archivedDataWithRootObject:tmpArr];
             
             [NITUserDefaults setObject:data forKey:SINANIOKEY];
