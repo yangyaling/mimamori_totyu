@@ -97,6 +97,10 @@
     _facilityBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
+-(void)SelectedListName:(NSDictionary *)clickDic{
+    [self getinfo];
+}
+
 - (IBAction)editCell:(UIButton *)sender {
     
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {

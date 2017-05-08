@@ -103,6 +103,7 @@
 }
 
 - (IBAction)editCell:(UIButton *)sender {
+    [self.tableView setEditing:!self.tableView.editing animated:YES];
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         self.isEdit = YES;
@@ -214,7 +215,7 @@
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    return UITableViewCellEditingStyleNone;
+    return UITableViewCellEditingStyleDelete;
 }
 
 
@@ -223,8 +224,8 @@
         [MBProgressHUD showMessage:@"" toView:self.view];
         NSMutableArray *array =[NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"COMPANYINFO"]];
         NSDictionary *dic = array[indexPath.row];
-        
-        [MHttpTool postWithURL:NITDeleteNLInfo params:dic success:^(id json) {
+        NSDictionary *DeleteCompany = @{@"companycd" : dic[@"cd"]};
+        [MHttpTool postWithURL:NITDeleteCompanyInfo params:DeleteCompany success:^(id json) {
             
             [MBProgressHUD hideHUDForView:self.view];
             

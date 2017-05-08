@@ -49,6 +49,16 @@
     }
 }
 
+-(void)setSuperEdit:(BOOL)SuperEdit{
+    if (SuperEdit) {
+        _roomname.backgroundColor = [UIColor whiteColor];
+    }else{
+        _roomname.backgroundColor = NITColorAlpha(170, 170, 170, 0.38);
+    }
+    _segmentbar.userInteractionEnabled = SuperEdit;
+    _roomname.userInteractionEnabled = SuperEdit;
+    _pickBtn.userInteractionEnabled = SuperEdit;
+}
 
 //- (IBAction)clickPick:(UIButton *)sender {
 //    
@@ -142,11 +152,19 @@
     return YES;
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    [textField setBackgroundColor:NITColor(253, 164, 181)];
+    
+    return YES;
+}
+
 //
 ////输入框编辑完成以后，将视图恢复到原始状态
 //
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
+    [textField setBackgroundColor:[UIColor whiteColor]];
     [self updateMainnodenameInfoaNodename:textField.text withType:2];
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];

@@ -28,6 +28,8 @@
 
 @property (nonatomic, copy) NSString                       *nodeid;
 
+@property(nonatomic, assign) BOOL SuperEdit;
+
 @property (nonatomic, assign) NSInteger                    cellnumber;
 @property (strong, nonatomic) IBOutlet UIButton            *pickBtn;
 

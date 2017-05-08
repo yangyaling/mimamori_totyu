@@ -36,10 +36,9 @@
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl *sensorSegment;
 
-@property (strong, nonatomic) IBOutlet UIButton           *saveButton;
-
 @property (nonatomic, assign) BOOL                         isSensorTableView;
 
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 
 @property (nonatomic, assign) NSInteger                    addDataH;
 
@@ -124,6 +123,46 @@
 -(void)viewWillAppear:(BOOL)animated{
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
     [self.tableView.mj_header beginRefreshing];
+}
+- (IBAction)editCell:(id)sender {
+    
+    [_tableView setEditing:!_tableView.editing animated:YES];
+    [self.tableView reloadData];
+    [sender setTitle:_tableView.editing ? @"完了" : @"編集" forState:UIControlStateNormal];
+    if (!_tableView.editing) {
+        [MBProgressHUD showMessage:@"" toView:self.view];
+        //    sensorallnodes
+        MScenarioListParam *param = [[MScenarioListParam alloc]init];
+        param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+        param.custid = self.profileUser0;
+        
+        NSDictionary *maindic = [NITUserDefaults objectForKey:@"mainondedatakey"];
+        NSString *mainid = maindic[@"mainnodeid"];
+        if (mainid.length) {
+            param.mainnodeid = mainid;
+            param.mainnodename = maindic[@"mainnodename"];
+        }
+        
+        
+        NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
+        NSError *parseError = nil;
+        NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
+        NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+        
+        param.place = str;
+        
+        //    NITLog(@"userid1:%@\n userid0:%@\n place:%@",param.userid1,param.userid0,param.place);
+        [MScenarioTool sensorUpdateWithParam:param success:^(NSString *code) {
+            
+            [MBProgressHUD hideHUDForView:self.view];
+            NITLog(@"%@",code);
+            [self saveNodeIdDatas];
+            [self getScenarioList];
+            [MBProgressHUD showSuccess:@"設定済み"];
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view];
+        }];
+    }
 }
 
 /**
@@ -278,55 +317,16 @@
     
     if (sender.selectedSegmentIndex == 0){
         self.isSensorTableView = YES;
-        self.saveButton.hidden = NO;
-        self.tableView.frame = CGRectMake(0, 176 , NITScreenW, NITScreenH - 285);
+        self.editButton.hidden = NO;
         self.addDataH = 0;
         
     } else {
-        self.saveButton.hidden = YES;
+        self.editButton.hidden = YES;
         self.isSensorTableView = NO;
-        self.tableView.frame = CGRectMake(0, 176 , NITScreenW, NITScreenH - 225);
         self.addDataH = 45;
     }
     
     [self.tableView reloadData];
-    
-}
-
-- (IBAction)SaveSelectedData:(UIButton *)sender {
-    [MBProgressHUD showMessage:@"" toView:self.view];
-//    sensorallnodes
-    MScenarioListParam *param = [[MScenarioListParam alloc]init];
-    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
-    param.custid = self.profileUser0;
-    
-    NSDictionary *maindic = [NITUserDefaults objectForKey:@"mainondedatakey"];
-    NSString *mainid = maindic[@"mainnodeid"];
-    if (mainid.length) {
-        param.mainnodeid = mainid;
-        param.mainnodename = maindic[@"mainnodename"];
-    }
-    
-    
-    NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
-    NSError *parseError = nil;
-    NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
-    NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-    
-    param.place = str;
-    
-//    NITLog(@"userid1:%@\n userid0:%@\n place:%@",param.userid1,param.userid0,param.place);
-    
-    [MScenarioTool sensorUpdateWithParam:param success:^(NSString *code) {
-        
-        [MBProgressHUD hideHUDForView:self.view];
-        NITLog(@"%@",code);
-        [self saveNodeIdDatas];
-        [MBProgressHUD showSuccess:@"設定済み"];
-        
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view];
-    }];
     
 }
 
@@ -470,6 +470,8 @@
         cell.nodeid = devices.nodeid;
         
         [cell.segmentbar setSelectedSegmentIndex:[devices.place integerValue] - 1];
+        
+        cell.SuperEdit = tableView.editing;
         
         return cell;
     } else {
