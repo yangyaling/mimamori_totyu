@@ -130,6 +130,7 @@
 
 
 - (IBAction)editCell:(UIButton *)sender {
+    [self.tableView setEditing:!self.tableView.editing animated:YES];
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         
@@ -257,10 +258,43 @@
 }
 
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    return UITableViewCellEditingStyleNone;
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [MBProgressHUD showMessage:@"" toView:self.view];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"]];
+        NSDictionary *dic = array[indexPath.row];
+        
+        [MHttpTool postWithURL:NITDeleteRoomInfo params:dic success:^(id json) {
+            
+            [MBProgressHUD hideHUDForView:self.view];
+            
+            if (json) {
+                
+                NSString *code = [json objectForKey:@"code"];
+                
+                NITLog(@"%@",code);
+                
+                if ([code isEqualToString:@"502"]) {
+                    
+                    [MBProgressHUD showError:@""];
+                    
+                } else {
+                    [array removeObjectAtIndex:indexPath.row];
+                    [NITUserDefaults setObject:array forKey:@"ROOMMASTERINFOKEY"];
+                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                    
+                }
+            }
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view];
+            NITLog(@"%@",error);
+        }];
+        
+    }
+    [CATransaction setCompletionBlock:^{
+        [self.tableView reloadData];
+    }];
 }
 
 @end

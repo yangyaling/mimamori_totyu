@@ -106,6 +106,8 @@
 
 #define NITUpdateCompanyInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdatecompanyinfo.php"
 
+#define NITDeleteCompanyInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwdeletecompanyinfo.php"
+
 #define NITGetFacilityInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetfacilityinfo.php"
 
 #define NITUpdateFacilityInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdatefacilityinfo.php"
@@ -127,6 +129,8 @@
 #define NITGetRoomInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetroominfo.php"
 
 #define NITUpdateRoomInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdateroominfo.php"
+
+#define NITDeleteRoomInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwdeleteroominfo.php"
 
 
 /**　機器情報　*/
