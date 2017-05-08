@@ -137,7 +137,13 @@
             
             NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
             NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arr[self.cellindex]];
-            [dic setObject:self.custNameTF.text forKey:@"custname"];
+            
+            [dic setObject:self.sensorIdTF.text  forKey:@"sensorid"];
+            [dic setObject:dict[@"custid"]  forKey:@"custid"];
+            [dic setObject:dict[@"custname"] forKey:@"custname"];
+            
+            [arr replaceObjectAtIndex:self.cellindex withObject:dic];
+            [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
         }
     }
     
