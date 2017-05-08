@@ -47,6 +47,11 @@
         [self.yiniText setEnabled:NO];
         [self.igName setEnabled:NO];
         [self.igNameMemo setEnabled:NO];
+        
+        [self.igTextLabel setBackgroundColor:NITColor(235, 235, 241)];
+        [self.yiniText setBackgroundColor:NITColor(235, 235, 241)];
+        [self.igName setBackgroundColor:NITColor(235, 235, 241)];
+        [self.igNameMemo setBackgroundColor:NITColor(235, 235, 241)];
     }
     
     

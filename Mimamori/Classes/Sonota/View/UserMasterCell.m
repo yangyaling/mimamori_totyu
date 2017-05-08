@@ -53,8 +53,8 @@
         
         
     } else {
-        [self.text1 setEnabled:noOp];
-        [self.text1 setBackgroundColor:color];
+        //[self.text1 setEnabled:noOp];
+        //[self.text1 setBackgroundColor:color];
         
         [self.pickButton setEnabled:noOp];
         [self.pickButton setBackgroundColor:color];

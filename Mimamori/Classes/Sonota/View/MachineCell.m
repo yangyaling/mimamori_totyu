@@ -9,12 +9,14 @@
 #import "MachineCell.h"
 #import "NITPicker.h"
 
-@interface MachineCell ()
+@interface MachineCell ()<MyPickerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *serialNoTF;
 @property (weak, nonatomic) IBOutlet UITextField *sensorIdTF;
 @property (weak, nonatomic) IBOutlet UITextField *custIdTF;
-@property (weak, nonatomic) IBOutlet UITextField *custNameTF;
+@property (weak, nonatomic) IBOutlet UIButton *custIdBtn;
 
+@property (weak, nonatomic) IBOutlet UITextField *custNameTF;
+@property (nonatomic, strong) NITPicker            *picker;
 @end
 
 @implementation MachineCell
@@ -35,7 +37,8 @@
     }
     self.sensorIdTF.text = datasDic[@"sensorid"];
     self.serialNoTF.text = datasDic[@"serial"];
-    self.custIdTF.text = datasDic[@"custid"];
+    [self.custIdBtn setTitle:datasDic[@"custid"] forState:UIControlStateNormal];
+    //self.custIdTF.text = datasDic[@"custid"];
     self.custNameTF.text = datasDic[@"custname"];
     
 }
@@ -50,27 +53,44 @@
         
         
     } else {
-//        [self.text1 setEnabled:noOp];
-//        [self.text1 setBackgroundColor:color];
-//        
-//        [self.pickButton setEnabled:noOp];
-//        [self.pickButton setBackgroundColor:color];
-//        
-//        [self.text2 setEnabled:noOp];
-//        [self.text2 setBackgroundColor:color];
+        [self.sensorIdTF setEnabled:noOp];
+        [self.sensorIdTF setBackgroundColor:color];
+        
+        [self.serialNoTF setEnabled:noOp];
+        [self.serialNoTF setBackgroundColor:color];
+        
+//        [self.custIdTF setEnabled:noOp];
+//        [self.custIdTF setBackgroundColor:color];
+        [self.custIdBtn setEnabled:noOp];
+        [self.custIdBtn setBackgroundColor:color];
+        
+        [self.custNameTF setEnabled:noOp];
+        [self.custNameTF setBackgroundColor:color];
         
     }
 }
 
+- (IBAction)showPick:(UIButton *)sender {
+    [sender setBackgroundColor:NITColor(253, 164, 181)];
+    self.serialNoTF.backgroundColor = [UIColor whiteColor];
+    self.sensorIdTF.backgroundColor = [UIColor whiteColor];
+    
+    self.custNameTF.backgroundColor = NITColor(253, 164, 181);
+    self.custNameTF.userInteractionEnabled = NO;
+    
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];
+    _picker.mydelegate = self;
+    
+    [WindowView addSubview:_picker];
+    
+}
+
+
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    
+    self.custIdBtn.backgroundColor = [UIColor whiteColor];
+    self.custNameTF.backgroundColor = [UIColor whiteColor];
     [textField setBackgroundColor:NITColor(253, 164, 181)];
-    if (textField.tag == 4) {
-#warning todo
-        // 获取对应id的ユーザネーム
-        
-    }
     
     return YES;
 }
@@ -81,7 +101,7 @@
 {
 
     [textField setBackgroundColor:[UIColor whiteColor]];
-    NSLog(@"%@",textField.text);
+
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arr[self.cellindex]];
     switch (textField.tag) {
@@ -105,6 +125,29 @@
 
     [arr replaceObjectAtIndex:self.cellindex withObject:dic];
     [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
+    
+}
+
+- (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell{
+    NITLog(@"%@",sinario);
+    NSArray *custlist = [NITUserDefaults objectForKey:@"custidlist"];
+    for (NSDictionary *dict in custlist) {
+        if ([dict[@"custid"] isEqualToString:sinario]) {
+            self.custNameTF.text = dict[@"custname"];
+            
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arr[self.cellindex]];
+            
+            [dic setObject:self.sensorIdTF.text  forKey:@"sensorid"];
+            [dic setObject:dict[@"custid"]  forKey:@"custid"];
+            [dic setObject:dict[@"custname"] forKey:@"custname"];
+            
+            [arr replaceObjectAtIndex:self.cellindex withObject:dic];
+            [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
+        }
+    }
+    
+    
     
 }
 

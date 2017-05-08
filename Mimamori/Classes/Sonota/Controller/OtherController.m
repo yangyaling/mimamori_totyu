@@ -94,26 +94,27 @@
             [MBProgressHUD showError:@"delete fail"];
             return ;
         }
-//        [NITUserDefaults setObject:@"1" forKey:@"loginFlg"];
-        
-        
         
         // 3 删除缓存数据(既読のお知らせアラート)
-        [NITUserDefaults removeObjectForKey:@"readnotice"];
+        //[NITUserDefaults removeObjectForKey:@"readnotice"];
         
         //清空设施数组
-        NSArray *alldropArray = [NITUserDefaults objectForKey:@"FacilityList"];
-        NSArray *imagesArray = [NITUserDefaults objectForKey:@"CellImagesName"];
-        NSArray *tmpimagesArray = [NITUserDefaults objectForKey:@"TempcellImagesName"];
-        NSArray *facitilityname = [NITUserDefaults objectForKey:@"TempFacilityName"];
-        alldropArray = nil;
-        imagesArray = nil;
-        tmpimagesArray = nil;
-        facitilityname = nil;
-        [NITUserDefaults setObject:alldropArray forKey:@"FacilityList"];
-        [NITUserDefaults setObject:imagesArray forKey:@"CellImagesName"];
-        [NITUserDefaults setObject:tmpimagesArray forKey:@"TempcellImagesName"];
-        [NITUserDefaults setObject:facitilityname forKey:@"TempFacilityName"];
+//        NSArray *alldropArray = [NITUserDefaults objectForKey:@"FacilityList"];
+//        NSArray *imagesArray = [NITUserDefaults objectForKey:@"CellImagesName"];
+//        NSArray *tmpimagesArray = [NITUserDefaults objectForKey:@"TempcellImagesName"];
+//        NSArray *facitilityname = [NITUserDefaults objectForKey:@"TempFacilityName"];
+//        alldropArray = nil;
+//        imagesArray = nil;
+//        tmpimagesArray = nil;
+//        facitilityname = nil;
+//        [NITUserDefaults setObject:alldropArray forKey:@"FacilityList"];
+//        [NITUserDefaults setObject:imagesArray forKey:@"CellImagesName"];
+//        [NITUserDefaults setObject:tmpimagesArray forKey:@"TempcellImagesName"];
+//        [NITUserDefaults setObject:facitilityname forKey:@"TempFacilityName"];
+       
+        // 清除缓存
+        NSString*appDomain = [[NSBundle mainBundle] bundleIdentifier];
+        [NITUserDefaults removePersistentDomainForName:appDomain];
         
         
         // 4.返回登录页面

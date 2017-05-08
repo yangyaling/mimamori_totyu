@@ -97,6 +97,7 @@
             NSString *timeStr = [NSString stringWithFormat:@"%f", interval];
             [NITUserDefaults setObject:timeStr forKey:@"oldtime"];
         }else{
+            [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD  showError:@"正しい情報を入力してください"];
 //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //                [MBProgressHUD hideHUD];
