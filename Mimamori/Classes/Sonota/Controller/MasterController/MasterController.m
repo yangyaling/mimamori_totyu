@@ -37,6 +37,7 @@
 }
 
 -(void)setUI {
+    
     _titleArray = @[@"マスタ関連" ,@"",@"施設情報",@"機器情報",@"使用者情報（見守る人）",@"入居者情報（見守られる人）"];
     //创建一个layout布局类
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];

@@ -52,7 +52,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/UserMasterController.m"
-                  timestampString = "516009593.216829"
+                  timestampString = "516012706.398392"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "207"
@@ -67,7 +67,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/UserMasterController.m"
-                  timestampString = "516009593.218155"
+                  timestampString = "516012706.3997"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "207"
@@ -101,6 +101,22 @@
             continueAfterRunningActions = "No"
             scope = "0"
             stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mimamori/Classes/Life/Controller/LifeChartController.m"
+            timestampString = "516011827.750458"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "-getSensorDataInfoWithType:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

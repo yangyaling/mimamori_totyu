@@ -95,7 +95,7 @@
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height, 0);
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 36, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - self.footView.height, 0);
     });
 }
 
@@ -109,7 +109,7 @@
 -(void)dealloc {
     NSArray *arr = nil;
     [NITUserDefaults setObject:arr forKey:@"mainondedatakey"];
-    
+
     [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
@@ -151,7 +151,7 @@
         [MBProgressHUD hideHUDForView:self.view];
         self.footView.height = 0;
         self.isEdit = NO;
-        [self.editButton setTitle:@"完了" forState:UIControlStateNormal];
+        [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
         [self.tableView reloadData];
         
         [self saveNodeIdDatas];
@@ -337,7 +337,7 @@
         
     } else {
         self.editButton.hidden = YES;
-        [self.editButton setTitle:@"完了" forState:UIControlStateNormal];
+        [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
         self.isEdit = NO;
         self.footView.height = 0;
         

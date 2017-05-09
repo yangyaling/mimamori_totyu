@@ -229,15 +229,16 @@
     
     // 2.传递模型
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
+    
     NSDictionary *dic = arr[indexPath.row];
+    
+    cell.editOp = self.isEdit;
+    
+    cell.cellindex = indexPath.row;
+    
     if (dic) {
         cell.datasDic = dic.copy;
     }
-    cell.editOp = self.isEdit;
-    cell.cellindex = indexPath.row;
-    
-    // 3.设置cell点击背景色
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
     

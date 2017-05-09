@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _titleArray = @[@"見守り設定" ,@"ユーザ情報",@"管理者機能",@"ヘルプ機能",@"",@""];
+    _titleArray = @[@"見守り設定" ,@"ユーザ情報",@"管理者機能",@"ヘルプ機能",@"お問合せ機能",@""];
     //-----お問合せ
     
     self.automaticallyAdjustsScrollViewInsets = NO;
