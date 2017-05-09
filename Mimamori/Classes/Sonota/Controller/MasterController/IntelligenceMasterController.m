@@ -4,12 +4,14 @@
 //
 //  Created by totyu2 on 2017/5/2.
 //  Copyright © 2017年 totyu3. All rights reserved.
-//
+//　企業マスタ
 
 #import "IntelligenceMasterController.h"
 #include "IntelligenceMasterCell.h"
 
-@interface IntelligenceMasterController ()
+@interface IntelligenceMasterController (){
+    NSString *usertype;
+}
 @property (strong, nonatomic) IBOutlet DropButton     *facilityBtn;
 
 @property (strong, nonatomic) IBOutlet UITableView    *tableView;
@@ -26,6 +28,15 @@
     [super viewDidLoad];
     self.footView.height = 0;
     self.footView.alpha = 0;
+    
+    // 権限
+    usertype = USERTYPE;
+    if ([usertype isEqualToString:@"1"]) {
+        self.editButton.hidden = NO;
+    }else{
+        self.editButton.hidden = YES;
+    }
+    
     NSArray *arr = nil;
     [NITUserDefaults setObject:arr forKey:@"COMPANYINFO"];
     
@@ -39,27 +50,6 @@
     //监听键盘出现和消失
     [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [NITNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-
-#pragma mark 键盘出现
--(void)keyboardWillShow:(NSNotification *)note
-{
-    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
-}
-
-
-#pragma mark 键盘消失
--(void)keyboardWillHide:(NSNotification *)note
-{
-    self.tableView.contentInset = UIEdgeInsetsZero;
-}
-
-
--(void)dealloc {
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 
@@ -263,13 +253,22 @@
     }];
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-//    return self.footView;
-//}
-//
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-//    
-//    return self.footView.height;
-//}
+#pragma mark - 键盘
+-(void)keyboardWillShow:(NSNotification *)note
+{
+    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
+}
+
+-(void)keyboardWillHide:(NSNotification *)note
+{
+    self.tableView.contentInset = UIEdgeInsetsZero;
+}
+
+
+-(void)dealloc {
+    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
 
 @end

@@ -9,7 +9,9 @@
 #import "HomeMasterController.h"
 #import "HomeMasterCell.h"
 
-@interface HomeMasterController ()
+@interface HomeMasterController (){
+    NSString *usertype;
+}
 @property (strong, nonatomic) IBOutlet DropButton *facilityBtn;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
@@ -31,6 +33,14 @@
     [super viewDidLoad];
     self.footView.height = 0;
     self.footView.alpha = 0;
+    //　権限
+    usertype = USERTYPE;
+    if ([usertype isEqualToString:@"1"]) {
+        self.editButton.hidden = NO;
+    }else{
+        self.editButton.hidden = YES;
+    }
+    
     NSArray *arr = nil;
     [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
     

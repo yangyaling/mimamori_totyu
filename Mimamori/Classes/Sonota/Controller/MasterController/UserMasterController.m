@@ -4,13 +4,15 @@
 //
 //  Created by totyu2 on 2017/5/2.
 //  Copyright © 2017年 totyu3. All rights reserved.
-//
+//  使用者情報
 
 #import "UserMasterController.h"
 #import "UserMasterCell.h"
 
 
-@interface UserMasterController ()
+@interface UserMasterController (){
+    NSString *usertype;
+}
 
 @property (strong, nonatomic) IBOutlet UITextField *companyName;
 
@@ -37,15 +39,20 @@
     
     self.footView.height = 0;
     self.footView.alpha = 0;
-//    [self.footView setHidden:NO];
+    
+    //　権限
+    usertype = USERTYPE;
+    if ([usertype isEqualToString:@"x"] || [usertype isEqualToString:@"1"]) {
+        self.editButton.hidden = NO;
+    }else{
+        self.editButton.hidden = YES;
+    }
     
     NSArray *arr = nil;
     [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
     
-//    self.tableView.tableFooterView = [[UIView alloc]init];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getnlInfo)];
-    
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
     self.isEdit = NO;
@@ -65,24 +72,7 @@
     _facilityBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
-#pragma mark 键盘出现
--(void)keyboardWillShow:(NSNotification *)note
-{
-    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
-}
-#pragma mark 键盘消失
--(void)keyboardWillHide:(NSNotification *)note
-{
-    self.tableView.contentInset = UIEdgeInsetsZero;
-}
 
--(void)dealloc {
-    
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
-}
 
 //数据请求
 - (void)getnlInfo {
@@ -137,10 +127,12 @@
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         
         self.numxxid = 0;
-        
         self.isEdit = YES;
-        [self ViewAnimateStatas:120];
-        
+        if ([usertype isEqualToString:@"x"]) {
+            [self ViewAnimateStatas:120];
+            //[self.tableView setEditing:YES animated:YES];
+        }
+
         //进入编辑状态
 //        [self.tableView setEditing:YES animated:YES];///////////
     }else{
@@ -148,7 +140,7 @@
         
 //        [sender setTitle:@"編集" forState:UIControlStateNormal];
         
-        [self saveInfo:nil]; //跟新或者追加
+        [self saveNow:nil]; //跟新或者追加
         
     }
     
@@ -195,6 +187,44 @@
         [self getnlInfo];
     }
 }
+
+- (IBAction)saveNow:(id)sender {
+    
+    NITLog(@"134567890-");
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    
+    
+    NSArray *array = [NITUserDefaults objectForKey:@"STAFFINFO"];
+    
+    NSError *parseError = nil;
+    
+    NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
+    NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *dic = @{@"stafflist":str};
+    NITLog(@"%@",dic);
+    [MHttpTool postWithURL:NITUpdateStaffInfo params:dic success:^(id json) {
+        [MBProgressHUD hideHUDForView:self.view];
+        if (json) {
+            NSString *code = [json objectForKey:@"code"];
+            NITLog(@"%@",json);
+            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+            //            [self.tableView setEditing:NO animated:YES];
+            self.footView.height = 0;
+            self.footView.alpha = 0;
+            self.isEdit = NO;
+            [self.tableView reloadData];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        //        [self.tableView setEditing:NO animated:YES];
+        NITLog(@"%@",error);
+    }];
+
+}
+
+
+
 
 
 - (IBAction)saveInfo:(id)sender {
@@ -268,13 +298,23 @@
     return UITableViewCellEditingStyleNone;
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-//    return self.footView;
-//}
-//
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-//    
-//    return self.footView.height;
-//}
+#pragma mark - 键盘
+-(void)keyboardWillShow:(NSNotification *)note
+{
+    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
+}
+
+-(void)keyboardWillHide:(NSNotification *)note
+{
+    self.tableView.contentInset = UIEdgeInsetsZero;
+}
+
+-(void)dealloc {
+    
+    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+}
 
 @end

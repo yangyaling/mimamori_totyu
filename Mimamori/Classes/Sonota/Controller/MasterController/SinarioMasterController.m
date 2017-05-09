@@ -4,14 +4,16 @@
 //
 //  Created by totyu2 on 2017/5/2.
 //  Copyright © 2017年 totyu3. All rights reserved.
-//
+//　シナリオマスタ
 
 #import "SinarioMasterController.h"
 #import "SinarioMasterCell.h"
 
 #import "EditSinarioController.h"
 
-@interface SinarioMasterController ()
+@interface SinarioMasterController (){
+    NSString *usertype;
+}
 @property (strong, nonatomic) IBOutlet DropButton *facilityBtn;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
@@ -31,6 +33,14 @@
     self.tableView.tableFooterView = [[UIView alloc]init];
     
     self.isOpen = YES;
+    
+    // 権限
+    usertype = USERTYPE;
+    if ([usertype isEqualToString:@"1"]) {
+        self.addButton.hidden = NO;
+    }else{
+        self.addButton.hidden = YES;
+    }
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getnlInfo)];
     
@@ -114,6 +124,8 @@
     [self performSegueWithIdentifier:@"pushEditSinarioMaster" sender:self];
 }
 
+
+/** 追加ボタンを押す */
 - (IBAction)addEditSinarioMaster:(UIButton *)sender {
     self.isOpen = NO;
     [self performSegueWithIdentifier:@"pushEditSinarioMaster" sender:self];
@@ -123,8 +135,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     EditSinarioController *esc = segue.destinationViewController;
-    
-    
     
     if (self.isOpen) {
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;

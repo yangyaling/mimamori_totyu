@@ -51,11 +51,12 @@
 #define WindowView [UIApplication sharedApplication].windows.lastObject
 
 
-
+// ユーザ分類　x;1;2;3
+#define USERTYPE [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
+#define TextFieldNormalColor NITColor(235, 235, 241)
 /**
  sonota   URL
  */
-
 
 
 

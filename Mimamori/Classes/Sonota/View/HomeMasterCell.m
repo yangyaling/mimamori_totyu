@@ -36,13 +36,34 @@
     
     if (self.editOp) {
         
-        [self statusEdit:YES withColor:[UIColor whiteColor]];
+        [self.custName setEnabled:YES];
+        [self.custName setBackgroundColor:[UIColor whiteColor]];
+        
+        [self.roombtn setEnabled:YES];
+        [self.roombtn setBackgroundColor:[UIColor whiteColor]];
+        
+        [self.floorbtn setEnabled:YES];
+        [self.floorbtn setBackgroundColor:[UIColor whiteColor]];
+        
+        //[self statusEdit:YES withColor:[UIColor whiteColor]];
         
     } else {
         
-        [self statusEdit:NO withColor:NITColor(235, 235, 241)];
+        [self.custName setEnabled:NO];
+        [self.custName setBackgroundColor:TextFieldNormalColor];
+        
+        [self.roombtn setEnabled:NO];
+        [self.roombtn setBackgroundColor:TextFieldNormalColor];
+        
+        [self.floorbtn setEnabled:NO];
+        [self.floorbtn setBackgroundColor:TextFieldNormalColor];
+        
+        //[self statusEdit:NO withColor:NITColor(235, 235, 241)];
     }
-//
+
+    [self.custID setEnabled:NO];
+    [self.custID setBackgroundColor:TextFieldNormalColor];
+    
     self.custID.text = datasDic[@"custid"];
     self.custName.text = datasDic[@"custname"];
     NSString *floorstr = [NSString stringWithFormat:@"%@",datasDic[@"floorno"]];
@@ -52,30 +73,30 @@
     
 }
 
-- (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
-    NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
-    if (!master.length) return;
-    
-    if ([master isEqualToString:@"3"]) {
-        
-    } else if ([master isEqualToString:@"2"]) {
-        
-        
-    } else {
-        [self.custID setEnabled:noOp];
-        [self.custID setBackgroundColor:color];
-        
-        [self.custName setEnabled:noOp];
-        [self.custName setBackgroundColor:color];
-        
-        [self.roombtn setEnabled:noOp];
-        [self.roombtn setBackgroundColor:color];
-        
-        [self.floorbtn setEnabled:noOp];
-        [self.floorbtn setBackgroundColor:color];
-        
-    }
-}
+//- (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
+//    NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
+//    if (!master.length) return;
+//    
+//    if ([master isEqualToString:@"3"]) {
+//        
+//    } else if ([master isEqualToString:@"2"]) {
+//        
+//        
+//    } else {
+//        [self.custID setEnabled:noOp];
+//        [self.custID setBackgroundColor:color];
+//        
+//        [self.custName setEnabled:noOp];
+//        [self.custName setBackgroundColor:color];
+//        
+//        [self.roombtn setEnabled:noOp];
+//        [self.roombtn setBackgroundColor:color];
+//        
+//        [self.floorbtn setEnabled:noOp];
+//        [self.floorbtn setBackgroundColor:color];
+//        
+//    }
+//}
 
 
 - (IBAction)showPick:(UIButton *)sender {

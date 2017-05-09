@@ -4,11 +4,13 @@
 //
 //  Created by totyu2 on 2017/4/28.
 //  Copyright © 2017年 totyu3. All rights reserved.
-//
+//  施設情報
 
 #import "IntelligenceController.h"
 
-@interface IntelligenceController ()
+@interface IntelligenceController (){
+    NSString *usertype;
+}
 @property (strong, nonatomic) IBOutlet DropButton *facilityBtn;
 
 //基本情报
@@ -17,24 +19,11 @@
 
 //设施情报
 @property (strong, nonatomic) IBOutlet UITextField *hosutoIdField;
-
 @property (strong, nonatomic) IBOutlet UITextField *facilityField;
 @property (strong, nonatomic) IBOutlet UITextField *facilityNameField;
 @property (strong, nonatomic) IBOutlet UITextField *fckanaField;
 @property (strong, nonatomic) IBOutlet UITextField *facilityName2Field;
-
 @property (strong, nonatomic) IBOutlet UITextField *fckana2Field;
-
-
-//其他
-//@property (strong, nonatomic) IBOutlet UITextField *numField;
-//
-//@property (strong, nonatomic) IBOutlet UITextField *pesronNumField;
-//
-//@property (strong, nonatomic) IBOutlet UITextField *sonotaField;
-
-
-//@property (nonatomic, strong) NSArray              *allDatas;
 
 @property (strong, nonatomic) IBOutlet UIButton    *editButton;
 @end
@@ -44,6 +33,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    usertype = USERTYPE;
+    if ([usertype isEqualToString:@"1"] || [usertype isEqualToString:@"2"]) {
+        self.editButton.hidden = NO;
+    }else{
+        self.editButton.hidden = YES;
+    }
     
     [self getinfo];
     
@@ -59,28 +55,15 @@
         [MBProgressHUD hideHUDForView:WindowView];
         NSDictionary *indoDic = [json objectForKey:@"facilityinfo"];
         if (indoDic.count > 0) {
-            
-           
             self.kodoField.text = indoDic[@"companycd"];
             self.nameField.text = indoDic[@"companyname"];
             
             self.hosutoIdField.text = indoDic[@"hostcd"];
-            
             self.facilityField.text = indoDic[@"facilitycd"];
-            
             self.facilityNameField.text = indoDic[@"facilityname1"];
-            
             self.fckanaField.text = indoDic[@"facilityname1kana"];
-            
             self.facilityName2Field.text = indoDic[@"facilityname2"];
-            
-            
             self.fckana2Field.text = indoDic[@"facilityname2kana"];
-            
-            
-//            self.numField.text = [NSString stringWithFormat:@"%@", indoDic[@"floorcount"]];
-//            self.pesronNumField.text = [NSString stringWithFormat:@"%@", indoDic[@"roomcount"]];
-//            self.sonotaField.text = indoDic[@"memo"];
             
         }
     } failure:^(NSError *error) {
@@ -105,7 +88,6 @@
     
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
-        
         [self statusEdit:YES withColor:[UIColor whiteColor]];
         //进入编辑状态
     }else{
@@ -124,50 +106,17 @@
 }
 
 - (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
-    NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
-    if (!master.length) return;
     
-    if ([master isEqualToString:@"3"]) {
-        
-    } else if ([master isEqualToString:@"2"]) {
+    if ([usertype isEqualToString:@"2"]) {
         [self.facilityName2Field setEnabled:noOp];
         [self.facilityName2Field setBackgroundColor:color];
         [self.fckana2Field setEnabled:noOp];
         [self.fckana2Field setBackgroundColor:color];
-        
-        
-//        [self.numField setEnabled:noOp];
-//        [self.numField setBackgroundColor:color];
-//        [self.pesronNumField setEnabled:noOp];
-//        [self.pesronNumField setBackgroundColor:color];
-//        [self.sonotaField setEnabled:noOp];
-//        [self.sonotaField setBackgroundColor:color];
     } else {
-//        [self.kodoField setEnabled:noOp];
-//        [self.kodoField setBackgroundColor:color];
-//        [self.nameField setEnabled:noOp];
-//        [self.nameField setBackgroundColor:color];
-//        
-//        [self.hosutoIdField setEnabled:noOp];
-//        [self.hosutoIdField setBackgroundColor:color];
-//        [self.facilityField setEnabled:noOp];
-//        [self.facilityField setBackgroundColor:color];
-//        [self.facilityNameField setEnabled:noOp];
-//        [self.facilityNameField setBackgroundColor:color];
-//        [self.fckanaField setEnabled:noOp];
-//        [self.fckanaField setBackgroundColor:color];
         [self.facilityName2Field setEnabled:noOp];
         [self.facilityName2Field setBackgroundColor:color];
         [self.fckana2Field setEnabled:noOp];
         [self.fckana2Field setBackgroundColor:color];
-        
-        
-//        [self.numField setEnabled:noOp];
-//        [self.numField setBackgroundColor:color];
-//        [self.pesronNumField setEnabled:noOp];
-//        [self.pesronNumField setBackgroundColor:color];
-//        [self.sonotaField setEnabled:noOp];
-//        [self.sonotaField setBackgroundColor:color];
         
     }
 }
