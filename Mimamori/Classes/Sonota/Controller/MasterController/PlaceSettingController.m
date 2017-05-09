@@ -109,7 +109,6 @@
         [self.tableView setEditing:YES animated:YES];
 
     }else{
-        self.isEdit = NO;
         [self saveInfo:nil]; //跟新或者追加
     }
     
@@ -118,6 +117,40 @@
     }];
     
 }
+
+- (IBAction)saveInfo:(id)sender {
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    
+    NSArray *array = [NITUserDefaults objectForKey:@"NLINFO"];
+    
+    NSError *parseError = nil;
+    
+    NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
+    NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *dic = @{@"nllist":str};
+    
+    [MHttpTool postWithURL:NITUpdateNLInfo params:dic success:^(id json) {
+        [MBProgressHUD hideHUDForView:self.view];
+        if (json) {
+            NSString *code = [json objectForKey:@"code"];
+            NITLog(@"%@",code);
+            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+            self.footView.height = 0;
+            self.footView.alpha = 0;
+            self.isEdit = NO;
+            [self.tableView setEditing:NO animated:YES];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        [self.tableView setEditing:NO animated:YES];
+        NITLog(@"%@",error);
+    }];
+    [CATransaction setCompletionBlock:^{
+        [self.tableView reloadData];
+    }];
+}
+
 
 -(void)ViewAnimateStatas:(double)statas {
     
@@ -150,38 +183,6 @@
 }
 
 
-- (IBAction)saveInfo:(id)sender {
-    [MBProgressHUD showMessage:@"" toView:self.view];
-    
-    NSArray *array = [NITUserDefaults objectForKey:@"NLINFO"];
-    
-    NSError *parseError = nil;
-    
-    NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
-    NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-    
-    NSDictionary *dic = @{@"nllist":str};
-    
-    [MHttpTool postWithURL:NITUpdateNLInfo params:dic success:^(id json) {
-        [MBProgressHUD hideHUDForView:self.view];
-        if (json) {
-            NSString *code = [json objectForKey:@"code"];
-            NITLog(@"%@",code);
-            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-            self.footView.height = 0;
-            self.footView.alpha = 0;
-            [self.tableView setEditing:NO animated:YES];
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view];
-        [self.tableView setEditing:NO animated:YES];
-        NITLog(@"%@",error);
-    }];
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
-    }];
-    
-}
 
 
 #pragma mark - Table view data source

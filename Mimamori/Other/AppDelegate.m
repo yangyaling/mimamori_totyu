@@ -182,7 +182,7 @@ fetchCompletionHandler:
 
 //添加定时器(每隔n秒调用一次)
 -(void)addTimer{
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:120.0 target:self selector:@selector(getNoticeInfo) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:300.0 target:self selector:@selector(getNoticeInfo) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
