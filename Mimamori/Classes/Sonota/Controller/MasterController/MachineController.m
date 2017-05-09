@@ -103,9 +103,10 @@
 /** 点加号按钮 */
 - (IBAction)addCell:(id)sender {
     
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
     [arr addObject:@{@"custid":@"",@"custname":@"",@"sensorid":@"",@"oldcustid":@"",@"oldserial":@"",@"serial":@""}];
-    [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+    [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
     
     [CATransaction setCompletionBlock:^{
         [self.tableView reloadData];
@@ -114,12 +115,14 @@
     
 }
 
+
 /** 点登陆按钮 */
 - (IBAction)saveInfo:(id)sender {
+    
     [MBProgressHUD showMessage:@"" toView:self.view];
     
     // 准备参数
-    NSArray *array = [NITUserDefaults objectForKey:@"SENSORINFO"];
+    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]];
     NSError *parseError = nil;
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
@@ -189,7 +192,9 @@
         if (sslist.count > 0) {
             
             _allDatas = [NSMutableArray arrayWithArray:sslist.mutableCopy];
-            [NITUserDefaults setObject:sslist forKey:@"SENSORINFO"];
+            NSData * data = [NSKeyedArchiver archivedDataWithRootObject:sslist];
+            [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
+            
         }
         if (custlist.count > 0) {
             [NITUserDefaults setObject:custlist forKey:@"custidlist"];
@@ -213,7 +218,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSArray *arr = [NITUserDefaults objectForKey:@"SENSORINFO"];
+    NSArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]];
     return arr.count;
     
 }
@@ -223,7 +228,7 @@
     MachineCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MachineCell" forIndexPath:indexPath];
     
     // 2.传递模型
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
     NSDictionary *dic = arr[indexPath.row];
     if (dic) {
         cell.datasDic = dic.copy;

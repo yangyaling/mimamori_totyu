@@ -9,7 +9,9 @@
 #import "UserMasterCell.h"
 #import "NITPicker.h"
 
-@interface UserMasterCell ()<MyPickerDelegate>
+@interface UserMasterCell ()<MyPickerDelegate>{
+    NSString *usertype;
+}
 @property (strong, nonatomic) IBOutlet UITextField *text1;
 
 @property (strong, nonatomic) IBOutlet UIButton    *pickButton;
@@ -24,6 +26,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    usertype = USERTYPE;
 }
 
 - (void)setDatasDic:(NSDictionary *)datasDic {
@@ -31,11 +34,16 @@
     _datasDic=datasDic;
     
     if (self.editOp) {
+        
+        
         [self.pickButton setEnabled:YES];
         [self.pickButton setBackgroundColor:[UIColor whiteColor]];
         
         [self.text2 setEnabled:YES];
         [self.text2 setBackgroundColor:[UIColor whiteColor]];
+        
+       
+        
         //[self statusEdit:YES withColor:[UIColor whiteColor]];
         
     } else {

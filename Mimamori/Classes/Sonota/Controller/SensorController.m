@@ -50,7 +50,11 @@
 
 @property (nonatomic, strong) NSMutableArray               *sensorArray;
 @property (strong, nonatomic) IBOutlet DropButton          *facilitiesBtn;
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel             *titleLabel;
+
+@property (strong, nonatomic) IBOutlet UIView              *footView;
+
+@property (nonatomic, assign) BOOL                         isEdit;
 
 @end
 
@@ -58,9 +62,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.footView.height = 0;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+    self.isEdit = NO;
     self.titleLabel.text = self.titleStr;
     
     self.tableView.tableFooterView = [[UIView alloc]init];
@@ -87,7 +91,12 @@
 -(void)keyboardWillShow:(NSNotification *)note
 {
     CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height, 0);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 36, 0);
+    });
 }
 
 #pragma mark 键盘消失
@@ -110,45 +119,65 @@
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
     [self.tableView.mj_header beginRefreshing];
 }
-- (IBAction)editCell:(id)sender {
+
+
+- (IBAction)saveNow:(id)sender {
     
-    [_tableView setEditing:!_tableView.editing animated:YES];
-    [self.tableView reloadData];
-    [sender setTitle:_tableView.editing ? @"完了" : @"編集" forState:UIControlStateNormal];
-    if (!_tableView.editing) {
-        [MBProgressHUD showMessage:@"" toView:self.view];
-        //    sensorallnodes
-        MScenarioListParam *param = [[MScenarioListParam alloc]init];
-        param.staffid = [NITUserDefaults objectForKey:@"userid1"];
-        param.custid = self.profileUser0;
-        
-        NSDictionary *maindic = [NITUserDefaults objectForKey:@"mainondedatakey"];
-        NSString *mainid = maindic[@"mainnodeid"];
-        if (mainid.length) {
-            param.mainnodeid = mainid;
-            param.mainnodename = maindic[@"mainnodename"];
-        }
-        
-        
-        NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
-        NSError *parseError = nil;
-        NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
-        NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-        
-        param.place = str;
-        
-        //    NITLog(@"userid1:%@\n userid0:%@\n place:%@",param.userid1,param.userid0,param.place);
-        [MScenarioTool sensorUpdateWithParam:param success:^(NSString *code) {
-            
-            [MBProgressHUD hideHUDForView:self.view];
-            NITLog(@"%@",code);
-            [self saveNodeIdDatas];
-            [self getScenarioList];
-            [MBProgressHUD showSuccess:@"設定済み"];
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view];
-        }];
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    //    sensorallnodes
+    MScenarioListParam *param = [[MScenarioListParam alloc]init];
+    param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+    param.custid = self.profileUser0;
+    param.facilitycd  = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+    
+    NSDictionary *maindic = [NITUserDefaults objectForKey:@"mainondedatakey"];
+    NSString *mainid = maindic[@"mainnodeid"];
+    if (mainid.length) {
+        param.mainnodeid = mainid;
+        param.mainnodename = maindic[@"mainnodename"];
     }
+    
+    NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
+    
+    NSError *parseError = nil;
+    NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
+    NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+    
+    param.place = str;
+    
+    //    NITLog(@"userid1:%@\n userid0:%@\n place:%@",param.userid1,param.userid0,param.place);
+    [MScenarioTool sensorUpdateWithParam:param success:^(NSString *code) {
+        NITLog(@"%@",code);
+        [MBProgressHUD hideHUDForView:self.view];
+        self.footView.height = 0;
+        self.isEdit = NO;
+        [self.editButton setTitle:@"完了" forState:UIControlStateNormal];
+        [self.tableView reloadData];
+        
+        [self saveNodeIdDatas];
+        [self getScenarioList];
+        [MBProgressHUD showSuccess:@"設定済み"];
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+    }];
+
+}
+
+
+- (IBAction)editCell:(UIButton *)sender {
+    if ([sender.titleLabel.text isEqualToString:@"編集"]) {
+        [sender setTitle:@"完了" forState:UIControlStateNormal];
+        self.footView.height = 36;
+        self.isEdit = YES;
+    }else{
+        [self saveNow:nil]; //跟新或者追加
+        
+    }
+    [self.tableView reloadData];
+//    [CATransaction setCompletionBlock:^{
+//        [self.tableView reloadData];
+//    }];
 }
 
 /**
@@ -308,6 +337,10 @@
         
     } else {
         self.editButton.hidden = YES;
+        [self.editButton setTitle:@"完了" forState:UIControlStateNormal];
+        self.isEdit = NO;
+        self.footView.height = 0;
+        
         self.isSensorTableView = NO;
         self.addDataH = 45;
     }
@@ -457,7 +490,7 @@
         
         [cell.segmentbar setSelectedSegmentIndex:[devices.place integerValue] - 1];
         
-        cell.SuperEdit = tableView.editing;
+        cell.SuperEdit = self.isEdit;
         
         return cell;
     } else {
@@ -518,10 +551,17 @@
     return titleView;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return self.footView;
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return self.addDataH;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return self.footView.height;
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

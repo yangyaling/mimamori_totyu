@@ -65,12 +65,9 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.imageIcon.layer.cornerRadius = 6;
+    
     self.imageIcon.layer.masksToBounds = YES;
     self.imageIcon.userInteractionEnabled = YES;
-//    self.leftbgView.layer.cornerRadius = 6;
-//    self.arautoButton.layer.cornerRadius = 6;
-//    self.sinarioButton.layer.cornerRadius = 6;
     
     self.titleLabelC.text = self.viewTitle;
     
@@ -91,10 +88,12 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
         
         if (imgdata) {
             self.imageIcon.image = [UIImage imageWithData:imgdata];
+        } else {
+            self.imageIcon.image = [UIImage imageNamed:@"placeholder"];
         }
+        //placeholder
+        //life_place_icon
     } else {
-        
-        self.imageIcon.image = [UIImage imageNamed:@"placeholder"];
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             NSURL * url = [NSURL URLWithString:self.picpath];

@@ -154,9 +154,10 @@
 
 
 - (IBAction)editCell:(UIButton *)sender {
+   
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
-        
+         [self.tableView setEditing:YES animated:YES];
 //        self.numxxid = 0;
         
         self.isEdit = YES;
@@ -166,11 +167,9 @@
         //        [self.tableView setEditing:YES animated:YES];///////////
     }else{
         
-        
         //        [sender setTitle:@"編集" forState:UIControlStateNormal];
         
         [self saveInfo:nil]; //跟新或者追加
-        
     }
     
     [CATransaction setCompletionBlock:^{
@@ -218,6 +217,8 @@
 }
 
 
+
+
 - (IBAction)saveInfo:(id)sender {
    
     
@@ -244,13 +245,15 @@
             self.footView.height = 0;
             self.footView.alpha = 0;
             self.isEdit = NO;
-            [self.tableView reloadData];
+            [self.tableView setEditing:NO animated:YES];
+            
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
         //        [self.tableView setEditing:NO animated:YES];
         NITLog(@"%@",error);
     }];
+    [self.tableView reloadData];
     
 }
 
@@ -279,6 +282,58 @@
     }
     return cell;
     
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return UITableViewCellEditingStyleDelete;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [MBProgressHUD showMessage:@"" toView:self.view];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
+        NSDictionary *dic = array[indexPath.row];
+        
+        
+        [MHttpTool postWithURL:NITDeleteHomeCustInfo params:dic success:^(id json) {
+            
+            [MBProgressHUD hideHUDForView:self.view];
+            
+            if (json) {
+                
+                NSString *code = [json objectForKey:@"code"];
+                
+                NITLog(@"%@",code);
+                
+                if ([code isEqualToString:@"502"]) {
+                    
+                    [MBProgressHUD showError:@""];
+                    
+                } else {
+                    self.footView.height = 0;
+                    self.footView.alpha = 0;
+                    self.isEdit = NO;
+                    [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                    [self.tableView setEditing:NO animated:YES];
+                    
+                    [array removeObjectAtIndex:indexPath.row];
+                    [NITUserDefaults setObject:array forKey:@"HOMECUSTINFO"];
+                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                    
+                }
+            }
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view];
+            NITLog(@"%@",error);
+        }];
+        
+    }
+    [CATransaction setCompletionBlock:^{
+        [self.tableView reloadData];
+    }];
 }
 
 @end

@@ -197,7 +197,7 @@
             select = self.names[0];
             break;
         case 9:
-            select = self.names[0];
+            select = [self.names[0] objectForKey:@"name"];
             break;
         case 10:
             select = self.onedayHours[0];
@@ -385,11 +385,12 @@
         
         [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
     } else if (scenariotype == 14) {
-        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
         NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
         [nodesdic setValue:select forKey:@"custid"];
         [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
-        [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+        [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
         
         // 2.通知代理
         if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
@@ -852,10 +853,16 @@
 
 -(NSMutableArray *)userList {
     if (!_userList) {
-        
         NSArray *arr = [NITUserDefaults objectForKey:@"usertypelist"];
-        
-        _userList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
+        NSMutableArray *tmparr = [NSMutableArray arrayWithArray:arr];
+        NSString *usert = USERTYPE;
+        if ([usert isEqualToString:@"2"] && tmparr.count > 2) {
+            [tmparr removeObjectAtIndex:0];
+            _userList = tmparr.count > 0 ? [NSMutableArray arrayWithArray:tmparr] :[NSMutableArray new];
+        } else {
+            _userList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
+        }
+    
         
     }
     return _userList;

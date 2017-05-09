@@ -63,7 +63,7 @@
                 // 点击允许
                 NSLog(@"本地通知注册成功");
                 [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-                    NSLog(@"%@", settings);
+//                    NSLog(@"%@", settings);
                 }];
             } else {
                 // 点击不允许
@@ -235,18 +235,25 @@ fetchCompletionHandler:
     // 4.2 设置、安排通知
     if (contentArray.count>0) {
         NSString *sampleContent = [contentArray objectAtIndex:0];
-
+        NSString *alertstring = @"";
+        
+        for (NSString *str in contentArray) {
+            alertstring = [alertstring stringByAppendingString:str];
+        }
         
         if([[UIDevice currentDevice].systemVersion doubleValue] >= 10.0){
             //创建通知
+            
+            
             UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:2 repeats:NO];
             UNNotificationAction * actionone = [UNNotificationAction actionWithIdentifier:@"actionone" title:@"アラート" options:UNNotificationActionOptionNone];
             UNNotificationCategory * category = [UNNotificationCategory categoryWithIdentifier:@"myNotificationCategoryBtn" actions:@[actionone] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
             //内容
             UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
             content.title = @"アラート";
-            content.subtitle = @"";
-            content.body = [NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count];;
+            content.subtitle = [NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count];
+            content.body = alertstring;
+            
             content.badge = @(contentArray.count);
             content.categoryIdentifier = @"myNotificationCategoryBtn";
             content.sound = [UNNotificationSound defaultSound];
@@ -280,7 +287,7 @@ fetchCompletionHandler:
             
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];//调用通知
             // 5 发送AlertController
-            [self showAlertWithContents:contentArray];
+            [self showAlertWithContents:alertstring];
         }
         
         
@@ -299,16 +306,12 @@ fetchCompletionHandler:
 
 
 
--(void)showAlertWithContents:(NSArray *)array{
+-(void)showAlertWithContents:(NSString *)titles{
     AudioServicesPlaySystemSound(1007);
     
     //NSArray *contentArr = [notification.userInfo valueForKey:@"content"];
-    NSString *alertstring = @"";
-    for (int i = 0; i<array.count; i++) {
-        alertstring = [alertstring stringByAppendingString:array[i]];
-    }
     
-    UIAlertController *alert =[UIAlertController alertControllerWithTitle:@"アラート" message:alertstring preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert =[UIAlertController alertControllerWithTitle:@"アラート" message:titles preferredStyle:UIAlertControllerStyleAlert];
     
     //点击OK按钮
     UIAlertAction *OKAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {

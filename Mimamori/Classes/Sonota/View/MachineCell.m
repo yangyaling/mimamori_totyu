@@ -39,13 +39,20 @@
     } else {
         [self statusEdit:NO withColor:NITColor(235, 235, 241)];
     }
-    self.sensorIdTF.text = datasDic[@"sensorid"];
-    self.serialNoTF.text = datasDic[@"serial"];
-    [self.custIdBtn setTitle:datasDic[@"custid"] forState:UIControlStateNormal];
+    
+    NSString *str1 = [NSString stringWithFormat:@"%@", datasDic[@"sensorid"]];
+    NSString *str2 = [NSString stringWithFormat:@"%@", datasDic[@"serial"]];
+    NSString *str3 = [NSString stringWithFormat:@"%@", datasDic[@"custid"]];
+    NSString *str4 = [NSString stringWithFormat:@"%@", datasDic[@"custname"]];
+    
+    self.sensorIdTF.text = str1;
+    self.serialNoTF.text = str2;
+    [self.custIdBtn setTitle:str3 forState:UIControlStateNormal];
     //self.custIdTF.text = datasDic[@"custid"];
-    self.custNameTF.text = datasDic[@"custname"];
+    self.custNameTF.text = str4;
     
 }
+
 
 - (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
     if ([usertype isEqualToString:@"2"]) {
@@ -66,7 +73,6 @@
         
         [self.custNameTF setEnabled:noOp];
         [self.custNameTF setBackgroundColor:color];
-        
     }
 }
 
@@ -102,7 +108,7 @@
 
     [textField setBackgroundColor:[UIColor whiteColor]];
 
-    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arr[self.cellindex]];
     switch (textField.tag) {
         case 1:
@@ -124,7 +130,8 @@
     }
 
     [arr replaceObjectAtIndex:self.cellindex withObject:dic];
-    [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+    [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
     
 }
 
@@ -135,7 +142,7 @@
         if ([dict[@"custid"] isEqualToString:sinario]) {
             self.custNameTF.text = dict[@"custname"];
             
-            NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
             NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arr[self.cellindex]];
             
             [dic setObject:self.sensorIdTF.text  forKey:@"sensorid"];
@@ -143,7 +150,8 @@
             [dic setObject:dict[@"custname"] forKey:@"custname"];
             
             [arr replaceObjectAtIndex:self.cellindex withObject:dic];
-            [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+            [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
         }
     }
     

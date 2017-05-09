@@ -27,6 +27,14 @@
  */
 @property (nonatomic, copy) NSString                         *sex;
 /**
+ *  sex
+ */
+@property (nonatomic, copy) NSString                         *floorno;
+/**
+ *  sex
+ */
+@property (nonatomic, copy) NSString                         *roomcd;
+/**
  *  birthday
  */
 @property (nonatomic, copy) NSString                         *birthday;

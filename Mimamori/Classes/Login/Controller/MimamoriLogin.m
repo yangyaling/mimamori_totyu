@@ -30,9 +30,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
-//    _hostId.text = @"host01";
-//    _userId.text = @"0001";
-//    _passWord.text = @"P@ssw0rd";
+    _hostId.text = @"host01";
+    _userId.text = @"0001";
+    _passWord.text = @"P@ssw0rd";
     //_passWord.text = @"";
 }
 
@@ -98,6 +98,7 @@
             [NITUserDefaults setObject:timeStr forKey:@"oldtime"];
         }else{
             [MBProgressHUD hideHUDForView:self.view];
+            NITLog(@"%@",result.code);
             [MBProgressHUD  showError:@"正しい情報を入力してください"];
 //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //                [MBProgressHUD hideHUD];

@@ -128,6 +128,8 @@
 
 #define NITUpdateHomeCustInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdatecustinfo.php"
 
+#define NITDeleteHomeCustInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwdeletecustinfo.php"
+
 #define NITGetRoomInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetroominfo.php"
 
 #define NITUpdateRoomInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdateroominfo.php"

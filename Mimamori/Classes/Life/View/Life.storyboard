@@ -49,7 +49,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="98"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dbu-nj-FWi" id="fNr-gP-cda">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="97.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAt-3z-vCW">
@@ -463,9 +463,9 @@
                                     <outlet property="delegate" destination="7SI-rM-fDG" id="gUa-Is-Cbm"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grs-qs-Md5">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grs-qs-Md5">
                                 <rect key="frame" x="149" y="532" width="130" height="30"/>
-                                <color key="backgroundColor" red="0.98823529409999999" green="0.32156862749999998" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="3nh-pK-0si"/>
                                     <constraint firstAttribute="width" constant="130" id="ewV-6S-Pgf"/>
@@ -474,6 +474,11 @@
                                 <state key="normal" title="状況確認➡️">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="PushOrPopAction:" destination="7SI-rM-fDG" eventType="touchUpInside" id="GHE-lC-RZ9"/>
                                 </connections>
@@ -717,11 +722,11 @@
                                             <constraint firstAttribute="height" constant="35" id="e33-GF-IW8"/>
                                             <constraint firstAttribute="width" constant="35" id="mO7-nL-Mh1"/>
                                         </constraints>
-                                        <state key="normal" title="Button" image="back"/>
+                                        <state key="normal" image="back"/>
                                         <state key="highlighted" image="back-0"/>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Z8J-aw-3Iu" firstAttribute="centerX" secondItem="BID-5J-ZlK" secondAttribute="centerX" id="INK-J4-TaD"/>
                                     <constraint firstItem="yu8-kf-28L" firstAttribute="top" secondItem="BID-5J-ZlK" secondAttribute="top" id="Jnn-5o-m2h"/>
@@ -946,7 +951,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mbu-dH-J2P" id="mJ2-eW-uKO">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="149.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

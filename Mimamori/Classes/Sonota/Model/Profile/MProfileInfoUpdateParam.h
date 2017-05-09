@@ -20,6 +20,10 @@
 
 @property (nonatomic, copy) NSString                               *sex;
 
+@property (nonatomic, copy) NSString                               *floorno;
+
+@property (nonatomic, copy) NSString                               *roomcd;
+
 @property (nonatomic, copy) NSString                               *birthday;
 
 @property (nonatomic, copy) NSString                               *address;

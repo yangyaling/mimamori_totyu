@@ -42,7 +42,7 @@
     
     //　権限
     usertype = USERTYPE;
-    if ([usertype isEqualToString:@"x"] || [usertype isEqualToString:@"1"]) {
+    if ([usertype isEqualToString:@"x"] || [usertype isEqualToString:@"1"]|| [usertype isEqualToString:@"2"]) {
         self.editButton.hidden = NO;
     }else{
         self.editButton.hidden = YES;
@@ -78,7 +78,8 @@
 - (void)getnlInfo {
     
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
-    NSDictionary *dic = @{@"facilitycd":facd};
+    
+    NSDictionary *dic = @{@"facilitycd":facd,@"usertype":usertype};
     
     [MHttpTool postWithURL:NITGetStaffInfo params:dic success:^(id json) {
         
@@ -190,9 +191,9 @@
 
 - (IBAction)saveNow:(id)sender {
     
-    NITLog(@"134567890-");
     [MBProgressHUD showMessage:@"" toView:self.view];
     
+    NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     
     NSArray *array = [NITUserDefaults objectForKey:@"STAFFINFO"];
     
@@ -201,13 +202,13 @@
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     
-    NSDictionary *dic = @{@"stafflist":str};
-    NITLog(@"%@",dic);
+    NSDictionary *dic = @{@"stafflist":str,@"facilitycd":facilitycd};
+    
     [MHttpTool postWithURL:NITUpdateStaffInfo params:dic success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         if (json) {
             NSString *code = [json objectForKey:@"code"];
-            NITLog(@"%@",json);
+            NITLog(@"%@",code);
             [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
             //            [self.tableView setEditing:NO animated:YES];
             self.footView.height = 0;
@@ -225,40 +226,6 @@
 
 
 
-
-
-- (IBAction)saveInfo:(id)sender {
-    [MBProgressHUD showMessage:@"" toView:self.view];
-    
-    
-    NSArray *array = [NITUserDefaults objectForKey:@"STAFFINFO"];
-    
-    NSError *parseError = nil;
-    
-    NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
-    NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-    
-    NSDictionary *dic = @{@"stafflist":str};
-    
-    [MHttpTool postWithURL:NITUpdateStaffInfo params:dic success:^(id json) {
-        [MBProgressHUD hideHUDForView:self.view];
-        if (json) {
-            NSString *code = [json objectForKey:@"code"];
-            NITLog(@"%@",code);
-            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-//            [self.tableView setEditing:NO animated:YES];
-            self.footView.height = 0;
-            self.footView.alpha = 0;
-            self.isEdit = NO;
-            [self.tableView reloadData];
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view];
-//        [self.tableView setEditing:NO animated:YES];
-        NITLog(@"%@",error);
-    }];
-    
-}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

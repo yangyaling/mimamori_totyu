@@ -153,7 +153,6 @@
 
 
 -(void)ViewAnimateStatas:(double)statas {
-    
     [UIView animateWithDuration:0.5 animations:^{
         self.footView.height = statas;
         self.footView.alpha = 1;
@@ -162,7 +161,6 @@
             [self.tableView reloadData];
         }];
     }];
-    
 }
 
 - (IBAction)addCell:(id)sender {

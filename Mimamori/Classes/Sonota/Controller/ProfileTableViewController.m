@@ -28,6 +28,14 @@
  */
 @property (strong, nonatomic) IBOutlet UITextField         *sex;
 /**
+ *  楼层号
+ */
+@property (strong, nonatomic) IBOutlet UITextField         *floorNumber;
+/**
+ *  房号
+ */
+@property (strong, nonatomic) IBOutlet UITextField         *roomNumber;
+/**
  *  生日
  */
 @property (strong, nonatomic) IBOutlet UITextField         *birthday;
@@ -143,6 +151,8 @@
     
     self.user0name.text = _pmodel.user0name;
     self.sex.text = _pmodel.sex;
+    self.floorNumber.text = _pmodel.floorno;
+    self.roomNumber.text = _pmodel.roomcd;
     self.birthday.text = _pmodel.birthday;
     self.address.text = _pmodel.address;
     self.kakaritsuke.text = _pmodel.kakaritsuke;
@@ -195,6 +205,8 @@
     param.custid = self.userid0;
     param.user0name = self.user0name.text;
     param.sex = self.sex.text;
+    param.floorno = self.floorNumber.text;
+    param.roomcd = self.roomNumber.text;
     param.birthday = self.birthday.text;
     param.address = self.address.text;
     param.kakaritsuke = self.kakaritsuke.text;

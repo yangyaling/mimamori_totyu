@@ -44,8 +44,9 @@
     
     self.aratoUser.text = string;
     
+    [self.pushButton setEnabled:NO];
+    [self.pushButton setBackgroundColor:NITColor(169, 169, 169)];
     
-    self.pushButton.layer.cornerRadius = 5;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -95,6 +96,8 @@
             self.Rtime.text = [self.alldatas.firstObject objectForKey:@"registdate"];
             self.roomnum.text = [self.alldatas.firstObject objectForKey:@"scenarioname"];
             self.roomname = [self.alldatas.firstObject objectForKey:@"roomname"];
+            [self.pushButton setEnabled:YES];
+            [self.pushButton setBackgroundColor:NITColor(252, 82, 116)];
             [self.tableView reloadData];
         } else {
             NITLog(@"aratoinfo没数据");
