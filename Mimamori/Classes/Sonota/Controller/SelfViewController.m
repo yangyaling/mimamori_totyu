@@ -47,16 +47,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // 初始化session对象
-    _session = [AFHTTPSessionManager manager];
-    // 设置请求接口回来时支持什么类型的数组
-    _session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    [self.navigationItem setHidesBackButton:YES];
-    //GroupInfo
-    NSArray *tmpArr = [NotificationModel mj_objectArrayWithKeyValuesArray:[NITUserDefaults objectForKey:@"allGroupData"]];
-    self.allGroupData = tmpArr.count > 0 ? [NSMutableArray arrayWithArray:tmpArr] : [NSMutableArray new];
+//    NSArray *tmpArr = [NotificationModel mj_objectArrayWithKeyValuesArray:[NITUserDefaults objectForKey:@"allGroupData"]];
+//    self.allGroupData = tmpArr.count > 0 ? [NSMutableArray arrayWithArray:tmpArr] : [NSMutableArray new];
     
     [self getUserInfo];
+    
 //    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getUserInfo)];
 //    
 //    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
@@ -79,17 +74,26 @@
 
 
 -(void)getUserInfo{
-    NSString *url = NITGetUserInfo;
 
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     NSString *userid1 = [NITUserDefaults objectForKey:@"userid1"];
     [parametersDict setValue:userid1 forKey:@"staffid"];
     
-    [_session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
+    [MHttpTool postWithURL:NITGetGroupInfo params:nil success:^(id json) {
+        if (json) {
+            NSArray *dateArray = [json objectForKey:@"groupinfo"];
+            self.allGroupData = dateArray.count > 0 ? [NSMutableArray arrayWithArray:dateArray] : [NSMutableArray new];
+            [self.groupPicker reloadAllComponents];
+        }
+    } failure:^(NSError *error) {
+        NITLog(@"groupinfo为空");
+    }];
+    
+    
+    [MHttpTool postWithURL:NITGetUserInfo params:parametersDict success:^(id json) {
         
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUDForView:WindowView];
-        NSArray *userinfo = [responseObject objectForKey:@"userinfo"];
+        NSArray *userinfo = [json objectForKey:@"userinfo"];
         if (userinfo){
             NSArray *tmpArr = [SelfModel mj_objectArrayWithKeyValuesArray:userinfo];
             
@@ -109,8 +113,9 @@
             }
             [self.tableView reloadData];
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD hideHUDForView:WindowView];
+
+    } failure:^(NSError *error) {
+         [MBProgressHUD hideHUDForView:WindowView];
         NITLog(@"zwgetuserinfo请求失败");
     }];
     
@@ -119,7 +124,7 @@
 
 -(void)updateUserInfo{
     [MBProgressHUD showMessage:@"" toView:WindowView];
-    NSString *url = NITUpdateUserInfo;
+    
     
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     NSString *userid1 = [NITUserDefaults objectForKey:@"userid1"];
@@ -134,9 +139,9 @@
     NSString *currentTime = [[NSDate date] needDateStatus:HaveHMSType];
     [parametersDict setValue:currentTime forKey:@"updatedate"];
 
-    [self.session POST:url parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
+    
+    [MHttpTool postWithURL:NITUpdateUserInfo params:parametersDict success:^(id json) {
         
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [MBProgressHUD hideHUDForView:WindowView];
         //更新模型
         self.user.nickname = self.nickName.text;
@@ -149,13 +154,16 @@
             [self.navigationController popViewControllerAnimated:YES];
         });
         
+    } failure:^(NSError *error) {
         
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [MBProgressHUD hideHUDForView:WindowView];
         NITLog(@"zwupdateuserinfo请求失败");
         
         [MBProgressHUD showError:@"後ほど試してください"];
     }];
+    
+    
+    
     
 
 }
@@ -186,11 +194,13 @@
 }
 
 -(NSString*) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    NotificationModel *model = self.allGroupData[row];
-    if (model) {
-        return model.groupname;
-    }
-    return nil;
+//    NotificationModel *model = self.allGroupData[row];
+//    if (model) {
+//        return model.groupname;
+//    }
+    
+    NSDictionary *dic = self.allGroupData[row];
+    return dic[@"name"];
     
 }
 
