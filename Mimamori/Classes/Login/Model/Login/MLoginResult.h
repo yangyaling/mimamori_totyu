@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) NSString                               *code;
 
-@property (nonatomic, copy) NSString                               *username;
+@property (nonatomic, copy) NSString                               *staffname;
 
 @property (nonatomic, copy) NSString                               *groupid;
 

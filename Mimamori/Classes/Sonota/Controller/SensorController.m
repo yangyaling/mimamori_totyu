@@ -78,7 +78,7 @@
     self.isSensorTableView = YES;
     self.addDataH = 0;
     
-    [self getProfileInfo];
+    
     [MBProgressHUD showMessage:@"" toView:self.view];
     
     //监听键盘出现和消失
@@ -114,6 +114,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
+    [self getProfileInfo];
     [self.tableView.mj_header beginRefreshing];
 }
 

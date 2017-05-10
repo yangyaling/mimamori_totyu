@@ -86,7 +86,7 @@
             [NITUserDefaults synchronize];
             
             
-            [NITUserDefaults setObject:result.username forKey:@"userid1name"];
+            [NITUserDefaults setObject:result.staffname forKey:@"userid1name"];
             [NITUserDefaults synchronize];
             
             //session idを取得していく

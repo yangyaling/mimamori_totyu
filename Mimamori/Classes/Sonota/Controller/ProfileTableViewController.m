@@ -160,7 +160,7 @@
     self.health.text = _pmodel.health;
     self.other.text = _pmodel.other;
     self.updatename.text = _pmodel.updatename;
-    self.updatedate.text = _pmodel.date;
+    self.updatedate.text = _pmodel.updatedate;
 }
 
 /**
@@ -190,7 +190,7 @@
  *  更新プロフィール
  */
 -(void)updateProfileInfo{
-    [MBProgressHUD showMessage:@"" toView:self.myTableView];
+    [MBProgressHUD showMessage:@"" toView:WindowView];
     NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
     // 请求参数
     MProfileInfoUpdateParam *param = [[MProfileInfoUpdateParam alloc]init];
@@ -220,7 +220,7 @@
 //    NITLog(@"%@\n%@\n照片：2 ---%@",self.userid0,updatedate,self.imagedata);
     //
     [MProfileTool profileInfoUpdateImageWithParam:iconM withImageDatas:nil success:^(NSString *path) {
-        [MBProgressHUD hideHUDForView:self.myTableView];
+        [MBProgressHUD hideHUDForView:WindowView];
         [NITUserDefaults setObject:self.imagedata forKey:self.userid0];
         NITLog(@"%@",path);
         [MProfileTool profileInfoUpdateWithParam:param success:^(NSString *code) {
@@ -237,7 +237,7 @@
         }];
         //http://mimamori2.azurewebsites.net/upload/0002.jpg
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.myTableView];
+        [MBProgressHUD hideHUDForView:WindowView];
         NITLog(@"%@",error.localizedDescription);
         [MBProgressHUD showError:@"アップロード失敗"];
     }];

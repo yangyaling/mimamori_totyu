@@ -61,7 +61,8 @@
 /**
  *  updatedate
  */
-@property (nonatomic, copy) NSMutableDictionary               *updatedate;
+@property (nonatomic, copy) NSString                         *updatedate;
+
 @property (nonatomic, copy) NSString                          *date;
 /**
  *  updatename

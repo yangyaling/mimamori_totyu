@@ -16,7 +16,7 @@
 
 @property (nonatomic, copy) NSString                             *userid0;
 
-@property (nonatomic, copy) NSString                             *username;
+@property (nonatomic, copy) NSString                             *updatename;
 
 @property (nonatomic) NSInteger                                  selectindex;
 
