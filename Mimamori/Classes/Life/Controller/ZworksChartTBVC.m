@@ -46,8 +46,9 @@
 #pragma mark UITableView delegate and dataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return _zarray.count;
+    NSDictionary *dic = _zarray[_superrow];
+    NSArray *cellarr = dic[@"deviceinfo"];
+    return cellarr.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -72,9 +73,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZworksChartVTBCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ZworksTBCell"];
+    
     cell.xnum = _xnum;
+    
     cell.superrow = _superrow;
-    cell.CellModel = _zarray[indexPath.section];
+    
+    NSDictionary *dic = _zarray[_superrow];
+    
+    if (dic.count >0) {
+        cell.datestr = dic[@"datestring"];
+    }
+//    NSArray *array = [ZworksChartModel mj_objectArrayWithKeyValuesArray:arr];
+//    
+//    NSArray *cellarray = array[indexPath.section];
+//    
+//    cell.CellModel =  cellarray.count > 0 ? [ZworksChartModel mj_objectWithKeyValues:cellarray] : nil;
+    NSArray *cellarr = dic[@"deviceinfo"];
+    if (cellarr.count > 0) {
+        cell.celldic = cellarr[indexPath.section];
+    }
+//    cell.celldic = arr.count > 0 ?  arr[indexPath.section] : nil;
+    
     return cell;
 }
 
@@ -85,7 +104,9 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
-    ZworksChartModel *model = _zarray[section];
+    NSDictionary *dic = _zarray[_superrow];
+    
+    NSArray *cellarr = dic[@"deviceinfo"];
     CGRect frame = CGRectMake(10, 0, NITScreenW -20, 25);
     CGRect labelframe = CGRectMake(NITScreenW * 0.1, 0, NITScreenW * 0.8, 25);
     CGRect imageframe = CGRectMake(NITScreenW * 0.9, 2, 20, 20);
@@ -94,19 +115,33 @@
     UIImageView *imageV = [[UIImageView alloc] initWithFrame:imageframe];
     [imageV setContentMode:UIViewContentModeScaleAspectFit];
     bgview.backgroundColor =  [[UIColor lightGrayColor]colorWithAlphaComponent:0.1];
-    [label setText:[NSString stringWithFormat:@"%@（%@）%@",model.devicename,model.nodename,model.displayname]];
-    [label setFont:[UIFont systemFontOfSize:14]];
-    label.textAlignment = NSTextAlignmentCenter; //居中文字
-    if ([model.batterystatus intValue] == 1) {
-        [imageV setImage:[UIImage imageNamed:@"battery_full"]];
-    }else if ([model.batterystatus intValue] == 2){
-        [imageV setImage:[UIImage imageNamed:@"battery_warn"]];
-    }else if ([model.batterystatus intValue] == 3){
-        [imageV setImage:[UIImage imageNamed:@"battery_empty"]];
+    
+    if (cellarr.count >0) {
+        ZworksChartModel *model = [ZworksChartModel mj_objectWithKeyValues:cellarr[section]];
+        
+        [label setText:[NSString stringWithFormat:@"%@（%@）%@",model.devicename,model.nodename,model.displayname]];
+        
+        [label setText:[NSString stringWithFormat:@"%@（%@）%@",model.devicename,model.nodename,model.displayname]];
+        
+        [label setFont:[UIFont systemFontOfSize:14]];
+        label.textAlignment = NSTextAlignmentCenter; //居中文字
+        if ([model.batterystatus intValue] == 1) {
+            [imageV setImage:[UIImage imageNamed:@"battery_full"]];
+        }else if ([model.batterystatus intValue] == 2){
+            [imageV setImage:[UIImage imageNamed:@"battery_warn"]];
+        }else if ([model.batterystatus intValue] == 3){
+            [imageV setImage:[UIImage imageNamed:@"battery_empty"]];
+        }
+        [bgview addSubview:label];
+        [bgview addSubview:imageV];
+        
     }
-    [bgview addSubview:label];
-    [bgview addSubview:imageV];
+//    NSArray *arr = [_zarray[section] objectForKey:@"deviceinfo"];
+//    NSDictionary *dic = arr[section];
+//    NSArray *array = [ZworksChartModel mj_objectArrayWithKeyValuesArray:arr];
+//    ZworksChartModel *model = [ZworksChartModel mj_objectWithKeyValues:array[section]];
     return bgview;
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

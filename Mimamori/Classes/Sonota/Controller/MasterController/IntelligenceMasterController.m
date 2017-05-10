@@ -155,7 +155,7 @@
             NSString *code = [json objectForKey:@"code"];
             NITLog(@"%@",code);
             [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-//            [self.tableView setEditing:NO animated:YES];
+            [self.tableView setEditing:NO animated:YES];
             self.footView.height = 0;
             self.footView.alpha = 0;
             self.isEdit = NO;

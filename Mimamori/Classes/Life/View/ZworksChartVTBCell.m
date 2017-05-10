@@ -33,66 +33,132 @@
     return cell;
 }
 
--(void)setCellModel:(ZworksChartModel *)CellModel{
-    _CellModel = CellModel;
+
+
+-(void)setCelldic:(NSDictionary *)celldic {
     
+    _celldic = celldic;
     
-    
+    if(celldic == nil) return;
     
     int celltype;
-    
-    allarray = [NSMutableArray array];
-    
     
     if (chartview) {
         [chartview removeFromSuperview];
     }
     
+//    NSString *sensorname = [NSString stringWithFormat:@"%@:%.2f%@",celldic[@"devicename"],[celldic[@"latestvalue"] floatValue],celldic[@"deviceunit"]];
+    //    NSLog(@"%@",sensorname);
     
+    NSArray *devicevalues = celldic[@"devicevalues"];
     
-    _CellModel = CellModel;
-//    NSString *sensorname = [NSString stringWithFormat:@"%@:%.2f%@",_CellModel.devicename,[_CellModel.latestvalue floatValue],_CellModel.deviceunit];
-//    NSLog(@"%@",sensorname);
+//    NSString *datestring = celldic[@"datestring"];
     
-    NSArray *devicearray = _CellModel.devicevalues;
-    NSArray *devicearrays = devicearray[_superrow];
-    NSDictionary *devicedict = devicearrays[0];
+    devicedataarray = devicevalues.copy;
+    
+    allarray = [NSMutableArray new];
+    
+    [allarray addObject:devicedataarray];
+    
+//    NSArray *devicearrays = devicearray[_superrow];
+    
+//    NSDictionary *devicedict = devicearrays[0];
     
     if (_xnum==1) {
         celltype=1;
-        selectdata = [devicedict valueForKey:@"label"];
-        devicedataarray = [devicedict valueForKey:@"devicevalues"];
-        for (int i = 0; i<devicearray.count; i++) {
-            NSArray *devicearrays = devicearray[i];
-            NSDictionary *devicedict = devicearrays[0];
-            NSArray *weekarr = [devicedict valueForKey:@"devicevalues"];
-            for (int k = 0; k<weekarr.count; k++) {
-                [allarray addObject: weekarr[k]];
-            }
-        }
+//        selectdata = [devicedict valueForKey:@"label"];
+//        devicedataarray = [devicedict valueForKey:@"devicevalues"];
+//        for (int i = 0; i<devicearray.count; i++) {
+//            NSArray *devicearrays = devicearray[i];
+//            NSDictionary *devicedict = devicearrays[0];
+//            NSArray *weekarr = [devicedict valueForKey:@"devicevalues"];
+//            for (int k = 0; k<weekarr.count; k++) {
+//                [allarray addObject: weekarr[k]];
+//            }
+//        }
     }else{
         celltype=0;
-        devicedataarray = [devicedict valueForKey:@"devicevalues"];
+//        devicedataarray = [devicedict valueForKey:@"devicevalues"];
+//        
+//        for (int i =0; i < devicearray.count; i++) {
+//            NSArray *allarr = [NSArray arrayWithArray:devicearray[i]];
+//            NSDictionary *alldict = [NSDictionary dictionaryWithDictionary:allarr[0]];
+//            NSArray *dvarr = [NSArray arrayWithArray:[alldict valueForKey:@"devicevalues"]];
+//            [allarray addObject:dvarr];
+//        }
         
-        for (int i =0; i < devicearray.count; i++) {
-            NSArray *allarr = [NSArray arrayWithArray:devicearray[i]];
-            NSDictionary *alldict = [NSDictionary dictionaryWithDictionary:allarr[0]];
-            NSArray *dvarr = [NSArray arrayWithArray:[alldict valueForKey:@"devicevalues"]];
-            [allarray addObject:dvarr];
-        }
         
-        
-        if (_xnum==0) {
-            selectdata = [devicedict valueForKey:@"datestring"];
-        }else{
-            selectdata = [devicedict valueForKey:@"label"];
-        }
+//        if (_xnum==0) {
+//            selectdata = [devicedict valueForKey:@"datestring"];
+//        }else{
+//            selectdata = [devicedict valueForKey:@"label"];
+//        }
     }
     
     chartview =[[UUChart alloc]initwithUUChartDataFrame:CGRectMake(6,0, [UIScreen mainScreen].bounds.size.width-12, 148)
-                                             withSource:self withStyle:celltype==1?UUChartLineStyle:UUChartBarStyle withdevicename:_CellModel.devicename withname:_CellModel.devicename withdate:selectdata];
+                                             withSource:self withStyle:celltype==1?UUChartLineStyle:UUChartBarStyle withdevicename:celldic[@"devicename"] withname:celldic[@"devicename"] withdate:self.datestr];
     chartview.userInteractionEnabled = NO;
-    [chartview showInView:self.contentView];}
+    [chartview showInView:self.contentView];
+}
+
+//-(void)setCellModel:(ZworksChartModel *)CellModel{
+//    _CellModel = CellModel;
+//    if(CellModel == nil) return;
+//    int celltype;
+//    
+//    allarray = [NSMutableArray array];
+//    
+//    
+//    if (chartview) {
+//        [chartview removeFromSuperview];
+//    }
+//    
+//    
+//    _CellModel = CellModel;
+////    NSString *sensorname = [NSString stringWithFormat:@"%@:%.2f%@",_CellModel.devicename,[_CellModel.latestvalue floatValue],_CellModel.deviceunit];
+////    NSLog(@"%@",sensorname);
+//    
+//    NSArray *devicearray = _CellModel.devicevalues;
+//    NSArray *devicearrays = devicearray[_superrow];
+//    NSDictionary *devicedict = devicearrays[0];
+//    
+//    if (_xnum==1) {
+//        celltype=1;
+//        selectdata = [devicedict valueForKey:@"label"];
+//        devicedataarray = [devicedict valueForKey:@"devicevalues"];
+//        for (int i = 0; i<devicearray.count; i++) {
+//            NSArray *devicearrays = devicearray[i];
+//            NSDictionary *devicedict = devicearrays[0];
+//            NSArray *weekarr = [devicedict valueForKey:@"devicevalues"];
+//            for (int k = 0; k<weekarr.count; k++) {
+//                [allarray addObject: weekarr[k]];
+//            }
+//        }
+//    }else{
+//        celltype=0;
+//        devicedataarray = [devicedict valueForKey:@"devicevalues"];
+//        
+//        for (int i =0; i < devicearray.count; i++) {
+//            NSArray *allarr = [NSArray arrayWithArray:devicearray[i]];
+//            NSDictionary *alldict = [NSDictionary dictionaryWithDictionary:allarr[0]];
+//            NSArray *dvarr = [NSArray arrayWithArray:[alldict valueForKey:@"devicevalues"]];
+//            [allarray addObject:dvarr];
+//        }
+//        
+//        
+//        if (_xnum==0) {
+//            selectdata = [devicedict valueForKey:@"datestring"];
+//        }else{
+//            selectdata = [devicedict valueForKey:@"label"];
+//        }
+//    }
+//    
+//    chartview =[[UUChart alloc]initwithUUChartDataFrame:CGRectMake(6,0, [UIScreen mainScreen].bounds.size.width-12, 148)
+//                                             withSource:self withStyle:celltype==1?UUChartLineStyle:UUChartBarStyle withdevicename:_CellModel.devicename withname:_CellModel.devicename withdate:selectdata];
+//    chartview.userInteractionEnabled = NO;
+//    [chartview showInView:self.contentView];
+//
+//}
 
 -(NSArray*)getXTitles:(int)num{
     NSMutableArray *xTitles = [[NSMutableArray alloc]initWithCapacity:0];
@@ -124,6 +190,11 @@
 }
 
 - (NSArray *)UUChart_yValueArray:(UUChart *)chart{
+    
+    
+//    if (devicedataarray.count == 0) {
+//        return nil;
+//    }
     
     switch (_xnum) {
         case 0:

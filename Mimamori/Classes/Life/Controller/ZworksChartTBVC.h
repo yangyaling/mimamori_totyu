@@ -19,7 +19,7 @@
 
 @property (nonatomic, assign) id<PopUpdateChartDelegate>updatedelegate;
 
-@property (nonatomic, strong) NSMutableArray *zarray;
+@property (nonatomic, strong) NSMutableArray  *zarray;
 @property (nonatomic, assign) NSInteger        superrow;
 @property (nonatomic, assign) int              xnum;
 //@property (nonatomic, copy) NSString           *currentDate; //当前图标日期

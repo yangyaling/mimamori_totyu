@@ -16,9 +16,13 @@
  */
 @property (nonatomic, strong)  ZworksChartModel *CellModel;
 
+@property (nonatomic, strong) NSDictionary           *celldic;
+
 @property (nonatomic) NSInteger                 superrow;
 
 @property (nonatomic) int                       xnum;
+
+@property (nonatomic, copy) NSString                      *datestr;
 
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;

@@ -77,7 +77,7 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
         VC.dateString = dateStr;
         VC.nodeId = self.chartModel.nodeid;
         VC.userid0 = self.userid0;
-        VC.subdeviceinfo = self.chartModel.subdeviceinfo;
+//        VC.subdeviceinfo = self.chartModel.subdeviceinfo;
         
         [self addChildViewController:VC];
         

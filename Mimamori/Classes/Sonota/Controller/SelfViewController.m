@@ -97,12 +97,16 @@
             self.user = smodel;
             
             self.nickName.text = self.user.nickname;
+            
             self.email.text = self.user.email;
+            
             self.groupid = self.user.groupid;
             
             //setup PickerView
-            NSInteger row = [self.groupid intValue] -1;
-            [self.groupPicker selectRow:row inComponent:0 animated:NO];
+            if (self.groupid.length) {
+                NSInteger row = [self.groupid intValue];
+                [self.groupPicker selectRow:row inComponent:0 animated:NO];
+            }
             [self.tableView reloadData];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -121,7 +125,9 @@
     NSString *userid1 = [NITUserDefaults objectForKey:@"userid1"];
     [parametersDict setValue:userid1 forKey:@"staffid"];
     [parametersDict setValue:self.nickName.text forKey:@"nickname"];
+    
     [parametersDict setValue:self.groupid forKey:@"groupid"];
+    
     [parametersDict setValue:self.email.text forKey:@"email"];
     
     //当前时间
@@ -190,9 +196,10 @@
 
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    NotificationModel *model = self.allGroupData[row];
     
-    self.groupid = model.groupid;
+//    NotificationModel *model = self.allGroupData[row];
+    
+    self.groupid = [NSString stringWithFormat:@"%ld",row];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{

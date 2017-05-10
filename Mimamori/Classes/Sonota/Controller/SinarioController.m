@@ -163,6 +163,7 @@
 
 -(void)getScenariodtlInfo{
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
+    
     parametersDict[@"roomid"] = self.roomID;
     
     

@@ -23,7 +23,7 @@
     [aCoder encodeObject:_latestvalue forKey:@"latestvalue"];
     [aCoder encodeObject:_devicevalues forKey:@"devicevalues"];
     [aCoder encodeObject:_batterystatus forKey:@"batterystatus"];
-    [aCoder encodeObject:_subdeviceinfo forKey:@"subdeviceinfo"];
+//    [aCoder encodeObject:_subdeviceinfo forKey:@"subdeviceinfo"];
     
 }
 
@@ -43,7 +43,7 @@
         _latestvalue = [aDecoder decodeObjectForKey:@"latestvalue"];
         _devicevalues = [aDecoder decodeObjectForKey:@"devicevalues"];
         _batterystatus = [aDecoder decodeObjectForKey:@"batterystatus"];
-        _subdeviceinfo = [aDecoder decodeObjectForKey:@"subdeviceinfo"];
+//        _subdeviceinfo = [aDecoder decodeObjectForKey:@"subdeviceinfo"];
         
        
     }

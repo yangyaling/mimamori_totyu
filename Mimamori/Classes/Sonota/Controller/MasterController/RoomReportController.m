@@ -40,11 +40,11 @@
     
     // 権限
     usertype = USERTYPE;
-    if ([usertype isEqualToString:@"1"]) {
-        self.editButton.hidden = NO;
-    }else{
-        self.editButton.hidden = YES;
-    }
+//    if ([usertype isEqualToString:@"1"]) {
+//        self.editButton.hidden = NO;
+//    }else{
+//        self.editButton.hidden = YES;
+//    }
     
     NSArray *arr = nil;
     [NITUserDefaults setObject:arr forKey:@"ROOMMASTERINFOKEY"];
@@ -221,6 +221,7 @@
             self.footView.height = 0;
             self.footView.alpha = 0;
             self.isEdit = NO;
+            
             [self.tableView reloadData];
         }
     } failure:^(NSError *error) {
@@ -269,11 +270,23 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
         [MBProgressHUD showMessage:@"" toView:self.view];
+        
         NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"]];
+        
+        
         NSDictionary *dic = array[indexPath.row];
         
-        [MHttpTool postWithURL:NITDeleteRoomInfo params:dic success:^(id json) {
+        NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+        
+        NSString *oldfloorno = [NSString stringWithFormat:@"%@",dic[@"oldfloorno"]];
+        
+        NSString *oldroomcd = [NSString stringWithFormat:@"%@",dic[@"oldroomcd"]];
+        
+        NSDictionary *paradic = @{@"facilitycd":facilitycd,@"floorno":oldfloorno,@"roomcd":oldroomcd};
+        
+        [MHttpTool postWithURL:NITDeleteRoomInfo params:paradic success:^(id json) {
             
             [MBProgressHUD hideHUDForView:self.view];
             

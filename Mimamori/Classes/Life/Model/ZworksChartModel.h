@@ -45,9 +45,11 @@
  */
 @property (nonatomic, copy) NSString                               *batterystatus;
 
+@property (nonatomic, copy) NSString                               *datestring;
+
 @property (nonatomic, copy) NSString                               *displayname;
 
-@property (nonatomic, strong) NSArray                               *subdeviceinfo;
+@property (nonatomic, strong) NSArray                              *deviceinfo;
 
 
 @end

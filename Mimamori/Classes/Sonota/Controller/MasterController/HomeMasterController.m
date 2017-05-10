@@ -35,11 +35,11 @@
     self.footView.alpha = 0;
     //　権限
     usertype = USERTYPE;
-    if ([usertype isEqualToString:@"1"]) {
-        self.editButton.hidden = NO;
-    }else{
-        self.editButton.hidden = YES;
-    }
+//    if ([usertype isEqualToString:@"1"]) {
+//        self.editButton.hidden = NO;
+//    }else{
+//        self.editButton.hidden = YES;
+//    }
     
     NSArray *arr = nil;
     [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
@@ -232,7 +232,9 @@
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     
-    NSDictionary *dic = @{@"custlist":str};
+    NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+    
+    NSDictionary *dic = @{@"custlist":str,@"facilitycd":facilitycd};
     
     
     [MHttpTool postWithURL:NITUpdateHomeCustInfo params:dic success:^(id json) {
@@ -240,20 +242,22 @@
         if (json) {
             NSString *code = [json objectForKey:@"code"];
             NITLog(@"%@",code);
-            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-            //            [self.tableView setEditing:NO animated:YES];
-            self.footView.height = 0;
-            self.footView.alpha = 0;
-            self.isEdit = NO;
-            [self.tableView setEditing:NO animated:YES];
-            
+            if ([code isEqualToString:@"200"]) {
+                [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                //            [self.tableView setEditing:NO animated:YES];
+                self.footView.height = 0;
+                self.footView.alpha = 0;
+                self.isEdit = NO;
+                [self.tableView setEditing:NO animated:YES];
+                [self.tableView reloadData];
+            }
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
         //        [self.tableView setEditing:NO animated:YES];
         NITLog(@"%@",error);
     }];
-    [self.tableView reloadData];
+    
     
 }
 

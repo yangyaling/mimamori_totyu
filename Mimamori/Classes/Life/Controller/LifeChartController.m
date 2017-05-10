@@ -269,7 +269,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     [MSensorDataTool sensorDataWithParam:param type:type success:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.myCollection];
         
-        NSArray *tmpArr = [ZworksChartModel mj_objectArrayWithKeyValuesArray:dic[@"deviceinfo"]];
+        NSArray *tmpArr = dic[@"deviceinfo"];
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            NSString *imagestr = ;
         
@@ -301,19 +301,22 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
             [_ZworksDataArray removeAllObjects];
             [MBProgressHUD showError:@"データがありません"];
         }else{
-            _ZworksDataArray = [NSMutableArray arrayWithArray:tmpArr];
-            ZworksChartModel *model = _ZworksDataArray[0];
+//            _ZworksDataArray = [NSMutableArray arrayWithArray:tmpArr];
             
+//            ZworksChartModel *model = tmpArr[@"deviceinfo"];
             
-            
-            _CLArray = [NSMutableArray arrayWithArray:model.devicevalues];
+//            NSArray *modelarray = [ZworksChartModel mj_objectArrayWithKeyValuesArray:tmpArr];
+//            
+//            _CLArray = [NSMutableArray arrayWithArray:modelarray];
+            _CLArray = [NSMutableArray arrayWithArray:tmpArr];
             
             self.controlarr = [NSMutableArray new];
+            
             for (int i = 0; i < _CLArray.count; i++) {
                 UIStoryboard *lifesb = [UIStoryboard storyboardWithName:@"Life" bundle:nil];
                 ZworksChartTBVC *ChartC = [lifesb instantiateViewControllerWithIdentifier:@"charttbcellview"];
                 ChartC.self.automaticallyAdjustsScrollViewInsets = YES;
-                ChartC.zarray = _ZworksDataArray;
+                ChartC.zarray = [tmpArr mutableCopy];
                 ChartC.xnum = _xnum;
                 ChartC.userid0 = _userid0;
                 ChartC.updatedelegate = self;
