@@ -205,6 +205,7 @@
 //            select3 = self.onedayHours[0];
 //            select4 = self.onedayMinute[0];
             break;
+            
         case 11:
             select = [self.userList[0] objectForKey:@"name"];
             break;
@@ -338,8 +339,16 @@
         
         [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
     } else if(scenariotype == 9) {
+        //main的数据插入
+        NSMutableDictionary *mainnodesdic = [NSMutableDictionary dictionaryWithDictionary:[NITUserDefaults objectForKey:@"mainondedatakey"]];
+        [mainnodesdic setValue:select forKey:@"mainnodename"];
+        [NITUserDefaults setObject:mainnodesdic forKey:@"mainondedatakey"];
         
+        
+        //
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
+        
+       
         
         NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
         
@@ -842,7 +851,7 @@
             
         } else {
             
-           NSArray *arr = [[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"] copy];
+           NSArray *arr = [[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]copy];
             _names = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] : [NSMutableArray new];
             
         }

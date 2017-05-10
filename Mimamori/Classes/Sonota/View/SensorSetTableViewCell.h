@@ -31,8 +31,8 @@
 @property(nonatomic, assign) BOOL SuperEdit;
 
 @property (nonatomic, assign) NSInteger                    cellnumber;
+
 @property (strong, nonatomic) IBOutlet UIButton            *pickBtn;
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end

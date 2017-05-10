@@ -169,7 +169,6 @@
 		EB84F0FF1E275490005B1C4D /* DetailCCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB84F0FD1E275490005B1C4D /* DetailCCell.m */; };
 		EB84F1001E275490005B1C4D /* DetailCCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB84F0FE1E275490005B1C4D /* DetailCCell.xib */; };
 		EB9C92D81E01063600F3132C /* SensorSetTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C92D61E01063600F3132C /* SensorSetTableViewCell.m */; };
-		EB9C92D91E01063600F3132C /* SensorSetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9C92D71E01063600F3132C /* SensorSetTableViewCell.xib */; };
 		EB9C92DC1E01109800F3132C /* SensorController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C92DB1E01109800F3132C /* SensorController.m */; };
 		EB9C92E01E01367400F3132C /* AddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C92DE1E01367400F3132C /* AddTableViewCell.m */; };
 		EB9C92E11E01367400F3132C /* AddTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9C92DF1E01367400F3132C /* AddTableViewCell.xib */; };
@@ -546,7 +545,6 @@
 		EB84F0FE1E275490005B1C4D /* DetailCCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCCell.xib; sourceTree = "<group>"; };
 		EB9C92D51E01063600F3132C /* SensorSetTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorSetTableViewCell.h; sourceTree = "<group>"; };
 		EB9C92D61E01063600F3132C /* SensorSetTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorSetTableViewCell.m; sourceTree = "<group>"; };
-		EB9C92D71E01063600F3132C /* SensorSetTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SensorSetTableViewCell.xib; sourceTree = "<group>"; };
 		EB9C92DA1E01109800F3132C /* SensorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorController.h; sourceTree = "<group>"; };
 		EB9C92DB1E01109800F3132C /* SensorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorController.m; sourceTree = "<group>"; };
 		EB9C92DD1E01367400F3132C /* AddTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTableViewCell.h; sourceTree = "<group>"; };
@@ -998,7 +996,6 @@
 				EB4A56171E00F32300A2F1C2 /* SetTableViewCell.xib */,
 				EB9C92D51E01063600F3132C /* SensorSetTableViewCell.h */,
 				EB9C92D61E01063600F3132C /* SensorSetTableViewCell.m */,
-				EB9C92D71E01063600F3132C /* SensorSetTableViewCell.xib */,
 				EB9C92DD1E01367400F3132C /* AddTableViewCell.h */,
 				EB9C92DE1E01367400F3132C /* AddTableViewCell.m */,
 				EB9C92DF1E01367400F3132C /* AddTableViewCell.xib */,
@@ -1650,7 +1647,6 @@
 				EB9C93291E02730F00F3132C /* MBProgressHUD.bundle in Resources */,
 				EB9C92EC1E015BBC00F3132C /* SinarioTableViewCell.xib in Resources */,
 				EBE7191B1E2A13E60008ABE2 /* Info.plist in Resources */,
-				EB9C92D91E01063600F3132C /* SensorSetTableViewCell.xib in Resources */,
 				929519841D7D06FE00787997 /* Notification.storyboard in Resources */,
 				929519931D7D078B00787997 /* Emergency.storyboard in Resources */,
 				929519861D7D06FE00787997 /* NotificationCell.xib in Resources */,

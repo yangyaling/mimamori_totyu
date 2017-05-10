@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mimamori/Classes/Sonota/Controller/SinarioController.m"
-            timestampString = "515932671.19267"
+            timestampString = "516076106.612261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "673"
-            endingLineNumber = "673"
+            startingLineNumber = "674"
+            endingLineNumber = "674"
             landmarkName = "-updateScenarioInfo:"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,7 +52,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/UserMasterController.m"
-                  timestampString = "516012706.398392"
+                  timestampString = "516086623.264698"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "207"
@@ -67,7 +67,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/UserMasterController.m"
-                  timestampString = "516012706.3997"
+                  timestampString = "516086623.26606"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "207"
@@ -109,14 +109,126 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Mimamori/Classes/Life/Controller/LifeChartController.m"
-            timestampString = "516011827.750458"
+            filePath = "Mimamori/Classes/Sonota/Controller/MasterController/MachineController.m"
+            timestampString = "516077220.670183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
-            landmarkName = "-getSensorDataInfoWithType:"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MachineController tableView:commitEditingStyle:forRowAtIndexPath:]"
+                  moduleName = "Mimamori2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/MachineController.m"
+                  timestampString = "516086623.27288"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "261"
+                  endingLineNumber = "261"
+                  offsetFromSymbolStart = "592">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__68-[MachineController tableView:commitEditingStyle:forRowAtIndexPath:]_block_invoke"
+                  moduleName = "Mimamori2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/MachineController.m"
+                  timestampString = "516086623.274175"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "261"
+                  endingLineNumber = "261"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mimamori/Classes/Sonota/Controller/MasterController/MachineController.m"
+            timestampString = "516077449.229334"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
+            landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mimamori/Classes/Sonota/Controller/MasterController/MachineController.m"
+            timestampString = "516077473.647492"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
+            landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mimamori/Classes/Sonota/Controller/SensorController.m"
+            timestampString = "516086784.341908"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "-saveNow:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SensorController saveNow:]"
+                  moduleName = "Mimamori2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/SensorController.m"
+                  timestampString = "516086784.565999"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "1576">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__28-[SensorController saveNow:]_block_invoke"
+                  moduleName = "Mimamori2"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/SensorController.m"
+                  timestampString = "516086784.56774"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "148"
+                  endingLineNumber = "148"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

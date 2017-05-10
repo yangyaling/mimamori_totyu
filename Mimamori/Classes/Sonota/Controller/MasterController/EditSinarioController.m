@@ -138,8 +138,11 @@
         
         self.ariText.text = [NSString stringWithFormat:@"%@", dicOne[@"nodetype"]];
         
-        [self.leftTimeButton setTitle:[json objectForKey:@"starttime"] forState:UIControlStateNormal];
-        [self.rightTimeButton setTitle:[json objectForKey:@"endtime"] forState:UIControlStateNormal];
+        NSString *starttime = [NSString stringWithFormat:@"%@",[json objectForKey:@"starttime"]];
+        NSString *endtime = [NSString stringWithFormat:@"%@",[json objectForKey:@"endtime"]];
+        
+        [self.leftTimeButton setTitle:starttime forState:UIControlStateNormal];
+        [self.rightTimeButton setTitle:endtime forState:UIControlStateNormal];
         
         
             if (tmpArr.count >0) {

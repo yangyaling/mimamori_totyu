@@ -67,7 +67,7 @@
     self.isEdit = NO;
     self.titleLabel.text = self.titleStr;
     
-    self.tableView.tableFooterView = [[UIView alloc]init];
+//    self.tableView.tableFooterView = [[UIView alloc]init];
     
     [self.sensorSegment setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]} forState:UIControlStateNormal];
     
@@ -92,11 +92,8 @@
 {
     CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - self.footView.height, 0);
-    });
 }
 
 #pragma mark 键盘消失
@@ -130,11 +127,13 @@
     param.custid = self.profileUser0;
     param.facilitycd  = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     
+    
     NSDictionary *maindic = [NITUserDefaults objectForKey:@"mainondedatakey"];
     NSString *mainid = maindic[@"mainnodeid"];
+    
     if (mainid.length) {
         param.mainnodeid = mainid;
-        param.mainnodename = maindic[@"mainnodename"];
+        param.mainnodename = [NSString stringWithFormat:@"%@ (%@)", maindic[@"mainnodename"],maindic[@"mainnodeplace"]];
     }
     
     NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
@@ -147,11 +146,17 @@
     
     //    NITLog(@"userid1:%@\n userid0:%@\n place:%@",param.userid1,param.userid0,param.place);
     [MScenarioTool sensorUpdateWithParam:param success:^(NSString *code) {
+        
         NITLog(@"%@",code);
+        
         [MBProgressHUD hideHUDForView:self.view];
+        
         self.footView.height = 0;
+        
         self.isEdit = NO;
+        
         [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+        
         [self.tableView reloadData];
         
         [self saveNodeIdDatas];
@@ -239,7 +244,6 @@
             
             NSDictionary *dic = array.firstObject;
             
-            
             NSArray *sensorarray = dic[@"sensorplacelist"];
             
             NSArray *scenarioarray = dic[@"scenariolist"];
@@ -248,6 +252,13 @@
             
             [NITUserDefaults setObject:displays forKey:@"tempdisplaylist"];
             
+            
+//            NSString *mainnodeid =[NSString stringWithFormat:@"%@", [sensorarray[0] objectForKey:@"mainnodeid"]];
+//            if (mainnodeid.length) {
+//                NSDictionary *dic = @{@"mainnodeid":mainnodeid,@"":@""};
+//            } else {
+//                
+//            }
 //            NITLog(@"scenarioarray:%@",scenarioarray);
             
             self.scenarioArray = [NSMutableArray arrayWithArray:[Scenario mj_objectArrayWithKeyValuesArray:scenarioarray]];
@@ -467,7 +478,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.isSensorTableView) {
-        SensorSetTableViewCell *cell = [SensorSetTableViewCell cellWithTableView:tableView];
+        SensorSetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sensorcell" forIndexPath:indexPath];
         
         NSArray *arr = [Device mj_objectArrayWithKeyValuesArray:[NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]]];
         
@@ -475,22 +486,29 @@
         
         cell.cellnumber = indexPath.row;
         
+        cell.SuperEdit = self.isEdit;
+        
         cell.delegate = self;
         
-        if ([devices.nodeid isEqualToString:devices.mainnodeid]) {
-            cell.sensorname.textColor = NITColor(252, 58, 92);
-        }
         cell.sensorname.text = devices.nodename;
         
         [cell.pickBtn setTitle:devices.displayname forState:UIControlStateNormal];
         
         cell.roomname.text = devices.memo;
         
-        cell.nodeid = devices.nodeid;
+        cell.nodeid = devices.nodename;
         
         [cell.segmentbar setSelectedSegmentIndex:[devices.place integerValue] - 1];
         
-        cell.SuperEdit = self.isEdit;
+        if ([devices.nodename isEqualToString:devices.mainnodeid]) {
+            
+            cell.sensorname.textColor = TextSelectColor;
+            
+        } else {
+            
+            cell.sensorname.textColor = [UIColor blackColor];
+        }
+        
         
         return cell;
     } else {
@@ -502,7 +520,6 @@
         
         cell.sendtime.text = sc.updatedate;
         
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
     
@@ -551,17 +568,17 @@
     return titleView;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return self.footView;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+//    return self.footView;
+//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return self.addDataH;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return self.footView.height;
-}
+//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+//    return self.footView.height;
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -88,15 +88,16 @@
             [self ViewAnimateStatas:120];
         }
         
-
+        [self.tableView setEditing:YES animated:YES];
+         [self.tableView reloadData];
     }else{
-         self.isEdit = NO;
+        
         [self saveInfo:nil];
         
     }
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
-    }];
+//    [CATransaction setCompletionBlock:^{
+    
+//    }];
 
 }
 
@@ -243,6 +244,60 @@
     return cell;
     
 }
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return UITableViewCellEditingStyleDelete;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [MBProgressHUD showMessage:@"" toView:self.view];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
+        NSDictionary *dic = array[indexPath.row];
+        
+        
+        [MHttpTool postWithURL:NITDeleteSSInfo params:dic success:^(id json) {
+            
+            [MBProgressHUD hideHUDForView:self.view];
+            
+            if (json) {
+                
+                NSString *code = [json objectForKey:@"code"];
+                
+                NITLog(@"%@",code);
+                
+                if ([code isEqualToString:@"502"]) {
+                    
+                    [MBProgressHUD showError:@""];
+                    
+                } else {
+                    self.footView.height = 0;
+                    self.footView.alpha = 0;
+                    self.isEdit = NO;
+                    [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                    [self.tableView setEditing:NO animated:YES];
+                    
+                    [array removeObjectAtIndex:indexPath.row];
+                    NSData * data = [NSKeyedArchiver archivedDataWithRootObject:array];
+                    [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
+                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                    
+                }
+            }
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUDForView:self.view];
+            NITLog(@"%@",error);
+        }];
+        
+    }
+    [CATransaction setCompletionBlock:^{
+        [self.tableView reloadData];
+    }];
+}
+
 
 #pragma mark － 键盘
 

@@ -49,7 +49,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="98"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dbu-nj-FWi" id="fNr-gP-cda">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="98"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="97.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAt-3z-vCW">
@@ -67,7 +67,7 @@
                                                         <action selector="addNursingNotes:" destination="Dbu-nj-FWi" eventType="touchUpInside" id="tgh-P6-3Ow"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新規追加" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VX-SX-bgq">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VX-SX-bgq">
                                                     <rect key="frame" x="215" y="68" width="89" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="89" id="mCa-IA-Y2m"/>
@@ -951,7 +951,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mbu-dH-J2P" id="mJ2-eW-uKO">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="149.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

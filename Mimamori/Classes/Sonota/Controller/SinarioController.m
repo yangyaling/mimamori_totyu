@@ -215,9 +215,10 @@
                 
                 [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
                 
-                
                 NSArray *nodes =  [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"addnodeiddatas"]]];
+                
                 if (nodes.count > 0) {
+                    
                     NSData * data = [NSKeyedArchiver archivedDataWithRootObject:nodes];
                     
                     [NITUserDefaults setObject:data forKey:@"tempdeaddnodeiddatas"];
@@ -230,19 +231,18 @@
 //                
 //                [self selectedTimeButtonIndex:scope];
                 
-                
-                
                 NSData * data = [NSKeyedArchiver archivedDataWithRootObject:tmpArr];
                 [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
                 self.allarray = [NSMutableArray arrayWithArray:tmpArr];
                 //                                 [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"scenariodtlinfoarr"]]];
             }
-            
             [self.tableView reloadData];
         }
 
     } failure:^(NSError *error) {
+        
         NITLog(@"%@",error);
+        
         [MBProgressHUD hideHUDForView:self.view];
         
         [self.tableView.mj_header endRefreshing];
@@ -483,6 +483,7 @@
     NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
     
     if (array.count != 0) {
+        
         _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:0];
         
         _picker.mydelegate = self;

@@ -52,8 +52,12 @@
 
 
 // ユーザ分類　x;1;2;3
+
 #define USERTYPE @"1"
 //[NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
+
+#define TextSelectColor NITColor(252, 58, 92)
+
 #define TextFieldNormalColor NITColor(235, 235, 241)
 /**
  sonota   URL
@@ -141,6 +145,7 @@
 /**　機器情報　*/
 #define NITGetSSInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetssinfo.php"
 #define NITUpdateSSInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdatessinfo.php"
+#define NITDeleteSSInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwdeletessinfo.php"
 
 /**
  lift   URL
