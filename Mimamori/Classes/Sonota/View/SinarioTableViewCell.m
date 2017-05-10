@@ -90,6 +90,10 @@
 
 -(void)setCellarr:(NSArray *)cellarr {
     
+    if (cellarr.count == 0) {
+        self.hidden = YES;
+        return;
+    }
     
     NSDictionary *dicOne = cellarr.firstObject;
     
@@ -150,65 +154,5 @@
     
 }
 
-
-//-(void)setDevice:(Device *)device {
-//    _device = device;
-//    
-//    
-//    //    if (array.count == 0) return cell;
-//    //
-//    NSDictionary *dicOne = device.modelArr.firstObject;
-//
-//    NSDictionary *dicTwo = [device.modelArr objectAtIndex:1];
-//
-//    NSDictionary *dicThree = [device.modelArr objectAtIndex:2];
-//
-//    NSDictionary *dicFour = device.modelArr.lastObject;
-//
-//
-//    if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0){
-//        self.height = 0;
-//        NSMutableArray *tmparray = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"addnodeiddatas"]];
-//       
-//        [tmparray removeObjectAtIndex:self.cellindex];
-//      
-//        [NITUserDefaults setObject:tmparray forKey:@"tempdeaddnodeiddatas"];
-//        
-//        return;
-//    }
-//
-//
-//    [self.sinarioButton setTitle:dicOne[@"displayname"] forState:UIControlStateNormal];
-//
-//
-//
-//
-//    //门 - 人感
-//    self.doalabel.text = dicOne[@"devicename"];
-//    self.doaState.text = dicOne[@"rpoint"];
-//
-//    //温度
-//    self.temperature.text = dicTwo[@"devicename"];
-//    NSString *strT1 = [NSString stringWithFormat:@"%@%@",dicTwo[@"time"],dicTwo[@"timeunit"]];
-//    NSString *strV1 = [NSString stringWithFormat:@"%@%@%@",dicTwo[@"value"],dicTwo[@"valueunit"],dicTwo[@"rpoint"]];
-//    [self.temperaturetime setTitle:strT1 forState:UIControlStateNormal];
-//    [self.temperatureTD setTitle:strV1 forState:UIControlStateNormal];
-//
-//
-//    //湿度
-//    self.humidity.text = dicThree[@"devicename"];
-//    NSString *strT2 = [NSString stringWithFormat:@"%@%@",dicThree[@"time"],dicThree[@"timeunit"]];
-//    NSString *strV2 = [NSString stringWithFormat:@"%@%@%@",dicThree[@"value"],dicThree[@"valueunit"],dicThree[@"rpoint"]];
-//    [self.humiditytime setTitle:strT2 forState:UIControlStateNormal];
-//    [self.humidityTD setTitle:strV2 forState:UIControlStateNormal];
-//    //照明
-//    self.brightness.text = dicFour[@"devicename"];
-//    NSString *strT3 = [NSString stringWithFormat:@"%@%@",dicFour[@"time"],dicFour[@"timeunit"]];
-//    NSString *strV3 = [NSString stringWithFormat:@"%@%@%@",dicFour[@"value"],dicFour[@"valueunit"],dicFour[@"rpoint"]];
-//    [self.brightnesstime setTitle:strT3 forState:UIControlStateNormal];
-//    [self.brightnessTD setTitle:strV3 forState:UIControlStateNormal];
-
-    
-//}
 
 @end

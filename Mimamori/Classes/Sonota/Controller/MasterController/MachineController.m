@@ -146,6 +146,7 @@
             self.footView.height = 0;
             self.footView.alpha = 0;
             self.isEdit = NO;
+            [self.tableView setEditing:NO animated:YES];
             [self.tableView reloadData];
         }
     } failure:^(NSError *error) {

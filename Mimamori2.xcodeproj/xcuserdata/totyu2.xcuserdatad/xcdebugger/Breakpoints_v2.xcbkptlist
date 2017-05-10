@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Mimamori/Classes/Sonota/Controller/SinarioController.m"
-            timestampString = "516076106.612261"
+            timestampString = "516094211.556663"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "674"
-            endingLineNumber = "674"
+            startingLineNumber = "675"
+            endingLineNumber = "675"
             landmarkName = "-updateScenarioInfo:"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,7 +52,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/UserMasterController.m"
-                  timestampString = "516088944.061399"
+                  timestampString = "516094212.685229"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "207"
@@ -67,7 +67,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/UserMasterController.m"
-                  timestampString = "516088944.062728"
+                  timestampString = "516094212.687841"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "207"
@@ -126,7 +126,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/MachineController.m"
-                  timestampString = "516088944.069587"
+                  timestampString = "516094212.705549"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "261"
@@ -141,7 +141,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/MachineController.m"
-                  timestampString = "516088944.07161"
+                  timestampString = "516094212.707971"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "261"
@@ -180,6 +180,38 @@
             startingLineNumber = "291"
             endingLineNumber = "291"
             landmarkName = "-tableView:commitEditingStyle:forRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mimamori/Classes/Sonota/View/MachineCell.m"
+            timestampString = "516092944.860155"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "-statusEdit:withColor:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mimamori/Classes/Sonota/View/MachineCell.m"
+            timestampString = "516092946.035802"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "-statusEdit:withColor:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

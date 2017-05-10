@@ -65,9 +65,12 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     OtherCollectionCell * cell  = [OtherCollectionCell CellWithCollectionView:collectionView andIndexPath:indexPath];
+    
+    
     if ([self.masterUser isEqualToString:@"2"] && indexPath.row == 0) {
-        cell.cellTitle.backgroundColor = [UIColor grayColor];
+        cell.cellTitle.backgroundColor = [UIColor lightGrayColor];
     }
+    
     
     if (indexPath.item == 1) {
         cell.cellTitle.backgroundColor = [UIColor whiteColor];
@@ -99,7 +102,9 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.item == 0) {
-        [self performSegueWithIdentifier:@"pushberelated" sender:self];
+        if (![self.masterUser isEqualToString:@"2"]) {
+            [self performSegueWithIdentifier:@"pushberelated" sender:self];
+        }
     } else if (indexPath.item == 1){
 //        [self performSegueWithIdentifier:@"selfPush" sender:self];
     } else if (indexPath.item == 2){

@@ -416,9 +416,10 @@
 //    Device *devices = self.allarray[indexPath.row];
     
     cell.cellindex = indexPath.row;
+    
     cell.cellarr = self.allarray[indexPath.row];
-//    
-
+    
+    
 //    if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0) return cell;
     
     if (self.cellnum == 0) { //cell是否可以编辑
@@ -783,7 +784,9 @@
 //    ScenarioCellFrame *frame = [[ScenarioCellFrame alloc] init];
 //    Device *devi = self.allarray[indexPath.row];
 //    frame.scenarioM = devi;
-//    
+//
+    if (cellarr.count == 0) return 0;
+    
     NSDictionary *dicOne = cellarr.firstObject;
     
     NSDictionary *dicTwo = [cellarr objectAtIndex:1];

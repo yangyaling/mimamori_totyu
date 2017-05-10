@@ -190,7 +190,9 @@
  *  更新プロフィール
  */
 -(void)updateProfileInfo{
-    [MBProgressHUD showMessage:@"" toView:WindowView];
+    
+    [MBProgressHUD showMessage:@"" toView:self.myTableView];
+    
     NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
     // 请求参数
     MProfileInfoUpdateParam *param = [[MProfileInfoUpdateParam alloc]init];
@@ -198,7 +200,6 @@
     iconM.custid = self.userid0;
     iconM.updatedate = updatedate;
     NSString *imageDataStr = [self.imagedata base64EncodedStringWithOptions:0];
-    
     iconM.picdata = imageDataStr;
     
     param.staffid = [NITUserDefaults objectForKey:@"userid1"];
@@ -220,7 +221,7 @@
 //    NITLog(@"%@\n%@\n照片：2 ---%@",self.userid0,updatedate,self.imagedata);
     //
     [MProfileTool profileInfoUpdateImageWithParam:iconM withImageDatas:nil success:^(NSString *path) {
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.myTableView];
         [NITUserDefaults setObject:self.imagedata forKey:self.userid0];
         NITLog(@"%@",path);
         [MProfileTool profileInfoUpdateWithParam:param success:^(NSString *code) {
@@ -237,7 +238,7 @@
         }];
         //http://mimamori2.azurewebsites.net/upload/0002.jpg
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.myTableView];
         NITLog(@"%@",error.localizedDescription);
         [MBProgressHUD showError:@"アップロード失敗"];
     }];
@@ -251,10 +252,10 @@
         return;
     }
     
-    if (!self.user0name.text.length) {
-        [MBProgressHUD showError:@"氏名を入力して下さい"];
-        return;
-    }
+//    if (!self.user0name.text.length) {
+//        [MBProgressHUD showError:@"氏名を入力して下さい"];
+//        return;
+//    }
     if (!self.sex.text.length) {
         [MBProgressHUD showError:@"性别を入力して下さい"];
         return;

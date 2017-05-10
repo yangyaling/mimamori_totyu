@@ -37,7 +37,7 @@
         [self statusEdit:YES withColor:[UIColor whiteColor]];
         
     } else {
-        [self statusEdit:NO withColor:NITColor(235, 235, 241)];
+        [self statusEdit:NO withColor:TextFieldNormalColor];
     }
     
     NSString *str1 = [NSString stringWithFormat:@"%@", datasDic[@"sensorid"]];
@@ -55,10 +55,11 @@
 
 
 - (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
-    if ([usertype isEqualToString:@"2"]) {
-        [self.serialNoTF setEnabled:NO];
-        [self.serialNoTF setBackgroundColor:TextFieldNormalColor];
-        
+    if ([usertype isEqualToString:@"3"] || [usertype isEqualToString:@"x"]) {
+       
+    } else if ([usertype isEqualToString:@"2"]){
+        [self.serialNoTF setEnabled:noOp];
+        [self.serialNoTF setBackgroundColor:color];
     } else {
         [self.sensorIdTF setEnabled:noOp];
         [self.sensorIdTF setBackgroundColor:color];
@@ -66,8 +67,8 @@
         [self.serialNoTF setEnabled:noOp];
         [self.serialNoTF setBackgroundColor:color];
         
-//        [self.custIdTF setEnabled:noOp];
-//        [self.custIdTF setBackgroundColor:color];
+        //        [self.custIdTF setEnabled:noOp];
+        //        [self.custIdTF setBackgroundColor:color];
         [self.custIdBtn setEnabled:noOp];
         [self.custIdBtn setBackgroundColor:color];
         

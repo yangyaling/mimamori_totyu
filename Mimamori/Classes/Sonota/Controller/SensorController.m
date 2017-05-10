@@ -305,18 +305,28 @@
  */
 -(void)deleteScenario:(NSString *)scenarioID{
     
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    
     MScenarioDeleteParam *param = [[MScenarioDeleteParam alloc]init];
+    
     param.scenarioid = scenarioID;
     
     [MScenarioTool scenarioDeleteWithParam:param success:^(NSString *code) {
+        [MBProgressHUD hideHUDForView:self.view];
+        
         if ([code isEqualToString:@"200"]) {
+            
             [MBProgressHUD showSuccess:@"削除済み"];
+            
             [self  getScenarioList];
             
         } else {
+            
             NITLog(@"deleteScenario删除失败");
         }
+        
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"deleteScenario删除失败");
     }];
 }

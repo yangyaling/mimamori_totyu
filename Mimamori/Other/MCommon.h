@@ -55,14 +55,14 @@
 
 #define USERTYPE [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
 
-#define TextSelectColor NITColor(252, 58, 92)
+#define TextSelectColor NITColor(252, 82, 115)
+
+#define OtherEnabledCellBGColor NITColor(251, 140, 160)
 
 #define TextFieldNormalColor NITColor(235, 235, 241)
 /**
  sonota   URL
  */
-
-
 
 
 #define NITUpdateUserInfo @"http://mimamori2p1.azurewebsites.net/zwupdateuserinfo.php"

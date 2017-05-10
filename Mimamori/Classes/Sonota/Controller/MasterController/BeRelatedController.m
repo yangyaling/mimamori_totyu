@@ -60,7 +60,7 @@
     
     OtherCollectionCell * cell  = [OtherCollectionCell CellWithCollectionView:collectionView andIndexPath:indexPath];
     if ([self.MasterUser isEqualToString:@"2"]) {
-        cell.cellTitle.backgroundColor = [UIColor grayColor];
+        cell.cellTitle.backgroundColor = [UIColor lightGrayColor];;
     }
     cell.cellTitle.text = _titleArray[indexPath.item];
     
