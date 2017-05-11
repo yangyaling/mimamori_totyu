@@ -39,6 +39,10 @@
 
 @property (nonatomic, assign) NSInteger                    timeIndex;
 
+@property (nonatomic, strong) NSArray                      *modelsArray;
+
+@property (nonatomic, assign) NSInteger                    modelindex;
+
 @end
 
 
@@ -148,7 +152,7 @@
 
 //其他时间的点击弹窗
 - (IBAction)timeButtonClick:(UIButton *)sender {
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:0];
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:0];
     
     _picker.mydelegate = self;
     
@@ -175,6 +179,12 @@
         [MBProgressHUD hideHUDForView:self.view];
         
         NSArray *tmpArr = [json objectForKey:@"scenariodtlinfo"];
+        NSArray *tmpModelArr = [json objectForKey:@"protoinfo"];
+        
+        if (tmpModelArr.count > 0) {
+            
+            self.modelsArray = tmpModelArr.copy;
+        }
         
         [MBProgressHUD hideHUDForView:self.view];
         [self.tableView.mj_header endRefreshing];
@@ -183,7 +193,7 @@
             
             if (self.isSelectModelScenario) {
                 
-                NSArray *tmpModelArr = [json objectForKey:@"protoinfo"];
+                
                 
                 NSInteger scope = [[[tmpModelArr[0] firstObject] objectForKey:@"scopecd"] integerValue];
                 
@@ -196,7 +206,7 @@
                 [self.leftTimeButton setTitle:[[tmpModelArr[0] firstObject] objectForKey:@"starttime"] forState:UIControlStateNormal];
                 [self.rightTimeButton setTitle:[[tmpModelArr[0] firstObject] objectForKey:@"endtime"] forState:UIControlStateNormal];
                 
-                int arcModelNo = arc4random() % tmpModelArr.count; //随机选择某个
+                NSInteger arcModelNo = self.modelindex; //随机选择某个
                 
                 if (tmpModelArr.count == 0) return ; //雏形数组
                 
@@ -319,6 +329,8 @@
     
     if (addcell.count == 0) {
         
+        self.modelindex = [sinario integerValue];
+        
         self.sinarioText.text = sinario;
         
         self.isRefresh = NO;
@@ -378,11 +390,16 @@
 }
 
 - (IBAction)PickShow:(UIButton *)sender {
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:0];
+    if (self.modelsArray.count >0) {
+        _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.modelsArray cellNumber:0];
+        
+        _picker.mydelegate = self;
+        
+        [WindowView addSubview:_picker];
+    } else {
+        NITLog(@"雏形数组空");
+    }
     
-    _picker.mydelegate = self;
-    
-    [WindowView addSubview:_picker];
 }
 
 
@@ -423,9 +440,9 @@
     
 //    if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0) return cell;
     
-    if (self.cellnum == 0) { //cell是否可以编辑
-        cell.userInteractionEnabled = NO;
-    }
+//    if (self.cellnum == 0) { //cell是否可以编辑
+//        cell.userInteractionEnabled = NO;
+//    }
     
     
     return cell;
@@ -483,6 +500,13 @@
 - (void)addScenarioCell:(UIButton *)sender {
     
     NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
+    NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
+    
+    if (array.count > arr.count) {
+        [MBProgressHUD showError:@""]; 
+        return;
+    }
     
     if (array.count != 0) {
         
@@ -695,8 +719,11 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    return UITableViewCellEditingStyleDelete;
+    if (!tableView.editing)
+        return UITableViewCellEditingStyleNone;
+    else {
+        return UITableViewCellEditingStyleDelete;
+    }
 }
 
 

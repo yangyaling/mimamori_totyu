@@ -34,9 +34,9 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
     
     [self.navigationItem setHidesBackButton:YES];
     //タイトル
-    self.ContrlTitle.text = [NSString stringWithFormat:@"%@（%@）",self.chartModel.devicename,self.chartModel.nodename];
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    self.ContrlTitle.text = [NSString stringWithFormat:@"%@（%@）%@",self.chartModel.devicename,self.chartModel.nodename,self.chartModel.displayname];
     
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     //从缓存中取得点击的是第几页进入详细页面的
     
@@ -77,6 +77,7 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
         VC.dateString = dateStr;
         VC.nodeId = self.chartModel.nodeid;
         VC.userid0 = self.userid0;
+        VC.index = i;
 //        VC.subdeviceinfo = self.chartModel.subdeviceinfo;
         
         [self addChildViewController:VC];

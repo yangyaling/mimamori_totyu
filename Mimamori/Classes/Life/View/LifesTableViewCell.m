@@ -105,6 +105,7 @@
     self.name.text = strname;
     
     NSString *strdipname = [NSString stringWithFormat:@"* %@",self.CellModel.dispname];
+    
     self.dipname.text = strdipname;
     //　温度
     NSString *tvalue = self.CellModel.tvalue;

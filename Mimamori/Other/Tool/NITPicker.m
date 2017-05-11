@@ -56,14 +56,14 @@
 @property (nonatomic, strong) UIButton                   *thisbutton;
 
 
-@property (nonatomic, strong) Device                   *model;
+@property (nonatomic, strong) NSArray                  *models;
 
 @property (nonatomic, assign) NSInteger                cellindex;
 
 @end
 @implementation NITPicker
 
--(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton model:(Device *)model cellNumber:(NSInteger)number {
+-(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton model:(NSArray *)model cellNumber:(NSInteger)number {
     self = [super initWithFrame:frame];
     if (self) {
         
@@ -132,7 +132,7 @@
 //        }
         self.cellindex = number;
         self.thisbutton = selectbutton;
-        self.model = model;
+        self.models = model.copy;
         self.layer.shadowColor = [UIColor blackColor].CGColor;
         self.layer.shadowOffset = CGSizeMake(1,1);
         self.layer.shadowOpacity = 0.3;
@@ -189,7 +189,7 @@
             select2 = self.type[0];
             break;
         case 6:
-            select = self.names[0];
+            select = [[self.names[0] firstObject] objectForKey:@"protoid"];
         case 7:
             selectdic = self.names[0];
             break;
@@ -582,7 +582,12 @@
             
             text.text = self.time[row];
             
-        }  else if (scenariotype == 7){
+        }else if (scenariotype == 6) {
+            
+            text.text = [[self.names[row] firstObject] objectForKey:@"protoid"];
+            
+        } else if (scenariotype == 7){
+            
             text.text = [self.names[row] objectForKey:@"displayname"];
             
         }else if(scenariotype == 9){
@@ -621,6 +626,8 @@
         }
     } else if(scenariotype==5) {
         select = @"";
+    } else if (scenariotype == 6) {
+        select = [NSString stringWithFormat:@"%ld",row];
     } else if (scenariotype == 7) {
         selectdic = self.names[row];
         
@@ -831,7 +838,8 @@
         
         if (scenariotype == 6) {
             
-            _names = [NSMutableArray arrayWithObjects:@"夜間活動",@"熱中症",@"活動なし", nil];
+            _names = self.models.count > 0 ? [NSMutableArray arrayWithArray:self.models] : [NSMutableArray new];
+//            _names = [NSMutableArray arrayWithObjects:@"夜間活動",@"熱中症",@"活動なし", nil];
             
         } else if (scenariotype == 8) {
             NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];

@@ -40,11 +40,11 @@
     
     // 権限
     usertype = USERTYPE;
-//    if ([usertype isEqualToString:@"1"]) {
-//        self.editButton.hidden = NO;
-//    }else{
-//        self.editButton.hidden = YES;
-//    }
+    if ([usertype isEqualToString:@"1"]) {
+        self.editButton.hidden = NO;
+    }else{
+        self.editButton.hidden = YES;
+    }
     
     NSArray *arr = nil;
     [NITUserDefaults setObject:arr forKey:@"ROOMMASTERINFOKEY"];
@@ -56,13 +56,13 @@
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
     self.isEdit = NO;
-    
     //监听键盘出现和消失
     [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     [NITNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
 }
+
 
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -265,6 +265,15 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (!tableView.editing)
+        return UITableViewCellEditingStyleNone;
+    else {
+        return UITableViewCellEditingStyleDelete;
+    }
 }
 
 

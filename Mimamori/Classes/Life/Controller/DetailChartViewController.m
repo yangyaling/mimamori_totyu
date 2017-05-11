@@ -34,30 +34,30 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     // 判断这个nodeID的所有deviceID的这一天的data是否缓存过，如果缓存过
-    NSString *dateStr = [self.dateString substringToIndex:10];
-    
-    BOOL result = [self existData:self.subdeviceinfo date:dateStr];
+//    NSString *dateStr = [self.dateString substringToIndex:10];
+//
+//    BOOL result = [self existData:self.subdeviceinfo date:dateStr];
     
     // 如果存在缓存，读取缓存
-    if (result == YES) {
-        NSMutableArray *array = [[NSMutableArray alloc]init];
-        for (int i = 0; i < self.subdeviceinfo.count; i++) {
-            NSString *deviceid = [self.subdeviceinfo objectAtIndex:i];
-            NSString *path =[NITDataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@.data",deviceid,dateStr]];
-            //读档
-            ZworksChartModel *model = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-            [array addObject:model];
-        }
-        self.chartArray = array;
-
-    }else{
+//    if (result == YES) {
+//        NSMutableArray *array = [[NSMutableArray alloc]init];
+//        for (int i = 0; i < self.subdeviceinfo.count; i++) {
+//            NSString *deviceid = [self.subdeviceinfo objectAtIndex:i];
+//            NSString *path =[NITDataPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@.data",deviceid,dateStr]];
+//            //读档
+//            ZworksChartModel *model = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+//            [array addObject:model];
+//        }
+//        self.chartArray = array;
+//
+//    }else{
     // 如果没有缓存，进行请求
         [MBProgressHUD showMessage:@"" toView:self.view];
         
         
         
         [self getSensorDataInfoWithDate:self.dateString];
-    }
+//    }
 
 }
 
@@ -75,25 +75,28 @@
 -(void)getSensorDataInfoWithDate:(NSString *)date{
     
     MSensorDataParam *param = [[MSensorDataParam alloc]init];
-    param.nowdate = date;
+    NSString *dateStr = [self.dateString substringToIndex:10];
+    param.nowdate = dateStr;
     param.staffid = [NITUserDefaults objectForKey:@"userid1"];
     param.custid = self.userid0;
     param.deviceclass = @"2";
     param.nodeid = self.nodeId;
     
     [MSensorDataTool sensorDataWithParam:param type:MSensorDataTypeDaily success:^(NSDictionary *dic) {
+        
         NSArray *array = dic[@"deviceinfo"];
+//        NSArray *array = tempdic[@"deviceinfo"];
         if (array.count > 0) {
             // 0.数组 -> 　模型数组
-            NSArray *tmpArr = [ZworksChartModel mj_objectArrayWithKeyValuesArray:array];
-            self.chartArray = tmpArr;
+//            NSArray *tmpArr = [ZworksChartModel mj_objectArrayWithKeyValuesArray:array];
+            self.chartArray = array.copy;
             // 1.刷新tableView
             [self.tableView reloadData];
             // 2.缓存数据 (当天的数据不缓存)
-            NSString *todayStr = [NSDate SharedToday];
-            if (![todayStr isEqualToString:[date substringToIndex:10]]) {
-                [self saveDataWithModelArray:tmpArr date:self.dateString];
-            }
+//            NSString *todayStr = [NSDate SharedToday];
+//            if (![todayStr isEqualToString:[date substringToIndex:10]]) {
+//                [self saveDataWithModelArray:tmpArr date:self.dateString];
+//            }
             
             [MBProgressHUD hideHUDForView:self.view];
             
@@ -171,18 +174,28 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.chartArray.count;
+    if (self.chartArray.count > 0) {
+        NSDictionary *dic = self.chartArray[self.index];
+        NSArray *array = dic[@"deviceinfo"];
+        return array.count;
+    } else {
+        return 0;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     DetailChartCell *cell = [DetailChartCell cellWithTableView:tableView];
+    
+    NSDictionary *dic = self.chartArray[self.index];
+    NSArray *array = dic[@"deviceinfo"];
+    
     cell.dateStr = [self.dateString substringToIndex:10];
     cell.nodeID = self.nodeId;
-    cell.chartModel = self.chartArray[indexPath.row];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (array.count >0) {
+        cell.chartdic = [array[indexPath.row] firstObject];
+    }
     
     return cell;
 }

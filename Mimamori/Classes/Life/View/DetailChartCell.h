@@ -12,7 +12,7 @@
 
 @interface DetailChartCell : UITableViewCell
 
-@property (nonatomic, strong)  ZworksChartModel *chartModel;
+@property (nonatomic, strong)  NSDictionary *chartdic;
 
 @property (nonatomic, copy)    NSString         *dateStr;
 

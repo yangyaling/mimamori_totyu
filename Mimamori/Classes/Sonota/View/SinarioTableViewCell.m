@@ -84,7 +84,7 @@
 }
 
 - (IBAction)PickShow:(UIButton *)sender {
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:self.cellindex];
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];
     [WindowView addSubview:_picker];
 }
 

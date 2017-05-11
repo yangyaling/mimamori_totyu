@@ -19,4 +19,6 @@
 
 @property (nonatomic, strong) NSArray                     *subdeviceinfo;
 
+@property (nonatomic, assign) NSInteger                    index;
+
 @end

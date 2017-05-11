@@ -52,7 +52,6 @@
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
     self.isEdit = NO;
-    
     //监听键盘出现和消失
     [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
@@ -242,13 +241,20 @@
         if (json) {
             NSString *code = [json objectForKey:@"code"];
             NITLog(@"%@",code);
+            
             if ([code isEqualToString:@"200"]) {
+                
                 [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                
                 //            [self.tableView setEditing:NO animated:YES];
                 self.footView.height = 0;
+                
                 self.footView.alpha = 0;
+                
                 self.isEdit = NO;
+                
                 [self.tableView setEditing:NO animated:YES];
+                
                 [self.tableView reloadData];
             }
         }
@@ -290,8 +296,11 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    return UITableViewCellEditingStyleDelete;
+    if (!tableView.editing)
+        return UITableViewCellEditingStyleNone;
+    else {
+        return UITableViewCellEditingStyleDelete;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{

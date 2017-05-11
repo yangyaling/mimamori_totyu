@@ -62,10 +62,13 @@
 
 
 -(void)viewWillDisappear:(BOOL)animated{
+    
     [MBProgressHUD hideHUD];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:NO];
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }

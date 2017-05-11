@@ -13,7 +13,7 @@
 {
     NSArray *devicedataarray;
     NSMutableArray *allarray;
-    NSString *selectdata;
+    NSString *selectdate;
     UUChart *chartview;
 }
 
@@ -35,11 +35,11 @@
 
 
 
--(void)setCelldic:(NSDictionary *)celldic {
+-(void)setCellarr:(NSArray *)cellarr {
     
-    _celldic = celldic;
+    _cellarr = cellarr;
     
-    if(celldic == nil) return;
+    if(cellarr == nil) return;
     
     int celltype;
     
@@ -50,24 +50,46 @@
 //    NSString *sensorname = [NSString stringWithFormat:@"%@:%.2f%@",celldic[@"devicename"],[celldic[@"latestvalue"] floatValue],celldic[@"deviceunit"]];
     //    NSLog(@"%@",sensorname);
     
-    NSArray *devicevalues = celldic[@"devicevalues"];
+    
     
 //    NSString *datestring = celldic[@"datestring"];
-    
-    devicedataarray = devicevalues.copy;
-    
+    selectdate = nil;
+    devicedataarray = nil;
     allarray = [NSMutableArray new];
     
-    [allarray addObject:devicedataarray];
+    NSDictionary *celldic = cellarr.firstObject;
+    
+    if (_xnum == 0) {
+        celltype=0;
+        NSArray *devicevalues = [celldic objectForKey:@"devicevalues"];
+        devicedataarray = devicevalues.copy;
+        selectdate = self.datestr;
+        [allarray addObject:devicedataarray];
+        
+    } else if (_xnum == 1) {
+        celltype=1;
+        selectdate = self.labelstr;
+        NSArray *devicevalues = [celldic objectForKey:@"devicevalues"];
+        devicedataarray = devicevalues.copy;
+        allarray = [NSMutableArray arrayWithArray:devicedataarray];
+        
+    } else {
+        celltype=2;
+        selectdate = self.labelstr;
+        NSArray *devicevalues = [celldic objectForKey:@"deviceinfo"];
+        devicedataarray = devicevalues.copy;
+        [allarray addObject:devicedataarray];
+    }
     
 //    NSArray *devicearrays = devicearray[_superrow];
     
 //    NSDictionary *devicedict = devicearrays[0];
     
-    if (_xnum==1) {
-        celltype=1;
+//    if (_xnum==2) {
+//        celltype=2;
 //        selectdata = [devicedict valueForKey:@"label"];
 //        devicedataarray = [devicedict valueForKey:@"devicevalues"];
+    
 //        for (int i = 0; i<devicearray.count; i++) {
 //            NSArray *devicearrays = devicearray[i];
 //            NSDictionary *devicedict = devicearrays[0];
@@ -76,8 +98,8 @@
 //                [allarray addObject: weekarr[k]];
 //            }
 //        }
-    }else{
-        celltype=0;
+//    } else if ( _xnum ==1 ) {
+//        celltype=1;
 //        devicedataarray = [devicedict valueForKey:@"devicevalues"];
 //        
 //        for (int i =0; i < devicearray.count; i++) {
@@ -87,78 +109,21 @@
 //            [allarray addObject:dvarr];
 //        }
         
-        
+    
 //        if (_xnum==0) {
 //            selectdata = [devicedict valueForKey:@"datestring"];
 //        }else{
 //            selectdata = [devicedict valueForKey:@"label"];
 //        }
-    }
+//    } else {
+    
+//    }
     
     chartview =[[UUChart alloc]initwithUUChartDataFrame:CGRectMake(6,0, [UIScreen mainScreen].bounds.size.width-12, 148)
-                                             withSource:self withStyle:celltype==1?UUChartLineStyle:UUChartBarStyle withdevicename:celldic[@"devicename"] withname:celldic[@"devicename"] withdate:self.datestr];
+                                             withSource:self withStyle:celltype==1?UUChartLineStyle:UUChartBarStyle withdevicename:celldic[@"devicename"] withname:celldic[@"devicename"] withdate:selectdate];
     chartview.userInteractionEnabled = NO;
     [chartview showInView:self.contentView];
 }
-
-//-(void)setCellModel:(ZworksChartModel *)CellModel{
-//    _CellModel = CellModel;
-//    if(CellModel == nil) return;
-//    int celltype;
-//    
-//    allarray = [NSMutableArray array];
-//    
-//    
-//    if (chartview) {
-//        [chartview removeFromSuperview];
-//    }
-//    
-//    
-//    _CellModel = CellModel;
-////    NSString *sensorname = [NSString stringWithFormat:@"%@:%.2f%@",_CellModel.devicename,[_CellModel.latestvalue floatValue],_CellModel.deviceunit];
-////    NSLog(@"%@",sensorname);
-//    
-//    NSArray *devicearray = _CellModel.devicevalues;
-//    NSArray *devicearrays = devicearray[_superrow];
-//    NSDictionary *devicedict = devicearrays[0];
-//    
-//    if (_xnum==1) {
-//        celltype=1;
-//        selectdata = [devicedict valueForKey:@"label"];
-//        devicedataarray = [devicedict valueForKey:@"devicevalues"];
-//        for (int i = 0; i<devicearray.count; i++) {
-//            NSArray *devicearrays = devicearray[i];
-//            NSDictionary *devicedict = devicearrays[0];
-//            NSArray *weekarr = [devicedict valueForKey:@"devicevalues"];
-//            for (int k = 0; k<weekarr.count; k++) {
-//                [allarray addObject: weekarr[k]];
-//            }
-//        }
-//    }else{
-//        celltype=0;
-//        devicedataarray = [devicedict valueForKey:@"devicevalues"];
-//        
-//        for (int i =0; i < devicearray.count; i++) {
-//            NSArray *allarr = [NSArray arrayWithArray:devicearray[i]];
-//            NSDictionary *alldict = [NSDictionary dictionaryWithDictionary:allarr[0]];
-//            NSArray *dvarr = [NSArray arrayWithArray:[alldict valueForKey:@"devicevalues"]];
-//            [allarray addObject:dvarr];
-//        }
-//        
-//        
-//        if (_xnum==0) {
-//            selectdata = [devicedict valueForKey:@"datestring"];
-//        }else{
-//            selectdata = [devicedict valueForKey:@"label"];
-//        }
-//    }
-//    
-//    chartview =[[UUChart alloc]initwithUUChartDataFrame:CGRectMake(6,0, [UIScreen mainScreen].bounds.size.width-12, 148)
-//                                             withSource:self withStyle:celltype==1?UUChartLineStyle:UUChartBarStyle withdevicename:_CellModel.devicename withname:_CellModel.devicename withdate:selectdata];
-//    chartview.userInteractionEnabled = NO;
-//    [chartview showInView:self.contentView];
-//
-//}
 
 -(NSArray*)getXTitles:(int)num{
     NSMutableArray *xTitles = [[NSMutableArray alloc]initWithCapacity:0];

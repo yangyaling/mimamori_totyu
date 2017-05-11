@@ -46,10 +46,13 @@
 #pragma mark UITableView delegate and dataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     NSDictionary *dic = _zarray[_superrow];
     NSArray *cellarr = dic[@"deviceinfo"];
     return cellarr.count;
+    
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -82,6 +85,7 @@
     
     if (dic.count >0) {
         cell.datestr = dic[@"datestring"];
+        cell.labelstr = dic[@"label"];
     }
 //    NSArray *array = [ZworksChartModel mj_objectArrayWithKeyValuesArray:arr];
 //    
@@ -89,8 +93,9 @@
 //    
 //    cell.CellModel =  cellarray.count > 0 ? [ZworksChartModel mj_objectWithKeyValues:cellarray] : nil;
     NSArray *cellarr = dic[@"deviceinfo"];
+    
     if (cellarr.count > 0) {
-        cell.celldic = cellarr[indexPath.section];
+        cell.cellarr = cellarr[indexPath.section];
     }
 //    cell.celldic = arr.count > 0 ?  arr[indexPath.section] : nil;
     
@@ -107,6 +112,9 @@
     NSDictionary *dic = _zarray[_superrow];
     
     NSArray *cellarr = dic[@"deviceinfo"];
+    
+    
+    
     CGRect frame = CGRectMake(10, 0, NITScreenW -20, 25);
     CGRect labelframe = CGRectMake(NITScreenW * 0.1, 0, NITScreenW * 0.8, 25);
     CGRect imageframe = CGRectMake(NITScreenW * 0.9, 2, 20, 20);
@@ -117,7 +125,7 @@
     bgview.backgroundColor =  [[UIColor lightGrayColor]colorWithAlphaComponent:0.1];
     
     if (cellarr.count >0) {
-        ZworksChartModel *model = [ZworksChartModel mj_objectWithKeyValues:cellarr[section]];
+        ZworksChartModel *model = [ZworksChartModel mj_objectWithKeyValues:[cellarr[section] firstObject]];
         
         [label setText:[NSString stringWithFormat:@"%@（%@）%@",model.devicename,model.nodename,model.displayname]];
         
@@ -148,7 +156,10 @@
     if([segue.identifier isEqualToString:@"zworksDetailsPush"]){
         DetailScrollController *zdvc = segue.destinationViewController;
         NSIndexPath *index = self.tableView.indexPathForSelectedRow;
-        ZworksChartModel *model = _zarray[index.section];
+        NSDictionary *dic = _zarray[_superrow];
+        NSArray *cellarr = dic[@"deviceinfo"];
+        ZworksChartModel *model = [ZworksChartModel mj_objectWithKeyValues:[cellarr[index.section] firstObject]];
+        
         zdvc.userid0 = _userid0;
         zdvc.chartModel = model;
         zdvc.selectindex = _superrow;

@@ -33,6 +33,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    
+    self.window.backgroundColor= [UIColor whiteColor];
+    
     [[UINavigationBar appearance] setTintColor:NITColor(252, 85, 115)];
     NSString *plistPath = [NITDocumentDirectory stringByAppendingPathComponent:@"loginFlgRecord.plist"];
     NSDictionary *vcdic = [NSDictionary dictionaryWithContentsOfFile:plistPath];
