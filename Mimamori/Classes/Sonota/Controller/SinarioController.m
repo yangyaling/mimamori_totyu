@@ -189,14 +189,14 @@
             
             self.modelsArray = tmpModelArr.copy;
         }
-        
+        self.timeIndex = self.scopecd;
+        self.daySegment.selectedSegmentIndex = self.scopecd;
         [MBProgressHUD hideHUDForView:self.view];
         [self.tableView.mj_header endRefreshing];
         
         if (tmpArr) {
             
             if (self.isSelectModelScenario) {
-                
                 
                 
                 NSInteger scope = [[[tmpModelArr[0] firstObject] objectForKey:@"scopecd"] integerValue];
@@ -654,17 +654,25 @@
     NSString *startstr = [NSString stringWithFormat:@"%@:00",self.leftTimeButton.titleLabel.text];
     NSString *endstr = [NSString stringWithFormat:@"%@:00",self.rightTimeButton.titleLabel.text];
     
-    if (self.timeIndex == 0) {
-        parametersDict[@"starttime"] = NULL;
-        parametersDict[@"endtime"] = NULL;
+    if ([startstr isEqualToString:@"- -"] && [endstr isEqualToString:@"- -"]) {
+        parametersDict[@"starttime"] = @"00:00:00";
+        parametersDict[@"endtime"] = @"00:00:00";
+    }else if ([startstr isEqualToString:@"- -"]) {
+        parametersDict[@"starttime"] = @"00:00:00";
+        parametersDict[@"endtime"] = endstr;
+    }else if ([endstr isEqualToString:@"- -"]) {
+        parametersDict[@"starttime"] = startstr;
+        parametersDict[@"endtime"] = @"00:00:00";
     } else {
         parametersDict[@"starttime"] =startstr;
         parametersDict[@"endtime"] = endstr;
     }
     
+    
     //保存detailinfo的数组转换成json数据格式
     NSError *parseError = nil;
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
+    
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     
     parametersDict[@"scenariodtlinfo"] = str;

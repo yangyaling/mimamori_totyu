@@ -511,6 +511,7 @@
         
         cell.nodeid = devices.nodename;
         
+        
         [cell.segmentbar setSelectedSegmentIndex:[devices.place integerValue] - 1];
         
         if ([devices.nodename isEqualToString:devices.mainnodeid]) {
