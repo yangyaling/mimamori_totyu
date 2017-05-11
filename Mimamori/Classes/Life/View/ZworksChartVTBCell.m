@@ -39,7 +39,13 @@
     
     _cellarr = cellarr;
     
-    if(cellarr == nil) return;
+    NSDictionary *tmpdic = cellarr.firstObject;
+    
+    if (tmpdic[@"nodeid"] == [NSNull null]) {
+        return;
+    }
+    
+    if(cellarr == nil ) return;
     
     int celltype;
     

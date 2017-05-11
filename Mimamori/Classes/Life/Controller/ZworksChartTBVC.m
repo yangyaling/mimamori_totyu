@@ -84,6 +84,7 @@
     NSDictionary *dic = _zarray[_superrow];
     
     if (dic.count >0) {
+//        NSString *str1 = [NSString stringWithFormat:@"%@",dic[@"datestring"]];
         cell.datestr = dic[@"datestring"];
         cell.labelstr = dic[@"label"];
     }
@@ -113,8 +114,6 @@
     
     NSArray *cellarr = dic[@"deviceinfo"];
     
-    
-    
     CGRect frame = CGRectMake(10, 0, NITScreenW -20, 25);
     CGRect labelframe = CGRectMake(NITScreenW * 0.1, 0, NITScreenW * 0.8, 25);
     CGRect imageframe = CGRectMake(NITScreenW * 0.9, 2, 20, 20);
@@ -125,6 +124,13 @@
     bgview.backgroundColor =  [[UIColor lightGrayColor]colorWithAlphaComponent:0.1];
     
     if (cellarr.count >0) {
+        
+        NSDictionary *tmpdic = [cellarr[section] firstObject];
+        
+        if (tmpdic[@"nodeid"] == [NSNull null]) {
+            return bgview;
+        }
+        
         ZworksChartModel *model = [ZworksChartModel mj_objectWithKeyValues:[cellarr[section] firstObject]];
         
         [label setText:[NSString stringWithFormat:@"%@（%@）%@",model.devicename,model.nodename,model.displayname]];
