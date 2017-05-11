@@ -193,6 +193,7 @@
             selectdic = [self.names[0] firstObject];
             break;
         case 7:
+            select = [self.names[0] objectForKey:@"displayname"];
             selectdic = self.names[0];
             break;
         case 8:
@@ -200,6 +201,7 @@
             break;
         case 9:
             select = [self.names[0] objectForKey:@"name"];
+            selectdic = self.names[0];
             break;
         case 10:
             select = self.onedayHours[0];
@@ -210,17 +212,20 @@
             
         case 11:
             select = [self.userList[0] objectForKey:@"name"];
+            selectdic = self.userList[0];
             break;
         case 12:
             
             select = [NSString stringWithFormat:@"%@", [self.custList[0] objectForKey:@"floorno"]];
-            
+            selectdic = self.custList[0];
             break;
         case 13:
             select = [self.roomList[0] objectForKey:@"roomcd"];
+            selectdic = self.roomList[0];
             break;
         case 14:
             select = [self.custidList[0] objectForKey:@"custid"];
+            selectdic = self.custidList[0];
             break;
             
         default:
@@ -382,7 +387,9 @@
         [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
         
         [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
+        
     } else if (scenariotype == 13) {
+        
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
         
         NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
@@ -392,7 +399,9 @@
         [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
         
         [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
+        
     } else if (scenariotype == 14) {
+        
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
         NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
         [nodesdic setValue:select forKey:@"custid"];
@@ -633,7 +642,7 @@
         selectdic = [arr.firstObject copy];
     } else if (scenariotype == 7) {
         selectdic = self.names[row];
-        
+        select = [self.names[row] objectForKey:@"displayname"];
     } else if (scenariotype == 10) {
         switch (component) {
             case 1:

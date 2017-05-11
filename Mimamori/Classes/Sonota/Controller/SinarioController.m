@@ -115,8 +115,8 @@
     }
     [self selectedTimeButtonIndex:sender.selectedSegmentIndex];
     
-    
 }
+
 
 -(void)selectedTimeButtonIndex:(NSInteger)index{
     self.timeIndex = index;
@@ -357,36 +357,28 @@
             [dicOne setObject:@"1" forKey:@"detailno"];
             [newarr addObject:dicOne];
         }
+        
         [arr replaceObjectAtIndex:index withObject:newarr];
         
         NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:arr];
         [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
         
         
-        NSMutableArray *disparray =[NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]];
-        
-        [disparray removeObject:sinario];
-        
-        [NITUserDefaults setObject:disparray forKey:@"tempdeaddnodeiddatas"];
+//        NSMutableArray *disparray =[NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
+//        
+//        [disparray removeObject:addcell];
+//        
+//        NSData *tempdata = [NSKeyedArchiver archivedDataWithRootObject:disparray];
+//        
+//        [NITUserDefaults setObject:tempdata forKey:@"tempdeaddnodeiddatas"];
         
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-        //        self.cellnum ++;
-        [self.tableView beginUpdates];
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
         
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation  :UITableViewRowAnimationNone];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
-//        UITableViewScrollPositionNone
-//        UITableViewScrollPositionMiddle
-//        UITableViewScrollPositionBottom
-//        UITableViewScrollPositionTop
     }
 
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self.tableView reloadData];
-//    });
     
    [CATransaction setCompletionBlock:^{
        [self.tableView reloadData];
@@ -417,7 +409,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return _allarray.count;
+        return _allarray.count;
     
 }
 
@@ -446,9 +438,9 @@
     
 //    if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0) return cell;
     
-//    if (self.cellnum == 0) { //cell是否可以编辑
-//        cell.userInteractionEnabled = NO;
-//    }
+    if (self.cellnum == 0) { //cell是否可以编辑
+        cell.userInteractionEnabled = NO;
+    }
     
     
     return cell;
@@ -541,14 +533,18 @@
 - (IBAction)EditBarButton:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
-        
+        [self.sinariobutton setEnabled:YES];
+        [self.daySegment setEnabled:YES];
+        [self.sinarioText setEnabled:YES];
         self.cellnum = 100;
         
         //进入编辑状态
         [self.tableView setEditing:YES animated:YES];
     }else{
         [sender setTitle:@"編集" forState:UIControlStateNormal];
-        
+        [self.sinariobutton setEnabled:NO];
+        [self.daySegment setEnabled:NO];
+        [self.sinarioText setEnabled:NO];
         self.cellnum = 0;
         
         [self saveScenario:nil]; //跟新或者追加
@@ -837,11 +833,17 @@
     } else {
         
         NSMutableArray *tmparray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
+        
         if (tmparray.count > 0) {
+            
             for (NSDictionary *dic in tmparray) {
+                
                 if ([dic[@"idx"] integerValue] == indexPath.row) {
+                    
                     [tmparray removeObject:dic];
+                    
                     break;
+                    
                 }
             }
         }

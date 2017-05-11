@@ -120,7 +120,6 @@
         [self.tableView.mj_header endRefreshing];
         [MBProgressHUD hideHUDForView:self.view];
         
-//        if (self.isEdit) {
         NSArray *tmpArr = [json objectForKey:@"splist"];
         NSDictionary *dicOne = tmpArr.firstObject;
         
@@ -130,19 +129,19 @@
         
         self.mySegment.selectedSegmentIndex = [[json objectForKey:@"scopecd"] integerValue];
         
-//        [self selectedTimeButtonIndex:[[json objectForKey:@"scopecd"] integerValue]];
+        if (self.isEdit) {
+            NSString *starttime = [NSString stringWithFormat:@"%@",[json objectForKey:@"starttime"]];
+            NSString *endtime = [NSString stringWithFormat:@"%@",[json objectForKey:@"endtime"]];
+            
+            [self.leftTimeButton setTitle:starttime forState:UIControlStateNormal];
+            [self.rightTimeButton setTitle:endtime forState:UIControlStateNormal];
+            self.ariText.text = [NSString stringWithFormat:@"%@", dicOne[@"nodetype"]];
+            self.sinarioName.text = [json objectForKey:@"protoname"];
+        } else {
+            
+            [self selectedTimeButtonIndex:0];
+        }
         
-        
-        self.sinarioName.text = [json objectForKey:@"protoname"];
-        
-        
-        self.ariText.text = [NSString stringWithFormat:@"%@", dicOne[@"nodetype"]];
-        
-        NSString *starttime = [NSString stringWithFormat:@"%@",[json objectForKey:@"starttime"]];
-        NSString *endtime = [NSString stringWithFormat:@"%@",[json objectForKey:@"endtime"]];
-        
-        [self.leftTimeButton setTitle:starttime forState:UIControlStateNormal];
-        [self.rightTimeButton setTitle:endtime forState:UIControlStateNormal];
         
         
             if (tmpArr.count >0) {
@@ -480,7 +479,7 @@
     
 }
 - (IBAction)showScrollView:(UIButton *)sender {
-    _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:90];
+    _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:[self.ariText.text integerValue]];
     
     _picker.mydelegate = self;
     

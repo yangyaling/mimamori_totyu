@@ -747,7 +747,7 @@
     if (!_onedayHours) {
         _onedayHours = [NSMutableArray new];
         [_onedayHours addObject:@"-"];
-        for (int i = 1; i<24; i++) {
+        for (int i = 0; i<24; i++) {
             if (i<10) {
                 [_onedayHours addObject:[NSString stringWithFormat:@"0%d:",i]];
             } else {
@@ -763,7 +763,7 @@
     if (!_onedayMinute) {
         _onedayMinute = [NSMutableArray new];
         [_onedayMinute addObject:@"-"];
-        for (int i = 1; i<60; i++) {
+        for (int i = 0; i<60; i++) {
             if (i<10) {
                 [_onedayMinute addObject:[NSString stringWithFormat:@"0%d",i]];
             } else {

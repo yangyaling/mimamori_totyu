@@ -99,18 +99,19 @@
 
 -(void)settingData{
     
-    NSString *str1 = self.CellModel.user0name = [NSNull null] ? @"" : self.CellModel.user0name;
-    NSString *str2 = [self.CellModel.roomid isEqual:[NSNull null]] ? @"" : self.CellModel.roomid;
-    NSString *str3 = self.CellModel.dispname = [NSNull null] ? @"" : self.CellModel.dispname;
-    NSString *str4 = [self.CellModel.tvalue isEqual:[NSNull null]] ? @"" : self.CellModel.tvalue;
-    NSString *str5 = [self.CellModel.tunit isEqual:[NSNull null]] ? @"" : self.CellModel.tunit;
-    NSString *str6 = [self.CellModel.hvalue isEqual:[NSNull null]] ? @"" : self.CellModel.hvalue;
-    NSString *str7 = [self.CellModel.hunit isEqual:[NSNull null]] ? @"" : self.CellModel.hunit;
-    NSString *str8 = [self.CellModel.bd isEqual:[NSNull null]] ? @"" : self.CellModel.bd;
+    NSString *str1 = [self.CellModel.user0name isEqual: [NSNull null]] || !self.CellModel.user0name ? @"" : self.CellModel.user0name;
+    NSString *str2 = [self.CellModel.roomid isEqual:[NSNull null]] || !self.CellModel.roomid ? @"" : self.CellModel.roomid;
     
-//    if (str1 || str2 || str3 || str4 || str5 || str6 || str7 || str8) {
-//        
-//    }
+    NSString *str3 = [self.CellModel.dispname isEqual: [NSNull null]] || !self.CellModel.dispname ? @"" : self.CellModel.dispname;
+    
+    NSString *str4 = [self.CellModel.tvalue isEqual:[NSNull null]] || !self.CellModel.tvalue ? @"" : self.CellModel.tvalue;
+    
+    NSString *str5 = [self.CellModel.tunit isEqual:[NSNull null]] || !self.CellModel.tunit ? @"" : self.CellModel.tunit;
+    NSString *str6 = [self.CellModel.hvalue isEqual:[NSNull null]] || !self.CellModel.hvalue ? @"" : self.CellModel.hvalue;
+    NSString *str7 = [self.CellModel.hunit isEqual:[NSNull null]] || !self.CellModel.hunit ? @"" : self.CellModel.hunit;
+    NSString *str8 = [self.CellModel.bd isEqual:[NSNull null]] || !self.CellModel.bd ? @"" : self.CellModel.bd;
+    
+    
     
     //　表示名
     NSString *strname = [NSString stringWithFormat:@"%@(%@)",str1,str2];

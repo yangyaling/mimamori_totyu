@@ -128,10 +128,11 @@
         
         self.numxxid = 0;
         self.isEdit = YES;
-        if ([usertype isEqualToString:@"x"]) {
-            [self ViewAnimateStatas:120];
-            //[self.tableView setEditing:YES animated:YES];
-        }
+        
+        [self ViewAnimateStatas:120];
+        
+        
+       //[self.tableView setEditing:YES animated:YES];
 
         //进入编辑状态
 //        [self.tableView setEditing:YES animated:YES];///////////
@@ -140,44 +141,13 @@
         
 //        [sender setTitle:@"編集" forState:UIControlStateNormal];
         
-//        [self saveNow:nil]; //跟新或者追加
-        [MBProgressHUD showMessage:@"" toView:self.view];
+        [self saveNow:nil]; //跟新或者追加
         
-        NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
-        
-        NSArray *array = [NITUserDefaults objectForKey:@"STAFFINFO"];
-        
-        NSError *parseError = nil;
-        
-        NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
-        
-        NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-        
-        NSDictionary *dic = @{@"stafflist":str,@"facilitycd":facilitycd};
-        
-        [MHttpTool postWithURL:NITUpdateStaffInfo params:dic success:^(id json) {
-            
-            [MBProgressHUD hideHUDForView:self.view];
-            if (json) {
-                NSString *code = [json objectForKey:@"code"];
-                NITLog(@"%@",code);
-                [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-                //            [self.tableView setEditing:NO animated:YES];
-                self.footView.height = 0;
-                self.footView.alpha = 0;
-                self.isEdit = NO;
-                [self.tableView reloadData];
-            }
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view];
-            //        [self.tableView setEditing:NO animated:YES];
-            NITLog(@"%@",error);
-        }];
     }
     
-    [CATransaction setCompletionBlock:^{
+//    [CATransaction setCompletionBlock:^{
         [self.tableView reloadData];
-    }];
+//    }];
     
 }
 
@@ -225,6 +195,41 @@
 
 - (IBAction)saveNow:(id)sender {
     
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    
+    NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+    
+    NSArray *array = [NITUserDefaults objectForKey:@"STAFFINFO"];
+    
+    NSError *parseError = nil;
+    
+    NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
+    
+    NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *dic = @{@"stafflist":str,@"facilitycd":facilitycd};
+    
+    [MHttpTool postWithURL:NITUpdateStaffInfo params:dic success:^(id json) {
+        
+        [MBProgressHUD hideHUDForView:self.view];
+        if (json) {
+            NSString *code = [json objectForKey:@"code"];
+            NITLog(@"%@",code);
+            
+            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+            
+//            [self.tableView setEditing:NO animated:YES];
+            
+            self.footView.height = 0;
+            self.footView.alpha = 0; 
+            self.isEdit = NO;
+            [self.tableView reloadData];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        //        [self.tableView setEditing:NO animated:YES];
+        NITLog(@"%@",error);
+    }];
     
 
 }
