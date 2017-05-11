@@ -43,6 +43,8 @@
 
 @property (nonatomic, assign) NSInteger                    modelindex;
 
+@property (nonatomic, assign) BOOL                         isAddCell;
+
 @end
 
 
@@ -60,6 +62,8 @@
     self.rightTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
     [self.leftTimeButton setEnabled:NO];
     [self.rightTimeButton setEnabled:NO];
+    
+    self.isAddCell = NO;
     
     self.cellnum = 0;
     
@@ -321,17 +325,16 @@
     return allarr;
 }
 
-
 /**
  PickerDelegate
  */
 - (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell {
     
-    if (addcell.count == 0) {
-        
+    if (self.isAddCell == NO) {
+    
         self.modelindex = [sinario integerValue];
         
-        self.sinarioText.text = sinario;
+        self.sinarioText.text = addcell[@"protoname"];
         
         self.isRefresh = NO;
         
@@ -360,25 +363,27 @@
         [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
         
         
-        //        NSMutableArray *disparray =[NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]];
-        //        [disparray removeObject:sinario];
-        //        [NITUserDefaults setObject:disparray forKey:@"tempdeaddnodeiddatas"];
+        NSMutableArray *disparray =[NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]];
+        
+        [disparray removeObject:sinario];
+        
+        [NITUserDefaults setObject:disparray forKey:@"tempdeaddnodeiddatas"];
         
         
-//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-//        //        self.cellnum ++;
-//        [self.tableView beginUpdates];
-//        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//        [self.tableView endUpdates];
-        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:index inSection:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        //        self.cellnum ++;
+        [self.tableView beginUpdates];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+        
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation  :UITableViewRowAnimationNone];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
-        //UITableViewScrollPositionNone
-        //UITableViewScrollPositionMiddle
-        //UITableViewScrollPositionBottom
-        //UITableViewScrollPositionTop
+//        UITableViewScrollPositionNone
+//        UITableViewScrollPositionMiddle
+//        UITableViewScrollPositionBottom
+//        UITableViewScrollPositionTop
     }
-    
+
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [self.tableView reloadData];
 //    });
@@ -391,6 +396,7 @@
 
 - (IBAction)PickShow:(UIButton *)sender {
     if (self.modelsArray.count >0) {
+        self.isAddCell = NO;
         _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.modelsArray cellNumber:0];
         
         _picker.mydelegate = self;
@@ -510,7 +516,9 @@
     
     if (array.count != 0) {
         
-        _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.device cellNumber:0];
+        self.isAddCell = YES;
+        
+        _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:0];
         
         _picker.mydelegate = self;
         

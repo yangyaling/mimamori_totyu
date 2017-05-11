@@ -94,44 +94,46 @@
         self.stateText.textColor = [UIColor darkGrayColor];
         self.stateText.text = @"新規追加";
     }
-    
 }
+
 
 -(void)settingData{
     
+    NSString *str1 = self.CellModel.user0name = [NSNull null] ? @"" : self.CellModel.user0name;
+    NSString *str2 = [self.CellModel.roomid isEqual:[NSNull null]] ? @"" : self.CellModel.roomid;
+    NSString *str3 = self.CellModel.dispname = [NSNull null] ? @"" : self.CellModel.dispname;
+    NSString *str4 = [self.CellModel.tvalue isEqual:[NSNull null]] ? @"" : self.CellModel.tvalue;
+    NSString *str5 = [self.CellModel.tunit isEqual:[NSNull null]] ? @"" : self.CellModel.tunit;
+    NSString *str6 = [self.CellModel.hvalue isEqual:[NSNull null]] ? @"" : self.CellModel.hvalue;
+    NSString *str7 = [self.CellModel.hunit isEqual:[NSNull null]] ? @"" : self.CellModel.hunit;
+    NSString *str8 = [self.CellModel.bd isEqual:[NSNull null]] ? @"" : self.CellModel.bd;
+    
+//    if (str1 || str2 || str3 || str4 || str5 || str6 || str7 || str8) {
+//        
+//    }
+    
     //　表示名
-    NSString *strname = [NSString stringWithFormat:@"%@(%@)",self.CellModel.user0name,self.CellModel.roomid];
+    NSString *strname = [NSString stringWithFormat:@"%@(%@)",str1,str2];
     
     self.name.text = strname;
     
-    NSString *strdipname = [NSString stringWithFormat:@"* %@",self.CellModel.dispname];
+    NSString *strdipname = [NSString stringWithFormat:@"* %@",str3];
     
     self.dipname.text = strdipname;
+    
     //　温度
-    NSString *tvalue = self.CellModel.tvalue;
     
-    if (tvalue.length) {
-        self.temperature.text = [NSString stringWithFormat:@"%.1f%@",[tvalue floatValue],self.CellModel.tunit];
-    }else{
-        self.temperature.text = @"";
-    }
+    self.temperature.text = [NSString stringWithFormat:@"%.1f%@",[str4 floatValue],str5];
+   
     
     
-    NSString *hvalue = self.CellModel.hvalue;
-    if (hvalue.length) {
-        self.humidity.text = [NSString stringWithFormat:@"%.1f%@",[hvalue floatValue],self.CellModel.hunit];
-    }else{
-        self.humidity.text = @"";
-    }
+    self.humidity.text = [NSString stringWithFormat:@"%.1f%@",[str6 floatValue],str7];
+   
     
     
     //　明るさ
-    NSString *luminance = self.CellModel.bd;
-    if (luminance) {
-        self.luminance.text = [NSString stringWithFormat:@"%@",luminance];
-    }else{
-        self.luminance.text = @"";
-    }
+    self.luminance.text = [NSString stringWithFormat:@"%@",str8];
+   
 
 }
 

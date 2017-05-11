@@ -244,36 +244,36 @@ fetchCompletionHandler:
             alertstring = [alertstring stringByAppendingString:str];
         }
         
-        if([[UIDevice currentDevice].systemVersion doubleValue] >= 10.0){
-            //创建通知
-            
-            
-            UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:2 repeats:NO];
-            UNNotificationAction * actionone = [UNNotificationAction actionWithIdentifier:@"actionone" title:@"アラート" options:UNNotificationActionOptionNone];
-            UNNotificationCategory * category = [UNNotificationCategory categoryWithIdentifier:@"myNotificationCategoryBtn" actions:@[actionone] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
-            //内容
-            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-            content.title = @"アラート";
-            content.subtitle = [NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count];
-            content.body = alertstring;
-            
-            content.badge = @(contentArray.count);
-            content.categoryIdentifier = @"myNotificationCategoryBtn";
-            content.sound = [UNNotificationSound defaultSound];
-            
-            NSString *requestIdentifier = @"sampleRequest";
-            
-            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifier
-                                                                                  content:content
-                                                                                  trigger:trigger];
-            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category, nil]];
-            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-                if (!error) {
-                    NSLog(@"推送已添加成功 %@", requestIdentifier);
-                }
-            }];
-            
-        } else {
+//        if([[UIDevice currentDevice].systemVersion doubleValue] >= 10.0){
+//            //创建通知
+//            
+//            
+//            UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:2 repeats:NO];
+//            UNNotificationAction * actionone = [UNNotificationAction actionWithIdentifier:@"actionone" title:@"アラート" options:UNNotificationActionOptionNone];
+//            UNNotificationCategory * category = [UNNotificationCategory categoryWithIdentifier:@"myNotificationCategoryBtn" actions:@[actionone] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+//            //内容
+//            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+//            content.title = @"アラート";
+//            content.subtitle = [NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count];
+//            content.body = alertstring;
+//            
+//            content.badge = @(contentArray.count);
+//            content.categoryIdentifier = @"myNotificationCategoryBtn";
+//            content.sound = [UNNotificationSound defaultSound];
+//            
+//            NSString *requestIdentifier = @"sampleRequest";
+//            
+//            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifier
+//                                                                                  content:content
+//                                                                                  trigger:trigger];
+//            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category, nil]];
+//            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+//                if (!error) {
+//                    NSLog(@"推送已添加成功 %@", requestIdentifier);
+//                }
+//            }];
+//            
+//        } else {
             UILocalNotification *notification=[[UILocalNotification alloc]init];
             notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:0];
             //notification.repeatInterval=1;
@@ -291,7 +291,7 @@ fetchCompletionHandler:
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];//调用通知
             // 5 发送AlertController
             [self showAlertWithContents:alertstring];
-        }
+//        }
         
         
     }

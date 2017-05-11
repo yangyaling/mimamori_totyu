@@ -91,6 +91,7 @@
     param.hassensordata = @"1";
     
     [MCustTool custInfoWithParam:param success:^(NSArray *array) {
+        [self.lifeTableView.mj_header endRefreshing];
 //        [MBProgressHUD hideHUDForView:self.view];
         if (array.count == 0) {
             [MBProgressHUD showError:@"見守り対象者を追加してください"];
@@ -127,18 +128,11 @@
     // 1.创建cell
     LifesTableViewCell *cell = [LifesTableViewCell cellWithTableView:self.lifeTableView];
     
-//    
-//    if (self.segmentNum == 0) {
-//        cell.segmentIndex = 0;
-//    }else if (self.segmentNum == 1){
-//        cell.segmentIndex = 1;
-//    }
     // 2.传递模型
     cell.CellModel = self.custArr[indexPath.row];
     
     // 3.设置代理
     cell.delegate = self;
-    [self.lifeTableView.mj_header endRefreshing];
     
     return cell;
 }

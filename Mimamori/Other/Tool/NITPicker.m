@@ -189,7 +189,9 @@
             select2 = self.type[0];
             break;
         case 6:
-            select = [[self.names[0] firstObject] objectForKey:@"protoid"];
+            select = @"0";
+            selectdic = [self.names[0] firstObject];
+            break;
         case 7:
             selectdic = self.names[0];
             break;
@@ -248,16 +250,13 @@
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
-    }else if (scenariotype == 6){
-        // 2.通知代理
+    } else if (scenariotype == 6 || scenariotype == 7) {
+        
         if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
-            [self.mydelegate PickerDelegateSelectString:select withDic:nil];
+            
+             [self.mydelegate PickerDelegateSelectString:select withDic:selectdic];
         }
         
-    } else if (scenariotype == 7) {
-        if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
-             [self.mydelegate PickerDelegateSelectString:nil withDic:selectdic];
-        }
     } else if (scenariotype == 10) {
         NSString *str = [NSString stringWithFormat:@"%@%@",select,select2];
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
@@ -584,7 +583,7 @@
             
         }else if (scenariotype == 6) {
             
-            text.text = [[self.names[row] firstObject] objectForKey:@"protoid"];
+            text.text = [[self.names[row] firstObject] objectForKey:@"protoname"];
             
         } else if (scenariotype == 7){
             
@@ -614,6 +613,8 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
 //    [_nitpicker viewForRow:row forComponent:component];
 
+    selectdic = nil;
+    
     if (scenariotype==0) {
         select = [self.names[row] objectForKey:@"displayname"];
     }else if(scenariotype==1){
@@ -628,6 +629,8 @@
         select = @"";
     } else if (scenariotype == 6) {
         select = [NSString stringWithFormat:@"%ld",row];
+        NSArray *arr = self.names[row];
+        selectdic = [arr.firstObject copy];
     } else if (scenariotype == 7) {
         selectdic = self.names[row];
         
