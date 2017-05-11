@@ -63,6 +63,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.footView.height = 0;
+    self.footView.alpha = 0;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.isEdit = NO;
     self.titleLabel.text = self.titleStr;
@@ -153,7 +154,7 @@
         [MBProgressHUD hideHUDForView:self.view];
         
         self.footView.height = 0;
-        
+        self.footView.alpha = 0;
         self.isEdit = NO;
         
         [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
@@ -175,6 +176,7 @@
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         self.footView.height = 36;
+        self.footView.alpha = 1;
         self.isEdit = YES;
     }else{
         [self saveNow:nil]; //跟新或者追加
