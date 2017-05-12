@@ -39,11 +39,11 @@
     
     _cellarr = cellarr;
     
-    NSDictionary *tmpdic = cellarr.firstObject;
-    
-    if (tmpdic[@"nodeid"] == [NSNull null]) {
-        return;
-    }
+//    NSDictionary *tmpdic = cellarr.firstObject;
+//    
+//    if (tmpdic[@"nodeid"] == [NSNull null]) {
+//        return;
+//    }
     
     if(cellarr == nil ) return;
     

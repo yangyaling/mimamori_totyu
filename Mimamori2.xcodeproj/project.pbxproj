@@ -209,6 +209,7 @@
 		EBE7192B1E2C76C50008ABE2 /* ScenarioModel.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBE7192A1E2C76C50008ABE2 /* ScenarioModel.plist */; };
 		EBE7192E1E2DAF850008ABE2 /* VoiceRecognitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE7192D1E2DAF850008ABE2 /* VoiceRecognitionController.m */; };
 		EBE719341E2E2CAB0008ABE2 /* RecordingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE719331E2E2CAB0008ABE2 /* RecordingStatus.m */; };
+		EBE870161EC54373007EE0F1 /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE870151EC54373007EE0F1 /* NullSafe.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -625,6 +626,7 @@
 		EBE7192D1E2DAF850008ABE2 /* VoiceRecognitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceRecognitionController.m; sourceTree = "<group>"; };
 		EBE719321E2E2CAB0008ABE2 /* RecordingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingStatus.h; sourceTree = "<group>"; };
 		EBE719331E2E2CAB0008ABE2 /* RecordingStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingStatus.m; sourceTree = "<group>"; };
+		EBE870151EC54373007EE0F1 /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullSafe.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1062,6 +1064,7 @@
 				92C3F1091DC7345200E61A8B /* MHttpTool.m */,
 				EBC353911EBC681D00697DAD /* NITPickerTemp.h */,
 				EBC353921EBC681D00697DAD /* NITPickerTemp.m */,
+				EBE870151EC54373007EE0F1 /* NullSafe.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1771,6 +1774,7 @@
 				928C621F1DC8708A009B5974 /* MProfileInfoParam.m in Sources */,
 				92F363181DC9B2F60030DCE0 /* NSDate+Extension.m in Sources */,
 				92F362FD1DC9B1C80030DCE0 /* MJRefreshAutoNormalFooter.m in Sources */,
+				EBE870161EC54373007EE0F1 /* NullSafe.m in Sources */,
 				92F362ED1DC9B1C80030DCE0 /* MJExtensionConst.m in Sources */,
 				92F362F21DC9B1C80030DCE0 /* NSObject+MJClass.m in Sources */,
 				92F363071DC9B1C80030DCE0 /* MJRefreshConst.m in Sources */,

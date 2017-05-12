@@ -202,7 +202,10 @@
                 NSInteger scope = [[[tmpModelArr[0] firstObject] objectForKey:@"scopecd"] integerValue];
                 
                 self.timeIndex = scope;
-                
+                if (self.timeIndex == 4) {
+                    [self.leftTimeButton setEnabled:YES];
+                    [self.rightTimeButton setEnabled:YES];
+                }
                 self.daySegment.selectedSegmentIndex = scope;
                 
 //                [self selectedTimeButtonIndex:scope];
@@ -532,6 +535,10 @@
  */
 - (IBAction)EditBarButton:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
+        if (self.timeIndex == 4) {
+            [self.leftTimeButton setEnabled:YES];
+            [self.rightTimeButton setEnabled:YES];
+        }
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         [self.sinariobutton setEnabled:YES];
         [self.daySegment setEnabled:YES];
@@ -680,6 +687,9 @@
     //NITUpdateScenarioInfo
     [MHttpTool postWithURL:NITUpdateScenarioInfo params:parametersDict success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
+        
+        NITLog(@"%ld",[[json objectForKey:@"result"] integerValue]);
+        
         //追加成功，显示信息
         if ([[json valueForKey:@"code"]isEqualToString:@"200"]) {
             
@@ -688,6 +698,7 @@
             }else {
                 [MBProgressHUD showSuccess:@"追加いたしました"];
             }
+            
             //跳转到前页面
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
@@ -706,8 +717,6 @@
         } else {
             [MBProgressHUD showError:@"後ほど試してください"];
         }
-        //[2]	(null)	@"message" : @"[Microsoft][ODBC Driver 11 for SQL Server][SQL Server]Error converting data type varchar to float."
-        
     } failure:^(NSError *error) {
         
         NITLog(@"%@",error);

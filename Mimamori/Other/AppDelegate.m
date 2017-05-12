@@ -244,10 +244,10 @@ fetchCompletionHandler:
             alertstring = [alertstring stringByAppendingString:str];
         }
         
-//        if([[UIDevice currentDevice].systemVersion doubleValue] >= 10.0){
-//            //创建通知
-//            
-//            
+        if(!([UIApplication sharedApplication].applicationState == UIApplicationStateActive)){
+            //创建通知
+            
+            
 //            UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:2 repeats:NO];
 //            UNNotificationAction * actionone = [UNNotificationAction actionWithIdentifier:@"actionone" title:@"アラート" options:UNNotificationActionOptionNone];
 //            UNNotificationCategory * category = [UNNotificationCategory categoryWithIdentifier:@"myNotificationCategoryBtn" actions:@[actionone] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
@@ -290,10 +290,10 @@ fetchCompletionHandler:
             
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];//调用通知
             // 5 发送AlertController
-            [self showAlertWithContents:alertstring];
-//        }
-        
-        
+//            [self showAlertWithContents:alertstring];
+        }
+    
+        [self showAlertWithContents:alertstring];
     }
     
 }
@@ -305,6 +305,7 @@ fetchCompletionHandler:
         completionHandler(UNNotificationPresentationOptionBadge);
     }
     completionHandler(UNNotificationPresentationOptionSound |UNNotificationPresentationOptionAlert);
+    
 }
 
 
@@ -312,7 +313,6 @@ fetchCompletionHandler:
 -(void)showAlertWithContents:(NSString *)titles{
     AudioServicesPlaySystemSound(1007);
     
-    //NSArray *contentArr = [notification.userInfo valueForKey:@"content"];
     
     UIAlertController *alert =[UIAlertController alertControllerWithTitle:@"アラート" message:titles preferredStyle:UIAlertControllerStyleAlert];
     

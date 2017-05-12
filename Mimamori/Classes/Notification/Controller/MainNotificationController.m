@@ -90,7 +90,7 @@
     
     [self CreateTableViewUI];  //创建tableviewUI
     
-    [self dateList];  //加载日历履历数据
+//    [self dateList];  //加载日历履历数据
     
     self.isCounter = YES; //日历弹出开关
     
@@ -131,6 +131,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:YES];
+    [self dateList];
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
     [self.MyTableView.mj_header beginRefreshing];
 }

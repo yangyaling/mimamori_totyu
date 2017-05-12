@@ -46,7 +46,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/MachineController.m"
-                  timestampString = "516197731.724499"
+                  timestampString = "516248575.777622"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "264"
@@ -61,7 +61,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/MachineController.m"
-                  timestampString = "516197731.72584"
+                  timestampString = "516248575.779357"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "264"
@@ -158,7 +158,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/RoomReportController.m"
-                  timestampString = "516197731.740311"
+                  timestampString = "516248575.79725"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "298"
@@ -173,7 +173,7 @@
                   moduleName = "Mimamori2"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/RoomReportController.m"
-                  timestampString = "516197731.741623"
+                  timestampString = "516248575.798886"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "298"
@@ -228,6 +228,22 @@
             startingLineNumber = "144"
             endingLineNumber = "144"
             landmarkName = "-editCell:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Mimamori/Classes/Sonota/Controller/SinarioController.m"
+            timestampString = "516247251.160769"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "718"
+            endingLineNumber = "718"
+            landmarkName = "-updateScenarioInfo:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
