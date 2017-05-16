@@ -56,11 +56,6 @@
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
     self.isEdit = NO;
-    //监听键盘出现和消失
-    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    
-    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
     
 }
 
@@ -72,6 +67,9 @@
 }
 
 
+-(void)SelectedListName:(NSDictionary *)clickDic {
+    [self.tableView.mj_header beginRefreshing];
+}
 
 //数据请求
 - (void)getnlInfo {
@@ -83,7 +81,7 @@
     [MHttpTool postWithURL:NITGetStaffInfo params:dic success:^(id json) {
         
         [self.tableView.mj_header endRefreshing];
-        
+        self.allDatas = [NSMutableArray new];
         NSArray *stafflist = [json objectForKey:@"stafflist"];
         NSArray *baseinfos = [json objectForKey:@"baseinfo"];
         NSArray *btnL = [json objectForKey:@"usertypelist"];
@@ -276,25 +274,6 @@
     else {
         return UITableViewCellEditingStyleDelete;
     }
-}
-
-#pragma mark - 键盘
--(void)keyboardWillShow:(NSNotification *)note
-{
-    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
-}
-
--(void)keyboardWillHide:(NSNotification *)note
-{
-    self.tableView.contentInset = UIEdgeInsetsZero;
-}
-
--(void)dealloc {
-    
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
 }
 
 @end

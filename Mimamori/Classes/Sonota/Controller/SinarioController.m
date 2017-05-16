@@ -53,15 +53,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.leftTimeButton.layer.borderWidth = 0.6;
-    self.rightTimeButton.layer.borderWidth = 0.6;
-    self.leftTimeButton.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.rightTimeButton.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.leftTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
-    self.rightTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
-    [self.leftTimeButton setEnabled:NO];
-    [self.rightTimeButton setEnabled:NO];
     
     self.isAddCell = NO;
     
@@ -110,8 +101,8 @@
     if (sender.selectedSegmentIndex != 4) {
         [self.leftTimeButton setEnabled:NO];
         [self.rightTimeButton setEnabled:NO];
-        self.leftTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
-        self.rightTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
+        self.leftTimeButton.backgroundColor = TextFieldNormalColor;
+        self.rightTimeButton.backgroundColor = TextFieldNormalColor;
     }
     [self selectedTimeButtonIndex:sender.selectedSegmentIndex];
     

@@ -41,14 +41,11 @@
     [NITUserDefaults setObject:arr forKey:@"COMPANYINFO"];
     
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getnlInfo)];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getInfo)];
     
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
     self.isEdit = NO;
-    //监听键盘出现和消失
-    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 
@@ -61,7 +58,7 @@
 }
 
 
-- (void)getnlInfo {
+- (void)getInfo {
     
     [MHttpTool postWithURL:NITGetCompanyInfo params:nil success:^(id json) {
         
@@ -249,22 +246,5 @@
     }];
 }
 
-#pragma mark - 键盘
--(void)keyboardWillShow:(NSNotification *)note
-{
-    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
-}
-
--(void)keyboardWillHide:(NSNotification *)note
-{
-    self.tableView.contentInset = UIEdgeInsetsZero;
-}
-
-
--(void)dealloc {
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
 
 @end

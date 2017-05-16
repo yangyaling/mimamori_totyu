@@ -82,7 +82,7 @@
 
 @property (nonatomic,strong) UIImageView                   *bigImg;
 
-@property (strong, nonatomic) IBOutlet UITableView         *myTableView;
+
 @property (strong, nonatomic) IBOutlet DropButton          *facilitiesBtn;
 
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
@@ -125,7 +125,7 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [MBProgressHUD hideHUDForView:self.myTableView];
+    [MBProgressHUD hideHUDForView:self.tableView];
 }
 
 
@@ -161,6 +161,7 @@
     self.other.text = _pmodel.other;
     self.updatename.text = _pmodel.updatename;
     self.updatedate.text = _pmodel.updatedate;
+    
 }
 
 /**
@@ -177,10 +178,10 @@
 //            self.profileArray = [ProfileModel mj_objectArrayWithKeyValuesArray:array];
 //            [self setupData];
 //        } else {
-//            [MBProgressHUD hideHUDForView:self.myTableView];
+//            [MBProgressHUD hideHUDForView:self.tableView];
 //        }
 //    } failure:^(NSError *error) {
-//        [MBProgressHUD hideHUDForView:self.myTableView];
+//        [MBProgressHUD hideHUDForView:self.tableView];
 //         [MBProgressHUD showError:@"後ほど試してください"];
 //    }];
 //    
@@ -191,7 +192,7 @@
  */
 -(void)updateProfileInfo{
     
-    [MBProgressHUD showMessage:@"" toView:self.myTableView];
+    [MBProgressHUD showMessage:@"" toView:self.tableView];
     
     NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
     // 请求参数
@@ -221,7 +222,7 @@
 //    NITLog(@"%@\n%@\n照片：2 ---%@",self.userid0,updatedate,self.imagedata);
     //
     [MProfileTool profileInfoUpdateImageWithParam:iconM withImageDatas:nil success:^(NSString *path) {
-        [MBProgressHUD hideHUDForView:self.myTableView];
+        [MBProgressHUD hideHUDForView:self.tableView];
         [NITUserDefaults setObject:self.imagedata forKey:self.userid0];
         NITLog(@"%@",path);
         [MProfileTool profileInfoUpdateWithParam:param success:^(NSString *code) {
@@ -238,7 +239,7 @@
         }];
         //http://mimamori2.azurewebsites.net/upload/0002.jpg
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.myTableView];
+        [MBProgressHUD hideHUDForView:self.tableView];
         NITLog(@"%@",error.localizedDescription);
         [MBProgressHUD showError:@"アップロード失敗"];
     }];

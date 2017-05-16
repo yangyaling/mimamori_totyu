@@ -95,7 +95,7 @@
 //        [MBProgressHUD hideHUDForView:self.view];
         if (array.count == 0) {
             [MBProgressHUD showError:@"見守り対象者を追加してください"];
-            [self.lifeTableView.mj_header endRefreshing];
+            self.custArr = [NSMutableArray new];
         }
         if (array.count>0) {
             //保存detailinfo的数组转换成json数据格式
@@ -106,8 +106,9 @@
             
             NSArray *tmpArr = [LifeUserListModel mj_objectArrayWithKeyValuesArray:array];
             self.custArr= tmpArr.count ? [NSMutableArray arrayWithArray:tmpArr] : [NSMutableArray new];
-            [self.lifeTableView reloadData];
+            
         }
+        [self.lifeTableView reloadData];
     } failure:^(NSError *error) {
 //        [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"zwgetcustlist请求失败");

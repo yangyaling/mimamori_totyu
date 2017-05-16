@@ -74,12 +74,6 @@
     self.cxID.text = self.maxid;
     
     self.titleView.text = self.labelTitle;
-    self.leftTimeButton.layer.borderWidth = 0.6;
-    self.rightTimeButton.layer.borderWidth = 0.6;
-    self.leftTimeButton.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.rightTimeButton.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.leftTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
-    self.rightTimeButton.backgroundColor = NITColorAlpha(244, 244, 244, 0.5);
     
     
     if (self.isEdit) {
@@ -435,7 +429,7 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
-    [textField setBackgroundColor:NITColor(253, 164, 181)];
+    [textField setBackgroundColor:TextSelectColor];
     
     return YES;
 }

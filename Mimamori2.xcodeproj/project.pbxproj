@@ -210,6 +210,7 @@
 		EBE7192E1E2DAF850008ABE2 /* VoiceRecognitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE7192D1E2DAF850008ABE2 /* VoiceRecognitionController.m */; };
 		EBE719341E2E2CAB0008ABE2 /* RecordingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE719331E2E2CAB0008ABE2 /* RecordingStatus.m */; };
 		EBE870161EC54373007EE0F1 /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE870151EC54373007EE0F1 /* NullSafe.m */; };
+		EBE8701C1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE8701B1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -627,6 +628,8 @@
 		EBE719321E2E2CAB0008ABE2 /* RecordingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingStatus.h; sourceTree = "<group>"; };
 		EBE719331E2E2CAB0008ABE2 /* RecordingStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingStatus.m; sourceTree = "<group>"; };
 		EBE870151EC54373007EE0F1 /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullSafe.m; sourceTree = "<group>"; };
+		EBE8701A1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITTableViewKeyBoardInherit.h; sourceTree = "<group>"; };
+		EBE8701B1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITTableViewKeyBoardInherit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1054,6 +1057,8 @@
 		92C3F1041DC733DA00E61A8B /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				EBE8701A1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.h */,
+				EBE8701B1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.m */,
 				92F3631A1DC9B3570030DCE0 /* NITRefreshInit.h */,
 				92F3631B1DC9B3570030DCE0 /* NITRefreshInit.m */,
 				92F3631C1DC9B3570030DCE0 /* NITTextView.h */,
@@ -1835,6 +1840,7 @@
 				929519811D7D06FE00787997 /* PostLetterController.m in Sources */,
 				92F362DC1DC9B1C80030DCE0 /* AFURLSessionManager.m in Sources */,
 				92F3631E1DC9B3570030DCE0 /* NITRefreshInit.m in Sources */,
+				EBE8701C1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.m in Sources */,
 				92F362F51DC9B1C80030DCE0 /* NSObject+MJProperty.m in Sources */,
 				92AF7BC21D98AA8E00FC30E9 /* DetailChartViewController.m in Sources */,
 				EBC3538D1EBC4B9100697DAD /* MachineController.m in Sources */,

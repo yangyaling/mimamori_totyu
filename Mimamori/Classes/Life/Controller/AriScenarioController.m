@@ -128,6 +128,7 @@
         
         NSString *strtt = [NSString stringWithFormat:@"%@(%@)",self.username,self.roomname];
         lcc.viewTitle = strtt;
+        lcc.roomID = self.roomname;
         //跳转事件
         [self.navigationController pushViewController:lcc animated:YES];
     }

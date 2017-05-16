@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSMutableArray                 *custArr;//見守られる人
 
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
+
 @property (strong, nonatomic) IBOutlet UITableView           *tableView;
 
 @end
@@ -72,6 +73,7 @@
     
     [MCustTool custInfoWithParam:param success:^(NSArray *array) {
         [self.tableView.mj_header endRefreshing];
+        self.custArr = [NSMutableArray new];
         if (array.count == 0) {
             [MBProgressHUD showError:@"見守り対象者を追加してください"];
             [self.tableView.mj_header endRefreshing];

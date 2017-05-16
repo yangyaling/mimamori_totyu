@@ -62,13 +62,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.footView.height = 0;
     self.footView.alpha = 0;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    
+    
     self.isEdit = NO;
     self.titleLabel.text = self.titleStr;
     
-//    self.tableView.tableFooterView = [[UIView alloc]init];
+    NSArray *arr = nil;
+    [NITUserDefaults setObject:arr forKey:@"mainondedatakey"];
     
     [self.sensorSegment setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]} forState:UIControlStateNormal];
     
@@ -82,34 +87,7 @@
     
     [MBProgressHUD showMessage:@"" toView:self.view];
     
-    //监听键盘出现和消失
-    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
-}
-
-#pragma mark 键盘出现
--(void)keyboardWillShow:(NSNotification *)note
-{
-    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
-    
-}
-
-#pragma mark 键盘消失
--(void)keyboardWillHide:(NSNotification *)note
-{
-    self.tableView.contentInset = UIEdgeInsetsZero;
-}
-
-
--(void)dealloc {
-    NSArray *arr = nil;
-    [NITUserDefaults setObject:arr forKey:@"mainondedatakey"];
-
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 
@@ -364,7 +342,7 @@
         [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
         self.isEdit = NO;
         self.footView.height = 0;
-        
+        self.footView.alpha = 0;
         self.isSensorTableView = NO;
         self.addDataH = 45;
     }

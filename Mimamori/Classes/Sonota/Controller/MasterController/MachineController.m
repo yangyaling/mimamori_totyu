@@ -57,13 +57,11 @@
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
     self.isEdit = NO;
+    
     // 企业名、设施名
     self.companyNameTF.userInteractionEnabled = NO;
     self.facilityNameTF.userInteractionEnabled = NO;
     
-    //监听键盘出现和消失
-    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
 }
 
@@ -181,6 +179,7 @@
     // 2.发送请求
     [MHttpTool postWithURL:NITGetSSInfo params:dic success:^(id json) {
         [self.tableView.mj_header endRefreshing];
+        _allDatas = [NSMutableArray new];
         NSArray *sslist = [json objectForKey:@"sslist"];
         NSArray *baseinfos = [json objectForKey:@"baseinfo"];
         NSArray *custlist = [json objectForKey:@"custlist"];
@@ -254,6 +253,7 @@
     }
 }
 
+
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [MBProgressHUD showMessage:@"" toView:self.view];
@@ -302,19 +302,6 @@
 }
 
 
-#pragma mark － 键盘
-
--(void)keyboardWillShow:(NSNotification *)note
-{
-    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
-}
-
--(void)keyboardWillHide:(NSNotification *)note
-{
-    self.tableView.contentInset = UIEdgeInsetsZero;
-}
-
 #pragma mark － other
 
 /**
@@ -325,11 +312,5 @@
     [self.tableView.mj_header beginRefreshing];
 }
 
--(void)dealloc {
-    
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
-}
 
 @end

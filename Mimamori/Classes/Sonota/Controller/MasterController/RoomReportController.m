@@ -56,10 +56,7 @@
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
     self.isEdit = NO;
-    //监听键盘出现和消失
-    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
-    [NITNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
 }
 
@@ -71,26 +68,10 @@
     _facilityBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
-#pragma mark 键盘出现
--(void)keyboardWillShow:(NSNotification *)note
-{
-    CGRect keyBoardRect=[note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, keyBoardRect.size.height -49, 0)];
-    
-}
-#pragma mark 键盘消失
--(void)keyboardWillHide:(NSNotification *)note
-{
-    self.tableView.contentInset = UIEdgeInsetsZero;
+-(void)SelectedListName:(NSDictionary *)clickDic {
+    [self.tableView.mj_header beginRefreshing];
 }
 
--(void)dealloc {
-    
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [NITNotificationCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
-}
 
 //数据请求
 - (void)getnlInfo {
@@ -101,7 +82,7 @@
     [MHttpTool postWithURL:NITGetRoomInfo params:dic success:^(id json) {
         
         [self.tableView.mj_header endRefreshing];
-        
+        self.allDatas = [NSMutableArray new];
         NSArray *baseinfos = [json objectForKey:@"baseinfo"];
         
         NSArray *roomlist = [json objectForKey:@"roomlist"];

@@ -55,7 +55,7 @@
 
 #define USERTYPE [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
 
-#define TextSelectColor NITColor(252, 82, 115)
+#define TextSelectColor NITColor(253, 164, 181)
 
 #define OtherEnabledCellBGColor NITColor(251, 140, 160)
 

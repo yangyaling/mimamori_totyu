@@ -20,57 +20,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
-    self.sinarioButton.layer.cornerRadius = 6;
-    self.temperature.layer.cornerRadius = 6;
-    self.humidity.layer.cornerRadius = 6;
-    self.brightness.layer.cornerRadius = 6;
-    self.temperaturetime.layer.cornerRadius = 6;
-    self.temperatureTD.layer.cornerRadius = 6;
-    self.humiditytime.layer.cornerRadius = 6;
-    self.humidityTD.layer.cornerRadius = 6;
-    self.brightnesstime.layer.cornerRadius = 6;
-    self.brightnessTD.layer.cornerRadius = 6;
-    self.doalabel.layer.cornerRadius = 6;
-    self.doaState.layer.cornerRadius = 6;
-    self.doatime.layer.cornerRadius = 6;
-//    self.dayState.layer.cornerRadius = 6;
-//    self.timeSlot.layer.cornerRadius = 6;
-    
-    
-    self.sinarioButton.layer.borderWidth = 0.6;
-    self.temperature.layer.borderWidth = 0.6;
-    self.humidity.layer.borderWidth = 0.6;
-    self.brightness.layer.borderWidth = 0.6;
-    self.temperaturetime.layer.borderWidth = 0.6;
-    self.temperatureTD.layer.borderWidth = 0.6;
-    self.humidityTD.layer.borderWidth = 0.6;
-    self.brightnesstime.layer.borderWidth = 0.6;
-    self.brightnessTD.layer.borderWidth = 0.6;
-    self.humiditytime.layer.borderWidth = 0.6;
-    self.doalabel.layer.borderWidth = 0.6;
-    self.doaState.layer.borderWidth = 0.6;
-    self.doatime.layer.borderWidth = 0.6;
-//    self.dayState.layer.borderWidth = 0.6;
-//    self.timeSlot.layer.borderWidth = 0.6;
-    
-    
-    self.humiditytime.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.sinarioButton.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.temperature.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.humidity.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.brightness.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.temperaturetime.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.temperatureTD.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.humidityTD.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.brightnesstime.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.brightnessTD.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.doalabel.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.doaState.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    self.doatime.layer.borderColor = NITColor(211, 211, 211).CGColor;
-//    self.dayState.layer.borderColor = NITColor(211, 211, 211).CGColor;
-//    self.timeSlot.layer.borderColor = NITColor(211, 211, 211).CGColor;
-    
 }
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {

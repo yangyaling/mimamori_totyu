@@ -45,7 +45,7 @@
     NSString *cd = datasDic[@"cd"];
     if (cd.length) {
         [self.numCd setEnabled:NO];
-        [self.numCd setBackgroundColor:TextFieldNormalColor];
+//        [self.numCd setBackgroundColor:TextFieldNormalColor];
     }
     
     self.numCd.text = datasDic[@"cd"];
@@ -55,7 +55,7 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
-    [textField setBackgroundColor:TextFieldNormalColor];
+    [textField setBackgroundColor:TextSelectColor];
     
     return YES;
 }

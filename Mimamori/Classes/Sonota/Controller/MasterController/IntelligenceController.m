@@ -169,7 +169,7 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
-    [textField setBackgroundColor:NITColor(253, 164, 181)];
+    [textField setBackgroundColor:TextSelectColor];
     
     return YES;
 }

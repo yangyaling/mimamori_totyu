@@ -51,6 +51,7 @@
     [super viewWillAppear:NO];
     
     _facilityBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
+    
     [self getnlInfo];
 }
 
