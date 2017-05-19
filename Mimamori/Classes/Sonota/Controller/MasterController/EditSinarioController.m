@@ -124,13 +124,15 @@
         
         self.mySegment.selectedSegmentIndex = [[json objectForKey:@"scopecd"] integerValue];
         
-        NSString *starttime = [NSString stringWithFormat:@"%@",[json objectForKey:@"starttime"]];
-        NSString *endtime = [NSString stringWithFormat:@"%@",[json objectForKey:@"endtime"]];
         
-        [self.leftTimeButton setTitle:starttime forState:UIControlStateNormal];
-        [self.rightTimeButton setTitle:endtime forState:UIControlStateNormal];
         
         if (self.isEdit) {
+            
+            NSString *starttime = [NSString stringWithFormat:@"%@",[json objectForKey:@"starttime"]];
+            NSString *endtime = [NSString stringWithFormat:@"%@",[json objectForKey:@"endtime"]];
+            
+            [self.leftTimeButton setTitle:starttime forState:UIControlStateNormal];
+            [self.rightTimeButton setTitle:endtime forState:UIControlStateNormal];
             
             self.ariText.text = [NSString stringWithFormat:@"%@", dicOne[@"nodetype"]];
             
