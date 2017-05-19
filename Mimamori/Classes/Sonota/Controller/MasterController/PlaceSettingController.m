@@ -216,41 +216,48 @@
 
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [MBProgressHUD showMessage:@"" toView:self.view];
-        NSMutableArray *array =[NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"NLINFO"]];
-        NSDictionary *dic = array[indexPath.row];
-        
-        [MHttpTool postWithURL:NITDeleteNLInfo params:dic success:^(id json) {
+    
+    
+        if (editingStyle == UITableViewCellEditingStyleDelete) {
             
-            [MBProgressHUD hideHUDForView:self.view];
+        [NITDeleteAlert SharedAlertShowMessage:@"設定情報を削除します、よろしいですか。" andControl:self withOk:^(BOOL isOk) {
+            [MBProgressHUD showMessage:@"" toView:self.view];
+            NSMutableArray *array =[NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"NLINFO"]];
+            NSDictionary *dic = array[indexPath.row];
             
-            if (json) {
+            [MHttpTool postWithURL:NITDeleteNLInfo params:dic success:^(id json) {
                 
-                NSString *code = [json objectForKey:@"code"];
+                [MBProgressHUD hideHUDForView:self.view];
                 
-                NITLog(@"%@",code);
-                
-                if ([code isEqualToString:@"502"]) {
+                if (json) {
                     
-                    [MBProgressHUD showError:@""];
+                    NSString *code = [json objectForKey:@"code"];
                     
-                } else {
+                    NITLog(@"%@",code);
                     
-                    [array removeObjectAtIndex:indexPath.row];
-                    
-                    [NITUserDefaults setObject:array forKey:@"NLINFO"];
-                    
-                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                    
+                    if ([code isEqualToString:@"200"]) {
+                        [MBProgressHUD showSuccess:@""];
+                        [array removeObjectAtIndex:indexPath.row];
+                        
+                        [NITUserDefaults setObject:array forKey:@"NLINFO"];
+                        
+                        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                        [self.tableView.mj_header beginRefreshing];
+                        
+                        
+                    } else {
+                        [MBProgressHUD showError:@""];
+                        
+                        
+                    }
                 }
-            }
-            
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view];
-            NITLog(@"%@",error);
+                
+            } failure:^(NSError *error) {
+                [MBProgressHUD hideHUDForView:self.view];
+                NITLog(@"%@",error);
+            }];
+
         }];
-        
     }
     [CATransaction setCompletionBlock:^{
         [self.tableView reloadData];

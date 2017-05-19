@@ -20,4 +20,6 @@
 
 @property (nonatomic, copy) NSString                   *titleStr;
 
+@property (nonatomic, copy) NSString                   *floorno;
+
 @end

@@ -101,12 +101,13 @@
 - (IBAction)saveNow:(id)sender {
     
     [MBProgressHUD showMessage:@"" toView:self.view];
+    
     //    sensorallnodes
     MScenarioListParam *param = [[MScenarioListParam alloc]init];
     param.staffid = [NITUserDefaults objectForKey:@"userid1"];
     param.custid = self.profileUser0;
     param.facilitycd  = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
-    
+    param.floorno = self.floorno;
     
     NSDictionary *maindic = [NITUserDefaults objectForKey:@"mainondedatakey"];
     NSString *mainid = maindic[@"mainnodeid"];
@@ -115,6 +116,7 @@
         param.mainnodeid = mainid;
         param.mainnodename = [NSString stringWithFormat:@"%@ (%@)", maindic[@"mainnodename"],maindic[@"mainnodeplace"]];
     }
+    
     
     NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
     
@@ -315,7 +317,9 @@
 #pragma mark - ScenarioVcDelegate
 
 -(void)warningScenarioAddedShow:(NSString *)message{
+    
     AudioServicesPlaySystemSound(1007);
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"アラート"
                                                                    message:message
                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -325,6 +329,7 @@
                                                 
                                             }]];
     [self.navigationController presentViewController:alert animated:YES completion:nil];
+    
 }
 
 

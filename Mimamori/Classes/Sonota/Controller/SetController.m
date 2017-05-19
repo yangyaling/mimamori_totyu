@@ -113,6 +113,8 @@
         
         ssc.profileUser0 = selectModel.userid0;
         
+        ssc.floorno = selectModel.floorno;
+        
         ssc.profileUser0name = selectModel.user0name;
         NSString *strtt = [NSString stringWithFormat:@"%@(%@)",selectModel.user0name,selectModel.roomid];
         ssc.titleStr = strtt;

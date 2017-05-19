@@ -131,6 +131,7 @@
 		E9D445B51D010FE600CFF364 /* MimamoriUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D445B41D010FE600CFF364 /* MimamoriUITests.m */; };
 		E9D445DE1D0112AD00CFF364 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D445DD1D0112AD00CFF364 /* AppDelegate.m */; };
 		EB0EE8AF1EB216B000254CB7 /* PopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0EE8AE1EB216B000254CB7 /* PopButton.m */; };
+		EB4926C01ECD30120008DE8A /* NITDeleteAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4926BF1ECD30120008DE8A /* NITDeleteAlert.m */; };
 		EB4A560C1E00D69400A2F1C2 /* OtherController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A560B1E00D69400A2F1C2 /* OtherController.m */; };
 		EB4A56101E00DB3E00A2F1C2 /* OtherCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A560E1E00DB3E00A2F1C2 /* OtherCollectionCell.m */; };
 		EB4A56111E00DB3E00A2F1C2 /* OtherCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB4A560F1E00DB3E00A2F1C2 /* OtherCollectionCell.xib */; };
@@ -475,6 +476,8 @@
 		E9D445DF1D0112E800CFF364 /* Mimamori.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mimamori.pch; sourceTree = "<group>"; };
 		EB0EE8AD1EB216B000254CB7 /* PopButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopButton.h; sourceTree = "<group>"; };
 		EB0EE8AE1EB216B000254CB7 /* PopButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopButton.m; sourceTree = "<group>"; };
+		EB4926BE1ECD30120008DE8A /* NITDeleteAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITDeleteAlert.h; sourceTree = "<group>"; };
+		EB4926BF1ECD30120008DE8A /* NITDeleteAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITDeleteAlert.m; sourceTree = "<group>"; };
 		EB4A560A1E00D69400A2F1C2 /* OtherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherController.h; sourceTree = "<group>"; };
 		EB4A560B1E00D69400A2F1C2 /* OtherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherController.m; sourceTree = "<group>"; };
 		EB4A560D1E00DB3E00A2F1C2 /* OtherCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherCollectionCell.h; sourceTree = "<group>"; };
@@ -1070,6 +1073,8 @@
 				EBC353911EBC681D00697DAD /* NITPickerTemp.h */,
 				EBC353921EBC681D00697DAD /* NITPickerTemp.m */,
 				EBE870151EC54373007EE0F1 /* NullSafe.m */,
+				EB4926BE1ECD30120008DE8A /* NITDeleteAlert.h */,
+				EB4926BF1ECD30120008DE8A /* NITDeleteAlert.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1854,6 +1859,7 @@
 				92951A261D7D0B0100787997 /* AddSickPersonTableViewController.m in Sources */,
 				92F362D81DC9B1C80030DCE0 /* AFNetworkReachabilityManager.m in Sources */,
 				92F362E11DC9B1C80030DCE0 /* WHUCalendarPopView.m in Sources */,
+				EB4926C01ECD30120008DE8A /* NITDeleteAlert.m in Sources */,
 				EB9C92EF1E02425600F3132C /* LifeChartController.m in Sources */,
 				92F363031DC9B1C80030DCE0 /* MJRefreshGifHeader.m in Sources */,
 				92F362DF1DC9B1C80030DCE0 /* WHUCalendarFlowLayout.m in Sources */,

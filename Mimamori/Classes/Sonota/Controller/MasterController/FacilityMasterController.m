@@ -128,11 +128,11 @@
     if ([master isEqualToString:@"3"]) {
         
     } else if ([master isEqualToString:@"2"]) {
+        
         [self.facilityName2Field setEnabled:noOp];
         [self.facilityName2Field setBackgroundColor:color];
         [self.fckana2Field setEnabled:noOp];
         [self.fckana2Field setBackgroundColor:color];
-        
         
         [self.numField setEnabled:noOp];
         [self.numField setBackgroundColor:color];
@@ -140,6 +140,7 @@
         [self.pesronNumField setBackgroundColor:color];
         [self.sonotaField setEnabled:noOp];
         [self.sonotaField setBackgroundColor:color];
+        
     } else {
         
 //        [self.hosutoIdField setEnabled:noOp];

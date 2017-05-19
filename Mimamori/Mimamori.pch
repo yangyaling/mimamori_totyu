@@ -15,6 +15,8 @@
 //里面所有的内容只能用到.m文件中或者.mm
 #ifdef __OBJC__
 
+#import "NITDeleteAlert.h" //全局的alert
+
 #import "NITTableViewKeyBoardInherit.h"
 
 #import "DropButton.h"

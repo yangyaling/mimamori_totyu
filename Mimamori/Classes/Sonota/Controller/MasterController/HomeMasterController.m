@@ -81,7 +81,7 @@
         
         NSArray *btnF = [json objectForKey:@"floorlist"];
         
-        NSArray *btnR = [json objectForKey:@"roomlist"];
+//        NSArray *btnR = [json objectForKey:@"roomlist"];
         
         NSArray *custlist = [json objectForKey:@"custlist"];
         
@@ -101,9 +101,9 @@
             [NITUserDefaults setObject:btnF forKey:@"FLOORLISTKEY"];
         }
         
-        if (btnR.count >0) {
-            [NITUserDefaults setObject:btnR forKey:@"ROOMLISTKEY"];
-        }
+//        if (btnR.count >0) {
+//            [NITUserDefaults setObject:btnR forKey:@"ROOMLISTKEY"];
+//        }
         
         
         if (custlist.count >0) {
@@ -165,6 +165,7 @@
             [self.tableView reloadData];
         }];
     }];
+    
 }
 
 - (IBAction)addCell:(id)sender {
@@ -172,6 +173,7 @@
     if (!self.maxId.length) return;
     
     NSString *laststr = [self.maxId substringFromIndex:self.maxId.length - 5];
+    
     NSString *fiststr = [self.maxId substringToIndex:self.maxId.length - 5];
     
     NSInteger numId = [laststr integerValue] + self.numxxid;
@@ -179,16 +181,24 @@
     NSString *cusstidstr = [NSString stringWithFormat:@"%@%05i",fiststr,(int)numId];
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
-    [arr addObject:@{@"custid":cusstidstr,@"custname":@"",@"floorno":@"",@"roomcd":@""}];
+    
+    NSArray *floorlist = [NITUserDefaults objectForKey:@"FLOORLISTKEY"];
+    
+    
+    NSString *floorno = [NSString stringWithFormat:@"%@",[floorlist.firstObject objectForKey:@"floorno"]];
+    NSString *roomcd = [NSString stringWithFormat:@"%@",[[[floorlist.firstObject objectForKey:@"roomlist"] firstObject] objectForKey:@"roomcd"]];
+    
+    [arr addObject:@{@"custid":cusstidstr,@"custname":@"",@"floorno":floorno,@"roomcd":roomcd}];
+    
     [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
     
     self.numxxid++;
-    
     
     [CATransaction setCompletionBlock:^{
         
         [self.tableView reloadData];
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
+        
     }];
     
 }
@@ -282,46 +292,63 @@
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [MBProgressHUD showMessage:@"" toView:self.view];
-        NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
-        NSDictionary *dic = array[indexPath.row];
         
-        
-        [MHttpTool postWithURL:NITDeleteHomeCustInfo params:dic success:^(id json) {
+        [NITDeleteAlert SharedAlertShowMessage:@"設定情報を削除します、よろしいですか。" andControl:self withOk:^(BOOL isOk) {
+            [MBProgressHUD showMessage:@"" toView:self.view];
+            NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
+            NSDictionary *dic = array[indexPath.row];
             
-            [MBProgressHUD hideHUDForView:self.view];
             
-            if (json) {
+            NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
+            NSDictionary *pdic = @{@"staffid":staffid,@"custid":dic[@"custid"],@"floorno":dic[@"oldfloorno"],@"roomcd":dic[@"oldroomcd"]};
+            
+            
+            [MHttpTool postWithURL:NITDeleteHomeCustInfo params:pdic success:^(id json) {
                 
-                NSString *code = [json objectForKey:@"code"];
+                [MBProgressHUD hideHUDForView:self.view];
                 
-                NITLog(@"%@",code);
-                
-                if ([code isEqualToString:@"502"]) {
+                if (json) {
                     
-                    [MBProgressHUD showError:@""];
+                    NSString *code = [json objectForKey:@"code"];
                     
-                } else {
-                    self.footView.height = 0;
-                    self.footView.alpha = 0;
-                    self.isEdit = NO;
-                    [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-                    [self.tableView setEditing:NO animated:YES];
+                    NITLog(@"%@",code);
                     
-                    [array removeObjectAtIndex:indexPath.row];
-                    [NITUserDefaults setObject:array forKey:@"HOMECUSTINFO"];
-                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                    
+                    if ([code isEqualToString:@"200"]) {
+                        
+                        [MBProgressHUD showSuccess:@""];
+                        
+                        [array removeObjectAtIndex:indexPath.row];
+                        [NITUserDefaults setObject:array forKey:@"HOMECUSTINFO"];
+                        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                        
+                        [self.tableView.mj_header beginRefreshing];
+                        
+                    } else {
+                        
+//                        self.footView.height = 0;
+//                        self.footView.alpha = 0;
+//                        self.isEdit = NO;
+//                        [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+//                        [self.tableView setEditing:NO animated:YES];
+                        
+                        [MBProgressHUD showError:@""];
+                        
+                    }
                 }
-            }
-            
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view];
-            NITLog(@"%@",error);
+                
+            } failure:^(NSError *error) {
+                [MBProgressHUD hideHUDForView:self.view];
+                NITLog(@"%@",error);
+            }];
+
         }];
         
     }
+    
     [CATransaction setCompletionBlock:^{
         [self.tableView reloadData];
     }];

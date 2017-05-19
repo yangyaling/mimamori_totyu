@@ -74,13 +74,12 @@
  */
 -(void)showSelectedList {
     
-    
 }
 
+
 - (IBAction)OutAtion:(UIButton *)sender {
-    UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:nil message:@"ログアウトします。よろしいですか。" preferredStyle: UIAlertControllerStyleAlert];
     
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"はい" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [NITDeleteAlert SharedAlertShowMessage:@"ログアウトします。よろしいですか。" andControl:self withOk:^(BOOL isOk) {
         // 1. ログインFlag -> 1(未登録)
         // 2. 删除缓存数据(data)
         NSFileManager *manager = [NSFileManager defaultManager];
@@ -99,19 +98,19 @@
         //[NITUserDefaults removeObjectForKey:@"readnotice"];
         
         //清空设施数组
-//        NSArray *alldropArray = [NITUserDefaults objectForKey:@"FacilityList"];
-//        NSArray *imagesArray = [NITUserDefaults objectForKey:@"CellImagesName"];
-//        NSArray *tmpimagesArray = [NITUserDefaults objectForKey:@"TempcellImagesName"];
-//        NSArray *facitilityname = [NITUserDefaults objectForKey:@"TempFacilityName"];
-//        alldropArray = nil;
-//        imagesArray = nil;
-//        tmpimagesArray = nil;
-//        facitilityname = nil;
-//        [NITUserDefaults setObject:alldropArray forKey:@"FacilityList"];
-//        [NITUserDefaults setObject:imagesArray forKey:@"CellImagesName"];
-//        [NITUserDefaults setObject:tmpimagesArray forKey:@"TempcellImagesName"];
-//        [NITUserDefaults setObject:facitilityname forKey:@"TempFacilityName"];
-       
+        //        NSArray *alldropArray = [NITUserDefaults objectForKey:@"FacilityList"];
+        //        NSArray *imagesArray = [NITUserDefaults objectForKey:@"CellImagesName"];
+        //        NSArray *tmpimagesArray = [NITUserDefaults objectForKey:@"TempcellImagesName"];
+        //        NSArray *facitilityname = [NITUserDefaults objectForKey:@"TempFacilityName"];
+        //        alldropArray = nil;
+        //        imagesArray = nil;
+        //        tmpimagesArray = nil;
+        //        facitilityname = nil;
+        //        [NITUserDefaults setObject:alldropArray forKey:@"FacilityList"];
+        //        [NITUserDefaults setObject:imagesArray forKey:@"CellImagesName"];
+        //        [NITUserDefaults setObject:tmpimagesArray forKey:@"TempcellImagesName"];
+        //        [NITUserDefaults setObject:facitilityname forKey:@"TempFacilityName"];
+        
         // 清除缓存
         NSString*appDomain = [[NSBundle mainBundle] bundleIdentifier];
         [NITUserDefaults removePersistentDomainForName:appDomain];
@@ -124,16 +123,8 @@
         // 5.移除定时器
         [appDelegate removeTimer];
     }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"いいえ" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
-    }];
     
-    [cancel setValue:NITColor(252, 55, 100) forKey:@"_titleTextColor"];
-    [okAction setValue:[UIColor lightGrayColor] forKey:@"_titleTextColor"];
     
-    [alert2 addAction:cancel];
-    [alert2 addAction:okAction];
-    [self presentViewController:alert2 animated:true completion:nil];
 }
 
 

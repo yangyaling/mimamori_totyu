@@ -37,6 +37,8 @@
  */
 @property (nonatomic, copy) NSString                         *sensorcount;
 
+@property (nonatomic, copy) NSString                         *floorno;
+
 
 
 

@@ -227,14 +227,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-//    RoomReportCell
     RoomReportCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RoomReportCell" forIndexPath:indexPath];
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"]];
     
     cell.editOp = self.isEdit;
+    
     cell.cellindex = indexPath.row;
+    
     NSDictionary *dic = arr[indexPath.row];
+    
     if (dic) {
         cell.datasDic = dic.copy;
     }
@@ -248,6 +250,8 @@
     return YES;
 }
 
+
+
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!tableView.editing)
@@ -260,49 +264,49 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        [MBProgressHUD showMessage:@"" toView:self.view];
-        
-        NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"]];
-        
-        
-        NSDictionary *dic = array[indexPath.row];
-        
-        NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
-        
-        NSString *oldfloorno = [NSString stringWithFormat:@"%@",dic[@"oldfloorno"]];
-        
-        NSString *oldroomcd = [NSString stringWithFormat:@"%@",dic[@"oldroomcd"]];
-        
-        NSDictionary *paradic = @{@"facilitycd":facilitycd,@"floorno":oldfloorno,@"roomcd":oldroomcd};
-        
-        [MHttpTool postWithURL:NITDeleteRoomInfo params:paradic success:^(id json) {
+        [NITDeleteAlert SharedAlertShowMessage:@"設定情報を削除します、よろしいですか。" andControl:self withOk:^(BOOL isOk) {
+            [MBProgressHUD showMessage:@"" toView:self.view];
             
-            [MBProgressHUD hideHUDForView:self.view];
+            NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"]];
             
-            if (json) {
+            
+            NSDictionary *dic = array[indexPath.row];
+            
+            NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+            
+            NSString *oldfloorno = [NSString stringWithFormat:@"%@",dic[@"oldfloorno"]];
+            
+            NSString *oldroomcd = [NSString stringWithFormat:@"%@",dic[@"oldroomcd"]];
+            
+            NSDictionary *paradic = @{@"facilitycd":facilitycd,@"floorno":oldfloorno,@"roomcd":oldroomcd};
+            
+            [MHttpTool postWithURL:NITDeleteRoomInfo params:paradic success:^(id json) {
                 
-                NSString *code = [json objectForKey:@"code"];
+                [MBProgressHUD hideHUDForView:self.view];
                 
-                NITLog(@"%@",code);
-                
-                if ([code isEqualToString:@"502"]) {
+                if (json) {
                     
-                    [MBProgressHUD showError:@""];
+                    NSString *code = [json objectForKey:@"code"];
                     
-                } else {
-                    [array removeObjectAtIndex:indexPath.row];
-                    [NITUserDefaults setObject:array forKey:@"ROOMMASTERINFOKEY"];
-                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                    NITLog(@"%@",code);
                     
+                    if ([code isEqualToString:@"200"]) {
+                        [array removeObjectAtIndex:indexPath.row];
+                        [NITUserDefaults setObject:array forKey:@"ROOMMASTERINFOKEY"];
+                        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                        [self.tableView.mj_header beginRefreshing];
+                    } else {
+                        
+                        [MBProgressHUD showError:@""];
+                    }
                 }
-            }
-            
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view];
-            NITLog(@"%@",error);
+                
+            } failure:^(NSError *error) {
+                [MBProgressHUD hideHUDForView:self.view];
+                NITLog(@"%@",error);
+            }];
+
         }];
-        
     }
     [CATransaction setCompletionBlock:^{
         [self.tableView reloadData];

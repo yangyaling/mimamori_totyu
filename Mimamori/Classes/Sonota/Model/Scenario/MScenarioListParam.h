@@ -22,4 +22,6 @@
 
 @property (nonatomic, copy) NSString                               *mainnodename;
 
+@property (nonatomic, copy) NSString                               *floorno;
+
 @end

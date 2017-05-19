@@ -256,43 +256,51 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [MBProgressHUD showMessage:@"" toView:self.view];
-        NSMutableArray *array = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
-        NSDictionary *dic = array[indexPath.row];
         
-        
-        [MHttpTool postWithURL:NITDeleteSSInfo params:dic success:^(id json) {
+        [NITDeleteAlert SharedAlertShowMessage:@"設定情報を削除します、よろしいですか。" andControl:self withOk:^(BOOL isOk) {
+            [MBProgressHUD showMessage:@"" toView:self.view];
+            NSMutableArray *array = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
+            NSDictionary *dic = array[indexPath.row];
             
-            [MBProgressHUD hideHUDForView:self.view];
             
-            if (json) {
+            [MHttpTool postWithURL:NITDeleteSSInfo params:dic success:^(id json) {
                 
-                NSString *code = [json objectForKey:@"code"];
+                [MBProgressHUD hideHUDForView:self.view];
                 
-                NITLog(@"%@",code);
-                
-                if ([code isEqualToString:@"502"]) {
+                if (json) {
                     
-                    [MBProgressHUD showError:@""];
+                    NSString *code = [json objectForKey:@"code"];
                     
-                } else {
-                    self.footView.height = 0;
-                    self.footView.alpha = 0;
-                    self.isEdit = NO;
-                    [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-                    [self.tableView setEditing:NO animated:YES];
+                    NITLog(@"%@",code);
                     
-                    [array removeObjectAtIndex:indexPath.row];
-                    NSData * data = [NSKeyedArchiver archivedDataWithRootObject:array];
-                    [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
-                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                    
+                    if ([code isEqualToString:@"200"]) {
+                        [MBProgressHUD showSuccess:@""];
+                        [array removeObjectAtIndex:indexPath.row];
+                        NSData * data = [NSKeyedArchiver archivedDataWithRootObject:array];
+                        [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
+                        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                        
+                        [self.tableView.mj_header beginRefreshing];
+                        
+                    } else {
+                        
+                        [MBProgressHUD showError:@""];
+//                        self.footView.height = 0;
+//                        self.footView.alpha = 0;
+//                        self.isEdit = NO;
+//                        [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+//                        [self.tableView setEditing:NO animated:YES];
+                        
+                        
+                        
+                    }
                 }
-            }
-            
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view];
-            NITLog(@"%@",error);
+                
+            } failure:^(NSError *error) {
+                [MBProgressHUD hideHUDForView:self.view];
+                NITLog(@"%@",error);
+            }];
+
         }];
         
     }

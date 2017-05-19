@@ -100,6 +100,28 @@
 
 
 - (IBAction)showPick:(UIButton *)sender {
+    NSArray *arr = [NITUserDefaults objectForKey:@"FLOORLISTKEY"];
+    
+    NSString *floorno = self.floorbtn.titleLabel.text;
+    
+    if (floorno.length) {
+        for (NSDictionary *dic  in arr) {
+            if ([dic[@"floorno"] isEqualToString:floorno]) {
+                
+                NSArray *array = [dic[@"roomlist"] copy];
+                
+                [NITUserDefaults setObject:array forKey:@"ROOMLISTKEY"];
+                
+                break;
+                
+            }
+            
+        }
+        
+    } else {
+        
+        return;
+    }
     
     _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];
     
@@ -109,6 +131,39 @@
     
 }
 
+
+- (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell {
+    NSArray *tmparr = [NITUserDefaults objectForKey:@"FLOORLISTKEY"];
+    NSString *roomcd = nil;
+    for (NSDictionary *dic  in tmparr) {
+        if ([dic[@"floorno"] isEqualToString:sinario]) {
+            
+            roomcd = [[dic[@"roomlist"] firstObject] objectForKey:@"roomcd"];
+            
+            [self.roombtn setTitle:roomcd forState:UIControlStateNormal];
+            
+            break;
+        }
+    }
+    
+    [self.floorbtn setTitle:sinario forState:UIControlStateNormal];
+    
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
+    //
+    //    NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
+    
+    NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:_datasDic];
+    
+    [nodesdic setValue:roomcd forKey:@"roomcd"];
+    
+    [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
+    
+    [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
+    
+    
+    
+}
 
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {

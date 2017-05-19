@@ -255,7 +255,7 @@
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
-    } else if (scenariotype == 6 || scenariotype == 7) {
+    } else if (scenariotype == 6 || scenariotype == 7 || scenariotype == 12) {
         
         if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
             

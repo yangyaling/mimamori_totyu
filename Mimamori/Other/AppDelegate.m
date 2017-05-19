@@ -248,47 +248,47 @@ fetchCompletionHandler:
             //创建通知
             
             
-//            UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:2 repeats:NO];
-//            UNNotificationAction * actionone = [UNNotificationAction actionWithIdentifier:@"actionone" title:@"アラート" options:UNNotificationActionOptionNone];
-//            UNNotificationCategory * category = [UNNotificationCategory categoryWithIdentifier:@"myNotificationCategoryBtn" actions:@[actionone] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
-//            //内容
-//            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-//            content.title = @"アラート";
-//            content.subtitle = [NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count];
-//            content.body = alertstring;
-//            
-//            content.badge = @(contentArray.count);
-//            content.categoryIdentifier = @"myNotificationCategoryBtn";
-//            content.sound = [UNNotificationSound defaultSound];
-//            
-//            NSString *requestIdentifier = @"sampleRequest";
-//            
-//            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifier
-//                                                                                  content:content
-//                                                                                  trigger:trigger];
-//            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category, nil]];
-//            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
-//                if (!error) {
-//                    NSLog(@"推送已添加成功 %@", requestIdentifier);
-//                }
-//            }];
-//            
-//        } else {
-            UILocalNotification *notification=[[UILocalNotification alloc]init];
-            notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:0];
-            //notification.repeatInterval=1;
-            //notification.repeatCalendar=[NSCalendar currentCalendar];//当前日历，使用前最好设置时区等信息以便能够自动同步时间
-            notification.timeZone=[NSTimeZone defaultTimeZone];
-            notification.alertTitle = @"アラート";
-            notification.alertBody=[NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count]; //通知主体
-            notification.applicationIconBadgeNumber=contentArray.count;//应用程序图标右上角显示的消息数
-            notification.alertAction=@"OPEN"; //待机界面的滑动动作提示
-            //notification.alertLaunchImage=@"Default";//通过点击通知打开应用时的启动图
-            notification.soundName=UILocalNotificationDefaultSoundName;//收到通知时播放的声音，默认消息声音
-            //notification.soundName=@"msg.caf";//通知声音（需要真机才能听到声音）
-            //notification.userInfo=@{@"id":@1,@"content":contentArray};//绑定到通知上的其他附加信息
+            UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:2 repeats:NO];
+            UNNotificationAction * actionone = [UNNotificationAction actionWithIdentifier:@"actionone" title:@"アラート" options:UNNotificationActionOptionNone];
+            UNNotificationCategory * category = [UNNotificationCategory categoryWithIdentifier:@"myNotificationCategoryBtn" actions:@[actionone] intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+            //内容
+            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+            content.title = @"アラート";
+            content.subtitle = [NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count];
+            content.body = alertstring;
             
-            [[UIApplication sharedApplication] scheduleLocalNotification:notification];//调用通知
+            content.badge = @(contentArray.count);
+            content.categoryIdentifier = @"myNotificationCategoryBtn";
+            content.sound = [UNNotificationSound defaultSound];
+            
+            NSString *requestIdentifier = @"sampleRequest";
+            
+            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:requestIdentifier
+                                                                                  content:content
+                                                                                  trigger:trigger];
+            [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:category, nil]];
+            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                if (!error) {
+                    NSLog(@"推送已添加成功 %@", requestIdentifier);
+                }
+            }];
+//
+//        } else {
+//            UILocalNotification *notification=[[UILocalNotification alloc]init];
+//            notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:0];
+//            //notification.repeatInterval=1;
+//            //notification.repeatCalendar=[NSCalendar currentCalendar];//当前日历，使用前最好设置时区等信息以便能够自动同步时间
+//            notification.timeZone=[NSTimeZone defaultTimeZone];
+//            notification.alertTitle = @"アラート";
+//            notification.alertBody=[NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count]; //通知主体
+//            notification.applicationIconBadgeNumber=contentArray.count;//应用程序图标右上角显示的消息数
+//            notification.alertAction=@"OPEN"; //待机界面的滑动动作提示
+//            //notification.alertLaunchImage=@"Default";//通过点击通知打开应用时的启动图
+//            notification.soundName=UILocalNotificationDefaultSoundName;//收到通知时播放的声音，默认消息声音
+//            //notification.soundName=@"msg.caf";//通知声音（需要真机才能听到声音）
+//            //notification.userInfo=@{@"id":@1,@"content":contentArray};//绑定到通知上的其他附加信息
+//            
+//            [[UIApplication sharedApplication] scheduleLocalNotification:notification];//调用通知
             // 5 发送AlertController
 //            [self showAlertWithContents:alertstring];
         }

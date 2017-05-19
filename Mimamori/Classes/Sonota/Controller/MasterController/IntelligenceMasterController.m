@@ -93,7 +93,7 @@
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         self.isEdit = YES;
-        [self ViewAnimateStatas:120];
+        [self ViewAnimateStatas:60];
         
         //进入编辑状态
 //        [self.tableView setEditing:YES animated:YES];///////////
@@ -204,40 +204,45 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [MBProgressHUD showMessage:@"" toView:self.view];
-        NSMutableArray *array =[NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"COMPANYINFO"]];
-        NSDictionary *dic = array[indexPath.row];
-        NSDictionary *DeleteCompany = @{@"companycd" : dic[@"cd"]};
-        [MHttpTool postWithURL:NITDeleteCompanyInfo params:DeleteCompany success:^(id json) {
-            
-            [MBProgressHUD hideHUDForView:self.view];
-            
-            if (json) {
+        [NITDeleteAlert SharedAlertShowMessage:@"設定情報を削除します、よろしいですか。" andControl:self withOk:^(BOOL isOk) {
+            [MBProgressHUD showMessage:@"" toView:self.view];
+            NSMutableArray *array =[NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"COMPANYINFO"]];
+            NSDictionary *dic = array[indexPath.row];
+            NSDictionary *DeleteCompany = @{@"companycd" : dic[@"cd"]};
+            [MHttpTool postWithURL:NITDeleteCompanyInfo params:DeleteCompany success:^(id json) {
                 
-                NSString *code = [json objectForKey:@"code"];
+                [MBProgressHUD hideHUDForView:self.view];
                 
-                NITLog(@"%@",code);
-                
-                if ([code isEqualToString:@"502"]) {
+                if (json) {
                     
-                    [MBProgressHUD showError:@""];
+                    NSString *code = [json objectForKey:@"code"];
                     
-                } else {
+                    NITLog(@"%@",code);
                     
-                    [array removeObjectAtIndex:indexPath.row];
-                    
-                    [NITUserDefaults setObject:array forKey:@"COMPANYINFO"];
-                    
-                    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                    
+                    if ([code isEqualToString:@"200"]) {
+                        [MBProgressHUD showSuccess:@""];
+                        [array removeObjectAtIndex:indexPath.row];
+                        
+                        [NITUserDefaults setObject:array forKey:@"COMPANYINFO"];
+                        
+                        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                        
+                        [self.tableView.mj_header beginRefreshing];
+                        
+                    } else {
+                        
+                        [MBProgressHUD showError:@""];
+                        
+                    }
                 }
-            }
-            
-        } failure:^(NSError *error) {
-            
-            [MBProgressHUD hideHUDForView:self.view];
-            
-            NITLog(@"%@",error);
+                
+            } failure:^(NSError *error) {
+                
+                [MBProgressHUD hideHUDForView:self.view];
+                
+                NITLog(@"%@",error);
+            }];
+
         }];
         
     }

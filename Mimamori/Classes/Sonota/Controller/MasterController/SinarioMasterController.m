@@ -115,7 +115,6 @@
     }
     
     return cell;
-    
 }
 
 //tableviewcell点击跳转
@@ -123,6 +122,7 @@
 {
     self.isOpen = YES;
     [self performSegueWithIdentifier:@"pushEditSinarioMaster" sender:self];
+    
 }
 
 
@@ -144,7 +144,7 @@
         esc.maxid = [self.allDatas[indexPath.row] objectForKey:@"protoid"];
         
     } else {
-        esc.labelTitle = @"新规追加";
+        esc.labelTitle = @"新規追加";
         esc.isEdit = NO;
         esc.maxid = self.maxid;
         
