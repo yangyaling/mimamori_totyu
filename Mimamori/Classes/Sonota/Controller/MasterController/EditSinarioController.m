@@ -53,9 +53,9 @@
 
 @property (nonatomic, assign) NSInteger                    timeIndex;
 
-@property (strong, nonatomic) IBOutlet UILabel *lastLabel;
+@property (strong, nonatomic) IBOutlet UILabel             *lastLabel;
 
-@property (nonatomic, strong) NSMutableArray                    *allarrays;
+@property (nonatomic, strong) NSMutableArray               *allarrays;
 @end
 
 @implementation EditSinarioController
@@ -116,6 +116,7 @@
         [MBProgressHUD hideHUDForView:self.view];
         
         NSArray *tmpArr = [json objectForKey:@"splist"];
+        
         NSDictionary *dicOne = tmpArr.firstObject;
         
         NSArray *scopecdarr = @[@"なし",@"朝方",@"日中",@"夜間",@"その他"];
@@ -287,6 +288,9 @@
         [self.sinarioName setEnabled:YES];
         [self.ariText setEnabled:YES];
         
+        [self.sinarioName setBackgroundColor:[UIColor whiteColor]];
+        [self.ariText setBackgroundColor:[UIColor whiteColor]];
+        
         [self buttonStatus:YES withColor:[UIColor whiteColor]];
         //进入编辑状态
         //        [self.tableView setEditing:YES animated:YES];///////////
@@ -372,8 +376,13 @@
         if (json) {
             NSString *code = [json objectForKey:@"code"];
             NITLog(@"%@",code);
+            if ([code isEqualToString:@"200"]) {
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                [MBProgressHUD showError:@""];
+            }
             [self.tableView reloadData];
-            [self.navigationController popViewControllerAnimated:YES];
         }
         
     } failure:^(NSError *error) {
@@ -524,5 +533,9 @@
     [self.rgButton2 setBackgroundColor:color];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.ariText resignFirstResponder];
+}
 
 @end

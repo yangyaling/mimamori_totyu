@@ -205,7 +205,12 @@
     
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     
-    NSDictionary *dic = @{@"stafflist":str,@"facilitycd":facilitycd};
+    NSDictionary *dic = @{
+                          @"stafflist":str,
+                          
+                          @"facilitycd":facilitycd
+                          
+                          };
     
     [MHttpTool postWithURL:NITUpdateStaffInfo params:dic success:^(id json) {
         
@@ -213,15 +218,25 @@
         if (json) {
             NSString *code = [json objectForKey:@"code"];
             NITLog(@"%@",code);
+            if ([code isEqualToString:@"200"]) {
+                [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                [MBProgressHUD showSuccess:@""];
+               
+                //            [self.tableView setEditing:NO animated:YES];
+                
+                self.footView.height = 0;
+                self.footView.alpha = 0;
+                self.isEdit = NO;
+                [self.tableView.mj_header beginRefreshing];
+            } else {
+                [MBProgressHUD showError:@""];
+            }
+            [CATransaction setCompletionBlock:^{
+                
+                [self.tableView reloadData];
+                
+            }];
             
-            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-            
-//            [self.tableView setEditing:NO animated:YES];
-            
-            self.footView.height = 0;
-            self.footView.alpha = 0; 
-            self.isEdit = NO;
-            [self.tableView reloadData];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];

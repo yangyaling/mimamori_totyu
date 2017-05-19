@@ -231,7 +231,7 @@
             NITLog(@"%@",code);
             
             if ([code isEqualToString:@"200"]) {
-                
+                [MBProgressHUD showSuccess:@""];
                 [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
                 
                 //            [self.tableView setEditing:NO animated:YES];
@@ -243,8 +243,15 @@
                 
                 [self.tableView setEditing:NO animated:YES];
                 
-                [self.tableView reloadData];
+                [self.tableView.mj_header beginRefreshing];
+            } else {
+                [MBProgressHUD showError:@""];
             }
+            [CATransaction setCompletionBlock:^{
+                
+                [self.tableView reloadData];
+                
+            }];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
@@ -304,7 +311,17 @@
             
             
             NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
-            NSDictionary *pdic = @{@"staffid":staffid,@"custid":dic[@"custid"],@"floorno":dic[@"oldfloorno"],@"roomcd":dic[@"oldroomcd"]};
+            
+            NSDictionary *pdic = @{
+                                   @"staffid":staffid,
+                                   
+                                   @"custid":dic[@"custid"],
+                                   
+                                   @"floorno":dic[@"oldfloorno"],
+                                   
+                                   @"roomcd":dic[@"oldroomcd"]
+                                   
+                                   };
             
             
             [MHttpTool postWithURL:NITDeleteHomeCustInfo params:pdic success:^(id json) {

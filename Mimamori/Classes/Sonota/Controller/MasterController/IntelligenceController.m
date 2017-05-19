@@ -147,16 +147,24 @@
     NSData  *json = [NSJSONSerialization dataWithJSONObject:dic options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     
-    NSDictionary *lastDic = @{@"staffid":staffid,@"facilityinfo":str};
+    NSDictionary *lastDic = @{
+                              @"staffid":staffid,
+                              
+                              @"facilityinfo":str
+                              };
     
     [MHttpTool postWithURL:NITUpdateFacilityInfo params:lastDic success:^(id json) {
         [MBProgressHUD hideHUDForView:WindowView];
         if (json) {
             NSString *code = [json objectForKey:@"code"];
             NITLog(@"%@",code);
+            if ([code isEqualToString:@"200"]) {
+                [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                [self statusEdit:NO withColor:TextFieldNormalColor];
+            } else {
+                [MBProgressHUD showError:@""];
+            }
             
-            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-            [self statusEdit:NO withColor:NITColor(235, 235, 241)];
             [self.tableView reloadData];
         }
     } failure:^(NSError *error) {

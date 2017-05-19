@@ -45,6 +45,8 @@
 
 @property (nonatomic, assign) BOOL                         isAddCell;
 
+@property (strong, nonatomic) IBOutlet UIView              *footView;
+
 @end
 
 
@@ -56,7 +58,8 @@
     
     self.isAddCell = NO;
     
-    self.cellnum = 0;
+    self.footView.height = 0;
+    self.footView.alpha = 0;
     
     self.isSelectModelScenario = NO;  //雏形开关
     
@@ -72,6 +75,9 @@
     
     self.daySegment.selectedSegmentIndex = self.scopecd;
     
+    self.timeIndex = self.scopecd;
+    
+    
     if (self.starttime.length > 0 || self.endtime.length >0) {
         [self.leftTimeButton setTitle:self.starttime forState:UIControlStateNormal];
         [self.rightTimeButton setTitle:self.endtime forState:UIControlStateNormal];
@@ -83,10 +89,6 @@
         [self.sinarioText setUserInteractionEnabled:NO];
         [self.sinariobutton setEnabled:NO];
     }
-    
-    self.tableView.tableFooterView = [[UIView alloc]init];
-    
-    
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getScenariodtlInfo)];
     
@@ -164,7 +166,9 @@
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     
     parametersDict[@"roomid"] = self.roomID;
-    
+    parametersDict[@"custid"] = self.user0;
+    parametersDict[@"staffid"] = [NITUserDefaults objectForKey:@"userid1"];
+    parametersDict[@"facilitycd"] = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     
     if (self.isRefresh) {
         parametersDict[@"scenarioid"] = self.scenarioID;
@@ -176,12 +180,12 @@
         NSArray *tmpArr = [json objectForKey:@"scenariodtlinfo"];
         NSArray *tmpModelArr = [json objectForKey:@"protoinfo"];
         
+        self.modelsArray = nil;
         if (tmpModelArr.count > 0) {
             
             self.modelsArray = tmpModelArr.copy;
         }
-        self.timeIndex = self.scopecd;
-        self.daySegment.selectedSegmentIndex = self.scopecd;
+        
         [MBProgressHUD hideHUDForView:self.view];
         [self.tableView.mj_header endRefreshing];
         
@@ -189,8 +193,10 @@
             
             if (self.isSelectModelScenario) {
                 
+                //选择的是第几个雏形赋值
+                NSInteger arcModelNo = self.modelindex; //随机选择某个
                 
-                NSInteger scope = [[[tmpModelArr[0] firstObject] objectForKey:@"scopecd"] integerValue];
+                NSInteger scope = [[[tmpModelArr[arcModelNo] firstObject] objectForKey:@"scopecd"] integerValue];
                 
                 self.timeIndex = scope;
                 if (self.timeIndex == 4) {
@@ -199,15 +205,15 @@
                 }
                 self.daySegment.selectedSegmentIndex = scope;
                 
-//                [self selectedTimeButtonIndex:scope];
+                [self.leftTimeButton setTitle:[[tmpModelArr[arcModelNo] firstObject] objectForKey:@"starttime"] forState:UIControlStateNormal];
+                [self.rightTimeButton setTitle:[[tmpModelArr[arcModelNo] firstObject] objectForKey:@"endtime"] forState:UIControlStateNormal];
                 
-                [self.leftTimeButton setTitle:[[tmpModelArr[0] firstObject] objectForKey:@"starttime"] forState:UIControlStateNormal];
-                [self.rightTimeButton setTitle:[[tmpModelArr[0] firstObject] objectForKey:@"endtime"] forState:UIControlStateNormal];
                 
-                NSInteger arcModelNo = self.modelindex; //随机选择某个
                 
                 if (tmpModelArr.count == 0) return ; //雏形数组
                 
+                
+                //模板里的第一个与选择的雏形进行合并
                 NSArray *allarr = [self ScenarioModelDatasUpdate:tmpArr[0] andNewArray:tmpModelArr[arcModelNo]];
                 
                 NSMutableArray *reparr = [NSMutableArray arrayWithArray:tmpArr.mutableCopy];
@@ -271,46 +277,31 @@
     NSMutableArray *allarr = [NSMutableArray new];
     for (NSDictionary *obj in oldarray) {
         NSMutableDictionary *tempdic = [NSMutableDictionary dictionaryWithDictionary:obj];
-        [tempdic setObject:@"1" forKey:@"detailno"];
+        [tempdic setObject:@"1" forKey:@"detailno"];  //先把添加的此条cell 打开方便之后cell中判断detailno 为1的显示
+        
         for (NSDictionary *dic in newarray) {
-            if ([tempdic[@"nodetype"] integerValue] == 1) {
-                if ([tempdic[@"devicetype"] integerValue] == [dic[@"devicetype"] integerValue]) {
-                    [tempdic setObject:dic[@"endtime"] forKey:@"endtime"];
-                    [tempdic setObject:dic[@"starttime"] forKey:@"starttime"];
-                    
-                    [tempdic setObject:dic[@"time"] forKey:@"time"];
-                    
-                    if ([tempdic[@"devicetype"] integerValue] == 4 || [tempdic[@"devicetype"] integerValue] == 5) {
-                        [tempdic setObject:@"0" forKey:@"value"];
-                    } else {
-                        [tempdic setObject:dic[@"value"] forKey:@"value"];
-                    }
-                    
-                    [tempdic setObject:dic[@"rpoint"] forKey:@"rpoint"];
-                    
-                } else {
-                    [tempdic setObject:dic[@"endtime"] forKey:@"endtime"];
-                    [tempdic setObject:dic[@"starttime"] forKey:@"starttime"];
-                }
+            
+            //只要是插入雏形数据  都用雏形的nodetype  和  时间段
+            [tempdic setObject:dic[@"nodetype"] forKey:@"nodetype"];
+            [tempdic setObject:dic[@"endtime"] forKey:@"endtime"];
+            [tempdic setObject:dic[@"starttime"] forKey:@"starttime"];
+            
+            if ([tempdic[@"devicetype"] integerValue] >= 4 && [dic[@"devicetype"] integerValue] >= 4) {
+                [tempdic setObject:dic[@"time"] forKey:@"time"];
+                [tempdic setObject:@"0" forKey:@"value"];    //反应 和  使用 的value  要改为  0
+                [tempdic setObject:dic[@"rpoint"] forKey:@"rpoint"];
             } else {
                 if ([tempdic[@"devicetype"] integerValue] == [dic[@"devicetype"] integerValue]) {
-                    [tempdic setObject:dic[@"endtime"] forKey:@"endtime"];
-                    [tempdic setObject:dic[@"starttime"] forKey:@"starttime"];
-                    [tempdic setObject:dic[@"nodetype"] forKey:@"nodetype"];
+                    
+                    [tempdic setObject:dic[@"value"] forKey:@"value"];
+                    
+                    [tempdic setObject:dic[@"rpoint"] forKey:@"rpoint"];
                     
                     [tempdic setObject:dic[@"time"] forKey:@"time"];
-                    if ([tempdic[@"devicetype"] integerValue] == 4 || [tempdic[@"devicetype"] integerValue] == 5) {
-                        [tempdic setObject:@"0" forKey:@"value"];
-                    } else {
-                        [tempdic setObject:dic[@"value"] forKey:@"value"];
-                    }
-                    [tempdic setObject:dic[@"rpoint"] forKey:@"rpoint"];
-                } else {
-                    [tempdic setObject:dic[@"endtime"] forKey:@"endtime"];
-                    [tempdic setObject:dic[@"starttime"] forKey:@"starttime"];
+                    
                 }
             }
-            
+           
         }
         [allarr addObject:tempdic];
     }
@@ -319,6 +310,8 @@
     return allarr;
 }
 
+
+#pragma mark - Picker - Delegate
 /**
  PickerDelegate
  */
@@ -337,8 +330,8 @@
         [self.tableView.mj_header beginRefreshing];
         
     } else {
-        NSInteger index = [addcell[@"idx"] integerValue];
         
+        NSInteger index = [addcell[@"idx"] integerValue];
         
         NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
@@ -411,7 +404,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    SinarioTableViewCell *cell = [SinarioTableViewCell cellWithTableView:tableView];
+    SinarioTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SinarioTableViewCell" forIndexPath:indexPath];
     
     NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
     
@@ -419,21 +412,16 @@
     
     self.allarray = [NSMutableArray arrayWithArray:arr];
     
-//    self.allarray = [Device mj_objectArrayWithKeyValuesArray:arr.copy];
-    
-//    if (_allarray.count == 0) return cell;
-    
-//    Device *devices = self.allarray[indexPath.row];
     
     cell.cellindex = indexPath.row;
     
     cell.cellarr = self.allarray[indexPath.row];
     
     
-//    if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0) return cell;
-    
-    if (self.cellnum == 0) { //cell是否可以编辑
+    if (!tableView.editing) { //cell是否可以编辑
         cell.userInteractionEnabled = NO;
+    } else {
+        cell.userInteractionEnabled = YES;
     }
     
     
@@ -441,62 +429,13 @@
     
 }
 
-//
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    
-    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.tableView.width,100)];
-//    footerView.backgroundColor = [UIColor redColor];
-    
-    UIButton *editButton =[[UIButton alloc] initWithFrame:CGRectMake(20, 5, 40, 35)];
-    
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(62, 20, self.view.width - 82, 1.5)];
-    line.backgroundColor = [UIColor lightGrayColor];
-    
-    UIButton *saveButton =[[UIButton alloc] initWithFrame:CGRectMake(self.view.width *0.2, 45, self.view.width - (self.view.width *0.4), 50)];
-    
-    
-    [editButton setTitle: @"＋" forState: UIControlStateNormal];
-    editButton.tag = 11;
-    [editButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [editButton addTarget:self action:@selector(addScenarioCell:) forControlEvents:UIControlEventTouchUpInside];
-    
-    editButton.titleLabel.font = [UIFont boldSystemFontOfSize:36.0];
-    editButton.layer.cornerRadius = 5;
-    editButton.layer.borderWidth = 1.3;
-    editButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    
-    
-    [saveButton setTitle: @"登 録" forState: UIControlStateNormal];
-    saveButton.backgroundColor = NITColor(252, 85, 115);
-    [saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [saveButton addTarget:self action:@selector(saveScenario:) forControlEvents:UIControlEventTouchUpInside];
-    
-    saveButton.titleLabel.font = [UIFont systemFontOfSize:26.0];
-    saveButton.layer.cornerRadius = 5;
-    
-//    saveButton.layer.borderWidth = 1.3;
-//    saveButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    
-    
-    [footerView addSubview:editButton];
-    
-    [footerView addSubview:saveButton];
-    
-    [footerView addSubview:line];
-    
-    return footerView;
-}
-
-
-- (void)addScenarioCell:(UIButton *)sender {
-    
+- (IBAction)addCell:(UIButton *)sender {
     NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
     NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
     
     if (array.count > arr.count) {
-        [MBProgressHUD showError:@""]; 
+        [MBProgressHUD showError:@""];
         return;
     }
     
@@ -516,9 +455,6 @@
     }
 }
 
-- (IBAction)gobacktoC:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 
 /**
@@ -534,7 +470,10 @@
         [self.sinariobutton setEnabled:YES];
         [self.daySegment setEnabled:YES];
         [self.sinarioText setEnabled:YES];
-        self.cellnum = 100;
+        
+        
+        self.footView.height = 100;
+        self.footView.alpha = 1;
         
         //进入编辑状态
         [self.tableView setEditing:YES animated:YES];
@@ -543,8 +482,8 @@
         [self.sinariobutton setEnabled:NO];
         [self.daySegment setEnabled:NO];
         [self.sinarioText setEnabled:NO];
-        self.cellnum = 0;
-        
+        self.footView.height = 0;
+        self.footView.alpha = 0;
         [self saveScenario:nil]; //跟新或者追加
         
         //取消编辑状态
@@ -568,7 +507,7 @@
      保存-遍历检查scenario数据是否填写完整
 
  */
-- (void)saveScenario:(UIButton *)sender {
+- (IBAction)saveScenario:(UIButton *)sender {
 //    BOOL scenariosuccess = YES;
     
     NSMutableArray *alldatas = [NSMutableArray new];
@@ -679,6 +618,8 @@
     [MHttpTool postWithURL:NITUpdateScenarioInfo params:parametersDict success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         
+        
+        
         NITLog(@"%ld",[[json objectForKey:@"result"] integerValue]);
         
         //追加成功，显示信息
@@ -768,39 +709,13 @@
         }
         
         
-        
-//        NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:deletearr.firstObject];
-//
-//        NSMutableDictionary *dicTwo = [NSMutableDictionary dictionaryWithDictionary:[deletearr objectAtIndex:1]];
-//
-//        NSMutableDictionary *dicThree = [NSMutableDictionary dictionaryWithDictionary:[deletearr objectAtIndex:2]];
-//
-//        NSMutableDictionary *dicFour = [NSMutableDictionary dictionaryWithDictionary:deletearr.lastObject];
-//        
-//        [dicOne setObject:@"0" forKey:@"detailno"];
-//        [dicTwo setObject:@"0" forKey:@"detailno"];
-//        [dicThree setObject:@"0" forKey:@"detailno"];
-//        [dicFour setObject:@"0" forKey:@"detailno"];
-//        [deletearr removeAllObjects];
-        
-        //            if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0) ;
-        
-        
         [array replaceObjectAtIndex:indexPath.row withObject:newarr];
         NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:array];
         [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
         
-//        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:indexPath.row inSection:0];
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//        [self.tableView beginUpdates];
-//        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-//        [self.tableView endUpdates];
         
     }
-    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self.tableView reloadData];
-//    });
     
     [CATransaction setCompletionBlock:^{
         [self.tableView reloadData];
@@ -810,22 +725,22 @@
 
 
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    
-    return self.cellnum;
-}
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+    
     NSArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+//    NSMutableArray *lastDatas = [NSMutableArray array];
+//    for (NSArray *arrayC in arr) {
+//        if (arrayC.count == 4) {
+//            [lastDatas addObject:arrayC];
+//        }
+//    }
+    
     NSArray *cellarr = arr[indexPath.row];
-//    ScenarioCellFrame *frame = [[ScenarioCellFrame alloc] init];
-//    Device *devi = self.allarray[indexPath.row];
-//    frame.scenarioM = devi;
-//
-    if (cellarr.count == 0) return 0;
+    
+    if (cellarr.count != 4) return 0;
     
     NSDictionary *dicOne = cellarr.firstObject;
     
@@ -838,6 +753,7 @@
     if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0){
         
         return 0;
+        
     } else {
         
         NSMutableArray *tmparray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];

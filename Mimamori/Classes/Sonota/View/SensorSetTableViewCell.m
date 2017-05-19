@@ -115,9 +115,15 @@
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
     NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellnumber]];
     NSString *value = [NSString stringWithFormat:@"%ld",sender.selectedSegmentIndex + 1];
+    
     [nodesdic setValue:value forKey:@"place"];
+    
+    [nodesdic setValue:sender.selectedSegmentIndex == 0 ? @"外" : @"内" forKey:@"placename"];
+    
     [arr replaceObjectAtIndex:self.cellnumber withObject:nodesdic];
+    
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+    
     [NITUserDefaults setObject:data forKey:@"sensorallnodes"];
 }
 

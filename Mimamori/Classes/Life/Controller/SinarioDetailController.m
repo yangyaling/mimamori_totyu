@@ -129,6 +129,12 @@
     
     svc.user0 = self.user0;
     
+    svc.starttime = sc.starttime;
+    
+    svc.endtime = sc.endtime;
+    
+    svc.scopecd = sc.scopecd;
+    
     svc.hideBarButton = YES;
     
 //    svc.delegate = self;

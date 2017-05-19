@@ -86,15 +86,14 @@
         }
         
         [self.tableView setEditing:YES animated:YES];
-         [self.tableView reloadData];
     }else{
         
         [self saveInfo:nil];
         
     }
-//    [CATransaction setCompletionBlock:^{
-    
-//    }];
+    [CATransaction setCompletionBlock:^{
+        [self.tableView reloadData];
+    }];
 
 }
 
@@ -135,21 +134,30 @@
             NITLog(@"%@",code);
             if ([code isEqualToString:@"200"]) {
                 [MBProgressHUD showSuccess:@""];
+                [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                self.footView.height = 0;
+                self.footView.alpha = 0;
+                self.isEdit = NO;
+                [self.tableView setEditing:NO animated:YES];
+                
+                [self.tableView.mj_header beginRefreshing];
+                
             }else{
+                
                 [MBProgressHUD showError:@""];
+                
             }
             
-            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-            self.footView.height = 0;
-            self.footView.alpha = 0;
-            self.isEdit = NO;
-            [self.tableView setEditing:NO animated:YES];
-            [self.tableView reloadData];
+            [CATransaction setCompletionBlock:^{
+                [self.tableView reloadData];
+            }];
+            
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"%@",error);
     }];
+    
     
 }
 
@@ -258,12 +266,31 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
         [NITDeleteAlert SharedAlertShowMessage:@"設定情報を削除します、よろしいですか。" andControl:self withOk:^(BOOL isOk) {
+            
             [MBProgressHUD showMessage:@"" toView:self.view];
             NSMutableArray *array = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
             NSDictionary *dic = array[indexPath.row];
             
+            NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
             
-            [MHttpTool postWithURL:NITDeleteSSInfo params:dic success:^(id json) {
+            NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+            
+            NSDictionary *pdic = @{
+                                   @"staffid":staffid,
+                                   
+                                   @"facilitycd":facilitycd,
+                                   
+                                   @"custid":dic[@"oldcustid"],
+                                   
+                                   @"sensorid":dic[@"oldsensorid"],
+                                   
+                                   @"serial":dic[@"oldserial"],
+                                   
+                                   @"startdate":dic[@"startdate"]
+                                   
+                                   };
+            
+            [MHttpTool postWithURL:NITDeleteSSInfo params:pdic success:^(id json) {
                 
                 [MBProgressHUD hideHUDForView:self.view];
                 
@@ -290,8 +317,6 @@
 //                        self.isEdit = NO;
 //                        [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
 //                        [self.tableView setEditing:NO animated:YES];
-                        
-                        
                         
                     }
                 }

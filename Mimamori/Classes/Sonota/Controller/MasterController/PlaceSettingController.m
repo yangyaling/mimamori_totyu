@@ -130,11 +130,22 @@
         if (json) {
             NSString *code = [json objectForKey:@"code"];
             NITLog(@"%@",code);
-            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-            self.footView.height = 0;
-            self.footView.alpha = 0;
-            self.isEdit = NO;
-            [self.tableView setEditing:NO animated:YES];
+            if ([code isEqualToString:@"200"]) {
+                [MBProgressHUD showSuccess:@""];
+                [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                self.footView.height = 0;
+                self.footView.alpha = 0;
+                self.isEdit = NO;
+                [self.tableView setEditing:NO animated:YES];
+                [self.tableView.mj_header beginRefreshing];
+            } else {
+                [MBProgressHUD showError:@""];
+            }
+            
+            [CATransaction setCompletionBlock:^{
+                [self.tableView reloadData];
+            }];
+            
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
@@ -162,7 +173,12 @@
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"NLINFO"]];
     
-    [arr addObject:@{@"cd":@"",@"name":@""}];
+    [arr addObject:@{
+                     @"cd":@"",
+                     
+                     @"name":@""
+                     
+                     }];
     
     [NITUserDefaults setObject:arr forKey:@"NLINFO"];
     

@@ -22,15 +22,15 @@
     [super awakeFromNib];
 }
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView {
-
-    SinarioTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SinarioTableViewCell"];
-    if (!cell) {
-        cell = [[NSBundle mainBundle] loadNibNamed:@"SinarioTableViewCell" owner:self options:nil].firstObject;
+//+ (instancetype)cellWithTableView:(UITableView *)tableView {
 //
-    }
-    return cell;
-}
+//    SinarioTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SinarioTableViewCell"];
+//    if (!cell) {
+//        cell = [[NSBundle mainBundle] loadNibNamed:@"SinarioTableViewCell" owner:self options:nil].firstObject;
+////
+//    }
+//    return cell;
+//}
 
 - (IBAction)PickShow:(UIButton *)sender {
     _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];
@@ -39,10 +39,11 @@
 
 -(void)setCellarr:(NSArray *)cellarr {
     
-    if (cellarr.count == 0) {
+    if (cellarr.count != 4) {
         self.hidden = YES;
         return;
     }
+    
     
     NSDictionary *dicOne = cellarr.firstObject;
     
@@ -58,7 +59,6 @@
         self.hidden = YES;
         return;
     }
-    
     
     [self.sinarioButton setTitle:dicOne[@"displayname"] forState:UIControlStateNormal];
     

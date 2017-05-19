@@ -68,9 +68,7 @@
     if (self) {
         
         switch (selectbutton.tag) {
-//            case 11:
-//                scenariotype =0;
-//                break;
+                
             case 22:
             case 33:
             case 44:

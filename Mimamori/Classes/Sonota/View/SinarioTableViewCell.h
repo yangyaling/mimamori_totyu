@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Device;
+
 @interface SinarioTableViewCell : UITableViewCell
+
 @property (strong, nonatomic) IBOutlet UIButton *sinarioButton;
 @property (strong, nonatomic) IBOutlet UIButton *temperaturetime;
 @property (strong, nonatomic) IBOutlet UIButton *temperatureTD;
@@ -40,9 +41,7 @@
 
 @property (nonatomic, copy) NSArray     *cellarr;
 
-@property (nonatomic, copy) Device *device;
-
-+ (instancetype)cellWithTableView:(UITableView *)tableView;
+//+ (instancetype)cellWithTableView:(UITableView *)tableView;
 
 
 @end

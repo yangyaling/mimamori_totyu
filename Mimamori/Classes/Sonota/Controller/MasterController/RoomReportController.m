@@ -77,6 +77,7 @@
 - (void)getnlInfo {
     
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+    
     NSDictionary *dic = @{@"facilitycd":facd};
     
     [MHttpTool postWithURL:NITGetRoomInfo params:dic success:^(id json) {
@@ -162,7 +163,12 @@
     
 //    
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"]];
-    [arr addObject:@{@"floorno":@"",@"roomcd":@""}];
+    [arr addObject:@{
+                     @"floorno":@"",
+                     
+                     @"roomcd":@""
+                     
+                     }];
     [NITUserDefaults setObject:arr forKey:@"ROOMMASTERINFOKEY"];
 //
 //    self.numxxid++;
@@ -190,20 +196,37 @@
     
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     
-    NSDictionary *dic = @{@"roomlist":str,@"facilitycd":facd};
+    NSDictionary *dic = @{
+                          @"roomlist":str,
+                          
+                          @"facilitycd":facd
+                          
+                          };
     
     [MHttpTool postWithURL:NITUpdateRoomInfo params:dic success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         if (json) {
-            NSString *code = [json objectForKey:@"code"];
-            NITLog(@"%@",code);
-            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-            [self.tableView setEditing:NO animated:YES];
-            self.footView.height = 0;
-            self.footView.alpha = 0;
-            self.isEdit = NO;
             
-            [self.tableView reloadData];
+            NSString *code = [json objectForKey:@"code"];
+            
+            NITLog(@"%@",code);
+            
+            if ([code isEqualToString:@"200"]) {
+                [MBProgressHUD showSuccess:@""];
+                [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                [self.tableView setEditing:NO animated:YES];
+                self.footView.height = 0;
+                self.footView.alpha = 0;
+                self.isEdit = NO;
+                [self.tableView.mj_header beginRefreshing];
+            } else {
+                [MBProgressHUD showError:@""];
+            }
+            [CATransaction setCompletionBlock:^{
+                
+                [self.tableView reloadData];
+                
+            }];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
@@ -278,7 +301,15 @@
             
             NSString *oldroomcd = [NSString stringWithFormat:@"%@",dic[@"oldroomcd"]];
             
-            NSDictionary *paradic = @{@"facilitycd":facilitycd,@"floorno":oldfloorno,@"roomcd":oldroomcd};
+            
+            NSDictionary *paradic = @{
+                                      @"facilitycd":facilitycd,
+                                      
+                                      @"floorno":oldfloorno,
+                                      
+                                      @"roomcd":oldroomcd
+                                      
+                                      };
             
             [MHttpTool postWithURL:NITDeleteRoomInfo params:paradic success:^(id json) {
                 

@@ -45,6 +45,11 @@
     NSString *str3 = [NSString stringWithFormat:@"%@", datasDic[@"custid"]];
     NSString *str4 = [NSString stringWithFormat:@"%@", datasDic[@"custname"]];
     
+    if (str3 == nil) {
+        [self.custIdBtn setTitle:@"-" forState:UIControlStateNormal];
+        self.custNameTF.text = @"- -";
+    }
+    
     self.sensorIdTF.text = str1;
     self.serialNoTF.text = str2;
     [self.custIdBtn setTitle:str3 forState:UIControlStateNormal];
@@ -155,9 +160,6 @@
             [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
         }
     }
-    
-    
-    
 }
 
 #pragma mark - UITextFieldDelegate

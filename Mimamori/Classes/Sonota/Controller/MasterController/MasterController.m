@@ -101,6 +101,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (indexPath.item == 0) {
         if (![self.masterUser isEqualToString:@"2"]) {
             [self performSegueWithIdentifier:@"pushberelated" sender:self];
@@ -108,6 +109,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     } else if (indexPath.item == 1){
 //        [self performSegueWithIdentifier:@"selfPush" sender:self];
     } else if (indexPath.item == 2){
+        
         [self performSegueWithIdentifier:@"pushIntelligence" sender:self];
         
     } else if (indexPath.item == 3){

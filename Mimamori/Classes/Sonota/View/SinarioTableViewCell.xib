@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="331" height="162"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="331" height="162"/>
+                <rect key="frame" x="0.0" y="0.0" width="331" height="161.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="温度" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rop-cc-6Hv">
@@ -349,7 +349,7 @@
                 <outlet property="temperatureTD" destination="Dsi-Lb-NTi" id="yzQ-vq-Ki5"/>
                 <outlet property="temperaturetime" destination="fXw-y8-qDs" id="7Yv-5h-swV"/>
             </connections>
-            <point key="canvasLocation" x="-1307" y="-378"/>
+            <point key="canvasLocation" x="-1407" y="-406"/>
         </tableViewCell>
     </objects>
 </document>

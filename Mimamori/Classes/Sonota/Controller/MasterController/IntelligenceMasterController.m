@@ -123,7 +123,16 @@
 
 - (IBAction)addCell:(id)sender {
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"COMPANYINFO"]];
-    [arr addObject:@{@"cd":@"",@"initial":@"",@"kana":@"",@"name":@""}];
+    [arr addObject:@{
+                     @"cd":@"",
+                     
+                     @"initial":@"",
+                     
+                     @"kana":@"",
+                     
+                     @"name":@""
+                     
+                     }];
     [NITUserDefaults setObject:arr forKey:@"COMPANYINFO"];
     
     [CATransaction setCompletionBlock:^{
@@ -150,12 +159,23 @@
         if (json) {
             NSString *code = [json objectForKey:@"code"];
             NITLog(@"%@",code);
-            [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-            [self.tableView setEditing:NO animated:YES];
-            self.footView.height = 0;
-            self.footView.alpha = 0;
-            self.isEdit = NO;
-            [self.tableView reloadData];
+            if ([code isEqualToString:@"200"]) {
+                [MBProgressHUD showSuccess:@""];
+                [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                [self.tableView setEditing:NO animated:YES];
+                self.footView.height = 0;
+                self.footView.alpha = 0;
+                self.isEdit = NO;
+                
+                [self.tableView.mj_header beginRefreshing];
+            } else {
+                [MBProgressHUD showError:@""];
+            }
+            
+            [CATransaction setCompletionBlock:^{
+                [self.tableView reloadData];
+            }];
+            
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
@@ -209,6 +229,7 @@
             NSMutableArray *array =[NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"COMPANYINFO"]];
             NSDictionary *dic = array[indexPath.row];
             NSDictionary *DeleteCompany = @{@"companycd" : dic[@"cd"]};
+            
             [MHttpTool postWithURL:NITDeleteCompanyInfo params:DeleteCompany success:^(id json) {
                 
                 [MBProgressHUD hideHUDForView:self.view];
