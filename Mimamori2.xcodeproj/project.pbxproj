@@ -132,6 +132,7 @@
 		E9D445DE1D0112AD00CFF364 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D445DD1D0112AD00CFF364 /* AppDelegate.m */; };
 		EB0EE8AF1EB216B000254CB7 /* PopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0EE8AE1EB216B000254CB7 /* PopButton.m */; };
 		EB4926C01ECD30120008DE8A /* NITDeleteAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4926BF1ECD30120008DE8A /* NITDeleteAlert.m */; };
+		EB4926C31ED2955F0008DE8A /* UpdatePassWordController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4926C21ED2955F0008DE8A /* UpdatePassWordController.m */; };
 		EB4A560C1E00D69400A2F1C2 /* OtherController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A560B1E00D69400A2F1C2 /* OtherController.m */; };
 		EB4A56101E00DB3E00A2F1C2 /* OtherCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4A560E1E00DB3E00A2F1C2 /* OtherCollectionCell.m */; };
 		EB4A56111E00DB3E00A2F1C2 /* OtherCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB4A560F1E00DB3E00A2F1C2 /* OtherCollectionCell.xib */; };
@@ -478,6 +479,8 @@
 		EB0EE8AE1EB216B000254CB7 /* PopButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopButton.m; sourceTree = "<group>"; };
 		EB4926BE1ECD30120008DE8A /* NITDeleteAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITDeleteAlert.h; sourceTree = "<group>"; };
 		EB4926BF1ECD30120008DE8A /* NITDeleteAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITDeleteAlert.m; sourceTree = "<group>"; };
+		EB4926C11ED2955F0008DE8A /* UpdatePassWordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatePassWordController.h; sourceTree = "<group>"; };
+		EB4926C21ED2955F0008DE8A /* UpdatePassWordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatePassWordController.m; sourceTree = "<group>"; };
 		EB4A560A1E00D69400A2F1C2 /* OtherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherController.h; sourceTree = "<group>"; };
 		EB4A560B1E00D69400A2F1C2 /* OtherController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherController.m; sourceTree = "<group>"; };
 		EB4A560D1E00DB3E00A2F1C2 /* OtherCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherCollectionCell.h; sourceTree = "<group>"; };
@@ -936,6 +939,8 @@
 				EB4A56131E00F26100A2F1C2 /* SetController.m */,
 				92951A0D1D7D0B0100787997 /* SelfViewController.h */,
 				92951A0E1D7D0B0100787997 /* SelfViewController.m */,
+				EB4926C11ED2955F0008DE8A /* UpdatePassWordController.h */,
+				EB4926C21ED2955F0008DE8A /* UpdatePassWordController.m */,
 				92951A031D7D0B0100787997 /* AddSickPersonTableViewController.h */,
 				92951A041D7D0B0100787997 /* AddSickPersonTableViewController.m */,
 				EB9C92DA1E01109800F3132C /* SensorController.h */,
@@ -1734,6 +1739,7 @@
 				929519941D7D078B00787997 /* NITSegmented.m in Sources */,
 				EB581AE81E1CCAFD0076BAFD /* UIFont+FontAwesome.m in Sources */,
 				928C61EB1DC854A2009B5974 /* MNoticeInfoResult.m in Sources */,
+				EB4926C31ED2955F0008DE8A /* UpdatePassWordController.m in Sources */,
 				92C3F1221DC744E300E61A8B /* MSessionInfoResult.m in Sources */,
 				EB581AEF1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.m in Sources */,
 				EB9C92E71E0157CD00F3132C /* SinarioController.m in Sources */,

@@ -265,10 +265,10 @@
         [MBProgressHUD showError:@"誕生日を入力して下さい"];
         return;
     }
-    if (!self.address.text.length) {
-        [MBProgressHUD showError:@"現住所を入力して下さい"];
-        return;
-    }
+//    if (!self.address.text.length) {
+//        [MBProgressHUD showError:@"現住所を入力して下さい"];
+//        return;
+//    }
     if (!self.kakaritsuke.text.length) {
         [MBProgressHUD showError:@"かかりつけ医を入力して下さい"];
         return;

@@ -49,7 +49,8 @@
 
 @property (strong, nonatomic) IBOutlet UITextField         *sinarioName;
 
-@property (strong, nonatomic) IBOutlet UITextField         *ariText;
+@property (strong, nonatomic) IBOutlet UISegmentedControl  *ariSegment;
+
 
 @property (nonatomic, assign) NSInteger                    timeIndex;
 
@@ -62,6 +63,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.ariSegment.selectedSegmentIndex = 0;
     
     // 権限
     usertype = USERTYPE;
@@ -89,7 +92,8 @@
         [self.signLabel setHidden:YES];
         [self.editButton setHidden:YES];
         [self.sinarioName setEnabled:YES];
-        [self.ariText setEnabled:YES];
+        [self.sinarioName setBackgroundColor:[UIColor whiteColor]];
+        [self.ariSegment setEnabled:YES];
         
         [self buttonStatus:YES withColor:[UIColor whiteColor]];
     }
@@ -135,7 +139,8 @@
             [self.leftTimeButton setTitle:starttime forState:UIControlStateNormal];
             [self.rightTimeButton setTitle:endtime forState:UIControlStateNormal];
             
-            self.ariText.text = [NSString stringWithFormat:@"%@", dicOne[@"nodetype"]];
+            
+            self.ariSegment.selectedSegmentIndex = [dicOne[@"nodetype"] integerValue] - 1;
             
             self.sinarioName.text = [json objectForKey:@"protoname"];
             
@@ -203,6 +208,12 @@
     
 }
 
+- (IBAction)ScopeSelectAction:(UISegmentedControl *)sender {
+    
+    self.lastLabel.text = sender.selectedSegmentIndex == 1 ? @"開閉":@"人感";
+    
+}
+
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
@@ -261,7 +272,7 @@
 
 //其他时间的点击弹窗
 - (IBAction)timeButtonClick:(UIButton *)sender {
-    if ([self.ariText.text isEqualToString:@"2"]) {
+    if (self.ariSegment.selectedSegmentIndex == 1) {
         _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:2];
     } else {
         _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:1];
@@ -286,10 +297,9 @@
         [self.rightTimeButton setEnabled:YES];
         
         [self.sinarioName setEnabled:YES];
-        [self.ariText setEnabled:YES];
+        [self.ariSegment setEnabled:YES];
         
         [self.sinarioName setBackgroundColor:[UIColor whiteColor]];
-        [self.ariText setBackgroundColor:[UIColor whiteColor]];
         
         [self buttonStatus:YES withColor:[UIColor whiteColor]];
         //进入编辑状态
@@ -303,7 +313,7 @@
         [self buttonStatus:NO withColor:NITColor(235, 235, 241)];
         
         [self.sinarioName setEnabled:NO];
-        [self.ariText setEnabled:NO];
+        [self.ariSegment setEnabled:NO];
         
         
         
@@ -323,12 +333,12 @@
 }
 
 - (IBAction)saveInfo:(UIButton *)sender {
-    
+    NSString *nodetypestr = [NSString stringWithFormat:@"%d", self.ariSegment.selectedSegmentIndex + 1];
     NSMutableArray *tmparray = [self saveScenario]; //本地检测是否 - -
     [tmparray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:obj];
-        [dict setObject:self.ariText.text forKey:@"nodetype"];
-        if ([self.ariText.text isEqualToString:@"2"]) {
+        [dict setObject:nodetypestr forKey:@"nodetype"];
+        if (self.ariSegment.selectedSegmentIndex == 0) {
             if ([dict[@"devicetype"] isEqualToString:@"4"]) {
                 [dict setObject:@"5" forKey:@"devicetype"];
                 [dict setObject:@"使用なし" forKey:@"rpoint"];
@@ -342,14 +352,20 @@
         [tmparray replaceObjectAtIndex:idx withObject:dict];
     }];
     
-    if (tmparray.count == 0) return;
+    if (tmparray.count == 0) {
+        [MBProgressHUD showError:@""];
+        return;
+    }
     
     [MBProgressHUD showMessage:@"" toView:self.view];
     
     NSMutableDictionary *tmpdic = [NSMutableDictionary new];
+    
     tmpdic[@"protoid"] = self.cxID.text;
+    
     tmpdic[@"protoname"] = self.sinarioName.text;
-    tmpdic[@"scopecd"] = [NSString stringWithFormat:@"%ld",self.timeIndex];
+    
+    tmpdic[@"scopecd"] = [NSString stringWithFormat:@"%ld",(long)self.timeIndex];
     
     
     NSString *startstr = [NSString stringWithFormat:@"%@:00",self.leftTimeButton.titleLabel.text];
@@ -458,9 +474,9 @@
     
     [textField setBackgroundColor:[UIColor whiteColor]];
     
-    if (textField.tag == 1000) {
-        self.lastLabel.text =  [textField.text isEqualToString:@"2"]?@"開閉":@"人感";
-    }
+//    if (textField.tag == 1000) {
+//        self.lastLabel.text =  [textField.text isEqualToString:@"2"]?@"開閉":@"人感";
+//    }
     
 }
 
@@ -487,7 +503,7 @@
     
 }
 - (IBAction)showScrollView:(UIButton *)sender {
-    _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:[self.ariText.text integerValue]];
+    _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:self.ariSegment.selectedSegmentIndex + 1];
     
     _picker.mydelegate = self;
     
@@ -531,11 +547,6 @@
     [self.rgButton1 setBackgroundColor:color];
     [self.rgButton2 setEnabled:noOp];
     [self.rgButton2 setBackgroundColor:color];
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self.ariText resignFirstResponder];
 }
 
 @end

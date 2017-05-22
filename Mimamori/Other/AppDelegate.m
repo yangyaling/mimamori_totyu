@@ -173,7 +173,9 @@ fetchCompletionHandler:
 
 
 -(void)applicationWillEnterForeground:(UIApplication *)application{
+    
     [_player pause];
+    
     [_player stop];
     // 消息数归0
     [UIApplication sharedApplication].applicationIconBadgeNumber=0;
@@ -189,10 +191,14 @@ fetchCompletionHandler:
     [[NSRunLoop currentRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
-//移除定时器
--(void)removeTimer{
-    [self.timer invalidate];
-    self.timer = nil;
+//停止定时器
+-(void)stopTimer{
+    [self.timer setFireDate:[NSDate distantFuture]];
+}
+
+//激活定时器
+-(void)startTimer{
+    [self.timer  setFireDate:[NSDate distantPast]];
 }
 
 //安排通知
@@ -336,8 +342,25 @@ fetchCompletionHandler:
     
     [alert addAction:OKAction];
     
-    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+    [[self topViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController] presentViewController:alert animated:YES completion:nil];
 
+}
+
+
+/**查找当前页面的根控制器*/
+- (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController {
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController* tabBarController = (UITabBarController*)rootViewController;
+        return [self topViewControllerWithRootViewController:tabBarController.selectedViewController];
+    } else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController* navigationController = (UINavigationController*)rootViewController;
+        return [self topViewControllerWithRootViewController:navigationController.visibleViewController];
+    } else if (rootViewController.presentedViewController) {
+        UIViewController* presentedViewController = rootViewController.presentedViewController;
+        return [self topViewControllerWithRootViewController:presentedViewController];
+    } else {
+        return rootViewController;
+    }
 }
 
 /**

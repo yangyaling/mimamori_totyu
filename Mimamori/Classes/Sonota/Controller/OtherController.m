@@ -122,7 +122,7 @@
         appDelegate.window.rootViewController = [appDelegate.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"LoginIdentifier"];
         
         // 5.移除定时器
-        [appDelegate removeTimer];
+        [appDelegate stopTimer];
     }];
     
     

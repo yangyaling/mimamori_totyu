@@ -164,6 +164,7 @@
 //    
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"]];
     [arr addObject:@{
+                     
                      @"floorno":@"",
                      
                      @"roomcd":@""
@@ -171,11 +172,7 @@
                      }];
     [NITUserDefaults setObject:arr forKey:@"ROOMMASTERINFOKEY"];
 //
-//    self.numxxid++;
-    
-    
     [CATransaction setCompletionBlock:^{
-        
         [self.tableView reloadData];
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
     }];
@@ -295,53 +292,72 @@
             
             NSDictionary *dic = array[indexPath.row];
             
-            NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
-            
-            NSString *oldfloorno = [NSString stringWithFormat:@"%@",dic[@"oldfloorno"]];
-            
-            NSString *oldroomcd = [NSString stringWithFormat:@"%@",dic[@"oldroomcd"]];
-            
-            
-            NSDictionary *paradic = @{
-                                      @"facilitycd":facilitycd,
-                                      
-                                      @"floorno":oldfloorno,
-                                      
-                                      @"roomcd":oldroomcd
-                                      
-                                      };
-            
-            [MHttpTool postWithURL:NITDeleteRoomInfo params:paradic success:^(id json) {
+            if (!dic[@"oldfloorno"] || !dic[@"oldroomcd"]) {
                 
                 [MBProgressHUD hideHUDForView:self.view];
                 
-                if (json) {
+                [array removeObjectAtIndex:indexPath.row];
+                
+                [NITUserDefaults setObject:array forKey:@"ROOMMASTERINFOKEY"];
+                
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                
+                [MBProgressHUD showSuccess:@""];
+                
+            } else {
+                NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+                
+                NSString *oldfloorno = [NSString stringWithFormat:@"%@",dic[@"oldfloorno"]];
+                
+                NSString *oldroomcd = [NSString stringWithFormat:@"%@",dic[@"oldroomcd"]];
+                
+                
+                NSDictionary *paradic = @{
+                                          @"facilitycd":facilitycd,
+                                          
+                                          @"floorno":oldfloorno,
+                                          
+                                          @"roomcd":oldroomcd
+                                          
+                                          };
+                
+                [MHttpTool postWithURL:NITDeleteRoomInfo params:paradic success:^(id json) {
                     
-                    NSString *code = [json objectForKey:@"code"];
+                    [MBProgressHUD hideHUDForView:self.view];
                     
-                    NITLog(@"%@",code);
-                    
-                    if ([code isEqualToString:@"200"]) {
-                        [array removeObjectAtIndex:indexPath.row];
-                        [NITUserDefaults setObject:array forKey:@"ROOMMASTERINFOKEY"];
-                        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                        [self.tableView.mj_header beginRefreshing];
-                    } else {
+                    if (json) {
                         
-                        [MBProgressHUD showError:@""];
+                        NSString *code = [json objectForKey:@"code"];
+                        
+                        NITLog(@"%@",code);
+                        
+                        if ([code isEqualToString:@"200"]) {
+                            [array removeObjectAtIndex:indexPath.row];
+                            [MBProgressHUD showSuccess:@""];
+                            [NITUserDefaults setObject:array forKey:@"ROOMMASTERINFOKEY"];
+                            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                            [self.tableView.mj_header beginRefreshing];
+                        } else {
+                            
+                            [MBProgressHUD showError:@""];
+                        }
+                        
+                        [CATransaction setCompletionBlock:^{
+                            [self.tableView reloadData];
+                        }];
                     }
-                }
-                
-            } failure:^(NSError *error) {
-                [MBProgressHUD hideHUDForView:self.view];
-                NITLog(@"%@",error);
-            }];
+                    
+                } failure:^(NSError *error) {
+                    [MBProgressHUD hideHUDForView:self.view];
+                    NITLog(@"%@",error);
+                }];
 
+            }
+            
+           
         }];
     }
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
-    }];
+    
 }
 
 @end

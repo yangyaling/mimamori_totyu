@@ -45,16 +45,15 @@
     NSString *str3 = [NSString stringWithFormat:@"%@", datasDic[@"custid"]];
     NSString *str4 = [NSString stringWithFormat:@"%@", datasDic[@"custname"]];
     
-    if (str3 == nil) {
+    if ([str3 isEqualToString:@""]) {
         [self.custIdBtn setTitle:@"-" forState:UIControlStateNormal];
         self.custNameTF.text = @"- -";
+    } else {
+        [self.custIdBtn setTitle:str3 forState:UIControlStateNormal];
+        self.custNameTF.text = str4;
     }
-    
     self.sensorIdTF.text = str1;
     self.serialNoTF.text = str2;
-    [self.custIdBtn setTitle:str3 forState:UIControlStateNormal];
-    //self.custIdTF.text = datasDic[@"custid"];
-    self.custNameTF.text = str4;
     
 }
 
@@ -126,7 +125,6 @@
         case 3:
             [dic setObject:textField.text forKey:@"custid"];
             // 获取name
-            
             break;
         case 4:
             [dic setObject:textField.text forKey:@"custname"];
@@ -142,24 +140,32 @@
 }
 
 - (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell{
+    
     NITLog(@"%@",sinario);
-    NSArray *custlist = [NITUserDefaults objectForKey:@"custidlist"];
-    for (NSDictionary *dict in custlist) {
-        if ([dict[@"custid"] isEqualToString:sinario]) {
-            self.custNameTF.text = dict[@"custname"];
-            
-            NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
-            NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arr[self.cellindex]];
-            
-            [dic setObject:self.sensorIdTF.text  forKey:@"sensorid"];
-            [dic setObject:dict[@"custid"]  forKey:@"custid"];
-            [dic setObject:dict[@"custname"] forKey:@"custname"];
-            
-            [arr replaceObjectAtIndex:self.cellindex withObject:dic];
-            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
-            [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
-        }
+    
+    [self.custIdBtn setTitle:sinario forState:UIControlStateNormal];
+//    for (NSDictionary *dict in custlist) {
+    self.custNameTF.text = addcell[@"custname"];
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arr[self.cellindex]];
+    
+    [dic setObject:self.sensorIdTF.text  forKey:@"sensorid"];
+    
+    [dic setObject:sinario  forKey:@"custid"];
+    
+    if ([addcell[@"custname"] isEqualToString:@"- -"]) {
+        [dic setObject:@"" forKey:@"custname"];
+    } else {
+        [dic setObject:self.custNameTF.text forKey:@"custname"];
     }
+    
+    
+    [arr replaceObjectAtIndex:self.cellindex withObject:dic];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+    [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
+//        }
+//    }
 }
 
 #pragma mark - UITextFieldDelegate

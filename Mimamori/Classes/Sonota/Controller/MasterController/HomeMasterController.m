@@ -188,7 +188,20 @@
     NSString *floorno = [NSString stringWithFormat:@"%@",[floorlist.firstObject objectForKey:@"floorno"]];
     NSString *roomcd = [NSString stringWithFormat:@"%@",[[[floorlist.firstObject objectForKey:@"roomlist"] firstObject] objectForKey:@"roomcd"]];
     
-    [arr addObject:@{@"custid":cusstidstr,@"custname":@"",@"floorno":floorno,@"roomcd":roomcd}];
+    [arr addObject:@{
+                     @"custid":cusstidstr,
+                     
+                     @"custname":@"",
+                     
+                     @"floorno":floorno,
+                     
+                     @"roomcd":roomcd,
+                     
+                     @"oldfloorno":floorno,
+                     
+                     @"oldroomcd":roomcd
+                     }
+     ];
     
     [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
     
@@ -309,66 +322,76 @@
             NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
             NSDictionary *dic = array[indexPath.row];
             
-            
-            NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
-            
-            NSDictionary *pdic = @{
-                                   @"staffid":staffid,
-                                   
-                                   @"custid":dic[@"custid"],
-                                   
-                                   @"floorno":dic[@"oldfloorno"],
-                                   
-                                   @"roomcd":dic[@"oldroomcd"]
-                                   
-                                   };
-            
-            
-            [MHttpTool postWithURL:NITDeleteHomeCustInfo params:pdic success:^(id json) {
-                
+            if (!dic[@"oldcustid"]) {
                 [MBProgressHUD hideHUDForView:self.view];
                 
-                if (json) {
+                [array removeObjectAtIndex:indexPath.row];
+                [NITUserDefaults setObject:array forKey:@"HOMECUSTINFO"];
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                
+                [MBProgressHUD showSuccess:@""];
+            } else {
+                NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
+                
+                NSDictionary *pdic = @{
+                                       @"staffid":staffid,
+                                       
+                                       @"custid":dic[@"custid"],
+                                       
+                                       @"floorno":dic[@"oldfloorno"],
+                                       
+                                       @"roomcd":dic[@"oldroomcd"]
+                                       
+                                       };
+                
+                
+                [MHttpTool postWithURL:NITDeleteHomeCustInfo params:pdic success:^(id json) {
                     
-                    NSString *code = [json objectForKey:@"code"];
+                    [MBProgressHUD hideHUDForView:self.view];
                     
-                    NITLog(@"%@",code);
-                    
-                    if ([code isEqualToString:@"200"]) {
+                    if (json) {
                         
-                        [MBProgressHUD showSuccess:@""];
+                        NSString *code = [json objectForKey:@"code"];
                         
-                        [array removeObjectAtIndex:indexPath.row];
-                        [NITUserDefaults setObject:array forKey:@"HOMECUSTINFO"];
-                        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                        NITLog(@"%@",code);
                         
-                        [self.tableView.mj_header beginRefreshing];
-                        
-                    } else {
-                        
-//                        self.footView.height = 0;
-//                        self.footView.alpha = 0;
-//                        self.isEdit = NO;
-//                        [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-//                        [self.tableView setEditing:NO animated:YES];
-                        
-                        [MBProgressHUD showError:@""];
-                        
+                        if ([code isEqualToString:@"200"]) {
+                            
+                            [MBProgressHUD showSuccess:@""];
+                            
+                            [array removeObjectAtIndex:indexPath.row];
+                            [NITUserDefaults setObject:array forKey:@"HOMECUSTINFO"];
+                            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                            
+                            [self.tableView.mj_header beginRefreshing];
+                            
+                        } else {
+                            
+                            //                        self.footView.height = 0;
+                            //                        self.footView.alpha = 0;
+                            //                        self.isEdit = NO;
+                            //                        [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                            //                        [self.tableView setEditing:NO animated:YES];
+                            
+                            [MBProgressHUD showError:@""];
+                            
+                        }
+                        [CATransaction setCompletionBlock:^{
+                            [self.tableView reloadData];
+                        }];
                     }
-                }
-                
-            } failure:^(NSError *error) {
-                [MBProgressHUD hideHUDForView:self.view];
-                NITLog(@"%@",error);
-            }];
-
+                    
+                } failure:^(NSError *error) {
+                    [MBProgressHUD hideHUDForView:self.view];
+                    NITLog(@"%@",error);
+                }];
+            }
+            
         }];
         
     }
     
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
-    }];
+    
 }
 
 @end

@@ -25,6 +25,7 @@
 
 #import "AriScenarioController.h"
 
+#import "AppDelegate.h"
 
 @interface MainNotificationController ()<NotificationCellDelegate,CalendarPopDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -66,13 +67,10 @@
     
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem =nil;
-    self.navigationItem.rightBarButtonItem =nil;
-    
     [self.segmentC setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
     
-//    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
-    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate startTimer];
     //ログインFlag -> 0 (ログイン済)
     
     NSString *plistPath = [NITDocumentDirectory stringByAppendingPathComponent:@"loginFlgRecord.plist"];
@@ -81,8 +79,6 @@
     
     [oldKey writeToFile:plistPath atomically:YES];
     
-    //    [NITUserDefaults setObject:@"mimamori2" forKey:@"OldloginFlgKey"];
-    //    [NITUserDefaults synchronize];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -90,7 +86,6 @@
     
     [self CreateTableViewUI];  //创建tableviewUI
     
-//    [self dateList];  //加载日历履历数据
     
     self.isCounter = YES; //日历弹出开关
     
@@ -125,13 +120,16 @@
 
 
 -(void)SelectedListName:(NSString *)clickName {
+    [self.MyTableView.mj_header beginRefreshing];
     NITLog(@"32131232131321ononono");
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:YES];
-    [self dateList];
+    
+    [self dateList]; //日历数据
+    
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
     [self.MyTableView.mj_header beginRefreshing];
 }
@@ -327,8 +325,8 @@
     MNoticeInfoParam *param = [[MNoticeInfoParam alloc]init];
     
     param.staffid = [NITUserDefaults objectForKey:@"userid1"];
-
-//    param.custid = @"";
+    
+    param.facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     
     //除了日历选择的日期外其他参数都为 startdate
     if (self.onstauts) {
@@ -363,10 +361,10 @@
                 [self setupCalendarDates:[self.datelists0 copy]];// 创建日历 - 选择日期
                 self.isCounter = YES;
             } else if (self.typenum == 1) {
-                [self setupCalendarDates:[self.datelists1 copy]];// 创建日历 - 选择日期
+                [self setupCalendarDates:[self.datelists1 copy]];
                 self.isCounter = YES;
             } else {
-                [self setupCalendarDates:[self.datelists2 copy]];// 创建日历 - 选择日期
+                [self setupCalendarDates:[self.datelists2 copy]];
                 self.isCounter = YES;
             }
         }
@@ -401,7 +399,10 @@
 -(void)dateList{
     
     MNoticeDateParam *param = [[MNoticeDateParam alloc]init];
+    
     param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+    
+    param.facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     
     [MNoticeTool noticeDatesWithParam:param success:^(NSDictionary *dic) {
         [self.MyTableView.mj_header beginRefreshing];

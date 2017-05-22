@@ -66,7 +66,6 @@
 
 /**
  弹出下拉设施菜单
- 
  @param sender
  */
 -(void)showSelectedList {
@@ -80,7 +79,6 @@
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     
     parametersDict[@"custid"] = self.usernumber;
-//    self.usernumber;//?
     
     parametersDict[@"noticetype"] = @"1";
     

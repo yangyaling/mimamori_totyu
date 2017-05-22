@@ -12,4 +12,6 @@
 
 @property (nonatomic, copy) NSString *staffid;
 
+@property (nonatomic, copy) NSString *facilitycd;
+
 @end

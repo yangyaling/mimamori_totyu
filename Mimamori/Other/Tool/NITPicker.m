@@ -253,7 +253,7 @@
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
-    } else if (scenariotype == 6 || scenariotype == 7 || scenariotype == 12) {
+    } else if (scenariotype == 6 || scenariotype == 7 || scenariotype == 12 || scenariotype == 14) {
         
         if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
             
@@ -400,17 +400,17 @@
         
     } else if (scenariotype == 14) {
         
-        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
-        NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
-        [nodesdic setValue:select forKey:@"custid"];
-        [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
-        [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
-        
-        // 2.通知代理
-        if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
-            [self.mydelegate PickerDelegateSelectString:select withDic:nil];
-        }
+//        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
+//        NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
+//        [nodesdic setValue:select forKey:@"custid"];
+//        [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
+//        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+//        [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
+//        
+//        // 2.通知代理
+//        if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
+//            [self.mydelegate PickerDelegateSelectString:select withDic:nil];
+//        }
     } else {
         
     }

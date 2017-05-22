@@ -99,7 +99,60 @@
 }
 
 -(void)SelectedListName:(NSDictionary *)clickDic{
+    
     [self getinfo];
+}
+
+
+- (void)AgainFacilityList {
+    [MBProgressHUD showMessage:@"" toView:WindowView];
+    
+    NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
+    NSDictionary *dic = @{
+                          @"staffid":staffid,
+                          
+                          @"hostcd":@"host01",
+                          
+                          };
+    [MHttpTool postWithURL:NITGetfacilityList params:dic success:^(id json) {
+        [MBProgressHUD hideHUDForView:WindowView];
+        
+        NSArray *array = nil;
+        
+        array = [json objectForKey:@"facilitylist"];
+        
+        if (array.count > 0) {
+            
+            NSMutableArray *imags = [NSMutableArray new];
+            
+            for (int i = 0; i < array.count; i++) {
+                [imags addObject:@"space_icon"];
+            }
+            [NITUserDefaults setObject:imags forKey:@"CellImagesName"];
+            [NITUserDefaults synchronize];
+            
+            [NITUserDefaults setObject:array forKey:@"FacilityList"];
+            [NITUserDefaults synchronize];
+            
+            
+            [imags replaceObjectAtIndex:0 withObject:@"selectfacitility_icon"];
+            [NITUserDefaults setObject:imags forKey:@"TempcellImagesName"];
+            [NITUserDefaults synchronize];
+            
+            [NITUserDefaults setObject:array[0] forKey:@"TempFacilityName"];
+            [NITUserDefaults synchronize];
+            
+            
+        } else {
+            [MBProgressHUD showError:@""];
+        }
+        [CATransaction setCompletionBlock:^{
+            [self.tableView reloadData];
+        }];
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:WindowView];
+        NITLog(@"%@",error);
+    }];
 }
 
 - (IBAction)editCell:(UIButton *)sender {
@@ -205,18 +258,18 @@
             if ([code isEqualToString:@"200"]) {
                 [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
                 [self statusEdit:NO withColor:TextFieldNormalColor];
+                [self AgainFacilityList]; //更新成功再取一次设施list
             } else {
                 [MBProgressHUD showError:@""];
             }
+            [self.tableView reloadData];
             
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:WindowView];
         NITLog(@"%@",error);
     }];
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
-    }];
+    
     
 }
 

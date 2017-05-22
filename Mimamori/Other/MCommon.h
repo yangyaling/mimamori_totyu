@@ -60,10 +60,11 @@
 #define OtherEnabledCellBGColor NITColor(251, 140, 160)
 
 #define TextFieldNormalColor NITColor(235, 235, 241)
+
 /**
  sonota   URL
  */
-
+#define NITUpdatePassword @"http://mimamori2p1.azurewebsites.net/zwupdatepassword.php"
 
 #define NITUpdateUserInfo @"http://mimamori2p1.azurewebsites.net/zwupdateuserinfo.php"
 

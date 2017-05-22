@@ -29,9 +29,9 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
+     
 //    _hostId.text = @"host01";
-//    _userId.text = @"sw00000";
+//    _userId.text = @"sw00001";
 //    _passWord.text = @"P@ssw0rd";
     //_passWord.text = @"";
 }

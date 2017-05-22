@@ -171,6 +171,10 @@
 
 }
 
+- (IBAction)pushPassWordC:(id)sender {
+    [self performSegueWithIdentifier:@"pushpasswordC" sender:self];
+}
+
 //保存个人信息
 - (IBAction)saveButton:(id)sender {
     

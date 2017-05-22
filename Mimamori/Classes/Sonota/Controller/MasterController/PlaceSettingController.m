@@ -130,8 +130,11 @@
         if (json) {
             NSString *code = [json objectForKey:@"code"];
             NITLog(@"%@",code);
+            
             if ([code isEqualToString:@"200"]) {
-                [MBProgressHUD showSuccess:@""];
+                
+//                [MBProgressHUD showSuccess:@""];
+                
                 [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
                 self.footView.height = 0;
                 self.footView.alpha = 0;
@@ -238,46 +241,64 @@
             
         [NITDeleteAlert SharedAlertShowMessage:@"設定情報を削除します、よろしいですか。" andControl:self withOk:^(BOOL isOk) {
             [MBProgressHUD showMessage:@"" toView:self.view];
+            
             NSMutableArray *array =[NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"NLINFO"]];
+            
             NSDictionary *dic = array[indexPath.row];
             
-            [MHttpTool postWithURL:NITDeleteNLInfo params:dic success:^(id json) {
+            if (!dic[@"oldcd"]) {
                 
                 [MBProgressHUD hideHUDForView:self.view];
                 
-                if (json) {
+                [array removeObjectAtIndex:indexPath.row];
+                
+                [NITUserDefaults setObject:array forKey:@"NLINFO"];
+                
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                
+                [MBProgressHUD showSuccess:@""];
+                
+            } else {
+                [MHttpTool postWithURL:NITDeleteNLInfo params:dic success:^(id json) {
                     
-                    NSString *code = [json objectForKey:@"code"];
+                    [MBProgressHUD hideHUDForView:self.view];
                     
-                    NITLog(@"%@",code);
-                    
-                    if ([code isEqualToString:@"200"]) {
-                        [MBProgressHUD showSuccess:@""];
-                        [array removeObjectAtIndex:indexPath.row];
+                    if (json) {
                         
-                        [NITUserDefaults setObject:array forKey:@"NLINFO"];
+                        NSString *code = [json objectForKey:@"code"];
                         
-                        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-                        [self.tableView.mj_header beginRefreshing];
+                        NITLog(@"%@",code);
                         
-                        
-                    } else {
-                        [MBProgressHUD showError:@""];
-                        
-                        
+                        if ([code isEqualToString:@"200"]) {
+                            [MBProgressHUD showSuccess:@""];
+                            [array removeObjectAtIndex:indexPath.row];
+                            
+                            [NITUserDefaults setObject:array forKey:@"NLINFO"];
+                            
+                            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                            [self.tableView.mj_header beginRefreshing];
+                            
+                            
+                        } else {
+                            [MBProgressHUD showError:@""];
+                            
+                            
+                        }
+                        [CATransaction setCompletionBlock:^{
+                            [self.tableView reloadData];
+                        }];
                     }
-                }
-                
-            } failure:^(NSError *error) {
-                [MBProgressHUD hideHUDForView:self.view];
-                NITLog(@"%@",error);
-            }];
+                    
+                } failure:^(NSError *error) {
+                    [MBProgressHUD hideHUDForView:self.view];
+                    NITLog(@"%@",error);
+                }];
 
+            }
+            
         }];
     }
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
-    }];
+    
 }
 
 

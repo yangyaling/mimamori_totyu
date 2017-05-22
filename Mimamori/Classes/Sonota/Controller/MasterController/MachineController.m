@@ -101,12 +101,24 @@
 - (IBAction)addCell:(id)sender {
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
-    [arr addObject:@{@"custid":@"",@"custname":@"",@"sensorid":@"",@"oldcustid":@"",@"oldserial":@"",@"serial":@""}];
+    [arr addObject:@{
+                     @"custid":@"",
+                     
+                     @"custname":@"",
+                     
+                     @"sensorid":@"",
+                     
+                     @"oldserial":@"",
+                     
+                     @"serial":@""
+                     
+                     }];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
     [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
     
+    [self.tableView reloadData];
+    
     [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
     }];
     
@@ -120,11 +132,26 @@
     
     // 准备参数
     NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+    
+    NSMutableArray *allarr = [NSMutableArray new];
+    for (NSDictionary *lsdic in array) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:lsdic];
+        if ([lsdic[@"custid"] isEqualToString:@"-"]) {
+            [dic setObject:@"" forKey:@"custid"];
+        }
+        [allarr addObject:dic];
+    }
+    
     NSError *parseError = nil;
-    NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
+    NSData  *json = [NSJSONSerialization dataWithJSONObject:allarr options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
-    NSDictionary *dic = @{@"sslist":str,@"facilitycd":facilitycd};
+    NSDictionary *dic = @{
+                          @"sslist":str,
+                          
+                          @"facilitycd":facilitycd
+                          
+                          };
     
     // 发送请求
     [MHttpTool postWithURL:NITUpdateSSInfo params:dic success:^(id json) {
@@ -145,14 +172,13 @@
             }else{
                 
                 [MBProgressHUD showError:@""];
-                
             }
             
             [CATransaction setCompletionBlock:^{
                 [self.tableView reloadData];
             }];
-            
         }
+        
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"%@",error);
@@ -205,7 +231,10 @@
             
         }
         if (custlist.count > 0) {
-            [NITUserDefaults setObject:custlist forKey:@"custidlist"];
+            NSMutableArray *arr = [NSMutableArray array];
+            [arr addObject:@{@"custid":@"-",@"custname":@"- -"}];
+            [arr addObjectsFromArray:custlist];
+            [NITUserDefaults setObject:arr forKey:@"custidlist"];
         }
         [self.tableView reloadData];
         
@@ -271,67 +300,80 @@
             NSMutableArray *array = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
             NSDictionary *dic = array[indexPath.row];
             
-            NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
-            
-            NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
-            
-            NSDictionary *pdic = @{
-                                   @"staffid":staffid,
-                                   
-                                   @"facilitycd":facilitycd,
-                                   
-                                   @"custid":dic[@"oldcustid"],
-                                   
-                                   @"sensorid":dic[@"oldsensorid"],
-                                   
-                                   @"serial":dic[@"oldserial"],
-                                   
-                                   @"startdate":dic[@"startdate"]
-                                   
-                                   };
-            
-            [MHttpTool postWithURL:NITDeleteSSInfo params:pdic success:^(id json) {
-                
+            if (!dic[@"oldcustid"]) {
                 [MBProgressHUD hideHUDForView:self.view];
                 
-                if (json) {
+                [array removeObjectAtIndex:indexPath.row];
+                NSData * data = [NSKeyedArchiver archivedDataWithRootObject:array];
+                [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                [MBProgressHUD showSuccess:@""];
+            } else {
+                NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
+                
+                NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+                
+                NSDictionary *pdic = @{
+                                       @"staffid":staffid,
+                                       
+                                       @"facilitycd":facilitycd,
+                                       
+                                       @"custid":dic[@"oldcustid"],
+                                       
+                                       @"sensorid":dic[@"oldsensorid"],
+                                       
+                                       @"serial":dic[@"oldserial"],
+                                       
+                                       @"startdate":dic[@"startdate"]
+                                       
+                                       };
+                
+                [MHttpTool postWithURL:NITDeleteSSInfo params:pdic success:^(id json) {
                     
-                    NSString *code = [json objectForKey:@"code"];
+                    [MBProgressHUD hideHUDForView:self.view];
                     
-                    NITLog(@"%@",code);
-                    
-                    if ([code isEqualToString:@"200"]) {
-                        [MBProgressHUD showSuccess:@""];
-                        [array removeObjectAtIndex:indexPath.row];
-                        NSData * data = [NSKeyedArchiver archivedDataWithRootObject:array];
-                        [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
-                        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                    if (json) {
                         
-                        [self.tableView.mj_header beginRefreshing];
+                        NSString *code = [json objectForKey:@"code"];
                         
-                    } else {
+                        NITLog(@"%@",code);
                         
-                        [MBProgressHUD showError:@""];
-//                        self.footView.height = 0;
-//                        self.footView.alpha = 0;
-//                        self.isEdit = NO;
-//                        [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-//                        [self.tableView setEditing:NO animated:YES];
-                        
+                        if ([code isEqualToString:@"200"]) {
+                            [MBProgressHUD showSuccess:@""];
+                            [array removeObjectAtIndex:indexPath.row];
+                            NSData * data = [NSKeyedArchiver archivedDataWithRootObject:array];
+                            [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
+                            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                            
+                            [self.tableView.mj_header beginRefreshing];
+                            
+                        } else {
+                            
+                            [MBProgressHUD showError:@""];
+                            //                        self.footView.height = 0;
+                            //                        self.footView.alpha = 0;
+                            //                        self.isEdit = NO;
+                            //                        [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                            //                        [self.tableView setEditing:NO animated:YES];
+                            
+                        }
+                        [CATransaction setCompletionBlock:^{
+                            [self.tableView reloadData];
+                        }];
                     }
-                }
-                
-            } failure:^(NSError *error) {
-                [MBProgressHUD hideHUDForView:self.view];
-                NITLog(@"%@",error);
-            }];
+                    
+                } failure:^(NSError *error) {
+                    [MBProgressHUD hideHUDForView:self.view];
+                    NITLog(@"%@",error);
+                }];
 
+            }
+            
+            
         }];
         
     }
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
-    }];
+    
 }
 
 
