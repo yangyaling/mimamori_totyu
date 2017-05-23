@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "WKAvoidKeyboardViewController.h"
-
-@interface UpdatePassWordController : WKAvoidKeyboardViewController
+@interface UpdatePassWordController :WKAvoidKeyboardViewController
 
 @end

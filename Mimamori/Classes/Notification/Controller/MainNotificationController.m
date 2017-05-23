@@ -120,6 +120,7 @@
 
 
 -(void)SelectedListName:(NSString *)clickName {
+    
     [self.MyTableView.mj_header beginRefreshing];
     NITLog(@"32131232131321ononono");
 }
@@ -344,6 +345,7 @@
         
         [MBProgressHUD hideHUDForView:self.view];
         [self.MyTableView.mj_header endRefreshing];
+        self.noticesArray = [NSMutableArray new];
         self.noticesArray = [NotificationModel mj_objectArrayWithKeyValuesArray:array];
         
         //系统时间 - 12/24 时制  判断

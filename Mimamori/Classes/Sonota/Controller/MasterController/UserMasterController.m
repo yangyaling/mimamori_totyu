@@ -71,10 +71,12 @@
     [self.tableView.mj_header beginRefreshing];
 }
 
+
 //数据请求
 - (void)getnlInfo {
     
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+   
     
     NSDictionary *dic = @{@"facilitycd":facd,@"usertype":usertype};
     
@@ -178,10 +180,10 @@
         
         self.numxxid++;
         
-        
+        [self.tableView reloadData];
         [CATransaction setCompletionBlock:^{
             
-            [self.tableView reloadData];
+            
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
         }];
         

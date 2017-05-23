@@ -62,8 +62,16 @@
     if ([usertype isEqualToString:@"3"] || [usertype isEqualToString:@"x"]) {
        
     } else if ([usertype isEqualToString:@"2"]){
-        [self.serialNoTF setEnabled:noOp];
-        [self.serialNoTF setBackgroundColor:color];
+        
+        [self.sensorIdTF setEnabled:noOp];
+        [self.sensorIdTF setBackgroundColor:color];
+        [self.custIdBtn setEnabled:noOp];
+        [self.custIdBtn setBackgroundColor:color];
+        
+        [self.custNameTF setEnabled:noOp];
+        [self.custNameTF setBackgroundColor:color];
+        
+        
     } else {
         [self.sensorIdTF setEnabled:noOp];
         [self.sensorIdTF setBackgroundColor:color];

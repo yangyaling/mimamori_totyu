@@ -67,8 +67,6 @@
     self.footView.height = 0;
     self.footView.alpha = 0;
     
-    
-    
     self.isEdit = NO;
     self.titleLabel.text = self.titleStr;
     
@@ -93,7 +91,6 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
-    [self getProfileInfo];
     [self.tableView.mj_header beginRefreshing];
 }
 
@@ -222,7 +219,9 @@
     param.custid = self.profileUser0;
     
     [MScenarioTool scenarioListWithParam:param success:^(NSArray *array) {
-        [MBProgressHUD hideHUDForView:self.view];
+        
+        [self getProfileInfo];
+        
         if (array.count > 0) {
             
             NSDictionary *dic = array.firstObject;
@@ -260,7 +259,8 @@
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view];
+        
+        [self getProfileInfo];
         
         NSArray *sensordatas = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
         

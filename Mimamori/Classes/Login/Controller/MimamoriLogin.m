@@ -77,6 +77,10 @@
         //認証OKの場合(code=200)
         if ([result.code isEqualToString:@"200"]) {
             
+            /*密码保存*/
+            [NITUserDefaults setObject:pwd forKey:@"PASSWORDKEY"];
+            [NITUserDefaults synchronize];
+            
             /*管理者权限*/
             [NITUserDefaults setObject:result.usertype forKey:@"MASTER_UERTTYPE"];
             [NITUserDefaults synchronize];

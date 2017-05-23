@@ -405,6 +405,7 @@ fetchCompletionHandler:
 -(void)getNoticeInfo{
     MNoticeInfoParam *param = [[MNoticeInfoParam alloc]init];
     param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+    param.facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     param.startdate = [NSDate SharedToday];
     param.historyflg = @"0";
     param.noticetype = @"1";

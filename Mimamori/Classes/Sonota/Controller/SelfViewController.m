@@ -73,7 +73,19 @@
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
-
+- (void)GetGroupInfo {
+    [MHttpTool postWithURL:NITGetGroupInfo params:nil success:^(id json) {
+        [MBProgressHUD hideHUDForView:WindowView];
+        if (json) {
+            NSArray *dateArray = [json objectForKey:@"groupinfo"];
+            self.allGroupData = dateArray.count > 0 ? [NSMutableArray arrayWithArray:dateArray] : [NSMutableArray new];
+            [self.groupPicker reloadAllComponents];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:WindowView];
+        NITLog(@"groupinfo为空");
+    }];
+}
 
 
 -(void)getUserInfo{
@@ -82,20 +94,9 @@
     NSString *userid1 = [NITUserDefaults objectForKey:@"userid1"];
     [parametersDict setValue:userid1 forKey:@"staffid"];
     
-    [MHttpTool postWithURL:NITGetGroupInfo params:nil success:^(id json) {
-        if (json) {
-            NSArray *dateArray = [json objectForKey:@"groupinfo"];
-            self.allGroupData = dateArray.count > 0 ? [NSMutableArray arrayWithArray:dateArray] : [NSMutableArray new];
-            [self.groupPicker reloadAllComponents];
-        }
-    } failure:^(NSError *error) {
-        NITLog(@"groupinfo为空");
-    }];
-    
-    
     [MHttpTool postWithURL:NITGetUserInfo params:parametersDict success:^(id json) {
+        [self GetGroupInfo];
         
-        [MBProgressHUD hideHUDForView:WindowView];
         NSArray *userinfo = [json objectForKey:@"userinfo"];
         if (userinfo){
             NSArray *tmpArr = [SelfModel mj_objectArrayWithKeyValuesArray:userinfo];
@@ -118,7 +119,8 @@
         }
 
     } failure:^(NSError *error) {
-         [MBProgressHUD hideHUDForView:WindowView];
+        [self GetGroupInfo];
+        
         NITLog(@"zwgetuserinfo请求失败");
     }];
     

@@ -82,10 +82,11 @@
 
 @property (nonatomic,strong) UIImageView                   *bigImg;
 
+@property (nonatomic, strong) UIImagePickerController      *imagePicker;
 
 @property (strong, nonatomic) IBOutlet DropButton          *facilitiesBtn;
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel             *titleLabel;
 
 @end
 
@@ -139,7 +140,7 @@
 -(GGActionSheet *)actionSheetTitle {
     
     if (!_actionSheetTitle) {
-        _actionSheetTitle = [GGActionSheet ActionSheetWithTitleArray:@[@"写真を撮る",@"写真を拡大する"] andTitleColorArray:@[NITColor(252, 85, 115),[UIColor darkGrayColor]] delegate:self];
+        _actionSheetTitle = [GGActionSheet ActionSheetWithTitleArray:@[@"写真を撮る",@"ローカルアルバム",@"写真を拡大する"] andTitleColorArray:@[NITColor(252, 85, 115),[UIColor darkGrayColor],[UIColor darkGrayColor]] delegate:self];
         _actionSheetTitle.cancelDefaultColor = [UIColor lightGrayColor];
     }
     return _actionSheetTitle;
@@ -162,6 +163,10 @@
     self.updatename.text = _pmodel.updatename;
     self.updatedate.text = _pmodel.updatedate;
     
+    _imagePicker = [[UIImagePickerController alloc] init];
+    _imagePicker.allowsEditing = YES;
+    _imagePicker.delegate = self;
+    _imagePicker.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 }
 
 /**
@@ -192,7 +197,7 @@
  */
 -(void)updateProfileInfo{
     
-    [MBProgressHUD showMessage:@"" toView:self.tableView];
+    [MBProgressHUD showMessage:@"" toView:WindowView];
     
     NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
     // 请求参数
@@ -222,7 +227,7 @@
 //    NITLog(@"%@\n%@\n照片：2 ---%@",self.userid0,updatedate,self.imagedata);
     //
     [MProfileTool profileInfoUpdateImageWithParam:iconM withImageDatas:nil success:^(NSString *path) {
-        [MBProgressHUD hideHUDForView:self.tableView];
+        [MBProgressHUD hideHUDForView:WindowView];
         [NITUserDefaults setObject:self.imagedata forKey:self.userid0];
         NITLog(@"%@",path);
         [MProfileTool profileInfoUpdateWithParam:param success:^(NSString *code) {
@@ -239,7 +244,7 @@
         }];
         //http://mimamori2.azurewebsites.net/upload/0002.jpg
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.tableView];
+        [MBProgressHUD hideHUDForView:WindowView];
         NITLog(@"%@",error.localizedDescription);
         [MBProgressHUD showError:@"アップロード失敗"];
     }];
@@ -248,39 +253,46 @@
 //　点击保存按钮
 - (IBAction)saveProfile:(id)sender {
     
-    if (!self.imagedata) {
-        [MBProgressHUD showError:@"写真をアップロード下さい"];
-        return;
-    }
+//    if (!self.imagedata) {
+//        [MBProgressHUD showError:@"写真をアップロード下さい"];
+//        return;
+//    }
     
 //    if (!self.user0name.text.length) {
 //        [MBProgressHUD showError:@"氏名を入力して下さい"];
 //        return;
 //    }
     if (!self.sex.text.length) {
-        [MBProgressHUD showError:@"性别を入力して下さい"];
+        [MBProgressHUD showError:@"性别を入力して下さい" toView:self.tableView];
+//        [MBProgressHUD showError: ];
         return;
     }
+    
     if (!self.birthday.text.length) {
         [MBProgressHUD showError:@"誕生日を入力して下さい"];
         return;
     }
+    
 //    if (!self.address.text.length) {
 //        [MBProgressHUD showError:@"現住所を入力して下さい"];
 //        return;
 //    }
+    
     if (!self.kakaritsuke.text.length) {
         [MBProgressHUD showError:@"かかりつけ医を入力して下さい"];
         return;
     }
+    
     if (!self.drug.text.length) {
         [MBProgressHUD showError:@"服薬情報を入力して下さい"];
         return;
     }
+    
     if (!self.health.text.length) {
         [MBProgressHUD showError:@"健康診断結果を入力してください"];
         return;
     }
+    
     if (!self.other.text.length) {
         [MBProgressHUD showError:@"その他お願い事項を入力してください"];
         return;
@@ -308,6 +320,7 @@
 //    }
 //}
 
+
 //显示大图片到屏幕中心
 - (void)moveToCenterWidth:(CGFloat)widthI withHeight:(CGFloat)heightI
 {
@@ -334,16 +347,22 @@
 }
 
 
+
 #pragma mark - GGActionSheet代理方法
 -(void)GGActionSheetClickWithIndex:(int)index{
+    
     if (index == 0) {
-        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        imagePicker.allowsEditing = YES;
-        imagePicker.delegate = self;
-        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:imagePicker animated:YES completion:nil];
+        [MBProgressHUD showMessage:@"" toView:WindowView];
+        _imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:_imagePicker animated:YES completion:nil];
+        
     } else if (index == 1) {
+        [MBProgressHUD showMessage:@"" toView:WindowView];
+        _imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        [self presentViewController:_imagePicker animated:YES completion:nil];
+        
+    } else {
         self.hoverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, NITScreenW, NITScreenH)];
         self.hoverView.backgroundColor = [UIColor blackColor];
         [self.hoverView addTapAction:@selector(moveToOrigin) target:self];
@@ -368,8 +387,6 @@
         //            ZLLog(@"%f-%f",widthI,heightI);
         [self moveToCenterWidth:widthI withHeight:heightI];
         [self.bigImg addTapAction:@selector(moveToOrigin) target:self];
-    } else {
-        
     }
 }
 
@@ -410,6 +427,9 @@
 
 #pragma mark --  imagePicker delegate Action
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    [MBProgressHUD hideHUDForView:WindowView];
+    
     if (picker.allowsEditing) {
         UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         
@@ -433,7 +453,12 @@
         self.userIcon.image = [UIImage imageWithData:imageData];
         
     }
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIViewController *vc = picker;
+    while (vc.presentingViewController) {
+        vc = vc.presentingViewController;
+    }
+    [vc dismissViewControllerAnimated:YES completion:nil];
     
 }
 
@@ -449,7 +474,13 @@
 
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [MBProgressHUD hideHUDForView:WindowView];
+    UIViewController *vc = picker;
+    while (vc.presentingViewController) {
+        vc = vc.presentingViewController;
+    }
+    [vc dismissViewControllerAnimated:YES completion:nil];
+//    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 

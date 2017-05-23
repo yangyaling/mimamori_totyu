@@ -35,7 +35,7 @@
     self.footView.alpha = 0;
     //　権限
     usertype = USERTYPE;
-    if ([usertype isEqualToString:@"1"]) {
+    if ([usertype isEqualToString:@"1"] || [usertype isEqualToString:@"2"]) {
         self.editButton.hidden = NO;
     }else{
         self.editButton.hidden = YES;
@@ -207,9 +207,10 @@
     
     self.numxxid++;
     
+     [self.tableView reloadData];
     [CATransaction setCompletionBlock:^{
         
-        [self.tableView reloadData];
+       
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
         
     }];

@@ -172,8 +172,9 @@
                      }];
     [NITUserDefaults setObject:arr forKey:@"ROOMMASTERINFOKEY"];
 //
+    [self.tableView reloadData];
     [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
+        
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:arr.count-1 inSection:0]  atScrollPosition:UITableViewScrollPositionNone animated:NO];
     }];
     

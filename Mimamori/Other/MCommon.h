@@ -53,7 +53,7 @@
 
 // ユーザ分類　x;1;2;3
 
-#define USERTYPE [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
+
 
 #define TextSelectColor NITColor(253, 164, 181)
 

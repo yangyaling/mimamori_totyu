@@ -35,24 +35,16 @@
     
     if (self.editOp) {
         
-        
-        [self.pickButton setEnabled:YES];
-        [self.pickButton setBackgroundColor:[UIColor whiteColor]];
-        
-        [self.text2 setEnabled:YES];
-        [self.text2 setBackgroundColor:[UIColor whiteColor]];
-        
-       
-        
-        //[self statusEdit:YES withColor:[UIColor whiteColor]];
-        
+        if ([usertype isEqualToString:@"2"]) {
+            if (![datasDic[@"usertype"] isEqualToString:@"1"]) {
+                [self statusEdit:YES withColor:[UIColor whiteColor]];
+            }
+        } else {
+            [self statusEdit:YES withColor:[UIColor whiteColor]];
+        }
     } else {
-        [self.pickButton setEnabled:NO];
-        [self.pickButton setBackgroundColor:TextFieldNormalColor];
         
-        [self.text2 setEnabled:NO];
-        [self.text2 setBackgroundColor:TextFieldNormalColor];
-        //[self statusEdit:NO withColor:NITColor(235, 235, 241)];
+        [self statusEdit:NO withColor:TextFieldNormalColor];
     }
     
     self.text1.text = datasDic[@"staffid"];
@@ -61,27 +53,34 @@
     
 }
 
-//- (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
-//    NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
-//    if (!master.length) return;
-//    
-//    if ([master isEqualToString:@"3"]) {
-//        
-//    } else if ([master isEqualToString:@"2"]) {
-//        
-//        
-//    } else {
-//        //[self.text1 setEnabled:noOp];
-//        //[self.text1 setBackgroundColor:color];
-//        
-//        [self.pickButton setEnabled:noOp];
-//        [self.pickButton setBackgroundColor:color];
-//        
-//        [self.text2 setEnabled:noOp];
-//        [self.text2 setBackgroundColor:color];
-//        
-//    }
-//}
+
+- (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
+    
+    if (!usertype.length) return;
+    
+    if ([usertype isEqualToString:@"3"]) {
+        
+    } else if ([usertype isEqualToString:@"2"]) {
+        
+        [self.pickButton setEnabled:noOp];
+        [self.pickButton setBackgroundColor:color];
+        
+        [self.text2 setEnabled:noOp];
+        [self.text2 setBackgroundColor:color];
+        
+    } else {
+        
+        [self.text1 setEnabled:noOp];
+        [self.text1 setBackgroundColor:color];
+        
+        [self.pickButton setEnabled:noOp];
+        [self.pickButton setBackgroundColor:color];
+        
+        [self.text2 setEnabled:noOp];
+        [self.text2 setBackgroundColor:color];
+        
+    }
+}
 
 
 - (IBAction)showPick:(UIButton *)sender {
