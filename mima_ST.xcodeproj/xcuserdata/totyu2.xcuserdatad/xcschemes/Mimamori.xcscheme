@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E9D445881D010FE500CFF364"
-               BuildableName = "Mimamori2.app"
-               BlueprintName = "Mimamori2"
-               ReferencedContainer = "container:Mimamori2.xcodeproj">
+               BuildableName = "mima_ST.app"
+               BlueprintName = "mima_ST"
+               ReferencedContainer = "container:mima_ST.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E9D445A41D010FE600CFF364"
-               BuildableName = "Mimamori2Tests.xctest"
-               BlueprintName = "Mimamori2Tests"
-               ReferencedContainer = "container:Mimamori2.xcodeproj">
+               BuildableName = "mima_STTests.xctest"
+               BlueprintName = "mima_STTests"
+               ReferencedContainer = "container:mima_ST.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E9D445AF1D010FE600CFF364"
-               BuildableName = "Mimamori2UITests.xctest"
-               BlueprintName = "Mimamori2UITests"
-               ReferencedContainer = "container:Mimamori2.xcodeproj">
+               BuildableName = "mima_STUITests.xctest"
+               BlueprintName = "mima_STUITests"
+               ReferencedContainer = "container:mima_ST.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E9D445881D010FE500CFF364"
-            BuildableName = "Mimamori2.app"
-            BlueprintName = "Mimamori2"
-            ReferencedContainer = "container:Mimamori2.xcodeproj">
+            BuildableName = "mima_ST.app"
+            BlueprintName = "mima_ST"
+            ReferencedContainer = "container:mima_ST.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E9D445881D010FE500CFF364"
-            BuildableName = "Mimamori2.app"
-            BlueprintName = "Mimamori2"
-            ReferencedContainer = "container:Mimamori2.xcodeproj">
+            BuildableName = "mima_ST.app"
+            BlueprintName = "mima_ST"
+            ReferencedContainer = "container:mima_ST.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E9D445881D010FE500CFF364"
-            BuildableName = "Mimamori2.app"
-            BlueprintName = "Mimamori2"
-            ReferencedContainer = "container:Mimamori2.xcodeproj">
+            BuildableName = "mima_ST.app"
+            BlueprintName = "mima_ST"
+            ReferencedContainer = "container:mima_ST.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
