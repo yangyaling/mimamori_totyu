@@ -123,6 +123,8 @@
 
 #define NITUpdateStaffInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdatestaffinfo.php"
 
+#define NITDeleteStaffInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwdeletestaffinfo.php"
+
 #define NITGetSPList @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetsplist.php"
 
 #define NITGetSPInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetspinfo.php"

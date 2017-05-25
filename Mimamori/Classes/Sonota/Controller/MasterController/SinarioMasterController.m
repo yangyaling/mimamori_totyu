@@ -70,7 +70,7 @@
             
             [self.addButton setEnabled:YES];
             
-            [self.addButton setBackgroundColor:OtherEnabledCellBGColor];
+            [self.addButton setBackgroundColor:NITColor(253, 85, 95)];
             
         }
         

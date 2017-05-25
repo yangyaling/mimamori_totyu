@@ -50,18 +50,21 @@
     self.tableView.tableFooterView = [[UIView alloc]init];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [MBProgressHUD hideHUDForView:self.navigationController.view];
+}
 
 - (IBAction)goto:(UIButton *)sender {
     [self performSegueWithIdentifier:@"pushRoomReport" sender:self];
 }
 
 - (void)getinfo {
-    [MBProgressHUD showMessage:@"" toView:WindowView];
+    [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     NSDictionary *dic = @{@"facilitycd":facd};
     [MHttpTool postWithURL:NITGetFacilityInfo params:dic success:^(id json) {
         
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         NSDictionary *indoDic = [json objectForKey:@"facilityinfo"];
         if (indoDic.count >0) {
             
@@ -85,7 +88,7 @@
             
         }
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         NITLog(@"%@",error);
     }];
     [self.tableView reloadData];
@@ -105,7 +108,7 @@
 
 
 - (void)AgainFacilityList {
-    [MBProgressHUD showMessage:@"" toView:WindowView];
+    [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     
     NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
     NSDictionary *dic = @{
@@ -115,7 +118,7 @@
                           
                           };
     [MHttpTool postWithURL:NITGetfacilityList params:dic success:^(id json) {
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         
         NSArray *array = nil;
         
@@ -150,7 +153,7 @@
             [self.tableView reloadData];
         }];
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         NITLog(@"%@",error);
     }];
 }
@@ -222,7 +225,7 @@
 }
 
 - (void)saveInfo {
-    [MBProgressHUD showMessage:@"" toView:WindowView];
+    [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     
     NSMutableDictionary *dic = [NSMutableDictionary new];
     NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
@@ -251,7 +254,7 @@
                               };
     
     [MHttpTool postWithURL:NITUpdateFacilityInfo params:lastDic success:^(id json) {
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         if (json) {
             NSString *code = [json objectForKey:@"code"];
             NITLog(@"%@",code);
@@ -266,7 +269,7 @@
             
         }
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         NITLog(@"%@",error);
     }];
     

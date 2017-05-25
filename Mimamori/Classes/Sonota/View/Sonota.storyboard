@@ -2444,14 +2444,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grE-oY-0eW">
                                 <rect key="frame" x="0.0" y="99" width="320" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="企業コード  ／ イニシャル" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4O5-cS-X16">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4O5-cS-X16">
                                         <rect key="frame" x="1" y="1" width="105.5" height="48"/>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.29411764709999999" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="企業名／企業名カナ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH8-vi-Dpx">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH8-vi-Dpx">
                                         <rect key="frame" x="107.5" y="1" width="211.5" height="48"/>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.29411764709999999" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -2502,6 +2502,8 @@
                         </userDefinedRuntimeAttributes>
                     </navigationItem>
                     <connections>
+                        <outlet property="cpLabel1" destination="4O5-cS-X16" id="6HH-cI-KoP"/>
+                        <outlet property="cpLabel2" destination="SH8-vi-Dpx" id="7Iu-E1-X8N"/>
                         <outlet property="editButton" destination="PgN-hY-ieQ" id="xuV-k7-04U"/>
                         <outlet property="facilityBtn" destination="ZmF-K0-uJX" id="kXs-9N-419"/>
                         <outlet property="footView" destination="DAL-aL-hFC" id="Qac-Pl-muG"/>

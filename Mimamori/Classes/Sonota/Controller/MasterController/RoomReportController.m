@@ -167,7 +167,11 @@
                      
                      @"floorno":@"",
                      
-                     @"roomcd":@""
+                     @"roomcd":@"",
+                     
+                     @"oldfloorno":@"",
+                     
+                     @"oldroomcd":@""
                      
                      }];
     [NITUserDefaults setObject:arr forKey:@"ROOMMASTERINFOKEY"];
@@ -293,7 +297,7 @@
             
             NSDictionary *dic = array[indexPath.row];
             
-            if (!dic[@"oldfloorno"] || !dic[@"oldroomcd"]) {
+            if ([dic[@"oldfloorno"] isEqualToString:@""] || [dic[@"oldroomcd"] isEqualToString:@""]) {
                 
                 [MBProgressHUD hideHUDForView:self.view];
                 

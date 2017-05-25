@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _titleArray = @[@"見守り設定" ,@"ユーザ情報",@"管理者機能",@"ヘルプ機能",@"お問合せ機能",@""];
+    _titleArray = @[@"見守り\n設定" ,@"ユーザ\n情報",@"管理者\n機能",@"ヘルプ\n機能",@"お問合せ\n機能",@""];
     
     //-----お問合せ
     
@@ -106,11 +106,11 @@
         //        alldropArray = nil;
         //        imagesArray = nil;
         //        tmpimagesArray = nil;
-        //        facitilityname = nil;
-        //        [NITUserDefaults setObject:alldropArray forKey:@"FacilityList"];
-        //        [NITUserDefaults setObject:imagesArray forKey:@"CellImagesName"];
-        //        [NITUserDefaults setObject:tmpimagesArray forKey:@"TempcellImagesName"];
-        //        [NITUserDefaults setObject:facitilityname forKey:@"TempFacilityName"];
+        NSArray *arr = nil;
+        [NITUserDefaults setObject:arr forKey:@"FacilityList"];
+        [NITUserDefaults setObject:arr forKey:@"CellImagesName"];
+        [NITUserDefaults setObject:arr forKey:@"TempcellImagesName"];
+        [NITUserDefaults setObject:arr forKey:@"TempFacilityName"];
         
         // 清除缓存
         NSString*appDomain = [[NSBundle mainBundle] bundleIdentifier];

@@ -32,7 +32,7 @@
 }
 
 -(void)setUI {
-    _titleArray = @[@"設置場所マスタ" ,@"企業マスタ",@"施設マスタ",@"シナリオマスタ"];
+    _titleArray = @[@"設置場所\nマスタ" ,@"企業\nマスタ",@"施設\nマスタ",@"シナリオ\nマスタ"];
     //创建一个layout布局类
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     
@@ -84,6 +84,8 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
     return 10.0f;
 }
+
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.MasterUser isEqualToString:@"2"]) return;

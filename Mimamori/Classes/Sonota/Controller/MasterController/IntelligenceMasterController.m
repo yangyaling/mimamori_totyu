@@ -20,6 +20,9 @@
 @property (nonatomic, assign) BOOL                    isEdit;
 @property (nonatomic, strong) NSMutableArray          *allDatas;
 
+@property (strong, nonatomic) IBOutlet UILabel *cpLabel2;
+@property (strong, nonatomic) IBOutlet UILabel *cpLabel1;
+
 @end
 
 @implementation IntelligenceMasterController
@@ -29,6 +32,9 @@
     self.footView.height = 0;
     self.footView.alpha = 0;
     
+    
+    self.cpLabel1.text = @"企業コード\n／イニシャル";
+    self.cpLabel2.text = @"企業名\n／企業名カナ";
     // 権限
     usertype = USERTYPE;
     if ([usertype isEqualToString:@"1"]) {

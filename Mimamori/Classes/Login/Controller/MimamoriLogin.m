@@ -150,17 +150,12 @@
             [NITUserDefaults setObject:array[0] forKey:@"TempFacilityName"];
             [NITUserDefaults synchronize];
             
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view];
+                [self performSegueWithIdentifier:@"gotomain" sender:self];
+            });
             
-            [MLoginTool sessionInfoWithParam:param success:^(NSArray *array) {
-                [MBProgressHUD hideHUDForView:self.view];
-                if (array.count > 0) {
-                    [MBProgressHUD hideHUD];
-                    [self performSegueWithIdentifier:@"gotomain" sender:self];
-                }
-            } failure:^(NSError *error) {
-                [MBProgressHUD hideHUDForView:self.view];
-                NITLog(@"请求失败:%@",error);
-            }];
+            
             
         } else {
             [MBProgressHUD hideHUDForView:self.view];

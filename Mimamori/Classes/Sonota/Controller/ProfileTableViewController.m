@@ -126,7 +126,7 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [MBProgressHUD hideHUDForView:self.tableView];
+    [MBProgressHUD hideHUDForView:self.navigationController.view];
 }
 
 
@@ -140,7 +140,7 @@
 -(GGActionSheet *)actionSheetTitle {
     
     if (!_actionSheetTitle) {
-        _actionSheetTitle = [GGActionSheet ActionSheetWithTitleArray:@[@"写真を撮る",@"ローカルアルバム",@"写真を拡大する"] andTitleColorArray:@[NITColor(252, 85, 115),[UIColor darkGrayColor],[UIColor darkGrayColor]] delegate:self];
+        _actionSheetTitle = [GGActionSheet ActionSheetWithTitleArray:@[@"写真を撮る",@"アルバムから取得",@"写真を拡大する"] andTitleColorArray:@[NITColor(252, 85, 115),[UIColor darkGrayColor],[UIColor darkGrayColor]] delegate:self];
         _actionSheetTitle.cancelDefaultColor = [UIColor lightGrayColor];
     }
     return _actionSheetTitle;
@@ -197,7 +197,7 @@
  */
 -(void)updateProfileInfo{
     
-    [MBProgressHUD showMessage:@"" toView:WindowView];
+    [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     
     NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
     // 请求参数
@@ -227,26 +227,27 @@
 //    NITLog(@"%@\n%@\n照片：2 ---%@",self.userid0,updatedate,self.imagedata);
     //
     [MProfileTool profileInfoUpdateImageWithParam:iconM withImageDatas:nil success:^(NSString *path) {
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         [NITUserDefaults setObject:self.imagedata forKey:self.userid0];
         NITLog(@"%@",path);
         [MProfileTool profileInfoUpdateWithParam:param success:^(NSString *code) {
-            [MBProgressHUD showSuccess:@"更新しました！"];
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [MBProgressHUD showSuccess:@"更新しました！" toView:self.navigationController.view];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 
                 [self.navigationController popViewControllerAnimated:YES];
             });
             
         } failure:^(NSError *error) {
-            [MBProgressHUD showError:@"後ほど試してください"];
+            [MBProgressHUD showError:@"後ほど試してください" toView:self.navigationController.view];
             NITLog(@"zwupdatecustinfo请求失败");
         }];
         //http://mimamori2.azurewebsites.net/upload/0002.jpg
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         NITLog(@"%@",error.localizedDescription);
-        [MBProgressHUD showError:@"アップロード失敗"];
+        [MBProgressHUD showError:@"アップロード失敗" toView:self.navigationController.view];
     }];
 }
 
@@ -262,42 +263,42 @@
 //        [MBProgressHUD showError:@"氏名を入力して下さい"];
 //        return;
 //    }
-    if (!self.sex.text.length) {
-        [MBProgressHUD showError:@"性别を入力して下さい" toView:self.tableView];
-//        [MBProgressHUD showError: ];
-        return;
-    }
+//    if (!self.sex.text.length) {
+//        [MBProgressHUD showError:@"性别を入力して下さい" toView:self.tableView];
+////        [MBProgressHUD showError: ];
+//        return;
+//    }
     
-    if (!self.birthday.text.length) {
-        [MBProgressHUD showError:@"誕生日を入力して下さい"];
-        return;
-    }
+//    if (!self.birthday.text.length) {
+//        [MBProgressHUD showError:@"誕生日を入力して下さい"];
+//        return;
+//    }
     
 //    if (!self.address.text.length) {
 //        [MBProgressHUD showError:@"現住所を入力して下さい"];
 //        return;
 //    }
     
-    if (!self.kakaritsuke.text.length) {
-        [MBProgressHUD showError:@"かかりつけ医を入力して下さい"];
-        return;
-    }
-    
-    if (!self.drug.text.length) {
-        [MBProgressHUD showError:@"服薬情報を入力して下さい"];
-        return;
-    }
-    
-    if (!self.health.text.length) {
-        [MBProgressHUD showError:@"健康診断結果を入力してください"];
-        return;
-    }
-    
-    if (!self.other.text.length) {
-        [MBProgressHUD showError:@"その他お願い事項を入力してください"];
-        return;
-    }
-    
+//    if (!self.kakaritsuke.text.length) {
+//        [MBProgressHUD showError:@"かかりつけ医を入力して下さい"];
+//        return;
+//    }
+//    
+//    if (!self.drug.text.length) {
+//        [MBProgressHUD showError:@"服薬情報を入力して下さい"];
+//        return;
+//    }
+//    
+//    if (!self.health.text.length) {
+//        [MBProgressHUD showError:@"健康診断結果を入力してください"];
+//        return;
+//    }
+//    
+//    if (!self.other.text.length) {
+//        [MBProgressHUD showError:@"その他お願い事項を入力してください"];
+//        return;
+//    }
+//    
     [self updateProfileInfo];
     
 }
@@ -352,12 +353,12 @@
 -(void)GGActionSheetClickWithIndex:(int)index{
     
     if (index == 0) {
-        [MBProgressHUD showMessage:@"" toView:WindowView];
+        [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
         _imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [self presentViewController:_imagePicker animated:YES completion:nil];
         
     } else if (index == 1) {
-        [MBProgressHUD showMessage:@"" toView:WindowView];
+        [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
         _imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         
         [self presentViewController:_imagePicker animated:YES completion:nil];
@@ -428,7 +429,7 @@
 #pragma mark --  imagePicker delegate Action
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
-    [MBProgressHUD hideHUDForView:WindowView];
+    [MBProgressHUD hideHUDForView:self.navigationController.view];
     
     if (picker.allowsEditing) {
         UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
@@ -474,7 +475,7 @@
 
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [MBProgressHUD hideHUDForView:WindowView];
+    [MBProgressHUD hideHUDForView:self.navigationController.view];
     UIViewController *vc = picker;
     while (vc.presentingViewController) {
         vc = vc.presentingViewController;

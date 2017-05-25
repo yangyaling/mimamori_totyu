@@ -57,13 +57,13 @@
 //    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
 //    //UserInfo
     
-    [MBProgressHUD showMessage:@"" toView:WindowView];
+    [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated{
     
-    [MBProgressHUD hideHUD];
+    [MBProgressHUD hideHUDForView:self.navigationController.view];
     
 }
 
@@ -75,14 +75,14 @@
 
 - (void)GetGroupInfo {
     [MHttpTool postWithURL:NITGetGroupInfo params:nil success:^(id json) {
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         if (json) {
             NSArray *dateArray = [json objectForKey:@"groupinfo"];
             self.allGroupData = dateArray.count > 0 ? [NSMutableArray arrayWithArray:dateArray] : [NSMutableArray new];
             [self.groupPicker reloadAllComponents];
         }
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         NITLog(@"groupinfo为空");
     }];
 }
@@ -128,7 +128,7 @@
 
 
 -(void)updateUserInfo{
-    [MBProgressHUD showMessage:@"" toView:WindowView];
+    [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     
     
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
@@ -147,7 +147,7 @@
     
     [MHttpTool postWithURL:NITUpdateUserInfo params:parametersDict success:^(id json) {
         
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         //更新模型
         self.user.nickname = self.nickName.text;
         self.user.email = self.email.text;
@@ -161,7 +161,7 @@
         
     } failure:^(NSError *error) {
         
-        [MBProgressHUD hideHUDForView:WindowView];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
         NITLog(@"zwupdateuserinfo请求失败");
         
         [MBProgressHUD showError:@"後ほど試してください"];

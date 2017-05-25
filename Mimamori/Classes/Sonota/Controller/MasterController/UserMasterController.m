@@ -132,10 +132,8 @@
         [self ViewAnimateStatas:120];
         
         
-       //[self.tableView setEditing:YES animated:YES];
+       [self.tableView setEditing:YES animated:YES];
 
-        //进入编辑状态
-//        [self.tableView setEditing:YES animated:YES];///////////
     }else{
         
         
@@ -145,9 +143,9 @@
         
     }
     
-//    [CATransaction setCompletionBlock:^{
+    [CATransaction setCompletionBlock:^{
         [self.tableView reloadData];
-//    }];
+    }];
     
 }
 
@@ -175,7 +173,19 @@
         NSString *staffidstr = [NSString stringWithFormat:@"%@%05i",fiststr,(int)numId];
         
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
-        [arr addObject:@{@"nickname":@"",@"staffid":staffidstr,@"usertype":@"",@"usertypename":@""}];
+        
+        [arr addObject:@{
+                         @"nickname":@"",
+                         
+                         @"staffid":staffidstr,
+                         
+                         @"usertype":@"",
+                         
+                         @"oldusertype":@"",
+                         
+                         @"usertypename":@""
+                         
+                         }];
         [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
         
         self.numxxid++;
@@ -224,7 +234,7 @@
                 [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
                 [MBProgressHUD showSuccess:@""];
                
-                //            [self.tableView setEditing:NO animated:YES];
+                [self.tableView setEditing:NO animated:YES];
                 
                 self.footView.height = 0;
                 self.footView.alpha = 0;
@@ -292,5 +302,126 @@
         return UITableViewCellEditingStyleDelete;
     }
 }
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        [NITDeleteAlert SharedAlertShowMessage:@"設定情報を削除します、よろしいですか。" andControl:self withOk:^(BOOL isOk) {
+            [MBProgressHUD showMessage:@"" toView:self.view];
+            NSMutableArray *array = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
+            NSDictionary *dic = array[indexPath.row];
+            
+            NSString *utype = [NSString stringWithFormat:@"%@", dic[@"usertype"]];
+            
+            
+            if ([dic[@"oldusertype"] isEqualToString:@""]) {
+                [MBProgressHUD hideHUDForView:self.view];
+                
+                [array removeObjectAtIndex:indexPath.row];
+                [NITUserDefaults setObject:array forKey:@"STAFFINFO"];
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                
+                [MBProgressHUD showSuccess:@""];
+            } else {
+                NSString *staffid = dic[@"staffid"];
+                
+                NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
+                
+                NSDictionary *pdic = @{
+                                       
+                                       @"staffid":staffid,
+                                       
+                                       @"facilitycd":facd
+                                       
+                                       };
+                if ([usertype isEqualToString:@"2"] && [utype isEqualToString:@"1"]) {
+                    [MBProgressHUD hideHUDForView:self.view];
+                    [MBProgressHUD showError:@""];
+                    
+                } else if ([usertype isEqualToString:@"1"]) {
+                    [MHttpTool postWithURL:NITDeleteStaffInfo params:pdic success:^(id json) {
+                        
+                        [MBProgressHUD hideHUDForView:self.view];
+                        
+                        if (json) {
+                            
+                            NSString *code = [json objectForKey:@"code"];
+                            
+                            NITLog(@"%@",code);
+                            
+                            if ([code isEqualToString:@"200"]) {
+                                
+                                [MBProgressHUD showSuccess:@""];
+                                
+                                [array removeObjectAtIndex:indexPath.row];
+                                [NITUserDefaults setObject:array forKey:@"STAFFINFO"];
+                                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                                
+                                [self.tableView.mj_header beginRefreshing];
+                                
+                            } else {
+                                
+                                [MBProgressHUD showError:@""];
+                                
+                            }
+                            [CATransaction setCompletionBlock:^{
+                                [self.tableView reloadData];
+                            }];
+                        }
+                        
+                    } failure:^(NSError *error) {
+                        [MBProgressHUD hideHUDForView:self.view];
+                        NITLog(@"%@",error);
+                    }];
+
+                } else {
+                    
+                    [MHttpTool postWithURL:NITDeleteStaffInfo params:pdic success:^(id json) {
+                        
+                        [MBProgressHUD hideHUDForView:self.view];
+                        
+                        if (json) {
+                            
+                            NSString *code = [json objectForKey:@"code"];
+                            
+                            NITLog(@"%@",code);
+                            
+                            if ([code isEqualToString:@"200"]) {
+                                
+                                [MBProgressHUD showSuccess:@""];
+                                
+                                [array removeObjectAtIndex:indexPath.row];
+                                [NITUserDefaults setObject:array forKey:@"STAFFINFO"];
+                                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                                
+                                [self.tableView.mj_header beginRefreshing];
+                                
+                            } else {
+                                
+                                [MBProgressHUD showError:@""];
+                                
+                            }
+                            [CATransaction setCompletionBlock:^{
+                                [self.tableView reloadData];
+                            }];
+                        }
+                        
+                    } failure:^(NSError *error) {
+                        [MBProgressHUD hideHUDForView:self.view];
+                        NITLog(@"%@",error);
+                    }];
+
+                }
+            }
+            
+        }];
+        
+    }
+    
+}
+
 
 @end

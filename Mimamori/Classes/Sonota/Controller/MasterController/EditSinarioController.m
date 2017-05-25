@@ -333,12 +333,12 @@
 }
 
 - (IBAction)saveInfo:(UIButton *)sender {
-    NSString *nodetypestr = [NSString stringWithFormat:@"%d", self.ariSegment.selectedSegmentIndex + 1];
+    NSString *nodetypestr = [NSString stringWithFormat:@"%ld", self.ariSegment.selectedSegmentIndex + 1];
     NSMutableArray *tmparray = [self saveScenario]; //本地检测是否 - -
     [tmparray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:obj];
         [dict setObject:nodetypestr forKey:@"nodetype"];
-        if (self.ariSegment.selectedSegmentIndex == 0) {
+        if ([nodetypestr isEqualToString:@"2"]) {
             if ([dict[@"devicetype"] isEqualToString:@"4"]) {
                 [dict setObject:@"5" forKey:@"devicetype"];
                 [dict setObject:@"使用なし" forKey:@"rpoint"];
