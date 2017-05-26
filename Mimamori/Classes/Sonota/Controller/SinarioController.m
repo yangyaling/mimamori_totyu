@@ -216,11 +216,13 @@
                 //模板里的第一个与选择的雏形进行合并
                 NSArray *allarr = [self ScenarioModelDatasUpdate:tmpArr[0] andNewArray:tmpModelArr[arcModelNo]];
                 
+                if (allarr.count == 0) return;
+                
                 NSMutableArray *reparr = [NSMutableArray arrayWithArray:tmpArr.mutableCopy];
                 
                 [reparr replaceObjectAtIndex:0 withObject:allarr];
                 
-                if (allarr.count == 0) return;
+                
                 
                 [self.allarray removeAllObjects];
                 
@@ -273,6 +275,10 @@
 
 - (NSArray *)ScenarioModelDatasUpdate:(NSArray *)oldarray andNewArray:(NSArray *)newarray {
     
+    if (oldarray.count == 0) {
+        [MBProgressHUD showError:@""];
+        return nil;
+    }
     
     NSMutableArray *allarr = [NSMutableArray new];
     for (NSDictionary *obj in oldarray) {

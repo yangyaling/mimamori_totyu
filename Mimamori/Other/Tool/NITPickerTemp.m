@@ -65,13 +65,14 @@
     if (self) {
         
         switch (selectbutton.tag) {
-                //            case 11:
-                //                scenariotype =0;
-                //                break;
+                
+            
+            case 99:
+                scenariotype =0;
+                break;
             case 22:
             case 33:
             case 44:
-            case 99:
                 scenariotype =1;
                 break;
             case 55:
@@ -166,6 +167,9 @@
 -(void)defaultselect{
     
     switch (scenariotype) {
+        case 0:
+            select = self.time[0];
+            break;
         case 1:
             select = self.time[0];
             break;
@@ -257,13 +261,13 @@
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     
-    if (scenariotype == 1  || scenariotype == 2 || scenariotype == 3 || scenariotype == 4 || scenariotype == 8 ) {
+    if (scenariotype == 0  || scenariotype == 1  || scenariotype == 2 || scenariotype == 3 || scenariotype == 4 || scenariotype == 8 ) {
         
 
         NSData *data = [NITUserDefaults objectForKey:@"EDITSINARIOINFO"];
 
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
-//        NSArray *deletearr = arr[self.cellindex];
+        
         NSMutableArray *newarr = [NSMutableArray new];
         
         NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:arr[0]];
@@ -310,8 +314,6 @@
         [newarr addObject:dicTwo];
         [newarr addObject:dicThree];
         [newarr addObject:dicFour];
-        
-//        [arr replaceObjectAtIndex:self.cellindex withObject:newarr];
         
         
         NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:newarr];
@@ -430,9 +432,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
     
-    if (scenariotype==0) {
-        return self.names.count;
-    }else if(scenariotype==1){
+    if(scenariotype==0 || scenariotype == 1){
         return self.time.count;
     }else if(scenariotype == 2 || scenariotype == 3 ||scenariotype == 4){
         if (component == 0) {
@@ -533,7 +533,7 @@
     } else {
         text.frame = pickerlabelframe2;
         
-        if(scenariotype==1){
+        if(scenariotype==0 || scenariotype == 1){
             
             text.text = self.time[row];
             
@@ -562,9 +562,7 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     //    [_nitpicker viewForRow:row forComponent:component];
     
-    if (scenariotype==0) {
-        select = [self.names[row] objectForKey:@"displayname"];
-    }else if(scenariotype==1){
+     if(scenariotype==0 || scenariotype == 1){
         select = self.time[row];
     } else if(scenariotype == 2 || scenariotype == 3 ||scenariotype == 4){
         if (component == 0) {
@@ -735,8 +733,15 @@
     if (!_time) {
         _time = [NSMutableArray new];
         [_time addObject:@"-"];
-        for (int i = 1; i<48; i++) {
-            [_time addObject:[NSString stringWithFormat:@"%.1fH",i / 2.0]];
+        if (scenariotype == 0) {
+            [_time addObject:@"0H"];
+            for (int i = 1; i<48; i++) {
+                [_time addObject:[NSString stringWithFormat:@"%.1fH",i / 2.0]];
+            }
+        } else {
+            for (int i = 1; i<48; i++) {
+                [_time addObject:[NSString stringWithFormat:@"%.1fH",i / 2.0]];
+            }
         }
     }
     return _time;
@@ -805,7 +810,9 @@
     return _names;
 }
 
+
 -(NSMutableArray *)userList {
+    
     if (!_userList) {
         
         NSArray *arr = [NITUserDefaults objectForKey:@"usertypelist"];
@@ -813,8 +820,10 @@
         _userList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
         
     }
+    
     return _userList;
 }
+
 
 -(NSMutableArray *)custList {
     if (!_custList) {
@@ -825,9 +834,13 @@
 }
 
 -(NSMutableArray *)roomList {
+    
     if (!_roomList) {
+        
         NSArray *arr = [NITUserDefaults objectForKey:@"ROOMLISTKEY"];
+        
         _roomList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
+        
     }
     return _roomList;
 }

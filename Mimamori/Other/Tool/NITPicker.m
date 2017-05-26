@@ -68,11 +68,12 @@
     if (self) {
         
         switch (selectbutton.tag) {
-                
+            case 99:
+                scenariotype =0;
+                break;
             case 22:
             case 33:
             case 44:
-            case 99:
                 scenariotype =1;
                 break;
             case 55:
@@ -171,6 +172,9 @@
 -(void)defaultselect{
     
     switch (scenariotype) {
+        case 0:
+            select = self.time[0];
+            break;
         case 1:
             select = self.time[0];
             break;
@@ -264,7 +268,7 @@
         NSString *str = [NSString stringWithFormat:@"%@%@",select,select2];
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    } else  if (scenariotype == 1) {
+    } else  if (scenariotype == 0 || scenariotype == 1) {
         NSString *str = [NSString stringWithFormat:@"%@H",select];
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -274,15 +278,8 @@
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     
-    if (scenariotype == 1  || scenariotype == 2 || scenariotype == 3 || scenariotype == 4 || scenariotype == 8 ) {
-        if (self.cellindex == 10000) {
-            NSData *data = [NITUserDefaults objectForKey:@"EDITSINARIOINFO"];
-            NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
-            
-            NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:arr];
-            [NITUserDefaults setObject:newdata forKey:@"EDITSINARIOINFO"];
-            
-        }
+    if (scenariotype == 0  || scenariotype == 1  || scenariotype == 2 || scenariotype == 3 || scenariotype == 4 || scenariotype == 8 ) {
+        
         NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
     
     
@@ -476,9 +473,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
     
-    if (scenariotype==0) {
-        return self.names.count;
-    }else if(scenariotype==1){
+    if(scenariotype==0 || scenariotype == 1){
         return self.time.count;
     }else if(scenariotype == 2 || scenariotype == 3 ||scenariotype == 4){
         if (component == 0) {
@@ -584,7 +579,7 @@
     } else {
         text.frame = pickerlabelframe2;
         
-        if(scenariotype==1){
+        if(scenariotype==0 || scenariotype == 1){
             
             text.text = self.time[row];
             
@@ -622,9 +617,7 @@
 
     selectdic = nil;
     
-    if (scenariotype==0) {
-        select = [self.names[row] objectForKey:@"displayname"];
-    }else if(scenariotype==1){
+     if(scenariotype==0 || scenariotype == 1){
         select = self.time[row];
     } else if(scenariotype == 2 || scenariotype == 3 ||scenariotype == 4){
         if (component == 0) {
@@ -803,8 +796,15 @@
     if (!_time) {
         _time = [NSMutableArray new];
         [_time addObject:@"-"];
-        for (int i = 1; i<48; i++) {
-            [_time addObject:[NSString stringWithFormat:@"%.1f",i / 2.0]];
+        if (scenariotype == 0) {
+            [_time addObject:@"0"];
+            for (int i = 1; i<48; i++) {
+                [_time addObject:[NSString stringWithFormat:@"%.1f",i / 2.0]];
+            }
+        } else {
+            for (int i = 1; i<48; i++) {
+                [_time addObject:[NSString stringWithFormat:@"%.1f",i / 2.0]];
+            }
         }
     }
     return _time;

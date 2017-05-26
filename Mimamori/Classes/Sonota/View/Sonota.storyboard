@@ -506,7 +506,7 @@
                                     <outlet property="delegate" destination="Qhf-y6-pZx" id="0hE-BQ-wlG"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Awx-Yq-g7P">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Awx-Yq-g7P" customClass="AnimationView">
                                 <rect key="frame" x="5" y="233" width="310" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXi-td-oxp">
@@ -600,6 +600,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="companyName" destination="YdC-W1-Rby" id="VeA-er-AU4"/>
+                        <outlet property="editAnimationView" destination="Awx-Yq-g7P" id="P9a-Ip-yVT"/>
+                        <outlet property="editAnimationViewLayout" destination="lwm-TR-iL5" id="r90-Mj-juu"/>
                         <outlet property="editButton" destination="tPJ-Mz-GhZ" id="4Sd-jC-CGY"/>
                         <outlet property="facilityBtn" destination="9OV-gV-90p" id="qbf-LM-Sub"/>
                         <outlet property="facilityName" destination="LN6-C6-R72" id="hde-CQ-wPY"/>
@@ -1321,7 +1323,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFn-es-fuj">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFn-es-fuj" customClass="AnimationView">
                                 <rect key="frame" x="5" y="228" width="310" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbm-bg-qXs">
@@ -1585,6 +1587,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="companyName" destination="TMc-dB-vu1" id="v9f-vl-2Xr"/>
+                        <outlet property="editAnimationView" destination="eFn-es-fuj" id="qHm-cz-YGc"/>
+                        <outlet property="editAnimationViewLayout" destination="3cY-Yw-OuY" id="pQB-cz-j9F"/>
                         <outlet property="editButton" destination="uBQ-C2-51m" id="Jqo-tF-7uh"/>
                         <outlet property="facilityBtn" destination="Mno-SD-fLf" id="X13-sw-72B"/>
                         <outlet property="facilityName" destination="3S2-dy-C9Q" id="Vmu-nN-7WB"/>
@@ -2441,18 +2445,18 @@
                                     <outlet property="delegate" destination="cZz-Gr-eFp" id="rLW-sr-339"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grE-oY-0eW">
-                                <rect key="frame" x="0.0" y="99" width="320" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grE-oY-0eW" customClass="AnimationView">
+                                <rect key="frame" x="5" y="99" width="310" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4O5-cS-X16">
-                                        <rect key="frame" x="1" y="1" width="105.5" height="48"/>
+                                        <rect key="frame" x="1" y="1" width="102" height="48"/>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.29411764709999999" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH8-vi-Dpx">
-                                        <rect key="frame" x="107.5" y="1" width="211.5" height="48"/>
+                                        <rect key="frame" x="104" y="1" width="205" height="48"/>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.29411764709999999" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2477,11 +2481,11 @@
                         <constraints>
                             <constraint firstItem="ud5-fi-0i9" firstAttribute="top" secondItem="grE-oY-0eW" secondAttribute="bottom" id="1j8-0h-0aS"/>
                             <constraint firstItem="pPe-Rj-S5B" firstAttribute="top" secondItem="0Gr-d4-35F" secondAttribute="bottom" id="1u1-U4-rVA"/>
-                            <constraint firstAttribute="trailing" secondItem="grE-oY-0eW" secondAttribute="trailing" id="2hq-94-m2G"/>
+                            <constraint firstAttribute="trailing" secondItem="grE-oY-0eW" secondAttribute="trailing" constant="5" id="2hq-94-m2G"/>
                             <constraint firstAttribute="trailing" secondItem="pPe-Rj-S5B" secondAttribute="trailing" id="8K7-ty-LGx"/>
                             <constraint firstItem="Jhc-FR-pVq" firstAttribute="top" secondItem="ud5-fi-0i9" secondAttribute="bottom" id="NyT-i7-0dI"/>
                             <constraint firstItem="pPe-Rj-S5B" firstAttribute="leading" secondItem="whj-R7-Gie" secondAttribute="leading" id="OPI-36-P1I"/>
-                            <constraint firstItem="grE-oY-0eW" firstAttribute="leading" secondItem="whj-R7-Gie" secondAttribute="leading" id="QQC-xt-v9D"/>
+                            <constraint firstItem="grE-oY-0eW" firstAttribute="leading" secondItem="whj-R7-Gie" secondAttribute="leading" constant="5" id="QQC-xt-v9D"/>
                             <constraint firstItem="ud5-fi-0i9" firstAttribute="leading" secondItem="whj-R7-Gie" secondAttribute="leading" id="cKK-RE-Ipb"/>
                             <constraint firstItem="grE-oY-0eW" firstAttribute="top" secondItem="pPe-Rj-S5B" secondAttribute="bottom" id="qiD-tV-VeF"/>
                             <constraint firstAttribute="trailing" secondItem="ud5-fi-0i9" secondAttribute="trailing" id="zGe-AJ-kES"/>
@@ -2504,6 +2508,8 @@
                     <connections>
                         <outlet property="cpLabel1" destination="4O5-cS-X16" id="6HH-cI-KoP"/>
                         <outlet property="cpLabel2" destination="SH8-vi-Dpx" id="7Iu-E1-X8N"/>
+                        <outlet property="editAnimationView" destination="grE-oY-0eW" id="U9s-tq-O8O"/>
+                        <outlet property="editAnimationViewLayout" destination="QQC-xt-v9D" id="gNH-JB-Zu0"/>
                         <outlet property="editButton" destination="PgN-hY-ieQ" id="xuV-k7-04U"/>
                         <outlet property="facilityBtn" destination="ZmF-K0-uJX" id="kXs-9N-419"/>
                         <outlet property="footView" destination="DAL-aL-hFC" id="Qac-Pl-muG"/>
@@ -3670,18 +3676,18 @@
                                     <outlet property="delegate" destination="jrk-tz-s9S" id="gbt-hg-1Kt"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u8W-Y5-Kvn">
-                                <rect key="frame" x="0.0" y="99" width="320" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u8W-Y5-Kvn" customClass="AnimationView">
+                                <rect key="frame" x="5" y="99" width="310" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="設置コード" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXT-A8-Yu8">
-                                        <rect key="frame" x="1" y="1" width="106" height="28"/>
+                                        <rect key="frame" x="1" y="1" width="102" height="28"/>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.29411764709999999" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="設置場所" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXb-i9-kEp">
-                                        <rect key="frame" x="108" y="1" width="211" height="28"/>
+                                        <rect key="frame" x="104" y="1" width="205" height="28"/>
                                         <color key="backgroundColor" red="0.98431372549019602" green="0.29411764705882354" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3705,12 +3711,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="SNx-A2-mVQ" secondAttribute="trailing" id="9ma-Vf-Pyi"/>
-                            <constraint firstItem="u8W-Y5-Kvn" firstAttribute="leading" secondItem="6Lm-b8-Dkj" secondAttribute="leading" id="MlS-ob-YUc"/>
+                            <constraint firstItem="u8W-Y5-Kvn" firstAttribute="leading" secondItem="6Lm-b8-Dkj" secondAttribute="leading" constant="5" id="MlS-ob-YUc"/>
                             <constraint firstItem="u8W-Y5-Kvn" firstAttribute="top" secondItem="c3c-DL-UjQ" secondAttribute="bottom" id="Nfw-dC-22c"/>
                             <constraint firstItem="1zj-x6-mKL" firstAttribute="top" secondItem="SNx-A2-mVQ" secondAttribute="bottom" id="PF4-hg-5wa"/>
                             <constraint firstItem="c3c-DL-UjQ" firstAttribute="top" secondItem="Cwz-3w-qwI" secondAttribute="bottom" id="T9l-9M-Q22"/>
                             <constraint firstItem="c3c-DL-UjQ" firstAttribute="leading" secondItem="6Lm-b8-Dkj" secondAttribute="leading" id="TNF-7W-E9J"/>
-                            <constraint firstAttribute="trailing" secondItem="u8W-Y5-Kvn" secondAttribute="trailing" id="ZPo-tZ-Qvk"/>
+                            <constraint firstAttribute="trailing" secondItem="u8W-Y5-Kvn" secondAttribute="trailing" constant="5" id="ZPo-tZ-Qvk"/>
                             <constraint firstItem="SNx-A2-mVQ" firstAttribute="top" secondItem="u8W-Y5-Kvn" secondAttribute="bottom" id="ZVO-wE-Zf8"/>
                             <constraint firstItem="SNx-A2-mVQ" firstAttribute="leading" secondItem="6Lm-b8-Dkj" secondAttribute="leading" id="mYb-fY-bWS"/>
                             <constraint firstAttribute="trailing" secondItem="c3c-DL-UjQ" secondAttribute="trailing" id="nHm-wA-5CW"/>
@@ -3730,6 +3736,8 @@
                         </userDefinedRuntimeAttributes>
                     </navigationItem>
                     <connections>
+                        <outlet property="editAnimationView" destination="u8W-Y5-Kvn" id="ugz-UV-owL"/>
+                        <outlet property="editAnimationViewLayout" destination="MlS-ob-YUc" id="Enh-dz-G8a"/>
                         <outlet property="editButton" destination="ahc-A9-yQG" id="BGg-EL-Lcm"/>
                         <outlet property="facilityBtn" destination="xeO-3a-bMu" id="mLH-X8-GWc"/>
                         <outlet property="footView" destination="2Ge-Av-amZ" id="Y9L-J8-kaJ"/>
@@ -5433,7 +5441,7 @@
         <scene sceneID="skt-co-FUo">
             <objects>
                 <tableViewController id="lau-El-7g5" customClass="SelfViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="30" sectionFooterHeight="30" id="1dw-6x-OQd" customClass="NITTableViewKeyBoardInherit">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="30" sectionFooterHeight="30" id="1dw-6x-OQd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -6503,7 +6511,7 @@
                                     <outlet property="delegate" destination="Mud-xg-hrM" id="J2z-Bk-rFp"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxM-Iv-lGr">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxM-Iv-lGr" customClass="AnimationView">
                                 <rect key="frame" x="5" y="257" width="310" height="26"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="階" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OH1-d7-l9g">
@@ -6611,6 +6619,8 @@
                         </userDefinedRuntimeAttributes>
                     </navigationItem>
                     <connections>
+                        <outlet property="editAnimationView" destination="cxM-Iv-lGr" id="Rde-ff-QVX"/>
+                        <outlet property="editAnimationViewLayout" destination="nMI-2M-xot" id="hJE-hG-ijj"/>
                         <outlet property="editButton" destination="YBu-Fo-RxE" id="k6u-1P-9Ts"/>
                         <outlet property="facilityBtn" destination="bUa-hF-wYE" id="JCJ-eG-MVX"/>
                         <outlet property="facilityName1" destination="5wj-pW-A0e" id="Ung-WL-r2Z"/>

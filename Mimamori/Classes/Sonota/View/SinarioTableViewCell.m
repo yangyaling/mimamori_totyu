@@ -22,15 +22,6 @@
     [super awakeFromNib];
 }
 
-//+ (instancetype)cellWithTableView:(UITableView *)tableView {
-//
-//    SinarioTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SinarioTableViewCell"];
-//    if (!cell) {
-//        cell = [[NSBundle mainBundle] loadNibNamed:@"SinarioTableViewCell" owner:self options:nil].firstObject;
-////
-//    }
-//    return cell;
-//}
 
 - (IBAction)PickShow:(UIButton *)sender {
     _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];

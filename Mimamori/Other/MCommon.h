@@ -51,6 +51,8 @@
 #define WindowView [UIApplication sharedApplication].windows.lastObject
 
 
+//跟着tableview编辑状态走的view
+#import "AnimationView.h"
 // ユーザ分類　x;1;2;3
 
 

@@ -130,6 +130,7 @@
 		E9D445AA1D010FE600CFF364 /* MimamoriTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D445A91D010FE600CFF364 /* MimamoriTests.m */; };
 		E9D445B51D010FE600CFF364 /* MimamoriUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D445B41D010FE600CFF364 /* MimamoriUITests.m */; };
 		E9D445DE1D0112AD00CFF364 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D445DD1D0112AD00CFF364 /* AppDelegate.m */; };
+		EB06C2471ED7D3F600B4DED6 /* AnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB06C2461ED7D3F600B4DED6 /* AnimationView.m */; };
 		EB0EE8AF1EB216B000254CB7 /* PopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EB0EE8AE1EB216B000254CB7 /* PopButton.m */; };
 		EB4926C01ECD30120008DE8A /* NITDeleteAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4926BF1ECD30120008DE8A /* NITDeleteAlert.m */; };
 		EB4926C31ED2955F0008DE8A /* UpdatePassWordController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4926C21ED2955F0008DE8A /* UpdatePassWordController.m */; };
@@ -176,7 +177,6 @@
 		EB9C92E11E01367400F3132C /* AddTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9C92DF1E01367400F3132C /* AddTableViewCell.xib */; };
 		EB9C92E71E0157CD00F3132C /* SinarioController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C92E61E0157CD00F3132C /* SinarioController.m */; };
 		EB9C92EB1E015BBC00F3132C /* SinarioTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C92E91E015BBC00F3132C /* SinarioTableViewCell.m */; };
-		EB9C92EC1E015BBC00F3132C /* SinarioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB9C92EA1E015BBC00F3132C /* SinarioTableViewCell.xib */; };
 		EB9C92EF1E02425600F3132C /* LifeChartController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C92EE1E02425600F3132C /* LifeChartController.m */; };
 		EB9C930B1E026A2900F3132C /* ZworksChartVTBCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C93091E026A2900F3132C /* ZworksChartVTBCell.m */; };
 		EB9C93281E02730F00F3132C /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = EB9C93241E02730F00F3132C /* MBProgressHUD+MJ.m */; };
@@ -475,6 +475,8 @@
 		E9D445DC1D0112AD00CFF364 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E9D445DD1D0112AD00CFF364 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E9D445DF1D0112E800CFF364 /* Mimamori.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mimamori.pch; sourceTree = "<group>"; };
+		EB06C2451ED7D3F600B4DED6 /* AnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationView.h; sourceTree = "<group>"; };
+		EB06C2461ED7D3F600B4DED6 /* AnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationView.m; sourceTree = "<group>"; };
 		EB0EE8AD1EB216B000254CB7 /* PopButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopButton.h; sourceTree = "<group>"; };
 		EB0EE8AE1EB216B000254CB7 /* PopButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopButton.m; sourceTree = "<group>"; };
 		EB4926BE1ECD30120008DE8A /* NITDeleteAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITDeleteAlert.h; sourceTree = "<group>"; };
@@ -562,7 +564,6 @@
 		EB9C92E61E0157CD00F3132C /* SinarioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinarioController.m; sourceTree = "<group>"; };
 		EB9C92E81E015BBC00F3132C /* SinarioTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinarioTableViewCell.h; sourceTree = "<group>"; };
 		EB9C92E91E015BBC00F3132C /* SinarioTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinarioTableViewCell.m; sourceTree = "<group>"; };
-		EB9C92EA1E015BBC00F3132C /* SinarioTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SinarioTableViewCell.xib; sourceTree = "<group>"; };
 		EB9C92ED1E02425600F3132C /* LifeChartController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeChartController.h; sourceTree = "<group>"; };
 		EB9C92EE1E02425600F3132C /* LifeChartController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeChartController.m; sourceTree = "<group>"; };
 		EB9C93081E026A2900F3132C /* ZworksChartVTBCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZworksChartVTBCell.h; sourceTree = "<group>"; };
@@ -701,6 +702,8 @@
 		928C61FF1DC86804009B5974 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				EB06C2451ED7D3F600B4DED6 /* AnimationView.h */,
+				EB06C2461ED7D3F600B4DED6 /* AnimationView.m */,
 				928C62001DC86812009B5974 /* MCustTool.h */,
 				928C62011DC86812009B5974 /* MCustTool.m */,
 				928C620F1DC87012009B5974 /* MProfileTool.h */,
@@ -1014,7 +1017,6 @@
 				EB9C92DF1E01367400F3132C /* AddTableViewCell.xib */,
 				EB9C92E81E015BBC00F3132C /* SinarioTableViewCell.h */,
 				EB9C92E91E015BBC00F3132C /* SinarioTableViewCell.m */,
-				EB9C92EA1E015BBC00F3132C /* SinarioTableViewCell.xib */,
 				EB0EE8AD1EB216B000254CB7 /* PopButton.h */,
 				EB0EE8AE1EB216B000254CB7 /* PopButton.m */,
 			);
@@ -1663,7 +1665,6 @@
 				92F363061DC9B1C80030DCE0 /* MJRefresh.bundle in Resources */,
 				EB581AE61E1CCAFD0076BAFD /* FontAwesome.ttf in Resources */,
 				EB9C93291E02730F00F3132C /* MBProgressHUD.bundle in Resources */,
-				EB9C92EC1E015BBC00F3132C /* SinarioTableViewCell.xib in Resources */,
 				EBE7191B1E2A13E60008ABE2 /* Info.plist in Resources */,
 				929519841D7D06FE00787997 /* Notification.storyboard in Resources */,
 				929519931D7D078B00787997 /* Emergency.storyboard in Resources */,
@@ -1841,6 +1842,7 @@
 				92F363041DC9B1C80030DCE0 /* MJRefreshNormalHeader.m in Sources */,
 				EB692A161E24BAAE007682EE /* ScenarioCellFrame.m in Sources */,
 				EBE719211E2A13E60008ABE2 /* MASViewConstraint.m in Sources */,
+				EB06C2471ED7D3F600B4DED6 /* AnimationView.m in Sources */,
 				EB74550C1EB81D6500DA4874 /* IntelligenceController.m in Sources */,
 				EB9C930B1E026A2900F3132C /* ZworksChartVTBCell.m in Sources */,
 				EB84F0FF1E275490005B1C4D /* DetailCCell.m in Sources */,

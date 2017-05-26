@@ -130,6 +130,7 @@
     
     [MBProgressHUD showMessage:@"" toView:self.view];
     
+    
     // 准备参数
     NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]];
     
@@ -147,6 +148,7 @@
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     NSDictionary *dic = @{
+                          
                           @"sslist":str,
                           
                           @"facilitycd":facilitycd

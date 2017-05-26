@@ -121,6 +121,16 @@
 
 -(void)SelectedListName:(NSString *)clickName {
     
+    UIButton *btn  = (UIButton *)[self.view viewWithTag:888888];
+    
+    btn.backgroundColor = [UIColor whiteColor];
+    
+    [btn setTitleColor:NITColor(252, 85, 115) forState:UIControlStateNormal];
+    
+    [self.POPCalendar dismiss];
+    
+    self.isCounter = YES;
+    
     [self.MyTableView.mj_header beginRefreshing];
     NITLog(@"32131232131321ononono");
 }

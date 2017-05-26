@@ -28,6 +28,9 @@
 
 @property (nonatomic, strong) NSMutableArray        *allDatas;
 
+@property (strong, nonatomic) IBOutlet AnimationView  *editAnimationView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *editAnimationViewLayout;
+
 @end
 
 @implementation RoomReportController
@@ -125,17 +128,12 @@
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         
-//        self.numxxid = 0;
-        
+        [self.tableView setEditing:YES animated:YES];
         self.isEdit = YES;
         [self ViewAnimateStatas:120];
-        
+        [self.editAnimationView StartAnimationXLayoutConstraint:self.editAnimationViewLayout];
         //进入编辑状态
-        //        [self.tableView setEditing:YES animated:YES];///////////
     }else{
-        
-        
-        //        [sender setTitle:@"編集" forState:UIControlStateNormal];
         
         [self saveInfo:nil]; //跟新或者追加
         
@@ -220,15 +218,20 @@
                 self.footView.height = 0;
                 self.footView.alpha = 0;
                 self.isEdit = NO;
-                [self.tableView.mj_header beginRefreshing];
+                
+                [self.editAnimationView FinishAnimationZoneLayoutConstraint:self.editAnimationViewLayout];
+                
+                [CATransaction setCompletionBlock:^{
+                    
+                    [self.tableView reloadData];
+                    [self.tableView.mj_header beginRefreshing];
+                    
+                }];
+                
             } else {
                 [MBProgressHUD showError:@""];
             }
-            [CATransaction setCompletionBlock:^{
-                
-                [self.tableView reloadData];
-                
-            }];
+            
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];

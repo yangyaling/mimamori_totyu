@@ -49,7 +49,7 @@
     
     //串行队列 异步任务 (非常非常有用！！！!!!!)
     dispatch_async(dispatch_queue_create("SERIAL", DISPATCH_QUEUE_SERIAL), ^{
-        [self getGroupInfo];
+//        [self getGroupInfo];
     });
     
     
@@ -443,29 +443,29 @@ fetchCompletionHandler:
         [MBProgressHUD hideHUD];
         NITLog(@"h后台notice请求fail");
     }];
-    
 
 }
+
 
 /**
  *  GruopInfoを取得
  */
--(void)getGroupInfo{
-    [MGroupTool groupInfoWithsuccess:^(NSArray *array) {
-        [MBProgressHUD hideHUD];
-        //缓存groupinfo
-        if (array.count > 0) {
-            [NITUserDefaults setObject:[array copy] forKey:@"allGroupData"];
-            [NITUserDefaults synchronize];
-        } else {
-            NITLog(@"zwgetgroupinfo请求数据空");
-        }
-
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUD];
-        NITLog(@"zwgetgroupinfo请求失败");
-    }];
-}
+//-(void)getGroupInfo{
+//    [MGroupTool groupInfoWithsuccess:^(NSArray *array) {
+//        [MBProgressHUD hideHUD];
+//        //缓存groupinfo
+//        if (array.count > 0) {
+//            [NITUserDefaults setObject:[array copy] forKey:@"allGroupData"];
+//            [NITUserDefaults synchronize];
+//        } else {
+//            NITLog(@"zwgetgroupinfo请求数据空");
+//        }
+//
+//    } failure:^(NSError *error) {
+//        [MBProgressHUD hideHUD];
+//        NITLog(@"zwgetgroupinfo请求失败");
+//    }];
+//}
 
 
 // 将NSlog打印信息保存到Document目录下的文件中

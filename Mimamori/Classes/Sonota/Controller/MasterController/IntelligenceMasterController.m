@@ -23,6 +23,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *cpLabel2;
 @property (strong, nonatomic) IBOutlet UILabel *cpLabel1;
 
+@property (strong, nonatomic) IBOutlet AnimationView  *editAnimationView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *editAnimationViewLayout;
+
 @end
 
 @implementation IntelligenceMasterController
@@ -100,7 +103,7 @@
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         self.isEdit = YES;
         [self ViewAnimateStatas:60];
-        
+        [self.editAnimationView StartAnimationXLayoutConstraint:self.editAnimationViewLayout];
         //进入编辑状态
 //        [self.tableView setEditing:YES animated:YES];///////////
     }else{
@@ -172,15 +175,15 @@
                 self.footView.height = 0;
                 self.footView.alpha = 0;
                 self.isEdit = NO;
+                [self.editAnimationView FinishAnimationZoneLayoutConstraint:self.editAnimationViewLayout];
+                [CATransaction setCompletionBlock:^{
+                    [self.tableView reloadData];
+                    [self.tableView.mj_header beginRefreshing];
+                }];
                 
-                [self.tableView.mj_header beginRefreshing];
             } else {
                 [MBProgressHUD showError:@""];
             }
-            
-            [CATransaction setCompletionBlock:^{
-                [self.tableView reloadData];
-            }];
             
         }
     } failure:^(NSError *error) {

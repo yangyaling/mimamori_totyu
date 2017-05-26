@@ -41,7 +41,5 @@
 
 @property (nonatomic, copy) NSArray     *cellarr;
 
-//+ (instancetype)cellWithTableView:(UITableView *)tableView;
-
 
 @end

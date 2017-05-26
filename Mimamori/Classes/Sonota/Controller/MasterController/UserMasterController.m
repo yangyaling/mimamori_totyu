@@ -30,6 +30,9 @@
 @property (nonatomic, strong) NSString              *maxId;
 @property (nonatomic, assign) NSInteger             numxxid;
 
+@property (strong, nonatomic) IBOutlet AnimationView  *editAnimationView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *editAnimationViewLayout;
+
 @end
 
 @implementation UserMasterController
@@ -132,7 +135,9 @@
         [self ViewAnimateStatas:120];
         
         
-       [self.tableView setEditing:YES animated:YES];
+        [self.tableView setEditing:YES animated:YES];
+        
+        [self.editAnimationView StartAnimationXLayoutConstraint:self.editAnimationViewLayout];
 
     }else{
         
@@ -239,15 +244,17 @@
                 self.footView.height = 0;
                 self.footView.alpha = 0;
                 self.isEdit = NO;
-                [self.tableView.mj_header beginRefreshing];
+                [self.editAnimationView FinishAnimationZoneLayoutConstraint:self.editAnimationViewLayout];
+                
+                [CATransaction setCompletionBlock:^{
+                    [self.tableView reloadData];
+                    [self.tableView.mj_header beginRefreshing];
+                }];
+                
             } else {
                 [MBProgressHUD showError:@""];
             }
-            [CATransaction setCompletionBlock:^{
-                
-                [self.tableView reloadData];
-                
-            }];
+            
             
         }
     } failure:^(NSError *error) {

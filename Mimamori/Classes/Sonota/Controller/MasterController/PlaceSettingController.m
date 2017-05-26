@@ -25,6 +25,9 @@
 @property (nonatomic, assign) BOOL                   isEdit;
 @property (strong, nonatomic) IBOutlet UIButton     *editButton;
 
+@property (strong, nonatomic) IBOutlet AnimationView  *editAnimationView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *editAnimationViewLayout;
+
 @end
 
 @implementation PlaceSettingController
@@ -102,6 +105,8 @@
         
         [self ViewAnimateStatas:120];
         [self.tableView setEditing:YES animated:YES];
+        
+        [self.editAnimationView StartAnimationXLayoutConstraint:self.editAnimationViewLayout];
 
     }else{
         [self saveInfo:nil]; //跟新或者追加
@@ -140,14 +145,17 @@
                 self.footView.alpha = 0;
                 self.isEdit = NO;
                 [self.tableView setEditing:NO animated:YES];
-                [self.tableView.mj_header beginRefreshing];
+                [self.editAnimationView FinishAnimationZoneLayoutConstraint:self.editAnimationViewLayout];
+                
+                [CATransaction setCompletionBlock:^{
+                    [self.tableView reloadData];
+                    [self.tableView.mj_header beginRefreshing];
+                }];
             } else {
                 [MBProgressHUD showError:@""];
             }
             
-            [CATransaction setCompletionBlock:^{
-                [self.tableView reloadData];
-            }];
+            
             
         }
     } failure:^(NSError *error) {

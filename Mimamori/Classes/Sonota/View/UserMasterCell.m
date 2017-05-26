@@ -36,19 +36,29 @@
     if (self.editOp) {
         
         if ([usertype isEqualToString:@"2"]) {
+            
             if (![datasDic[@"usertype"] isEqualToString:@"1"]) {
+                
                 [self statusEdit:YES withColor:[UIColor whiteColor]];
+                
             }
+            
         } else {
+            
             [self statusEdit:YES withColor:[UIColor whiteColor]];
+            
         }
+        
     } else {
         
         [self statusEdit:NO withColor:TextFieldNormalColor];
+        
     }
     
     self.text1.text = datasDic[@"staffid"];
+    
     [self.pickButton setTitle:datasDic[@"usertypename"] forState:UIControlStateNormal];
+    
     self.text2.text = datasDic[@"nickname"];
     
 }
@@ -63,20 +73,21 @@
     } else if ([usertype isEqualToString:@"2"]) {
         
         [self.pickButton setEnabled:noOp];
+        
         [self.pickButton setBackgroundColor:color];
         
         [self.text2 setEnabled:noOp];
+        
         [self.text2 setBackgroundColor:color];
         
     } else {
         
-        [self.text1 setEnabled:noOp];
-        [self.text1 setBackgroundColor:color];
-        
         [self.pickButton setEnabled:noOp];
+        
         [self.pickButton setBackgroundColor:color];
         
         [self.text2 setEnabled:noOp];
+        
         [self.text2 setBackgroundColor:color];
         
     }

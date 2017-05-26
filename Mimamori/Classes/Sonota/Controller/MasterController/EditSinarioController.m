@@ -133,8 +133,8 @@
         
         if (self.isEdit) {
             
-            NSString *starttime = [NSString stringWithFormat:@"%@",[json objectForKey:@"starttime"]];
-            NSString *endtime = [NSString stringWithFormat:@"%@",[json objectForKey:@"endtime"]];
+            NSString *starttime = [NSString stringWithFormat:@"%@",[json[@"starttime"] isEqual:[NSNull null]]  ? @"- -" :json[@"starttime"]];
+            NSString *endtime = [NSString stringWithFormat:@"%@",[json[@"endtime"] isEqual:[NSNull null]]  ? @"- -" :json[@"endtime"]];
             
             [self.leftTimeButton setTitle:starttime forState:UIControlStateNormal];
             [self.rightTimeButton setTitle:endtime forState:UIControlStateNormal];
@@ -155,37 +155,36 @@
                     
                     if ([dic[@"devicetype"] integerValue] == 1) {
                         //温度
-                        NSString *strT1 = [NSString stringWithFormat:@"%@H",dic[@"time"]];
+                        NSString *strT1 = [NSString stringWithFormat:@"%@H",[dic[@"time"] isEqual:[NSNull null]]  ? @"-" :dic[@"time"]];
                         
-                        NSString *strV1 = [NSString stringWithFormat:@"%@%@%@",dic[@"value"],@"℃",dic[@"rpoint"]];
+                        NSString *strV1 = [NSString stringWithFormat:@"%@%@%@",[dic[@"value"] isEqual:[NSNull null]]  ? @"-" :dic[@"value"],@"℃",[dic[@"rpoint"] isEqual:[NSNull null]]  ? @"-" :dic[@"rpoint"]];
                         [self.wdButton1 setTitle:strT1 forState:UIControlStateNormal];
                         [self.wdButton2 setTitle:strV1 forState:UIControlStateNormal];
                     } else if ([dic[@"devicetype"] integerValue] == 2) {
                         //湿度
-                        NSString *strT2 = [NSString stringWithFormat:@"%@H",dic[@"time"]];
-                        NSString *strV2 = [NSString stringWithFormat:@"%@%@%@",dic[@"value"],@"%",dic[@"rpoint"]];
+                        NSString *strT2 = [NSString stringWithFormat:@"%@H",[dic[@"time"] isEqual:[NSNull null]]  ? @"-" :dic[@"time"]];
+                        NSString *strV2 = [NSString stringWithFormat:@"%@%@%@",[dic[@"value"] isEqual:[NSNull null]]  ? @"-" :dic[@"value"],@"%",[dic[@"rpoint"] isEqual:[NSNull null]]  ? @"-" :dic[@"rpoint"]];
                         [self.sdButton1 setTitle:strT2 forState:UIControlStateNormal];
                         [self.sdButton2 setTitle:strV2 forState:UIControlStateNormal];
                     }else if ([dic[@"devicetype"] integerValue] == 3) {
                         //照明
-                        NSString *strT3 = [NSString stringWithFormat:@"%@H",dic[@"time"]];
-                        NSString *strV3 = [NSString stringWithFormat:@"%@%@%@",dic[@"value"],@"%",dic[@"rpoint"]];
+                        NSString *strT3 = [NSString stringWithFormat:@"%@H",[dic[@"time"] isEqual:[NSNull null]]  ? @"-" :dic[@"time"]];
+                        NSString *strV3 = [NSString stringWithFormat:@"%@%@%@",[dic[@"value"] isEqual:[NSNull null]]  ? @"-" :dic[@"value"],@"%",[dic[@"rpoint"] isEqual:[NSNull null]]  ? @"-" :dic[@"rpoint"]];
                         [self.zmButton1 setTitle:strT3 forState:UIControlStateNormal];
                         [self.zmButton2 setTitle:strV3 forState:UIControlStateNormal];
                     }else if ([dic[@"devicetype"] integerValue] == 4) {
                         // 人感
-                        NSString *strT4 = [NSString stringWithFormat:@"%@H",dic[@"time"]];
-                        NSString *strV4 = [NSString stringWithFormat:@"%@",dic[@"rpoint"]];
+                        NSString *strT4 = [NSString stringWithFormat:@"%@H",[dic[@"time"] isEqual:[NSNull null]]  ? @"-" :dic[@"time"]];
+                        NSString *strV4 = [NSString stringWithFormat:@"%@",[dic[@"rpoint"] isEqual:[NSNull null]]  ? @"-" :dic[@"rpoint"]];
                         [self.rgButton1 setTitle:strT4 forState:UIControlStateNormal];
                         [self.rgButton2 setTitle:strV4 forState:UIControlStateNormal];
                     }else {
                         self.lastLabel.text = @"開閉";
                         // 门
-                        NSString *strT4 = [NSString stringWithFormat:@"%@H",dic[@"time"]];
-                        NSString *strV4 = [NSString stringWithFormat:@"%@",dic[@"rpoint"]];
+                        NSString *strT4 = [NSString stringWithFormat:@"%@H",[dic[@"time"] isEqual:[NSNull null]]  ? @"-" :dic[@"time"]];
+                        NSString *strV4 = [NSString stringWithFormat:@"%@",[dic[@"rpoint"] isEqual:[NSNull null]]  ? @"-" :dic[@"rpoint"]];
                         [self.rgButton1 setTitle:strT4 forState:UIControlStateNormal];
                         [self.rgButton2 setTitle:strV4 forState:UIControlStateNormal];
-                        
                     }
                 }
             }
@@ -223,6 +222,7 @@
 
 //时间段的选择
 - (IBAction)selectedTimeButton:(UISegmentedControl *)sender {
+    
     if (sender.selectedSegmentIndex != 4) {
         [self.leftTimeButton setEnabled:NO];
         [self.rightTimeButton setEnabled:NO];
