@@ -129,6 +129,8 @@
 
 #define NITGetSPList @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetsplist.php"
 
+#define NITDeleteSPInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwdeletespinfo.php"
+
 #define NITGetSPInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwgetspinfo.php"
 
 #define NITUpdateSPInfo @"http://mimamori2p1.azurewebsites.net/mgmt/zwupdatespinfo.php"

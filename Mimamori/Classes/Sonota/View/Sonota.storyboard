@@ -2449,14 +2449,14 @@
                                 <rect key="frame" x="5" y="99" width="310" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4O5-cS-X16">
-                                        <rect key="frame" x="1" y="1" width="102" height="48"/>
+                                        <rect key="frame" x="1" y="1" width="102.5" height="48"/>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.29411764709999999" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH8-vi-Dpx">
-                                        <rect key="frame" x="104" y="1" width="205" height="48"/>
+                                        <rect key="frame" x="104.5" y="1" width="204.5" height="48"/>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.29411764709999999" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2572,17 +2572,17 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R9o-M3-Qla">
-                                <rect key="frame" x="0.0" y="99" width="320" height="30"/>
+                                <rect key="frame" x="5" y="99" width="310" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w0A-rq-qUE">
-                                        <rect key="frame" x="1" y="1" width="106" height="28"/>
+                                        <rect key="frame" x="1" y="1" width="102.5" height="28"/>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.29411764709999999" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="シナリオ名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ihr-Sg-VLB">
-                                        <rect key="frame" x="108" y="1" width="211" height="28"/>
+                                        <rect key="frame" x="104.5" y="1" width="204.5" height="28"/>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.29411764709999999" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2687,10 +2687,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="R9o-M3-Qla" firstAttribute="leading" secondItem="ozp-bs-uk0" secondAttribute="leading" id="6ax-3f-pRG"/>
+                            <constraint firstItem="R9o-M3-Qla" firstAttribute="leading" secondItem="ozp-bs-uk0" secondAttribute="leading" constant="5" id="6ax-3f-pRG"/>
                             <constraint firstItem="KBy-Vp-zmw" firstAttribute="top" secondItem="T3I-hi-Gus" secondAttribute="bottom" constant="10" id="CsI-6M-pNS"/>
                             <constraint firstAttribute="trailing" secondItem="KBy-Vp-zmw" secondAttribute="trailing" constant="15" id="K4u-V3-y1t"/>
-                            <constraint firstAttribute="trailing" secondItem="R9o-M3-Qla" secondAttribute="trailing" id="VsR-cR-SqI"/>
+                            <constraint firstAttribute="trailing" secondItem="R9o-M3-Qla" secondAttribute="trailing" constant="5" id="VsR-cR-SqI"/>
                             <constraint firstItem="R9o-M3-Qla" firstAttribute="top" secondItem="kVD-Ui-3FL" secondAttribute="bottom" id="agr-qP-xRv"/>
                             <constraint firstAttribute="trailing" secondItem="T3I-hi-Gus" secondAttribute="trailing" id="dVE-ul-aHu"/>
                             <constraint firstAttribute="trailing" secondItem="kVD-Ui-3FL" secondAttribute="trailing" id="eH6-aa-IuE"/>

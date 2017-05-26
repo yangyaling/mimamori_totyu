@@ -51,13 +51,10 @@
 //        self.chartArray = array;
 //
 //    }else{
-    // 如果没有缓存，进行请求
-        [MBProgressHUD showMessage:@"" toView:self.view];
+    
         
-        
-        
-        [self getSensorDataInfoWithDate:self.dateString];
-//    }
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getSensorDataInfoWithDate:)];
+    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
 
 }
 
@@ -69,21 +66,19 @@
 
 /**
  *  サーバより指定日のセンサーデータを取得
- *
  *  @param date 指定日(yyyy-MM-dd HH:mm:ss)
  */
 -(void)getSensorDataInfoWithDate:(NSString *)date{
-    
+    [MBProgressHUD showMessage:@"" toView:self.view];
     MSensorDataParam *param = [[MSensorDataParam alloc]init];
-    NSString *dateStr = [self.dateString substringToIndex:10];
-    param.nowdate = dateStr;
+    param.nowdate = self.dateString;
     param.staffid = [NITUserDefaults objectForKey:@"userid1"];
     param.custid = self.userid0;
     param.deviceclass = @"2";
     param.nodeid = self.nodeId;
     
     [MSensorDataTool sensorDataWithParam:param type:MSensorDataTypeDaily success:^(NSDictionary *dic) {
-        
+        [self.tableView.mj_header endRefreshing];
         NSArray *array = dic[@"deviceinfo"];
 //        NSArray *array = tempdic[@"deviceinfo"];
         if (array.count > 0) {
@@ -108,7 +103,7 @@
         }
 
     } failure:^(NSError *error) {
-        
+        [self.tableView.mj_header endRefreshing];
         [MBProgressHUD hideHUDForView:self.view];
         
         [MBProgressHUD showError:@"後ほど試してください"];

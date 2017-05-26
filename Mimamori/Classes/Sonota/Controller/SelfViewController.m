@@ -95,6 +95,7 @@
     [parametersDict setValue:userid1 forKey:@"staffid"];
     
     [MHttpTool postWithURL:NITGetUserInfo params:parametersDict success:^(id json) {
+        
         [self GetGroupInfo];
         
         NSArray *userinfo = [json objectForKey:@"userinfo"];
@@ -119,6 +120,7 @@
         }
 
     } failure:^(NSError *error) {
+        
         [self GetGroupInfo];
         
         NITLog(@"zwgetuserinfo请求失败");
@@ -132,8 +134,11 @@
     
     
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
+    
     NSString *userid1 = [NITUserDefaults objectForKey:@"userid1"];
+    
     [parametersDict setValue:userid1 forKey:@"staffid"];
+    
     [parametersDict setValue:self.nickName.text forKey:@"nickname"];
     
     [parametersDict setValue:self.groupid forKey:@"groupid"];

@@ -28,6 +28,7 @@
 @implementation SinarioMasterController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.tableView.tableFooterView = [[UIView alloc]init];
@@ -122,6 +123,81 @@
 {
     self.isOpen = YES;
     [self performSegueWithIdentifier:@"pushEditSinarioMaster" sender:self];
+    
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    if (!tableView.editing)
+//        return UITableViewCellEditingStyleNone;
+//    else {
+        return UITableViewCellEditingStyleDelete;
+//    }
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        [NITDeleteAlert SharedAlertShowMessage:@"設定情報を削除します、よろしいですか。" andControl:self withOk:^(BOOL isOk) {
+            
+            [MBProgressHUD showMessage:@"" toView:self.view];
+            
+            NSDictionary *dic = self.allDatas[indexPath.row];
+            
+            NSString *protoid = [NSString stringWithFormat:@"%@",dic[@"protoid"]];
+            
+            NSDictionary *pdic = @{@"protoid":protoid};
+            
+            
+            [MHttpTool postWithURL:NITDeleteSPInfo params:pdic success:^(id json) {
+                
+                [MBProgressHUD hideHUDForView:self.view];
+                
+                if (json) {
+                    
+                    NSString *code = [json objectForKey:@"code"];
+                    
+                    NITLog(@"%@",code);
+                    
+                    if ([code isEqualToString:@"200"]) {
+                        
+                        [MBProgressHUD showSuccess:@""];
+                        
+                        [self.allDatas removeObjectAtIndex:indexPath.row];
+                        
+                        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+                        
+                        [CATransaction setCompletionBlock:^{
+                            
+                            [self.tableView reloadData];
+                            
+                            [self.tableView.mj_header beginRefreshing];
+                            
+                        }];
+                        
+                    } else {
+                        
+                        [MBProgressHUD showError:@""];
+                        
+                    }
+                    
+                }
+                
+            } failure:^(NSError *error) {
+                
+                [MBProgressHUD hideHUDForView:self.view];
+                
+                NITLog(@"%@",error);
+                
+            }];
+           
+        }];
+        
+    }
+    
     
 }
 
