@@ -137,7 +137,7 @@
                     
                     value = 100;
                     
-                }else{
+                } else {
                     
                     float tmpValue = [valueString floatValue];
                     value = tmpValue;

@@ -124,12 +124,16 @@
 -(void)getSessionInfoWithEmail:(NSString *)email{
     
     MSessionInfoParam *param = [[MSessionInfoParam alloc]init];
+    
     param.email = email;
+    
     param.staffid = _userId.text;
+    
     param.hostcd = _hostId.text;
     
     [MLoginTool getFacilityInfoWithParam:param success:^(NSArray *array) {
-        if (array) {
+        
+        if (array.count > 0) {
 //            NSMutableArray *arr = [NSMutableArray new];
             NSMutableArray *imags = [NSMutableArray new];
             
@@ -149,18 +153,21 @@
             
             [NITUserDefaults setObject:array[0] forKey:@"TempFacilityName"];
             [NITUserDefaults synchronize];
-            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view];
                 [self performSegueWithIdentifier:@"gotomain" sender:self];
             });
             
-            
-            
         } else {
+            
+            [MBProgressHUD showError:@"No facilities found"];
+            
             [MBProgressHUD hideHUDForView:self.view];
+            
             NITLog(@"facilitylist空");
+            
         }
+        
         
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.view];
