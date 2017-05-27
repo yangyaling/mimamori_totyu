@@ -43,7 +43,6 @@
     // SegmentedControlのフォントを設定
 //    [self.segmentControl setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
     
-//    [self.view setTranslatesAutoresizingMaskIntoConstraints:YES];
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     // 空のセルを表示させない

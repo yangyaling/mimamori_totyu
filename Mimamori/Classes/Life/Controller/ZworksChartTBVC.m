@@ -23,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(popReloadList)];
     [NITRefreshInit MJRefreshNormalHeaderInitTwo:(MJRefreshNormalHeader*)self.tableView.mj_header];
@@ -164,8 +163,9 @@
         NSIndexPath *index = self.tableView.indexPathForSelectedRow;
         NSDictionary *dic = _zarray[_superrow];
         NSArray *cellarr = dic[@"deviceinfo"];
+        NSString *datestring = dic[@"datestring"];
         ZworksChartModel *model = [ZworksChartModel mj_objectWithKeyValues:[cellarr[index.section] firstObject]];
-        
+        zdvc.datestring = datestring;
         zdvc.userid0 = _userid0;
         zdvc.chartModel = model;
         zdvc.selectindex = _superrow;

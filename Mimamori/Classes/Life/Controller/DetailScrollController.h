@@ -22,4 +22,6 @@
 
 @property (nonatomic, assign) NSInteger                          SumPage;
 
+@property (nonatomic, copy) NSString                      *datestring;
+
 @end

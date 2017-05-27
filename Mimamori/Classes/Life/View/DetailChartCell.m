@@ -62,9 +62,9 @@
 //    [self.yNumbers addObject:@((double)minV)];
     
     
-    if (_chartView) {
-        [_chartView removeFromSuperview];
-    }
+//    if (_chartView) {
+//        [_chartView removeFromSuperview];
+//    }
     
     NSString *sensorname = [NSString stringWithFormat:@"%@:%.2f%@",chartdic[@"devicename"],[chartdic[@"latestvalue"] floatValue],chartdic[@"deviceunit"]];
     

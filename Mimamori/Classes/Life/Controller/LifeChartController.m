@@ -134,16 +134,6 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 }
 
 /**
- 弹出下拉设施菜单
- 
- @param sender
- */
--(void)showSelectedList {
-    
-    
-}
-
-/**
   放大图片
  */
 - (void)imageViewClick {
@@ -315,7 +305,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
             for (int i = 0; i < _CLArray.count; i++) {
                 UIStoryboard *lifesb = [UIStoryboard storyboardWithName:@"Life" bundle:nil];
                 ZworksChartTBVC *ChartC = [lifesb instantiateViewControllerWithIdentifier:@"charttbcellview"];
-                ChartC.self.automaticallyAdjustsScrollViewInsets = YES;
+                ChartC.automaticallyAdjustsScrollViewInsets = YES;
                 ChartC.zarray = [tmpArr mutableCopy];
                 ChartC.xnum = _xnum;
                 ChartC.userid0 = _userid0;

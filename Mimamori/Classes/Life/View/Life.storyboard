@@ -41,8 +41,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="生活" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAb-6N-qf8">
+                                <rect key="frame" x="0.0" y="64" width="320" height="35"/>
+                                <color key="backgroundColor" red="0.96263671875000001" green="0.96263671875000001" blue="0.96263671875000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="MEw-YJ-8lT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="98" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="I3r-jn-vmm">
-                                <rect key="frame" x="0.0" y="35" width="320" height="533"/>
+                                <rect key="frame" x="0.0" y="99" width="320" height="469"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="lifeCell" rowHeight="98" id="Dbu-nj-FWi" customClass="LifesTableViewCell">
@@ -163,26 +173,16 @@
                                     <outlet property="delegate" destination="LSj-U4-rTe" id="yH4-Lw-9Z0"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="生活" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UAb-6N-qf8">
-                                <rect key="frame" x="0.0" y="64" width="320" height="35"/>
-                                <color key="backgroundColor" red="0.96263671875000001" green="0.96263671875000001" blue="0.96263671875000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="MEw-YJ-8lT"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="I3r-jn-vmm" secondAttribute="trailing" id="DQR-MO-85R"/>
+                            <constraint firstAttribute="trailing" secondItem="I3r-jn-vmm" secondAttribute="trailing" id="3he-zd-iZb"/>
+                            <constraint firstItem="I3r-jn-vmm" firstAttribute="leading" secondItem="Qnm-j6-aUI" secondAttribute="leading" id="7oc-sN-sK6"/>
                             <constraint firstAttribute="trailing" secondItem="UAb-6N-qf8" secondAttribute="trailing" id="JvR-GS-iSj"/>
                             <constraint firstItem="UAb-6N-qf8" firstAttribute="top" secondItem="9wj-Cv-tDD" secondAttribute="bottom" id="OFh-9t-JGZ"/>
-                            <constraint firstItem="I3r-jn-vmm" firstAttribute="top" secondItem="UAb-6N-qf8" secondAttribute="bottom" constant="-64" id="XUr-1Y-cMK"/>
-                            <constraint firstItem="I3r-jn-vmm" firstAttribute="leading" secondItem="Qnm-j6-aUI" secondAttribute="leading" id="c5u-uV-5KT"/>
+                            <constraint firstItem="I3r-jn-vmm" firstAttribute="top" secondItem="UAb-6N-qf8" secondAttribute="bottom" id="P2F-aW-z9P"/>
+                            <constraint firstItem="JYo-fw-iki" firstAttribute="top" secondItem="I3r-jn-vmm" secondAttribute="bottom" id="SI3-nx-Tdu"/>
                             <constraint firstItem="UAb-6N-qf8" firstAttribute="leading" secondItem="Qnm-j6-aUI" secondAttribute="leading" id="fs3-A7-iqR"/>
-                            <constraint firstItem="JYo-fw-iki" firstAttribute="top" secondItem="I3r-jn-vmm" secondAttribute="bottom" id="zVs-ga-wOX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="YcG-n3-OLp">
