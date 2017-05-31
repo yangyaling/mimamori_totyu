@@ -121,17 +121,25 @@
 
 -(void)SelectedListName:(NSString *)clickName {
     
+    [self dateList]; //日历数据
+    
     UIButton *btn  = (UIButton *)[self.view viewWithTag:888888];
     
     btn.backgroundColor = [UIColor whiteColor];
     
     [btn setTitleColor:NITColor(252, 85, 115) forState:UIControlStateNormal];
     
+    
+    UIButton *oldbtn = (UIButton *)[self.view viewWithTag:666666];
+    
+    oldbtn.backgroundColor = NITColor(252, 85, 115);
+    
+    [oldbtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
     [self.POPCalendar dismiss];
     
     self.isCounter = YES;
     
-    [self.MyTableView.mj_header beginRefreshing];
     NITLog(@"32131232131321ononono");
 }
 
@@ -142,7 +150,7 @@
     [self dateList]; //日历数据
     
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
-    [self.MyTableView.mj_header beginRefreshing];
+    
 }
 
 

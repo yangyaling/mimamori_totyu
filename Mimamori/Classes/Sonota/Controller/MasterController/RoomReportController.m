@@ -124,7 +124,9 @@
 
 
 - (IBAction)editCell:(UIButton *)sender {
-    [self.tableView setEditing:!self.tableView.editing animated:YES];
+    
+    
+    
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         
@@ -184,6 +186,7 @@
 
 
 - (IBAction)saveInfo:(id)sender {
+    
     [MBProgressHUD showMessage:@"" toView:self.view];
     
     
@@ -204,7 +207,9 @@
                           };
     
     [MHttpTool postWithURL:NITUpdateRoomInfo params:dic success:^(id json) {
+        
         [MBProgressHUD hideHUDForView:self.view];
+        
         if (json) {
             
             NSString *code = [json objectForKey:@"code"];
@@ -212,9 +217,13 @@
             NITLog(@"%@",code);
             
             if ([code isEqualToString:@"200"]) {
+                
                 [MBProgressHUD showSuccess:@""];
+                
                 [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                
                 [self.tableView setEditing:NO animated:YES];
+                
                 self.footView.height = 0;
                 self.footView.alpha = 0;
                 self.isEdit = NO;
@@ -229,6 +238,7 @@
                 }];
                 
             } else {
+                
                 [MBProgressHUD showError:@""];
             }
             

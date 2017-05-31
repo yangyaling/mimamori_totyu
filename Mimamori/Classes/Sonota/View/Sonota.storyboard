@@ -5513,61 +5513,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="メールアドレス" id="Gls-0d-x1h">
+                            <tableViewSection id="1K7-Ni-s1d" userLabel=" ">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="JZh-7e-yFm">
-                                        <rect key="frame" x="0.0" y="145" width="320" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JZh-7e-yFm" id="dQV-ia-pIb">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="K3J-aY-UHK">
-                                                    <rect key="frame" x="10" y="10" width="300" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="lau-El-7g5" id="eQH-ZW-hTS"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="K3J-aY-UHK" firstAttribute="top" secondItem="dQV-ia-pIb" secondAttribute="topMargin" constant="2" id="2y1-Lk-7Tq"/>
-                                                <constraint firstItem="K3J-aY-UHK" firstAttribute="leading" secondItem="dQV-ia-pIb" secondAttribute="leadingMargin" constant="2" id="AeW-Yg-XGe"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="K3J-aY-UHK" secondAttribute="bottom" constant="2" id="qSu-1h-qUo"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="K3J-aY-UHK" secondAttribute="trailing" constant="2" id="x2O-6I-Dn1"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="所属グループ" id="1K7-Ni-s1d">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="148" id="dOB-mw-yT7">
-                                        <rect key="frame" x="0.0" y="225" width="320" height="148"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dOB-mw-yT7" id="cpg-ZU-TD1">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oU2-gW-MQa">
-                                                    <rect key="frame" x="0.0" y="-7" width="320" height="155"/>
-                                                    <connections>
-                                                        <outlet property="dataSource" destination="lau-El-7g5" id="S7P-aq-ckO"/>
-                                                        <outlet property="delegate" destination="lau-El-7g5" id="ZdZ-m0-nAm"/>
-                                                    </connections>
-                                                </pickerView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="oU2-gW-MQa" firstAttribute="top" secondItem="cpg-ZU-TD1" secondAttribute="topMargin" constant="-15" id="8HW-cd-voB"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="oU2-gW-MQa" secondAttribute="trailing" constant="-8" id="Q4V-Bu-CRy"/>
-                                                <constraint firstItem="oU2-gW-MQa" firstAttribute="leading" secondItem="cpg-ZU-TD1" secondAttribute="leadingMargin" constant="-8" id="Zm4-qB-Yfu"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="oU2-gW-MQa" secondAttribute="bottom" constant="-8" id="z1y-Tq-wzr"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="63" id="wrx-NV-uFA">
-                                        <rect key="frame" x="0.0" y="373" width="320" height="63"/>
+                                        <rect key="frame" x="0.0" y="115" width="320" height="63"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wrx-NV-uFA" id="2ou-cW-9xz">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
@@ -5635,9 +5584,7 @@
                         </userDefinedRuntimeAttributes>
                     </navigationItem>
                     <connections>
-                        <outlet property="email" destination="K3J-aY-UHK" id="xFe-W0-Wq9"/>
                         <outlet property="facilitiesBtn" destination="t0V-ms-Rah" id="404-zE-5J3"/>
-                        <outlet property="groupPicker" destination="oU2-gW-MQa" id="okb-kl-Tr4"/>
                         <outlet property="nickName" destination="13s-Io-QD1" id="mxf-o5-U8t"/>
                         <segue destination="7ij-8o-zPN" kind="push" identifier="pushpasswordC" id="anc-Os-N9l"/>
                     </connections>
