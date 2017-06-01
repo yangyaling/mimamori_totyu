@@ -189,7 +189,7 @@
         [MBProgressHUD hideHUDForView:self.view];
         [self.tableView.mj_header endRefreshing];
         
-        if (tmpArr) {
+        if (tmpArr.count > 0) {
             
             if (self.isSelectModelScenario) {
                 
@@ -254,6 +254,8 @@
                 //                                 [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"scenariodtlinfoarr"]]];
             }
             [self.tableView reloadData];
+        } else {
+            [MBProgressHUD showError:@""];
         }
 
     } failure:^(NSError *error) {

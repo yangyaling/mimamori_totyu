@@ -371,7 +371,9 @@
         NSDictionary *tmpdic = @{@"displayname":sensordic[@"displayname"],@"idx":[NSString stringWithFormat:@"%d",i]};
         [arr addObject:tmpdic];
     }
+    
     NSData * data = [NSKeyedArchiver archivedDataWithRootObject:arr];
+    
     [NITUserDefaults setObject:data forKey:@"addnodeiddatas"];
     
 }
