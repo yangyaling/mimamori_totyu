@@ -73,19 +73,19 @@
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
-- (void)GetGroupInfo {
-    [MHttpTool postWithURL:NITGetGroupInfo params:nil success:^(id json) {
-        [MBProgressHUD hideHUDForView:self.navigationController.view];
-        if (json) {
-            NSArray *dateArray = [json objectForKey:@"groupinfo"];
-            self.allGroupData = dateArray.count > 0 ? [NSMutableArray arrayWithArray:dateArray] : [NSMutableArray new];
-            [self.groupPicker reloadAllComponents];
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.navigationController.view];
-        NITLog(@"groupinfo为空");
-    }];
-}
+//- (void)GetGroupInfo {
+//    [MHttpTool postWithURL:NITGetGroupInfo params:nil success:^(id json) {
+//        [MBProgressHUD hideHUDForView:self.navigationController.view];
+//        if (json) {
+//            NSArray *dateArray = [json objectForKey:@"groupinfo"];
+//            self.allGroupData = dateArray.count > 0 ? [NSMutableArray arrayWithArray:dateArray] : [NSMutableArray new];
+//            [self.groupPicker reloadAllComponents];
+//        }
+//    } failure:^(NSError *error) {
+//        [MBProgressHUD hideHUDForView:self.navigationController.view];
+//        NITLog(@"groupinfo为空");
+//    }];
+//}
 
 
 -(void)getUserInfo{
@@ -95,8 +95,8 @@
     [parametersDict setValue:userid1 forKey:@"staffid"];
     
     [MHttpTool postWithURL:NITGetUserInfo params:parametersDict success:^(id json) {
-        
-        [self GetGroupInfo];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
+//        [self GetGroupInfo];
         
         NSArray *userinfo = [json objectForKey:@"userinfo"];
         if (userinfo){
@@ -112,16 +112,16 @@
             self.groupid = self.user.groupid;
             
             //setup PickerView
-            if (self.groupid.length) {
-                NSInteger row = [self.groupid intValue];
-                [self.groupPicker selectRow:row inComponent:0 animated:NO];
-            }
+//            if (self.groupid.length) {
+//                NSInteger row = [self.groupid intValue];
+//                [self.groupPicker selectRow:row inComponent:0 animated:NO];
+//            }
             [self.tableView reloadData];
         }
 
     } failure:^(NSError *error) {
-        
-        [self GetGroupInfo];
+        [MBProgressHUD hideHUDForView:self.navigationController.view];
+//        [self GetGroupInfo];
         
         NITLog(@"zwgetuserinfo请求失败");
     }];
@@ -189,10 +189,7 @@
         [MBProgressHUD showError:@"ニックネームを入力してください"];
         return;
     }
-    if (!self.email.text.length) {
-        [MBProgressHUD showError:@"メールアドレスを入力してください"];
-        return;
-    }
+    
     [self updateUserInfo];
     
 }
