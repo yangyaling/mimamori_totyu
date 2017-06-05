@@ -95,7 +95,6 @@
     
     self.onstauts = NO;  //是否是在日历选择了日期
     
-    
 }
 
 
@@ -104,17 +103,21 @@
  创建tableviewUI
  */
 - (void)CreateTableViewUI {
+    
     _MyTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 139 , NITScreenW, NITScreenH - 185) style:UITableViewStylePlain];
+    
     _MyTableView.delegate = self;
+    
     _MyTableView.dataSource = self;
+    
     //    _MyTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_MyTableView];
     
     self.MyTableView.tableFooterView = [[UIView alloc]init];
     
     self.MyTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pullRefresh)];
-    [NITRefreshInit MJRefreshNormalHeaderInitTwo:(MJRefreshNormalHeader*)self.MyTableView.mj_header];
     
+    [NITRefreshInit MJRefreshNormalHeaderInitTwo:(MJRefreshNormalHeader*)self.MyTableView.mj_header];
     
 }
 
@@ -140,7 +143,6 @@
     
     self.isCounter = YES;
     
-    NITLog(@"32131232131321ononono");
 }
 
 -(void)viewWillAppear:(BOOL)animated{

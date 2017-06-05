@@ -107,6 +107,7 @@
             [NITUserDefaults setObject:btnF forKey:@"FLOORLISTKEY"];
         }
         
+        
 //        if (btnR.count >0) {
 //            [NITUserDefaults setObject:btnR forKey:@"ROOMLISTKEY"];
 //        }

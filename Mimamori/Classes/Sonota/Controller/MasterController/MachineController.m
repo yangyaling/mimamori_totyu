@@ -21,18 +21,29 @@
 #import "MachineCell.h"
 
 @interface MachineController (){
+    
     NSString *usertype;
+    
 }
-@property (strong, nonatomic) IBOutlet DropButton *facilityBtn;
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UIView *footView;
-@property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (strong, nonatomic) IBOutlet DropButton   *facilityBtn;
 
-@property (weak, nonatomic) IBOutlet UITextField *companyNameTF;
-@property (weak, nonatomic) IBOutlet UITextField *facilityNameTF;
+@property (strong, nonatomic) IBOutlet UITableView  *tableView;
+
+@property (strong, nonatomic) IBOutlet UIView       *footView;
+
+@property (weak, nonatomic) IBOutlet UIButton       *editButton;
+
+@property (weak, nonatomic) IBOutlet UITextField    *companyNameTF;
+
+@property (weak, nonatomic) IBOutlet UITextField    *facilityNameTF;
+
 @property (nonatomic, assign) BOOL                   isEdit;
+
 @property (nonatomic, strong) NSMutableArray        *allDatas;
+
+@property (nonatomic, strong) NSString              *maxId;
+@property (nonatomic, assign) NSInteger              numxxid;
 
 @end
 
@@ -92,13 +103,22 @@
         
     }
     [CATransaction setCompletionBlock:^{
+        
         [self.tableView reloadData];
+        
     }];
 
 }
 
 /** 点加号按钮 */
 - (IBAction)addCell:(id)sender {
+    
+//    if (!self.maxId.length) return;
+//    
+//    NSInteger numId = [self.maxId integerValue] + self.numxxid;
+//    
+//    NSString *idstr = [NSString stringWithFormat:@"%04i",(int)numId];
+    
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
     [arr addObject:@{
@@ -116,6 +136,8 @@
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
     [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
     
+    self.numxxid++;
+    
     [self.tableView reloadData];
     
     [CATransaction setCompletionBlock:^{
@@ -130,18 +152,63 @@
     
     [MBProgressHUD showMessage:@"" toView:self.view];
     
-    
     // 准备参数
-    NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+    NSArray *array1 = [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]];
+    
+    //35
+    NSMutableArray *array = [NSMutableArray arrayWithArray:array1];
     
     NSMutableArray *allarr = [NSMutableArray new];
-    for (NSDictionary *lsdic in array) {
-        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:lsdic];
-        if ([lsdic[@"custid"] isEqualToString:@"-"]) {
+    
+    NSMutableArray *sameMutablearray = [@[] mutableCopy];
+    
+    for (int i = 0; i < array.count; i ++) {
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:array[i]];
+        
+        if ([dic[@"custid"] isEqualToString:@"-"]) {
+            
             [dic setObject:@"" forKey:@"custid"];
         }
+        
         [allarr addObject:dic];
+        
+        NSMutableArray *tempArray = [@[] mutableCopy];
+        
+        [tempArray addObject:dic];
+        
+        for (int j = i+1; j < array.count; j ++) {
+            
+            NSDictionary *jdic = array[j];
+            
+            if([dic[@"serial"] isEqualToString:jdic[@"serial"]] || [dic[@"sensorid"] isEqualToString:jdic[@"sensorid"]]){
+                
+                [tempArray addObject:jdic];
+                
+                [array removeObjectAtIndex:j];
+                
+                j -= 1;
+                
+            }
+            
+        }
+        
+        [sameMutablearray addObject:tempArray];
     }
+    
+    
+    if (sameMutablearray.count < array1.count) {
+        
+        [MBProgressHUD hideHUDForView:self.view];
+        
+        [MBProgressHUD showError:@"同じシリアルナンバー或はセンサーIDが存在する"];
+        
+        return;
+    }
+    
+//    NITLog(@"samearray:%@",sameMutablearray);
+    
+    
     
     NSError *parseError = nil;
     NSData  *json = [NSJSONSerialization dataWithJSONObject:allarr options: NSJSONWritingPrettyPrinted error:&parseError];
@@ -155,7 +222,7 @@
                           
                           };
     
-    // 发送请求
+//     发送请求
     [MHttpTool postWithURL:NITUpdateSSInfo params:dic success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         if (json) {
@@ -173,7 +240,8 @@
                 
             }else{
                 
-                [MBProgressHUD showError:@""];
+                [MBProgressHUD showError:@"同じシリアルナンバー或はセンサーIDが存在する"];
+                
             }
             
             [CATransaction setCompletionBlock:^{
