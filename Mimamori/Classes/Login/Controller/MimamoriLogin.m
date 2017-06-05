@@ -149,6 +149,7 @@
             
             [imags replaceObjectAtIndex:0 withObject:@"selectfacitility_icon"];
             [NITUserDefaults setObject:imags forKey:@"TempcellImagesName"];
+            
             [NITUserDefaults synchronize];
             
             [NITUserDefaults setObject:array[0] forKey:@"TempFacilityName"];

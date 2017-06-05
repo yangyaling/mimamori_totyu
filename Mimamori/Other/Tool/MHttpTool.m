@@ -13,19 +13,29 @@
 
 
 +(void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    
     // 1.创建请求管理对象
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    
 //    session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"text/plain", @"text/javascript",@"application/x-json",@"text/html", nil];
+    
+    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
     
     // 2.发送请求
     [session POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
        
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
         if (success) {
+            
             success(responseObject);
+            
         }
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
         if (failure) {
+            
             failure(error);
         }
     }];
@@ -33,8 +43,11 @@
 
 
 +(void)postWithURL:(NSString *)url params:(NSDictionary *)params formDataArray:(NSArray *)formDataArray success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    
     // 1.创建请求管理对象
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    
+    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
     // 2.发送请求
     [session POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull totalFormData) {
         
@@ -57,15 +70,20 @@
             failure(error);
         }
     }];
+    
     //value	__NSCFString *	@"http://mimamori2.azurewebsites.net/upload/0002.jpg"	0x00000001704579d0
     //[0]	(null)	@"picpath" : @"http://mimamori2.azurewebsites.net/upload/0002.jpg"
     //value	__NSCFString *	@"http://mimamori2.azurewebsites.net/upload/0002.jpg"	0x0000000170058f00
+    
 }
 
 
 +(void)getWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    
     // 1.创建请求管理对象
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    
+    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
     //session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"text/plain", @"text/javascript",@"application/x-json",@"text/html", nil];
     
     // 2.发送请求

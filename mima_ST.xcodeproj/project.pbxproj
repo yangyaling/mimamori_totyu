@@ -634,7 +634,7 @@
 		EBE7192D1E2DAF850008ABE2 /* VoiceRecognitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceRecognitionController.m; sourceTree = "<group>"; };
 		EBE719321E2E2CAB0008ABE2 /* RecordingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingStatus.h; sourceTree = "<group>"; };
 		EBE719331E2E2CAB0008ABE2 /* RecordingStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingStatus.m; sourceTree = "<group>"; };
-		EBE870151EC54373007EE0F1 /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullSafe.m; sourceTree = "<group>"; };
+		EBE870151EC54373007EE0F1 /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NullSafe.m; path = ../Tool/NullSafe.m; sourceTree = "<group>"; };
 		EBE8701A1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITTableViewKeyBoardInherit.h; sourceTree = "<group>"; };
 		EBE8701B1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITTableViewKeyBoardInherit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1079,7 +1079,6 @@
 				92C3F1091DC7345200E61A8B /* MHttpTool.m */,
 				EBC353911EBC681D00697DAD /* NITPickerTemp.h */,
 				EBC353921EBC681D00697DAD /* NITPickerTemp.m */,
-				EBE870151EC54373007EE0F1 /* NullSafe.m */,
 				EB4926BE1ECD30120008DE8A /* NITDeleteAlert.h */,
 				EB4926BF1ECD30120008DE8A /* NITDeleteAlert.m */,
 			);
@@ -1163,6 +1162,7 @@
 				92F3624D1DC9930A0030DCE0 /* UIImage+Mj.m */,
 				EB74551E1EB86A3600DA4874 /* CALayer+LayerColor.h */,
 				EB74551F1EB86A3600DA4874 /* CALayer+LayerColor.m */,
+				EBE870151EC54373007EE0F1 /* NullSafe.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2027,6 +2027,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = ZD4G3EV24J;
 				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -2055,6 +2056,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = ZD4G3EV24J;
 				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

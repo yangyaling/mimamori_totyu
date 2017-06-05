@@ -19,6 +19,7 @@
             MLoginResult *result = [MLoginResult mj_objectWithKeyValues:json];
             success(result);
         }
+        
     } failure:^(NSError *error) {
         if (failure) {
             failure(error);
