@@ -193,6 +193,8 @@
 		EBC3538D1EBC4B9100697DAD /* MachineController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC3538C1EBC4B9100697DAD /* MachineController.m */; };
 		EBC353901EBC4C3E00697DAD /* MachineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC3538F1EBC4C3E00697DAD /* MachineCell.m */; };
 		EBC353931EBC681D00697DAD /* NITPickerTemp.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC353921EBC681D00697DAD /* NITPickerTemp.m */; };
+		EBCF9E9B1EE6414A00C64F5B /* NSNull+OVNatural.m in Sources */ = {isa = PBXBuildFile; fileRef = EBCF9E9A1EE6414A00C64F5B /* NSNull+OVNatural.m */; };
+		EBCF9E9E1EE643FC00C64F5B /* NSDictionary+ZLDeleteNull.m in Sources */ = {isa = PBXBuildFile; fileRef = EBCF9E9D1EE643FC00C64F5B /* NSDictionary+ZLDeleteNull.m */; };
 		EBD3746A1EB09DD900B10CCB /* DropButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EBD374691EB09DD900B10CCB /* DropButton.m */; };
 		EBDFE8821E287439007D3320 /* AriScenarioController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBDFE8811E287439007D3320 /* AriScenarioController.m */; };
 		EBE175131EAF172300A6E23A /* NITDropDowm.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE175121EAF172300A6E23A /* NITDropDowm.m */; };
@@ -595,6 +597,10 @@
 		EBC3538F1EBC4C3E00697DAD /* MachineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MachineCell.m; sourceTree = "<group>"; };
 		EBC353911EBC681D00697DAD /* NITPickerTemp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITPickerTemp.h; sourceTree = "<group>"; };
 		EBC353921EBC681D00697DAD /* NITPickerTemp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITPickerTemp.m; sourceTree = "<group>"; };
+		EBCF9E991EE6414A00C64F5B /* NSNull+OVNatural.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNull+OVNatural.h"; sourceTree = "<group>"; };
+		EBCF9E9A1EE6414A00C64F5B /* NSNull+OVNatural.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNull+OVNatural.m"; sourceTree = "<group>"; };
+		EBCF9E9C1EE643FC00C64F5B /* NSDictionary+ZLDeleteNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ZLDeleteNull.h"; sourceTree = "<group>"; };
+		EBCF9E9D1EE643FC00C64F5B /* NSDictionary+ZLDeleteNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ZLDeleteNull.m"; sourceTree = "<group>"; };
 		EBD374681EB09DD900B10CCB /* DropButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DropButton.h; sourceTree = "<group>"; };
 		EBD374691EB09DD900B10CCB /* DropButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DropButton.m; sourceTree = "<group>"; };
 		EBDFE8801E287439007D3320 /* AriScenarioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AriScenarioController.h; sourceTree = "<group>"; };
@@ -1163,6 +1169,10 @@
 				EB74551E1EB86A3600DA4874 /* CALayer+LayerColor.h */,
 				EB74551F1EB86A3600DA4874 /* CALayer+LayerColor.m */,
 				EBE870151EC54373007EE0F1 /* NullSafe.m */,
+				EBCF9E991EE6414A00C64F5B /* NSNull+OVNatural.h */,
+				EBCF9E9A1EE6414A00C64F5B /* NSNull+OVNatural.m */,
+				EBCF9E9C1EE643FC00C64F5B /* NSDictionary+ZLDeleteNull.h */,
+				EBCF9E9D1EE643FC00C64F5B /* NSDictionary+ZLDeleteNull.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1759,6 +1769,7 @@
 				928C61F51DC8550B009B5974 /* MNoticeDateParam.m in Sources */,
 				92F362E21DC9B1C80030DCE0 /* WHUCalendarView.m in Sources */,
 				92F363251DC9C3AD0030DCE0 /* MTitleLabel.m in Sources */,
+				EBCF9E9B1EE6414A00C64F5B /* NSNull+OVNatural.m in Sources */,
 				92F363091DC9B1C80030DCE0 /* UIScrollView+MJRefresh.m in Sources */,
 				EBBA97D41EBB497F004AA177 /* RoomReportController.m in Sources */,
 				92F362DD1DC9B1C80030DCE0 /* WHUCalendarCal.m in Sources */,
@@ -1824,6 +1835,7 @@
 				928C62251DC8738A009B5974 /* MProfileInfoUpdateParam.m in Sources */,
 				928C62021DC86812009B5974 /* MCustTool.m in Sources */,
 				EBBA26E71EB318E300E69F23 /* PlaceSettingCell.m in Sources */,
+				EBCF9E9E1EE643FC00C64F5B /* NSDictionary+ZLDeleteNull.m in Sources */,
 				92F362EC1DC9B1C80030DCE0 /* MJDictionaryCache.m in Sources */,
 				EB581AE71E1CCAFD0076BAFD /* NSString+FontAwesome.m in Sources */,
 				929519F21D7D0A6000787997 /* NursingNotesModel.m in Sources */,

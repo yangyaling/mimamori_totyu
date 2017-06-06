@@ -4,10 +4,13 @@
 //
 //  Created by 楊亜玲 on 16/10/31.
 //  Copyright © 2016年 楊亜玲. All rights reserved.
-//
 
 #import "MHttpTool.h"
+
 #import "AFNetworking.h"
+
+
+
 
 @implementation MHttpTool
 
@@ -19,7 +22,7 @@
     
 //    session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"text/plain", @"text/javascript",@"application/x-json",@"text/html", nil];
     
-    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
+//    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
     
     // 2.发送请求
     [session POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -28,9 +31,10 @@
         
         if (success) {
             
-            success(responseObject);
+            success([NSDictionary changeType:responseObject]);
             
         }
+        
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -38,7 +42,9 @@
             
             failure(error);
         }
+        
     }];
+    
 }
 
 
@@ -47,7 +53,7 @@
     // 1.创建请求管理对象
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     
-    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
+//    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
     // 2.发送请求
     [session POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull totalFormData) {
         
@@ -63,7 +69,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
-            success(responseObject);
+            success([NSDictionary changeType:responseObject]);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {
@@ -83,7 +89,7 @@
     // 1.创建请求管理对象
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     
-    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
+//    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
     //session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"text/plain", @"text/javascript",@"application/x-json",@"text/html", nil];
     
     // 2.发送请求
@@ -91,7 +97,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {
-            success(responseObject);
+            success([NSDictionary changeType:responseObject]);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {

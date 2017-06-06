@@ -215,7 +215,9 @@
 -(void)getScenarioList{
     
     MScenarioListParam *param = [[MScenarioListParam alloc]init];
+    
     param.staffid = [NITUserDefaults objectForKey:@"userid1"];
+    
     param.custid = self.profileUser0;
     
     [MScenarioTool scenarioListWithParam:param success:^(NSArray *array) {

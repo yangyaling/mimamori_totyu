@@ -35,7 +35,10 @@
 
 
 #ifndef NULLSAFE_ENABLED
+
 #define NULLSAFE_ENABLED 1
+
+
 #endif
 
 
@@ -43,6 +46,7 @@
 
 
 @implementation NSNull (NullSafe)
+
 
 #if NULLSAFE_ENABLED
 
@@ -52,6 +56,7 @@
     {
         //查找方法签名
         NSMethodSignature *signature = [super methodSignatureForSelector:selector];
+        
         if (!signature)
         {
             //通过nsnull不支持，搜索其他类

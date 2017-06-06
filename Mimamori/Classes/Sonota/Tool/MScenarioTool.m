@@ -12,6 +12,7 @@
 @implementation MScenarioTool
 
 +(void)scenarioListWithParam:(MScenarioListParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure{
+    
     [MHttpTool postWithURL:NITGetScenarioList params:param.mj_keyValues success:^(id json) {
         if (success) {
             NSMutableArray *arr = [NSMutableArray new];
@@ -19,6 +20,8 @@
 //            NSArray *dateArray = [json objectForKey:@"scenariolist"];
             success(arr);
         }
+        
+        
     } failure:^(NSError *error) {
         if (failure) {
             failure(error);
