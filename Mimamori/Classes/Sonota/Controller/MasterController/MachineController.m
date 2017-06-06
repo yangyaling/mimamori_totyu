@@ -239,10 +239,14 @@
                 
                 [self.tableView.mj_header beginRefreshing];
                 
-            }else{
+            }else if([code isEqualToString:@"600"]) {
+                NSArray *errors = [json objectForKey:@"errors"];
+                NSString *errormsg = [errors.firstObject firstObject];
+                [MBProgressHUD showError:errormsg];
                 
-                [MBProgressHUD showError:@"同じシリアルナンバー或はセンサーIDが存在する"];
+            } else {
                 
+                [MBProgressHUD showError:@""];
             }
             
             [CATransaction setCompletionBlock:^{
