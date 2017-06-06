@@ -98,14 +98,15 @@
 }
 
 - (IBAction)editCell:(UIButton *)sender {
-    [self.tableView setEditing:!self.tableView.editing animated:YES];
+    
+    
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         self.isEdit = YES;
         [self ViewAnimateStatas:60];
         [self.editAnimationView StartAnimationXLayoutConstraint:self.editAnimationViewLayout];
         //进入编辑状态
-//        [self.tableView setEditing:YES animated:YES];///////////
+        [self.tableView setEditing:YES animated:YES];///////////
     }else{
         
 //        [sender setTitle:@"編集" forState:UIControlStateNormal];
