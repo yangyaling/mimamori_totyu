@@ -222,6 +222,7 @@
                           
                           };
     
+    
 //     发送请求
     [MHttpTool postWithURL:NITUpdateSSInfo params:dic success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];

@@ -91,47 +91,38 @@
 -(void)getUserInfo{
 
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
+    
     NSString *userid1 = [NITUserDefaults objectForKey:@"userid1"];
+    
     [parametersDict setValue:userid1 forKey:@"staffid"];
     
     [MHttpTool postWithURL:NITGetUserInfo params:parametersDict success:^(id json) {
+        
         [MBProgressHUD hideHUDForView:self.navigationController.view];
-//        [self GetGroupInfo];
         
         NSArray *userinfo = [json objectForKey:@"userinfo"];
-        if (userinfo){
-            NSArray *tmpArr = [SelfModel mj_objectArrayWithKeyValuesArray:userinfo];
+        
+        if (userinfo.count >0){
             
-            SelfModel *smodel = tmpArr.firstObject;
-            self.user = smodel;
             
-            self.nickName.text = self.user.nickname;
+            self.nickName.text = [userinfo.firstObject objectForKey:@"username"];
             
-            self.email.text = self.user.email;
             
-            self.groupid = self.user.groupid;
-            
-            //setup PickerView
-//            if (self.groupid.length) {
-//                NSInteger row = [self.groupid intValue];
-//                [self.groupPicker selectRow:row inComponent:0 animated:NO];
-//            }
             [self.tableView reloadData];
         }
 
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.navigationController.view];
-//        [self GetGroupInfo];
         
         NITLog(@"zwgetuserinfo请求失败");
     }];
-    
 }
 
 
+
 -(void)updateUserInfo{
-    [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     
+    [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     
@@ -139,24 +130,18 @@
     
     [parametersDict setValue:userid1 forKey:@"staffid"];
     
-    [parametersDict setValue:self.nickName.text forKey:@"nickname"];
+    [parametersDict setValue:self.nickName.text forKey:@"username"];
     
-    [parametersDict setValue:self.groupid forKey:@"groupid"];
-    
-    [parametersDict setValue:self.email.text forKey:@"email"];
     
     //当前时间
     NSString *currentTime = [[NSDate date] needDateStatus:HaveHMSType];
+    
     [parametersDict setValue:currentTime forKey:@"updatedate"];
 
     
     [MHttpTool postWithURL:NITUpdateUserInfo params:parametersDict success:^(id json) {
         
         [MBProgressHUD hideHUDForView:self.navigationController.view];
-        //更新模型
-        self.user.nickname = self.nickName.text;
-        self.user.email = self.email.text;
-        self.user.groupid = self.groupid;
         
         [MBProgressHUD showSuccess:@"更新成功しました"];
         
@@ -167,6 +152,7 @@
     } failure:^(NSError *error) {
         
         [MBProgressHUD hideHUDForView:self.navigationController.view];
+        
         NITLog(@"zwupdateuserinfo请求失败");
         
         [MBProgressHUD showError:@"後ほど試してください"];
