@@ -58,8 +58,6 @@
     
     self.isAddCell = NO;
     
-    self.footView.height = 0;
-    self.footView.alpha = 0;
     
     self.isSelectModelScenario = NO;  //雏形开关
     
@@ -84,15 +82,35 @@
     }
     
     if (self.hideBarButton) {
+        
         [self.daySegment setEnabled:NO];
-        [self.editButton setHidden:YES];
-        [self.sinarioText setUserInteractionEnabled:NO];
+        
+        [self.sinarioText setEnabled:NO];
+        
         [self.sinariobutton setEnabled:NO];
+        
+        self.footView.height = 0;
+        
+        self.footView.alpha = 0;
+        
+    } else {
+        
+        [self.daySegment setEnabled:YES];
+        
+        [self.sinarioText setEnabled:YES];
+        
+        [self.sinariobutton setEnabled:YES];
+        
+        self.footView.height = 100;
+        
+        self.footView.alpha = 1;
     }
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getScenariodtlInfo)];
     
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
+    
+    
 //    [MBProgressHUD showMessage:@"" toView:self.view];
     
 }
@@ -468,45 +486,45 @@
 /**
     编辑
  */
-- (IBAction)EditBarButton:(UIButton *)sender {
-    if ([sender.titleLabel.text isEqualToString:@"編集"]) {
-        if (self.timeIndex == 4) {
-            [self.leftTimeButton setEnabled:YES];
-            [self.rightTimeButton setEnabled:YES];
-        }
-        [sender setTitle:@"完了" forState:UIControlStateNormal];
-        [self.sinariobutton setEnabled:YES];
-        [self.daySegment setEnabled:YES];
-        [self.sinarioText setEnabled:YES];
-        
-        
-        self.footView.height = 100;
-        self.footView.alpha = 1;
-        
-        //进入编辑状态
-        [self.tableView setEditing:YES animated:YES];
-    }else{
-        [sender setTitle:@"編集" forState:UIControlStateNormal];
-        [self.sinariobutton setEnabled:NO];
-        [self.daySegment setEnabled:NO];
-        [self.sinarioText setEnabled:NO];
-        self.footView.height = 0;
-        self.footView.alpha = 0;
-        [self saveScenario:nil]; //跟新或者追加
-        
-        //取消编辑状态
-        [self.tableView setEditing:NO animated:YES];
-        
-    }
-    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//- (IBAction)EditBarButton:(UIButton *)sender {
+//    if ([sender.titleLabel.text isEqualToString:@"編集"]) {
+//        if (self.timeIndex == 4) {
+//            [self.leftTimeButton setEnabled:YES];
+//            [self.rightTimeButton setEnabled:YES];
+//        }
+//        [sender setTitle:@"完了" forState:UIControlStateNormal];
+//        [self.sinariobutton setEnabled:YES];
+//        [self.daySegment setEnabled:YES];
+//        [self.sinarioText setEnabled:YES];
+//        
+//        
+//        self.footView.height = 100;
+//        self.footView.alpha = 1;
+//        
+//        //进入编辑状态
+//        [self.tableView setEditing:YES animated:YES];
+//    }else{
+//        [sender setTitle:@"編集" forState:UIControlStateNormal];
+//        [self.sinariobutton setEnabled:NO];
+//        [self.daySegment setEnabled:NO];
+//        [self.sinarioText setEnabled:NO];
+//        self.footView.height = 0;
+//        self.footView.alpha = 0;
+//        [self saveScenario:nil]; //跟新或者追加
+//        
+//        //取消编辑状态
+//        [self.tableView setEditing:NO animated:YES];
+//        
+//    }
+//    
+////    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+////        [self.tableView reloadData];
+////    });
+//    [CATransaction setCompletionBlock:^{
 //        [self.tableView reloadData];
-//    });
-    [CATransaction setCompletionBlock:^{
-        [self.tableView reloadData];
-    }];
-    
-}
+//    }];
+//    
+//}
 
 
 
@@ -521,8 +539,12 @@
     NSMutableArray *alldatas = [NSMutableArray new];
     NSData * data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
     NSArray * scenarioarr = [[NSKeyedUnarchiver unarchiveObjectWithData:data] copy];
+    
     for (NSArray *tmparr in scenarioarr) {
         
+        if (tmparr.count < 4) {
+            break;
+        }
         NSDictionary *dicOne = tmparr[0];
         NSDictionary *dicTwo = tmparr[1];
         NSDictionary *dicThree = tmparr[2];

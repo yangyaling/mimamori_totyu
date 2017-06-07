@@ -175,7 +175,7 @@
     param.custid = self.profileUser0;
     
     [MProfileTool profileInfoWithParam:param success:^(NSArray *array) {
-        [MBProgressHUD hideHUDForView:self.view];
+        
         if (array.count > 0){
             self.profileArray = [ProfileModel mj_objectArrayWithKeyValuesArray:array];
             ProfileModel *mod = self.profileArray.firstObject;
@@ -184,21 +184,35 @@
 //            [NITUserDefaults setObject:dataicon forKey:self.profileUser0];
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSURL * url = [NSURL URLWithString:mod.picpath];
                 
-                NSData * data = [[NSData alloc]initWithContentsOfURL:url];
-                
-                if (data != nil) {
+                if (mod.picpath.length > 0) {
+                    NSURL * url = [NSURL URLWithString:mod.picpath];
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                    NSData * data = [[NSData alloc]initWithContentsOfURL:url];
+                    
+                    if (data != nil) {
                         
-                        [NITUserDefaults setObject:data forKey:self.profileUser0];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [MBProgressHUD hideHUDForView:self.view];
+                            [NITUserDefaults setObject:data forKey:self.profileUser0];
+                            
+                        });
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [MBProgressHUD hideHUDForView:self.view];
+                            
+                        });
+                    }
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [MBProgressHUD hideHUDForView:self.view];
                         
                     });
                 }
                 
             });
         } else {
+            [MBProgressHUD hideHUDForView:self.view];
             NITLog(@"getcustinfo空");
         }
     } failure:^(NSError *error) {

@@ -93,7 +93,7 @@
             [NITUserDefaults setObject:result.staffname forKey:@"userid1name"];
             [NITUserDefaults synchronize];
             
-            //session idを取得していく
+            //session idを取得していく   
             [self getSessionInfoWithEmail:result.email];
             
             //初回登録の時間を記録
