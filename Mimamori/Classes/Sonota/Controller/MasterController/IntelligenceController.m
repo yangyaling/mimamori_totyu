@@ -86,6 +86,9 @@
 }
 
 -(void)SelectedListName:(NSDictionary *)clickDic{
+    [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+    [self statusEdit:NO withColor:TextFieldNormalColor];
+    _facilityBtn.showAlert = NO;
     [self getinfo];
 }
 
@@ -145,6 +148,9 @@
 - (IBAction)editCell:(UIButton *)sender {
     
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
+        
+        _facilityBtn.showAlert = YES;
+        
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         [self statusEdit:YES withColor:[UIColor whiteColor]];
         //进入编辑状态
@@ -220,6 +226,9 @@
                 [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
                 [self statusEdit:NO withColor:TextFieldNormalColor];
                 [self AgainFacilityList];
+                
+                
+                _facilityBtn.showAlert = NO;
             } else {
                 [MBProgressHUD showError:@""];
             }

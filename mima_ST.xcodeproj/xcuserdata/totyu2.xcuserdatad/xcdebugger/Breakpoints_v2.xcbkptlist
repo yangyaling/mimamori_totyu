@@ -46,12 +46,12 @@
                   moduleName = "mima_ST"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/EditSinarioController.m"
-                  timestampString = "518576757.161076"
+                  timestampString = "518604917.340893"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "389"
                   endingLineNumber = "389"
-                  offsetFromSymbolStart = "1845">
+                  offsetFromSymbolStart = "1916">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -61,12 +61,12 @@
                   moduleName = "mima_ST"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/totyu2/kaigomimamoriapp2/Mimamori/Classes/Sonota/Controller/MasterController/EditSinarioController.m"
-                  timestampString = "518576757.163193"
+                  timestampString = "518604917.342287"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "389"
                   endingLineNumber = "389"
-                  offsetFromSymbolStart = "16">
+                  offsetFromSymbolStart = "24">
                </Location>
             </Locations>
          </BreakpointContent>

@@ -45,9 +45,8 @@
  
  @param sender
  */
--(void)showSelectedList {
-    
-    
+-(void)SelectedListName:(NSDictionary *)clickDic {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 /**

@@ -60,6 +60,7 @@
         self.imageEdgeInsets = UIEdgeInsetsMake(2, 4, 2, 200);
         [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         self.isShow = YES;
+        self.showAlert = NO;
         
         [self addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -78,7 +79,6 @@
     if (self.isShow) {
         self.isShow = NO;
         [self buttonImageViewAnimateStatas:M_PI];
-//        [self.dropButtonDelegate showSelectedList];
         
         NSMutableArray *tmparr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"FacilityList"]];
         
@@ -87,17 +87,32 @@
         [NITDropDowm configCustomPopViewWithFrame:CGRectMake(30, 80, 140, 180) imagesArr:iconname dataSourceArr:tmparr seletedRowForIndex:^(NSInteger index) {
             
             [self buttonClick:sender];
+            
             if (index == 10000) return ;
             
-            NSString *str = [tmparr[index] objectForKey:@"facilityname2"];
-            
-            [self setTitle:str forState:UIControlStateNormal];
-            
-            [NITUserDefaults setObject:tmparr[index] forKey:@"TempFacilityName"];
-            [NITUserDefaults synchronize];
-            
-            if ([self.DropClickDelegate respondsToSelector:@selector(SelectedListName:)]) {
-                [self.DropClickDelegate SelectedListName:tmparr[index]];
+            if (_showAlert) {
+                
+                [self isShowAlert:tmparr andIndex:index];
+                
+            } else {
+                
+                NSString *str = [tmparr[index] objectForKey:@"facilityname2"];
+                
+                [self setTitle:str forState:UIControlStateNormal];
+                
+                [NITUserDefaults setObject:tmparr[index] forKey:@"TempFacilityName"];
+                [NITUserDefaults synchronize];
+                
+                NSMutableArray *tmpimagesname = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"CellImagesName"]];
+                
+                [tmpimagesname replaceObjectAtIndex:index withObject:@"selectfacitility_icon"];
+                [NITUserDefaults setObject:tmpimagesname forKey:@"TempcellImagesName"];
+                [NITUserDefaults synchronize];
+                
+                
+                if ([self.DropClickDelegate respondsToSelector:@selector(SelectedListName:)]) {
+                    [self.DropClickDelegate SelectedListName:tmparr[index]];
+                }
             }
             
         } animation:YES];
@@ -109,12 +124,56 @@
     
 }
 
+- (void)isShowAlert:(NSArray *)array andIndex:(NSInteger)index {
+    
+    id control = [self topViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+    
+    [NITDeleteAlert SharedAlertShowMessage:@"施設を切り替えますか？施設を切り替えますと、現在編集中の内容が保存されません。"  andControl:control withOk:^(BOOL isOk) {
+    
+        NSString *str = [array[index] objectForKey:@"facilityname2"];
+        
+        [self setTitle:str forState:UIControlStateNormal];
+        
+        [NITUserDefaults setObject:array[index] forKey:@"TempFacilityName"];
+        [NITUserDefaults synchronize];
+        
+        NSMutableArray *tmpimagesname = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"CellImagesName"]];
+        
+        [tmpimagesname replaceObjectAtIndex:index withObject:@"selectfacitility_icon"];
+        [NITUserDefaults setObject:tmpimagesname forKey:@"TempcellImagesName"];
+        [NITUserDefaults synchronize];
+        
+        
+        if ([self.DropClickDelegate respondsToSelector:@selector(SelectedListName:)]) {
+            [self.DropClickDelegate SelectedListName:array[index]];
+        }
+    
+    }];
+}
+
 -(void)buttonImageViewAnimateStatas:(double)statas {
     
     [UIView animateWithDuration:0.2 animations:^{
         self.imageView.transform = CGAffineTransformMakeRotation(statas);
     } completion:^(BOOL finished) {
     }];
+}
+
+
+/**查找当前页面的根控制器*/
+- (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController {
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController* tabBarController = (UITabBarController*)rootViewController;
+        return [self topViewControllerWithRootViewController:tabBarController.selectedViewController];
+    } else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController* navigationController = (UINavigationController*)rootViewController;
+        return [self topViewControllerWithRootViewController:navigationController.visibleViewController];
+    } else if (rootViewController.presentedViewController) {
+        UIViewController* presentedViewController = rootViewController.presentedViewController;
+        return [self topViewControllerWithRootViewController:presentedViewController];
+    } else {
+        return rootViewController;
+    }
 }
 
 @end

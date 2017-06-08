@@ -21,7 +21,11 @@
 
 @property (nonatomic, strong) NSString                    *buttonTitle;
 
+@property (nonatomic, assign) BOOL                         showAlert;
+
 
 +(instancetype)sharedDropButton;
+
+-(void)buttonClick:(UIButton *)sender;
 
 @end

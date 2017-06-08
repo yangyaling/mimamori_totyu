@@ -100,7 +100,9 @@
 
 - (IBAction)editCell:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
+        
         [sender setTitle:@"完了" forState:UIControlStateNormal];
+        
         self.isEdit = YES;
         
         [self ViewAnimateStatas:120];
@@ -109,6 +111,7 @@
         [self.editAnimationView StartAnimationXLayoutConstraint:self.editAnimationViewLayout];
 
     }else{
+        
         [self saveInfo:nil]; //跟新或者追加
     }
     
@@ -141,9 +144,13 @@
 //                [MBProgressHUD showSuccess:@""];
                 
                 [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+                
                 self.footView.height = 0;
+                
                 self.footView.alpha = 0;
+                
                 self.isEdit = NO;
+                
                 [self.tableView setEditing:NO animated:YES];
                 [self.editAnimationView FinishAnimationZoneLayoutConstraint:self.editAnimationViewLayout];
                 

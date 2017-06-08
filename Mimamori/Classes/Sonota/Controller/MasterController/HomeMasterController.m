@@ -69,6 +69,21 @@
 }
 
 -(void)SelectedListName:(NSDictionary *)clickDic {
+    
+    [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+    
+    self.footView.height = 0;
+    
+    self.footView.alpha = 0;
+    
+    self.isEdit = NO;
+    
+    [self.tableView setEditing:NO animated:YES];
+    
+    _facilityBtn.showAlert = NO;
+    
+    [self.editAnimationView FinishAnimationZoneLayoutConstraint:self.editAnimationViewLayout];
+    
     [self.tableView.mj_header beginRefreshing];
 }
 
@@ -103,9 +118,8 @@
         }
         
         
-        if (btnF.count >0) {
-            [NITUserDefaults setObject:btnF forKey:@"FLOORLISTKEY"];
-        }
+        [NITUserDefaults setObject:btnF forKey:@"FLOORLISTKEY"];
+        
         
         
 //        if (btnR.count >0) {
@@ -143,7 +157,7 @@
         [sender setTitle:@"完了" forState:UIControlStateNormal];
         
          [self.tableView setEditing:YES animated:YES];
-        
+        _facilityBtn.showAlert = YES;
         [self.editAnimationView StartAnimationXLayoutConstraint:self.editAnimationViewLayout];
         
         
@@ -260,6 +274,8 @@
                 self.isEdit = NO;
                 
                 [self.tableView setEditing:NO animated:YES];
+                
+                _facilityBtn.showAlert = NO;
                 
                 [self.editAnimationView FinishAnimationZoneLayoutConstraint:self.editAnimationViewLayout];
                 

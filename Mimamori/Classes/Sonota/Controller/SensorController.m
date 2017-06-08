@@ -62,7 +62,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.footView.height = 0;
     self.footView.alpha = 0;
@@ -176,16 +175,15 @@
     
     [MProfileTool profileInfoWithParam:param success:^(NSArray *array) {
         
+        [MBProgressHUD hideHUDForView:self.view];
         if (array.count > 0){
             self.profileArray = [ProfileModel mj_objectArrayWithKeyValuesArray:array];
+            
             ProfileModel *mod = self.profileArray.firstObject;
-            
-//            NSData *dataicon = [NSData dataWithContentsOfURL:[NSURL URLWithString:mod.picpath]];
-//            [NITUserDefaults setObject:dataicon forKey:self.profileUser0];
-            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
                 if (mod.picpath.length > 0) {
+                    
                     NSURL * url = [NSURL URLWithString:mod.picpath];
                     
                     NSData * data = [[NSData alloc]initWithContentsOfURL:url];
@@ -193,28 +191,28 @@
                     if (data != nil) {
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
+                            
                             [MBProgressHUD hideHUDForView:self.view];
                             [NITUserDefaults setObject:data forKey:self.profileUser0];
                             
                         });
+                        
                     } else {
+                        
                         dispatch_async(dispatch_get_main_queue(), ^{
+                            
                             [MBProgressHUD hideHUDForView:self.view];
                             
                         });
                     }
-                } else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MBProgressHUD hideHUDForView:self.view];
-                        
-                    });
                 }
                 
             });
+            
         } else {
-            [MBProgressHUD hideHUDForView:self.view];
             NITLog(@"getcustinfo空");
         }
+        
     } failure:^(NSError *error) {
          [MBProgressHUD hideHUDForView:self.view];
         NITLog(@"getcustinfo失败");
@@ -416,6 +414,7 @@
         
         ptvc.pmodel = self.profileArray.firstObject;
         
+        
     } else if ([segue.identifier isEqualToString:@"scenarioInfoPush"]) {
         
         NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
@@ -562,13 +561,12 @@
 //自定义 SectionHeader
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
     UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(10, 0, self.tableView.width,45)];
-//    titleView.backgroundColor = NITColor(235, 235, 235);
     
+//    titleView.backgroundColor = NITColor(235, 235, 235);
     //シナリオ
         
-    UIButton *editButton =[[UIButton alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width*0.85, 5, 40, 35)];
+    UIButton *editButton =[[UIButton alloc] initWithFrame:CGRectMake(self.tableView.width - 55, 5, 40, 35)];
     [editButton setTitle: @"＋" forState: UIControlStateNormal];
     [editButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [editButton addTarget:self action:@selector(addScenario:) forControlEvents:UIControlEventTouchUpInside];

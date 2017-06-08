@@ -42,7 +42,6 @@
 
 @property (nonatomic, strong) NSMutableArray        *allDatas;
 
-@property (nonatomic, strong) NSString              *maxId;
 @property (nonatomic, assign) NSInteger              numxxid;
 
 @end
@@ -89,7 +88,9 @@
 - (IBAction)editCell:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
+        
         self.isEdit = YES;
+        _facilityBtn.showAlert = YES;
         
         if ([usertype isEqualToString:@"1"]) {
             //显示加号按钮和登陆按钮
@@ -112,12 +113,6 @@
 
 /** 点加号按钮 */
 - (IBAction)addCell:(id)sender {
-    
-//    if (!self.maxId.length) return;
-//    
-//    NSInteger numId = [self.maxId integerValue] + self.numxxid;
-//    
-//    NSString *idstr = [NSString stringWithFormat:@"%04i",(int)numId];
     
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
@@ -235,6 +230,7 @@
                 self.footView.height = 0;
                 self.footView.alpha = 0;
                 self.isEdit = NO;
+                _facilityBtn.showAlert = NO;
                 [self.tableView setEditing:NO animated:YES];
                 
                 [self.tableView.mj_header beginRefreshing];
@@ -305,12 +301,12 @@
             [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
             
         }
-        if (custlist.count > 0) {
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@{@"custid":@"-",@"custname":@"- -"}];
-            [arr addObjectsFromArray:custlist];
-            [NITUserDefaults setObject:arr forKey:@"custidlist"];
-        }
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@{@"custid":@"-",@"custname":@"- -"}];
+        [arr addObjectsFromArray:custlist];
+        [NITUserDefaults setObject:arr forKey:@"custidlist"];
+        
+        
         [self.tableView reloadData];
         
     } failure:^(NSError *error) {
@@ -461,7 +457,12 @@
  设施下拉框代理
  */
 -(void)SelectedListName:(NSDictionary *)clickDic; {
-    
+    [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+    self.footView.height = 0;
+    self.footView.alpha = 0;
+    self.isEdit = NO;
+    [self.tableView setEditing:NO animated:YES];
+    _facilityBtn.showAlert = NO;
     [self.tableView.mj_header beginRefreshing];
 }
 

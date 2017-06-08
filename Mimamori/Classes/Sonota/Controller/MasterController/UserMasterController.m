@@ -168,7 +168,7 @@
 
 - (IBAction)addCell:(id)sender {
     
-    if ((id)self.maxId != [NSNull null]) {
+    if (![self.maxId isEqualToString:@""]) {
         
         NSString *laststr = [self.maxId substringFromIndex:self.maxId.length - 5];
         NSString *fiststr = [self.maxId substringToIndex:self.maxId.length - 5];

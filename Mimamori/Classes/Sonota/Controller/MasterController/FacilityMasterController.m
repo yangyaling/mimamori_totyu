@@ -102,7 +102,9 @@
 }
 
 -(void)SelectedListName:(NSDictionary *)clickDic{
-    
+    [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+    [self statusEdit:NO withColor:TextFieldNormalColor];
+    _facilityBtn.showAlert = NO;
     [self getinfo];
 }
 
@@ -161,11 +163,10 @@
 - (IBAction)editCell:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
-        
+        _facilityBtn.showAlert = YES;
         [self statusEdit:YES withColor:[UIColor whiteColor]];
         //进入编辑状态
     }else{
-        [sender setTitle:@"編集" forState:UIControlStateNormal];
         
         [self saveInfo]; //跟新或者追加
         
@@ -261,6 +262,7 @@
             if ([code isEqualToString:@"200"]) {
                 [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
                 [self statusEdit:NO withColor:TextFieldNormalColor];
+                _facilityBtn.showAlert = NO;
                 [self AgainFacilityList]; //更新成功再取一次设施list
             } else {
                 [MBProgressHUD showError:@""];

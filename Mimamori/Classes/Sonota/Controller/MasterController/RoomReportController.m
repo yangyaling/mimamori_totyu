@@ -72,6 +72,17 @@
 }
 
 -(void)SelectedListName:(NSDictionary *)clickDic {
+    [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
+    
+    [self.tableView setEditing:NO animated:YES];
+    
+    self.footView.height = 0;
+    self.footView.alpha = 0;
+    self.isEdit = NO;
+    
+    [self.editAnimationView FinishAnimationZoneLayoutConstraint:self.editAnimationViewLayout];
+    
+    _facilityBtn.showAlert = NO;
     [self.tableView.mj_header beginRefreshing];
 }
 
@@ -132,6 +143,7 @@
         
         [self.tableView setEditing:YES animated:YES];
         self.isEdit = YES;
+        _facilityBtn.showAlert = YES;
         [self ViewAnimateStatas:120];
         [self.editAnimationView StartAnimationXLayoutConstraint:self.editAnimationViewLayout];
         //进入编辑状态
@@ -229,6 +241,8 @@
                 self.isEdit = NO;
                 
                 [self.editAnimationView FinishAnimationZoneLayoutConstraint:self.editAnimationViewLayout];
+                
+                _facilityBtn.showAlert = NO;
                 
                 [CATransaction setCompletionBlock:^{
                     

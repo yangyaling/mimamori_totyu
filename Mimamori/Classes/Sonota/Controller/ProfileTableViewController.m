@@ -84,9 +84,14 @@
 
 @property (nonatomic, strong) UIImagePickerController      *imagePicker;
 
+@property (strong, nonatomic) IBOutlet UIView              *datePickerView;
+
 @property (strong, nonatomic) IBOutlet DropButton          *facilitiesBtn;
 
 @property (strong, nonatomic) IBOutlet UILabel             *titleLabel;
+
+@property (nonatomic, strong) IBOutlet UIDatePicker        *pickerdate;
+
 
 @end
 
@@ -96,29 +101,57 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
     self.titleLabel.text = self.titleStr;
     
     
     if (self.userid0.length > 0) {
         self.imagedata = [NITUserDefaults objectForKey:self.userid0];
+        
         if (self.imagedata) {
+            
             self.userIcon.image = [UIImage imageWithData:self.imagedata];
-            //        NITLog(@"照片：2 ---%@",self.imagedata);
+            
         }
     }
     
     //赋值基本信息数据
     [self setupData];
-    // 缩放手势
-//    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchView:)];
-//    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]
-//                                                    initWithTarget:self
-//                                                    action:@selector(handlePan:)];
-//    [self.bigImg addGestureRecognizer:panGestureRecognizer];
-//    [self.bigImg addGestureRecognizer:pinchGestureRecognizer];
+    
+    _datePickerView.width = NITScreenW;
+    
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];//创建一个日期格式化器
+    
+    dateFormatter.dateFormat=@"yyyy-MM-dd";
+    
+    NSDate *date  = [dateFormatter dateFromString:self.birthday.text];
+    
+    if (date) {
+        _pickerdate.date = date;
+    } else {
+        _pickerdate.date  = [NSDate date];
+    }
+    
+    [self.navigationController.view addSubview:_datePickerView];
+    
+    [_datePickerView setHidden:YES];
     
 }
+
+
+- (IBAction)cancelDatePicker:(id)sender {
+    [_datePickerView setHidden:YES];
+}
+
+- (IBAction)okDatePicker:(id)sender {
+    
+    self.birthday.text = [_pickerdate.date needDateStatus:NotHaveType];;
+    
+    [_datePickerView setHidden:YES];
+}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
@@ -126,6 +159,7 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [_datePickerView removeFromSuperview];
     [MBProgressHUD hideHUDForView:self.navigationController.view];
 }
 
@@ -135,16 +169,20 @@
     if (indexPath.section == 0 && indexPath.row == 0) {
         [self.actionSheetTitle showGGActionSheet];
     }
+    
+    if (indexPath.section == 5 && indexPath.row == 0) {
+        
+        [_datePickerView setHidden:NO];
+        
+    }
 }
 
 -(GGActionSheet *)actionSheetTitle {
-    
     if (!_actionSheetTitle) {
         _actionSheetTitle = [GGActionSheet ActionSheetWithTitleArray:@[@"写真を撮る",@"アルバムから取得",@"写真を拡大する"] andTitleColorArray:@[NITColor(252, 85, 115),[UIColor darkGrayColor],[UIColor darkGrayColor]] delegate:self];
         _actionSheetTitle.cancelDefaultColor = [UIColor lightGrayColor];
     }
     return _actionSheetTitle;
-    
 }
 
 
@@ -154,7 +192,9 @@
     self.sex.text = _pmodel.sex;
     self.floorNumber.text = _pmodel.floorno;
     self.roomNumber.text = _pmodel.roomcd;
+    
     self.birthday.text = _pmodel.birthday;
+    
     self.address.text = _pmodel.address;
     self.kakaritsuke.text = _pmodel.kakaritsuke;
     self.drug.text = _pmodel.drug;

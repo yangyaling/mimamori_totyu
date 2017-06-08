@@ -146,10 +146,7 @@ static CGRect frameQ;
     if (backgroundView.action) {
         //利用block回调 确定选中的row
         _action(indexPath.row);
-        NSMutableArray *tmpimagesname = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"CellImagesName"]];
-        [tmpimagesname replaceObjectAtIndex:indexPath.row withObject:@"selectfacitility_icon"];
-        [NITUserDefaults setObject:tmpimagesname forKey:@"TempcellImagesName"];
-        [NITUserDefaults synchronize];
+        
         [NITDropDowm removed];
     }
 }
