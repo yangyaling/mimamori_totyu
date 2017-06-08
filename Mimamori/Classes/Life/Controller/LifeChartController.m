@@ -259,6 +259,8 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     [MSensorDataTool sensorDataWithParam:param type:type success:^(NSDictionary *dic) {
         [MBProgressHUD hideHUDForView:self.myCollection];
         
+        NSString *chartType = [NSString stringWithFormat:@"%@", dic[@"type"]];
+        
         NSArray *tmpArr = dic[@"deviceinfo"];
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            NSString *imagestr = ;
@@ -284,6 +286,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
                 });
                 
             } else {
+                
                 NITLog(@"图片地址为空");
             }
 //        });
@@ -291,33 +294,33 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
             [_ZworksDataArray removeAllObjects];
             [MBProgressHUD showError:@"データがありません"];
         }else{
-//            _ZworksDataArray = [NSMutableArray arrayWithArray:tmpArr];
             
-//            ZworksChartModel *model = tmpArr[@"deviceinfo"];
+            if (!chartType.length) return ;
             
-//            NSArray *modelarray = [ZworksChartModel mj_objectArrayWithKeyValuesArray:tmpArr];
-//            
-//            _CLArray = [NSMutableArray arrayWithArray:modelarray];
-            _CLArray = [NSMutableArray arrayWithArray:tmpArr];
-            
-            self.controlarr = [NSMutableArray new];
-            
-            for (int i = 0; i < _CLArray.count; i++) {
-                UIStoryboard *lifesb = [UIStoryboard storyboardWithName:@"Life" bundle:nil];
-                ZworksChartTBVC *ChartC = [lifesb instantiateViewControllerWithIdentifier:@"charttbcellview"];
-                ChartC.automaticallyAdjustsScrollViewInsets = YES;
-                ChartC.zarray = [tmpArr mutableCopy];
-                ChartC.xnum = _xnum;
-                ChartC.userid0 = _userid0;
-                ChartC.updatedelegate = self;
-                ChartC.superrow = i;
-                [self addChildViewController:ChartC];
-                [self.controlarr addObject:ChartC]; //viewC放到数组里面
+            if ([chartType integerValue] == _xnum) {
+                _CLArray = [NSMutableArray arrayWithArray:tmpArr];
+                
+                self.controlarr = [NSMutableArray new];
+                
+                for (int i = 0; i < _CLArray.count; i++) {
+                    UIStoryboard *lifesb = [UIStoryboard storyboardWithName:@"Life" bundle:nil];
+                    ZworksChartTBVC *ChartC = [lifesb instantiateViewControllerWithIdentifier:@"charttbcellview"];
+                    ChartC.automaticallyAdjustsScrollViewInsets = YES;
+                    ChartC.zarray = [tmpArr mutableCopy];
+                    ChartC.xnum = _xnum;
+                    ChartC.userid0 = _userid0;
+                    ChartC.updatedelegate = self;
+                    ChartC.superrow = i;
+                    [self addChildViewController:ChartC];
+                    [self.controlarr addObject:ChartC]; //viewC放到数组里面
+                }
+                
+                _myCollection.contentSize = self.myCollection.size;
+                _myCollection.contentOffset = CGPointMake((NITScreenW)*_CLArray.count-1, 0);
+                [_myCollection reloadData];
+
             }
             
-            _myCollection.contentSize = self.myCollection.size;
-            _myCollection.contentOffset = CGPointMake((NITScreenW)*_CLArray.count-1, 0);
-            [_myCollection reloadData];
         }
         
     } failure:^(NSError *error) {

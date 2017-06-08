@@ -205,6 +205,13 @@
     IconModel *iconM = [[IconModel alloc] init];
     iconM.custid = self.userid0;
     iconM.updatedate = updatedate;
+    
+    
+    if (!self.imagedata) {
+        UIImage *tmpimage =self.userIcon.image;
+        self.imagedata = UIImageJPEGRepresentation(tmpimage, 1.0);
+    }
+    
     NSString *imageDataStr = [self.imagedata base64EncodedStringWithOptions:0];
     iconM.picdata = imageDataStr;
     
@@ -231,13 +238,16 @@
         [NITUserDefaults setObject:self.imagedata forKey:self.userid0];
         NITLog(@"%@",path);
         [MProfileTool profileInfoUpdateWithParam:param success:^(NSString *code) {
-            
-            [MBProgressHUD showSuccess:@"更新しました！" toView:self.navigationController.view];
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if ([code isEqualToString:@"200"]) {
+                [MBProgressHUD showSuccess:@"更新しました！" toView:self.navigationController.view];
                 
-                [self.navigationController popViewControllerAnimated:YES];
-            });
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            } else {
+                [MBProgressHUD showError:@"" toView:self.navigationController.view];
+            }
             
         } failure:^(NSError *error) {
             [MBProgressHUD showError:@"後ほど試してください" toView:self.navigationController.view];
@@ -254,50 +264,6 @@
 //　点击保存按钮
 - (IBAction)saveProfile:(id)sender {
     
-//    if (!self.imagedata) {
-//        [MBProgressHUD showError:@"写真をアップロード下さい"];
-//        return;
-//    }
-    
-//    if (!self.user0name.text.length) {
-//        [MBProgressHUD showError:@"氏名を入力して下さい"];
-//        return;
-//    }
-//    if (!self.sex.text.length) {
-//        [MBProgressHUD showError:@"性别を入力して下さい" toView:self.tableView];
-////        [MBProgressHUD showError: ];
-//        return;
-//    }
-    
-//    if (!self.birthday.text.length) {
-//        [MBProgressHUD showError:@"誕生日を入力して下さい"];
-//        return;
-//    }
-    
-//    if (!self.address.text.length) {
-//        [MBProgressHUD showError:@"現住所を入力して下さい"];
-//        return;
-//    }
-    
-//    if (!self.kakaritsuke.text.length) {
-//        [MBProgressHUD showError:@"かかりつけ医を入力して下さい"];
-//        return;
-//    }
-//    
-//    if (!self.drug.text.length) {
-//        [MBProgressHUD showError:@"服薬情報を入力して下さい"];
-//        return;
-//    }
-//    
-//    if (!self.health.text.length) {
-//        [MBProgressHUD showError:@"健康診断結果を入力してください"];
-//        return;
-//    }
-//    
-//    if (!self.other.text.length) {
-//        [MBProgressHUD showError:@"その他お願い事項を入力してください"];
-//        return;
-//    }
 //    
     [self updateProfileInfo];
     
@@ -332,6 +298,7 @@
         self.view.userInteractionEnabled = YES;
     }];
 }
+
 
 //移除图
 - (void)moveToOrigin
