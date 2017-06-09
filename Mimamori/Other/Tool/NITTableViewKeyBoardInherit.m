@@ -47,7 +47,8 @@
     [bgBtn setBackgroundColor:[UIColor clearColor]];
     [bgBtn addTarget:self action:@selector(textFieldShouldReturn:) forControlEvents:UIControlEventTouchUpInside];
     _bgBtn = bgBtn;
-    
+    [WindowView addSubview:bgBtn];
+    [_bgBtn setHidden:YES];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showKeyboard:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
@@ -57,15 +58,17 @@
 #pragma mark - 键盘躲避
 - (void)showKeyboard:(NSNotification *)noti
 {
-    [WindowView addSubview:_bgBtn];
-    
+    [_bgBtn setHidden:NO];
     CGRect keyBoardRect=[noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
+-(BOOL)textFieldShouldReturn:(UITextView *)textField{
+    
     [self endEditing:YES];
+    
     [textField resignFirstResponder];
+    
     return YES;
 }
 

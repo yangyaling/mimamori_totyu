@@ -129,10 +129,6 @@
     }
     
     
-    if ([UIApplication sharedApplication].windows.count > 1) {
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }
-    
 }
 
 
@@ -444,28 +440,16 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if ([UIApplication sharedApplication].windows.count > 1) {
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }
-    NSLog(@"windows个数:%ld",[UIApplication sharedApplication].windows.count);
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if ([UIApplication sharedApplication].windows.count > 1) { 
-        [self dismissViewControllerAnimated:NO completion:nil];
-    }
-    NSLog(@"windows个数:%ld",[UIApplication sharedApplication].windows.count);
-    return YES;
-}
-//
 #pragma mark - UITextFieldDelegate
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
+-(BOOL)textFieldShouldReturn:(UITextView *)textField{
+    
     [textField resignFirstResponder];
+    
     return YES;
     
 }
+
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"]) {
