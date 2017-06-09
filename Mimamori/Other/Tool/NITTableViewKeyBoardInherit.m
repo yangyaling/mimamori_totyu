@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) UITextField *editTextField;
 @property (nonatomic, strong) UITextView  *editTextView;
-@property (nonatomic, strong) UIButton    *bgBtn;
+@property (nonatomic, weak) UIButton      *bgBtn;
 
 @end
 
@@ -75,7 +75,7 @@
 
 - (void)hideKeyboard:(NSNotification *)noti
 {
-    [_bgBtn removeFromSuperview];
+    [_bgBtn setHidden:YES];
     self.transform = CGAffineTransformIdentity;
 }
 

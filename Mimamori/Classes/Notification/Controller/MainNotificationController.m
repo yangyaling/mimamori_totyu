@@ -94,7 +94,6 @@
     self.typenum = 1; //  选择器2  num
     
     self.onstauts = NO;  //是否是在日历选择了日期
-    NSLog(@"windows个数:%ld",[UIApplication sharedApplication].windows.count);
 }
 
 
