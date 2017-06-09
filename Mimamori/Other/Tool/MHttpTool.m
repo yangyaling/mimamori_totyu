@@ -24,8 +24,14 @@
     
 //    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
     
+    NSMutableDictionary *pdic = [NSMutableDictionary dictionaryWithDictionary:params];
+    
+    NSString *hostcd = [NITUserDefaults objectForKey:@"HOSTCDKEY"];
+    
+    [pdic setObject:hostcd forKey:@"hostcd"];
+    
     // 2.发送请求
-    [session POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+    [session POST:url parameters:pdic progress:^(NSProgress * _Nonnull uploadProgress) {
        
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -52,10 +58,14 @@
     
     // 1.创建请求管理对象
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
+    NSMutableDictionary *pdic = [NSMutableDictionary dictionaryWithDictionary:params];
     
+    NSString *hostcd = [NITUserDefaults objectForKey:@"HOSTCDKEY"];
+    
+    [pdic setObject:hostcd forKey:@"hostcd"];
 //    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
     // 2.发送请求
-    [session POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull totalFormData) {
+    [session POST:url parameters:pdic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull totalFormData) {
         
 //        for (NSData *formData in formDataArray) {
 //            [totalFormData appendPartWithFileData:formData.data name:formData.name fileName:formData.filename mimeType:formData.mimeType];
@@ -85,7 +95,11 @@
 
 
 +(void)getWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    NSMutableDictionary *pdic = [NSMutableDictionary dictionaryWithDictionary:params];
     
+    NSString *hostcd = [NITUserDefaults objectForKey:@"HOSTCDKEY"];
+    
+    [pdic setObject:hostcd forKey:@"hostcd"];
     // 1.创建请求管理对象
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     
@@ -93,7 +107,7 @@
     //session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"text/plain", @"text/javascript",@"application/x-json",@"text/html", nil];
     
     // 2.发送请求
-    [session GET:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+    [session GET:url parameters:pdic progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {

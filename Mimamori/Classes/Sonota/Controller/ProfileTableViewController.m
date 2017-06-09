@@ -67,12 +67,6 @@
  *  最终更新者名
  */
 @property (weak, nonatomic) IBOutlet UILabel               *updatename;
-/**
- *  保存按钮
- */
-@property (strong, nonatomic) IBOutlet UIButton            *save;
-
-//@property (nonatomic, strong) NSMutableArray             *profileArray;
 
 @property (strong, nonatomic) IBOutlet UIImageView         *userIcon;
 
@@ -84,7 +78,7 @@
 
 @property (nonatomic, strong) UIImagePickerController      *imagePicker;
 
-@property (strong, nonatomic) IBOutlet UIView              *datePickerView;
+@property (weak, nonatomic) IBOutlet UIView              *datePickerView;
 
 @property (strong, nonatomic) IBOutlet DropButton          *facilitiesBtn;
 
@@ -134,22 +128,23 @@
         _pickerdate.date  = [NSDate date];
     }
     
-    [self.navigationController.view addSubview:_datePickerView];
     
-    [_datePickerView setHidden:YES];
+    if ([UIApplication sharedApplication].windows.count > 1) {
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
     
 }
 
 
 - (IBAction)cancelDatePicker:(id)sender {
-    [_datePickerView setHidden:YES];
+    [_datePickerView removeFromSuperview];
 }
 
 - (IBAction)okDatePicker:(id)sender {
     
     self.birthday.text = [_pickerdate.date needDateStatus:NotHaveType];;
     
-    [_datePickerView setHidden:YES];
+    [_datePickerView removeFromSuperview];
 }
 
 
@@ -171,8 +166,7 @@
     }
     
     if (indexPath.section == 5 && indexPath.row == 0) {
-        
-        [_datePickerView setHidden:NO];
+        [self.navigationController.view addSubview:_datePickerView];
         
     }
 }
@@ -235,8 +229,8 @@
 /**
  *  更新プロフィール
  */
--(void)updateProfileInfo{
-    
+
+- (IBAction)saveProfile:(id)sender {
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     
     NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
@@ -271,7 +265,7 @@
     param.updatename =[NITUserDefaults objectForKey:@"userid1name"];
     
     
-//    NITLog(@"%@\n%@\n照片：2 ---%@",self.userid0,updatedate,self.imagedata);
+    //    NITLog(@"%@\n%@\n照片：2 ---%@",self.userid0,updatedate,self.imagedata);
     //
     [MProfileTool profileInfoUpdateImageWithParam:iconM withImageDatas:nil success:^(NSString *path) {
         [MBProgressHUD hideHUDForView:self.navigationController.view];
@@ -299,34 +293,8 @@
         NITLog(@"%@",error.localizedDescription);
         [MBProgressHUD showError:@"アップロード失敗" toView:self.navigationController.view];
     }];
-}
-
-//　点击保存按钮
-- (IBAction)saveProfile:(id)sender {
-    
-//    
-    [self updateProfileInfo];
     
 }
-
-//移动图片
-//- (void) handlePan:(UIPanGestureRecognizer*) recognizer
-//{
-//    CGPoint translation = [recognizer translationInView:self.view];
-//    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
-//                                         recognizer.view.center.y + translation.y);
-//    [recognizer setTranslation:CGPointZero inView:self.view];
-//    
-//}
-////手势方法缩小图片
-//- (void)pinchView:(UIPinchGestureRecognizer *)pinchGestureRecognizer   {
-//    UIView *view = pinchGestureRecognizer.view;
-//    if (pinchGestureRecognizer.state == UIGestureRecognizerStateBegan || pinchGestureRecognizer.state == UIGestureRecognizerStateChanged) {
-//        view.transform = CGAffineTransformScale(view.transform, pinchGestureRecognizer.scale, pinchGestureRecognizer.scale);
-//        pinchGestureRecognizer.scale = 1;
-//    }
-//}
-
 
 //显示大图片到屏幕中心
 - (void)moveToCenterWidth:(CGFloat)widthI withHeight:(CGFloat)heightI
@@ -406,9 +374,9 @@
     
     NSString* mark = name;
     
-    int w = img.size.width;
+    CGFloat w = img.size.width;
     
-    int h = img.size.height;
+    CGFloat h = img.size.height;
     
     UIGraphicsBeginImageContext(img.size);
     
@@ -421,7 +389,7 @@
                            };
     
     
-    [mark drawInRect:CGRectMake(10 , h - 50 , w, 50) withAttributes:attr];  //右下角
+    [mark drawInRect:CGRectMake(10 ,h - 50 , w, 50) withAttributes:attr];  //右下角
     
     
     UIImage *aimg = UIGraphicsGetImageFromCurrentImageContext();
@@ -443,12 +411,11 @@
         
         NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
         
-        UIImage *scaleImage = [self scaleImage:image toScale:0.3];
         
-        UIImage *updateimg =  [self watermarkImage:scaleImage withName:updatedate];
+        UIImage *updateimg =  [self watermarkImage:image withName:updatedate];
         
         //图片压缩，因为原图都是很大的，不必要传原图
-        NSData *imageData = UIImageJPEGRepresentation(updateimg, 0.5);
+        NSData *imageData = UIImageJPEGRepresentation(updateimg, 1);
         
         
 //        NITLog(@"照片：1 ---%@",imageData);
@@ -457,41 +424,41 @@
         //UIImagePickerControllerMediaType
         //UIImagePickerControllerCropRect
         //UIImagePickerControllerEditedImage
-        //UIImagePickerControllerOriginalImage
+        //UIImagePickerControllerOriginalImage=
         self.userIcon.image = [UIImage imageWithData:imageData];
         
     }
     
-    UIViewController *vc = picker;
-    while (vc.presentingViewController) {
-        vc = vc.presentingViewController;
-    }
-    [vc dismissViewControllerAnimated:YES completion:nil];
-    
-}
-
-#pragma mark- 缩放图片
--(UIImage *)scaleImage:(UIImage *)image toScale:(float)scaleSize
-{
-    UIGraphicsBeginImageContext(CGSizeMake(image.size.width*scaleSize,image.size.height*scaleSize));
-    [image drawInRect:CGRectMake(0, 0, image.size.width * scaleSize, image.size.height *scaleSize)];
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return scaledImage;
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"windows个数:%ld",[UIApplication sharedApplication].windows.count);
 }
 
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [MBProgressHUD hideHUDForView:self.navigationController.view];
-    UIViewController *vc = picker;
-    while (vc.presentingViewController) {
-        vc = vc.presentingViewController;
-    }
-    [vc dismissViewControllerAnimated:YES completion:nil];
-//    [picker dismissViewControllerAnimated:YES completion:nil];
+//    UIViewController *vc = picker;
+//    while (vc.presentingViewController) {
+//        vc = vc.presentingViewController;
+//    }
+//    [vc dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if ([UIApplication sharedApplication].windows.count > 1) {
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
+    NSLog(@"windows个数:%ld",[UIApplication sharedApplication].windows.count);
+}
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if ([UIApplication sharedApplication].windows.count > 1) { 
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
+    NSLog(@"windows个数:%ld",[UIApplication sharedApplication].windows.count);
+    return YES;
+}
+//
 #pragma mark - UITextFieldDelegate
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{

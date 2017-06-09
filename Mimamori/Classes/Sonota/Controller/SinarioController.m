@@ -8,33 +8,36 @@
 
 #import "SinarioController.h"
 
-
 #import "NITPicker.h"
+
 #import "SinarioTableViewCell.h"
 
 #import "Device.h"
+
 #import "ScenarioCellFrame.h"
 
 @interface SinarioController ()<MyPickerDelegate>
-
 
 @property (strong, nonatomic) IBOutlet UITextField         *sinarioText;
 
 @property (strong, nonatomic) IBOutlet UIButton            *sinariobutton;
 
 @property (strong, nonatomic) IBOutlet UITableView         *tableView;
+
 @property (nonatomic, strong) NITPicker                    *picker;
+
 @property (nonatomic, assign) NSInteger                    cellnum;
 
 @property (nonatomic, strong) NSMutableArray               *allarray;
 
-
 @property (nonatomic, assign) BOOL                         isSelectModelScenario;
+
 @property (strong, nonatomic) IBOutlet UIButton            *editButton;
 
-
 @property (strong, nonatomic) IBOutlet UIButton            *leftTimeButton;
+
 @property (strong, nonatomic) IBOutlet UIButton            *rightTimeButton;
+
 @property (strong, nonatomic) IBOutlet UISegmentedControl  *daySegment;
 
 @property (nonatomic, assign) NSInteger                    timeIndex;
@@ -66,6 +69,7 @@
     NSArray *nodes = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"addnodeiddatas"]]];
     
     if (nodes.count > 0) {
+        
         NSData * data = [NSKeyedArchiver archivedDataWithRootObject:nodes];
         
         [NITUserDefaults setObject:data forKey:@"tempdeaddnodeiddatas"];
@@ -75,10 +79,12 @@
     
     self.timeIndex = self.scopecd;
     
-    
     if (self.starttime.length > 0 || self.endtime.length >0) {
+        
         [self.leftTimeButton setTitle:self.starttime forState:UIControlStateNormal];
+        
         [self.rightTimeButton setTitle:self.endtime forState:UIControlStateNormal];
+        
     }
     
     if (self.hideBarButton) {
@@ -93,6 +99,8 @@
         
         self.footView.alpha = 0;
         
+        [self.tableView setEditing:NO];
+        
     } else {
         
         [self.daySegment setEnabled:YES];
@@ -104,6 +112,7 @@
         self.footView.height = 100;
         
         self.footView.alpha = 1;
+        
     }
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getScenariodtlInfo)];
@@ -217,19 +226,20 @@
                 NSInteger scope = [[[tmpModelArr[arcModelNo] firstObject] objectForKey:@"scopecd"] integerValue];
                 
                 self.timeIndex = scope;
+                
                 if (self.timeIndex == 4) {
+                    
                     [self.leftTimeButton setEnabled:YES];
+                    
                     [self.rightTimeButton setEnabled:YES];
                 }
                 self.daySegment.selectedSegmentIndex = scope;
                 
                 [self.leftTimeButton setTitle:[[tmpModelArr[arcModelNo] firstObject] objectForKey:@"starttime"] forState:UIControlStateNormal];
+                
                 [self.rightTimeButton setTitle:[[tmpModelArr[arcModelNo] firstObject] objectForKey:@"endtime"] forState:UIControlStateNormal];
                 
-                
-                
                 if (tmpModelArr.count == 0) return ; //雏形数组
-                
                 
                 //模板里的第一个与选择的雏形进行合并
                 NSArray *allarr = [self ScenarioModelDatasUpdate:tmpArr[0] andNewArray:tmpModelArr[arcModelNo]];
@@ -260,6 +270,7 @@
                 }
                 
             } else {
+                
 //                NSInteger scope = [[[tmpArr[0] firstObject] objectForKey:@"scopecd"] integerValue];
 //                
 //                self.daySegment.selectedSegmentIndex = scope;
@@ -267,12 +278,17 @@
 //                [self selectedTimeButtonIndex:scope];
                 
                 NSData * data = [NSKeyedArchiver archivedDataWithRootObject:tmpArr];
+                
                 [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
+                
                 self.allarray = [NSMutableArray arrayWithArray:tmpArr];
                 //                                 [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"scenariodtlinfoarr"]]];
             }
+            
             [self.tableView reloadData];
+            
         } else {
+            
             [MBProgressHUD showError:@""];
         }
 
@@ -285,24 +301,29 @@
         [self.tableView.mj_header endRefreshing];
         
         NSArray *arr = nil;
+        
         [NITUserDefaults setObject:arr forKey:@"scenariodtlinfoarr"];
         
         [NITUserDefaults setObject:arr forKey:@"tempdeaddnodeiddatas"];
+        
     }];
-    
-    
 }
 
 - (NSArray *)ScenarioModelDatasUpdate:(NSArray *)oldarray andNewArray:(NSArray *)newarray {
     
     if (oldarray.count == 0) {
+        
         [MBProgressHUD showError:@""];
+        
         return nil;
     }
     
     NSMutableArray *allarr = [NSMutableArray new];
+    
     for (NSDictionary *obj in oldarray) {
+        
         NSMutableDictionary *tempdic = [NSMutableDictionary dictionaryWithDictionary:obj];
+        
         [tempdic setObject:@"1" forKey:@"detailno"];  //先把添加的此条cell 打开方便之后cell中判断detailno 为1的显示
         
         for (NSDictionary *dic in newarray) {
@@ -329,11 +350,12 @@
             }
            
         }
+        
         [allarr addObject:tempdic];
     }
     
-    
     return allarr;
+    
 }
 
 
@@ -422,7 +444,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-        return _allarray.count;
+    NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
+    
+    NSArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    return arr.count;
     
 }
 
@@ -443,13 +469,9 @@
     
     cell.cellarr = self.allarray[indexPath.row];
     
-    
-    if (!tableView.editing) { //cell是否可以编辑
+    if (_hideBarButton) {
         cell.userInteractionEnabled = NO;
-    } else {
-        cell.userInteractionEnabled = YES;
     }
-    
     
     return cell;
     
@@ -480,52 +502,6 @@
         [MBProgressHUD showError:@""];
     }
 }
-
-
-
-/**
-    编辑
- */
-//- (IBAction)EditBarButton:(UIButton *)sender {
-//    if ([sender.titleLabel.text isEqualToString:@"編集"]) {
-//        if (self.timeIndex == 4) {
-//            [self.leftTimeButton setEnabled:YES];
-//            [self.rightTimeButton setEnabled:YES];
-//        }
-//        [sender setTitle:@"完了" forState:UIControlStateNormal];
-//        [self.sinariobutton setEnabled:YES];
-//        [self.daySegment setEnabled:YES];
-//        [self.sinarioText setEnabled:YES];
-//        
-//        
-//        self.footView.height = 100;
-//        self.footView.alpha = 1;
-//        
-//        //进入编辑状态
-//        [self.tableView setEditing:YES animated:YES];
-//    }else{
-//        [sender setTitle:@"編集" forState:UIControlStateNormal];
-//        [self.sinariobutton setEnabled:NO];
-//        [self.daySegment setEnabled:NO];
-//        [self.sinarioText setEnabled:NO];
-//        self.footView.height = 0;
-//        self.footView.alpha = 0;
-//        [self saveScenario:nil]; //跟新或者追加
-//        
-//        //取消编辑状态
-//        [self.tableView setEditing:NO animated:YES];
-//        
-//    }
-//    
-////    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-////        [self.tableView reloadData];
-////    });
-//    [CATransaction setCompletionBlock:^{
-//        [self.tableView reloadData];
-//    }];
-//    
-//}
-
 
 
 /**
@@ -702,11 +678,11 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!tableView.editing)
-        return UITableViewCellEditingStyleNone;
-    else {
+    if (!_hideBarButton) {
         return UITableViewCellEditingStyleDelete;
     }
+    return UITableViewCellEditingStyleNone;
+    
 }
 
 
@@ -829,13 +805,14 @@
 }
 
 -(NSMutableArray *)allarray {
+    
     if (!_allarray) {
+        
         _allarray = [NSMutableArray array];
+        
     }
     return _allarray;
 }
-
-
 
 
 //                NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

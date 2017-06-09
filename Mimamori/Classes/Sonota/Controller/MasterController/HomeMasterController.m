@@ -102,7 +102,6 @@
         
         NSArray *btnF = [json objectForKey:@"floorlist"];
         
-//        NSArray *btnR = [json objectForKey:@"roomlist"];
         
         NSArray *custlist = [json objectForKey:@"custlist"];
         
@@ -117,14 +116,17 @@
             
         }
         
+        if (btnF.count == 0) {
+            NSDictionary *tmpdic = @{@"roomcd":@"-"};
+            NSDictionary *dic = @{@"floorno":@"-",@"roomlist":@[tmpdic]};
+            NSMutableArray *addListArray = [NSMutableArray array];
+            [addListArray addObject:dic];
+            [addListArray addObjectsFromArray:btnF];
+            [NITUserDefaults setObject:addListArray forKey:@"FLOORLISTKEY"];
+        } else {
+            [NITUserDefaults setObject:btnF forKey:@"FLOORLISTKEY"];
+        }
         
-        [NITUserDefaults setObject:btnF forKey:@"FLOORLISTKEY"];
-        
-        
-        
-//        if (btnR.count >0) {
-//            [NITUserDefaults setObject:btnR forKey:@"ROOMLISTKEY"];
-//        }
         
         
         if (custlist.count >0) {
@@ -243,8 +245,21 @@
 
 - (IBAction)saveInfo:(id)sender {
    
+    
     NSArray *array = [NITUserDefaults objectForKey:@"HOMECUSTINFO"];
-    if (array.count  ==  0) return;
+    
+    for (NSDictionary * dic in array) {
+        if ([dic[@"floorno"] isEqualToString:@"-"] || [dic[@"roomcd"] isEqualToString:@"-"]) {
+            array = nil;
+            break;
+        }
+    }
+    
+    if (array.count  ==  0) {
+        [MBProgressHUD showError:@"階と居室番号は居室情報にて設定してください。"];
+        return;
+    }
+    
     [MBProgressHUD showMessage:@"" toView:self.view];
     
     NSError *parseError = nil;

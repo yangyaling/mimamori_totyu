@@ -11,7 +11,8 @@
 @interface NITTableViewKeyBoardInherit ()<UITextFieldDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) UITextField *editTextField;
-@property (nonatomic, strong) UITextView *editTextView;
+@property (nonatomic, strong) UITextView  *editTextView;
+@property (nonatomic, strong) UIButton    *bgBtn;
 
 @end
 
@@ -41,6 +42,12 @@
 
 
 - (void)initviewDidLoad {
+    UIButton *bgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [bgBtn setFrame:CGRectMake(0, 0, NITScreenW, NITScreenH)];
+    [bgBtn setBackgroundColor:[UIColor clearColor]];
+    [bgBtn addTarget:self action:@selector(textFieldShouldReturn:) forControlEvents:UIControlEventTouchUpInside];
+    _bgBtn = bgBtn;
+    
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showKeyboard:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
@@ -50,12 +57,22 @@
 #pragma mark - 键盘躲避
 - (void)showKeyboard:(NSNotification *)noti
 {
+    [WindowView addSubview:_bgBtn];
+    
     CGRect keyBoardRect=[noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self endEditing:YES];
+    [textField resignFirstResponder];
+    return YES;
+}
+
+
 - (void)hideKeyboard:(NSNotification *)noti
-{          
+{
+    [_bgBtn removeFromSuperview];
     self.transform = CGAffineTransformIdentity;
 }
 

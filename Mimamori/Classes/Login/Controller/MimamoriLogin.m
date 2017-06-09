@@ -67,6 +67,9 @@
 
 //ログイン認証
 -(void)loginWithHostId:(NSString *)hostId withUserId:(NSString *)userid pwd:(NSString *)pwd{
+    /*hostcd保存*/
+    [NITUserDefaults setObject:hostId forKey:@"HOSTCDKEY"];
+    [NITUserDefaults synchronize];
     MLoginParam *param = [[MLoginParam alloc]init];
     param.hostcd = hostId;
     param.staffid = userid;
@@ -76,6 +79,10 @@
         
         //認証OKの場合(code=200)
         if ([result.code isEqualToString:@"200"]) {
+            /*hostcd保存*/
+            [NITUserDefaults setObject:hostId forKey:@"HOSTCDKEY"];
+            [NITUserDefaults synchronize];
+            
             
             /*密码保存*/
             [NITUserDefaults setObject:pwd forKey:@"PASSWORDKEY"];
