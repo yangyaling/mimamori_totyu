@@ -79,13 +79,10 @@
     
     self.timeIndex = self.scopecd;
     
-    if (self.starttime.length > 0 || self.endtime.length >0) {
+    [self.leftTimeButton setTitle:(self.starttime.length > 0 ? self.starttime : @"- -") forState:UIControlStateNormal];
         
-        [self.leftTimeButton setTitle:self.starttime forState:UIControlStateNormal];
-        
-        [self.rightTimeButton setTitle:self.endtime forState:UIControlStateNormal];
-        
-    }
+    [self.rightTimeButton setTitle:(self.endtime.length >0 ? self.endtime : @"- -") forState:UIControlStateNormal];
+    
     
     if (self.hideBarButton) {
         
@@ -133,6 +130,7 @@
         self.leftTimeButton.backgroundColor = TextFieldNormalColor;
         self.rightTimeButton.backgroundColor = TextFieldNormalColor;
     }
+    
     [self selectedTimeButtonIndex:sender.selectedSegmentIndex];
     
 }
@@ -185,7 +183,9 @@
 
 
 -(void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:YES];
+    
 }
 
 
@@ -271,18 +271,11 @@
                 
             } else {
                 
-//                NSInteger scope = [[[tmpArr[0] firstObject] objectForKey:@"scopecd"] integerValue];
-//                
-//                self.daySegment.selectedSegmentIndex = scope;
-//                
-//                [self selectedTimeButtonIndex:scope];
-                
                 NSData * data = [NSKeyedArchiver archivedDataWithRootObject:tmpArr];
                 
                 [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
                 
                 self.allarray = [NSMutableArray arrayWithArray:tmpArr];
-                //                                 [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"scenariodtlinfoarr"]]];
             }
             
             [self.tableView reloadData];
@@ -562,7 +555,6 @@
         if ([alldatas.firstObject count] > 0) {
             NITLog(@"%ld",alldatas.count);
             // 网络请求，追加或更新
-//            [MBProgressHUD showError:@"シナリオネームを入力してください"];
             [self updateScenarioInfo:alldatas];
             [MBProgressHUD showMessage:@"" toView:self.view];
         }else{
@@ -594,10 +586,10 @@
     parametersDict[@"scopecd"] = [NSString stringWithFormat:@"%ld",self.timeIndex];
     
     
-    NSString *startstr = [NSString stringWithFormat:@"%@:00",self.leftTimeButton.titleLabel.text];
-    NSString *endstr = [NSString stringWithFormat:@"%@:00",self.rightTimeButton.titleLabel.text];
+    NSString *startstr = nil;
+    NSString *endstr = nil;
     
-    if ([startstr isEqualToString:@"- -"] && [endstr isEqualToString:@"- -"]) {
+    if ([self.leftTimeButton.titleLabel.text isEqualToString:@"- -"] && [self.rightTimeButton.titleLabel.text isEqualToString:@"- -"]) {
         parametersDict[@"starttime"] = @"00:00:00";
         parametersDict[@"endtime"] = @"00:00:00";
     }else if ([startstr isEqualToString:@"- -"]) {
