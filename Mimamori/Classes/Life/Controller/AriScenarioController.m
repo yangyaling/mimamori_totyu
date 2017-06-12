@@ -21,8 +21,6 @@
 
 @property (nonatomic, strong) NSMutableArray                 *alldatas;
 
-@property (nonatomic,strong) AFHTTPSessionManager            *session;
-
 @property (nonatomic, strong) NSString                       *roomname;
 
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
@@ -31,10 +29,6 @@
 
 @implementation AriScenarioController
 
-
-//- (IBAction)gobacktoC:(id)sender {
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
 
 
 - (void)viewDidLoad {
@@ -54,8 +48,7 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(detailRefresh)];
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
-    self.session = [AFHTTPSessionManager manager];
-    self.session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+    
     [MBProgressHUD showMessage:@"" toView:self.view];
 }
 
@@ -68,11 +61,6 @@
  弹出下拉设施菜单
  @param sender
  */
--(void)showSelectedList {
-    
-    
-}
-
 
 - (void)detailRefresh {
     
@@ -82,13 +70,11 @@
     
     parametersDict[@"noticetype"] = @"1";
     
-    [self.session POST:NITGetNoticeInfo parameters:parametersDict progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [MHttpTool postWithURL:NITGetNoticeInfo params:parametersDict success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         
         [self.tableView.mj_header endRefreshing];
-        NSArray *tmparr = responseObject[@"notices"];
+        NSArray *tmparr = json[@"notices"];
         self.alldatas = [NSMutableArray arrayWithArray:tmparr.firstObject];
         if (self.alldatas.count >0) {
             self.Rtime.text = [self.alldatas.firstObject objectForKey:@"registdate"];
@@ -101,14 +87,12 @@
             NITLog(@"aratoinfo没数据");
         }
         
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSError *error) {
         NITLog(@"aratoinfo请求失败:%@",[error localizedDescription]);
         [MBProgressHUD hideHUDForView:self.view];
         
         [self.tableView.mj_header endRefreshing];
     }];
-    
     
     
 }
