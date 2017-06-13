@@ -221,7 +221,17 @@
             if (self.isSelectModelScenario) {
                 
                 //选择的是第几个雏形赋值
-                NSInteger arcModelNo = self.modelindex; //随机选择某个
+                NSInteger arcModelNo = self.modelindex;
+                
+                NSArray *oldarr = nil;
+                for (NSArray *arr in tmpArr) {
+                    NSInteger newnodetype = [[[tmpModelArr[arcModelNo] firstObject] objectForKey:@"nodetype"] integerValue];
+                   NSInteger oldnodetype = [[arr.firstObject objectForKey:@"nodetype"] integerValue];
+                    if (oldnodetype == newnodetype) {
+                        oldarr = arr.copy;
+                        break;
+                    }
+                }
                 
                 NSInteger scope = [[[tmpModelArr[arcModelNo] firstObject] objectForKey:@"scopecd"] integerValue];
                 
@@ -241,8 +251,12 @@
                 
                 if (tmpModelArr.count == 0) return ; //雏形数组
                 
+                if (oldarr.count == 0) {
+                    [MBProgressHUD showError:@""];
+                    return;
+                }
                 //模板里的第一个与选择的雏形进行合并
-                NSArray *allarr = [self ScenarioModelDatasUpdate:tmpArr[0] andNewArray:tmpModelArr[arcModelNo]];
+                NSArray *allarr = [self ScenarioModelDatasUpdate:oldarr andNewArray:tmpModelArr[arcModelNo]];
                 
                 if (allarr.count == 0) return;
                 
@@ -330,6 +344,7 @@
                 [tempdic setObject:dic[@"time"] forKey:@"time"];
                 [tempdic setObject:@"0" forKey:@"value"];    //反应 和  使用 的value  要改为  0
                 [tempdic setObject:dic[@"rpoint"] forKey:@"rpoint"];
+                [tempdic setObject:dic[@"devicetype"] forKey:@"devicetype"];
             } else {
                 if ([tempdic[@"devicetype"] integerValue] == [dic[@"devicetype"] integerValue]) {
                     
@@ -471,6 +486,7 @@
 }
 
 - (IBAction)addCell:(UIButton *)sender {
+    
     NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
     NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
@@ -510,8 +526,9 @@
     NSArray * scenarioarr = [[NSKeyedUnarchiver unarchiveObjectWithData:data] copy];
     
     for (NSArray *tmparr in scenarioarr) {
-        
+        NSMutableArray *array = [NSMutableArray new];
         if (tmparr.count < 4) {
+            alldatas = [NSMutableArray new];
             break;
         }
         NSDictionary *dicOne = tmparr[0];
@@ -521,7 +538,7 @@
         if ([dicOne[@"detailno"] integerValue] == 0 && [dicTwo[@"detailno"] integerValue] == 0 && [dicThree[@"detailno"] integerValue] == 0 && [dicFour[@"detailno"] integerValue] == 0){
             continue;
         }
-        NSMutableArray *array = [NSMutableArray new];
+        
         
         NSString *onetime = [NSString stringWithFormat:@"%@",dicOne[@"time"]];
         if (![onetime isEqualToString:@"-"] && ![dicOne[@"rpoint"] isEqualToString:@"-"]) {
