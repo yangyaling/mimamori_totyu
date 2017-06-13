@@ -61,12 +61,13 @@
  弹出下拉设施菜单
  @param sender
  */
-
 - (void)detailRefresh {
     
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     
     parametersDict[@"custid"] = self.usernumber;
+    
+    parametersDict[@"subtitle"] = self.subtitle;
     
     parametersDict[@"noticetype"] = @"1";
     
@@ -74,18 +75,29 @@
         [MBProgressHUD hideHUDForView:self.view];
         
         [self.tableView.mj_header endRefreshing];
+        
         NSArray *tmparr = json[@"notices"];
-        self.alldatas = [NSMutableArray arrayWithArray:tmparr.firstObject];
-        if (self.alldatas.count >0) {
-            self.Rtime.text = [self.alldatas.firstObject objectForKey:@"registdate"];
-            self.roomnum.text = [self.alldatas.firstObject objectForKey:@"scenarioname"];
-            self.roomname = [self.alldatas.firstObject objectForKey:@"roomname"];
+        
+        self.alldatas = [NSMutableArray arrayWithArray:tmparr];
+        
+        if (self.alldatas.count > 0) {
+            
             [self.pushButton setEnabled:YES];
+            
             [self.pushButton setBackgroundColor:NITColor(252, 82, 116)];
+            
+            self.Rtime.text = [[self.alldatas.firstObject firstObject] objectForKey:@"registdate"];
+            
+            self.roomnum.text = [[self.alldatas.firstObject firstObject] objectForKey:@"scenarioname"];
+            
+            self.roomname = [[self.alldatas.firstObject firstObject] objectForKey:@"roomname"];
+            
             [self.tableView reloadData];
+            
         } else {
             NITLog(@"aratoinfo没数据");
         }
+        
         
     } failure:^(NSError *error) {
         NITLog(@"aratoinfo请求失败:%@",[error localizedDescription]);
@@ -128,7 +140,15 @@
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.alldatas.count;
+    
+    if (self.subtitle.length) {
+        
+        return self.alldatas.count;
+        
+    } else {
+        
+        return [[self.alldatas firstObject] count];
+    }
 }
 
 
@@ -136,25 +156,30 @@
     
     DetailCCell *cell = [DetailCCell cellWithTableView:tableView];
     
-    NSDictionary *dic = self.alldatas[indexPath.row];
+    NSDictionary *dic = nil;
     
-    cell.devicename.text = dic[@"devicename"];
+    NSArray *array = self.alldatas[indexPath.row];
     
-    NSString *stringtime = [NSString stringWithFormat:@"%@H",dic[@"time"]];
-    
-    cell.timeValue.text = stringtime;
-    
-    NSString *strvalue = dic[@"value"];
-    
-    if ([strvalue isEqualToString:@"0"]) {
-        NSString *stringR = [NSString stringWithFormat:@"%@%@",dic[@"unit"],dic[@"rpoint"]];
-        cell.valueRp.text = stringR;
-    } else {
-        NSString *stringR = [NSString stringWithFormat:@"%@%@%@",dic[@"value"],dic[@"unit"],dic[@"rpoint"]];
-        cell.valueRp.text = stringR;
+    if (array.count >0) {
+        
+        dic  = array.firstObject;
+        
+        cell.devicename.text = dic[@"devicename"];
+        
+        NSString *stringtime = [NSString stringWithFormat:@"%@H",dic[@"time"]];
+        
+        cell.timeValue.text = stringtime;
+        
+        NSString *strvalue = dic[@"value"];
+        
+        if ([strvalue isEqualToString:@"0"]) {
+            NSString *stringR = [NSString stringWithFormat:@"%@%@",dic[@"unit"],dic[@"rpoint"]];
+            cell.valueRp.text = stringR;
+        } else {
+            NSString *stringR = [NSString stringWithFormat:@"%@%@%@",dic[@"value"],dic[@"unit"],dic[@"rpoint"]];
+            cell.valueRp.text = stringR;
+        }
     }
-    
-    
     
     return cell;
     

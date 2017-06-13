@@ -510,6 +510,7 @@
         [secondViewController.navigationItem setHidesBackButton:YES];
         secondViewController.usernumber = model.staffid;
         secondViewController.username = model.username;
+        secondViewController.subtitle = model.subtitle;
         secondViewController.isPushOrPop = NO;
         //跳转事件
         [self.navigationController pushViewController:secondViewController animated:YES];

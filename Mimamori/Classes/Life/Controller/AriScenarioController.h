@@ -27,7 +27,12 @@
  */
 @property (nonatomic, copy) NSString                 *username;
 
+/**
+ subtitle
+ */
+@property (nonatomic, copy) NSString                 *subtitle;
 
+//
 
 /**
   PushOrPop

@@ -603,10 +603,10 @@
     parametersDict[@"scopecd"] = [NSString stringWithFormat:@"%ld",self.timeIndex];
     
     
-    NSString *startstr = nil;
-    NSString *endstr = nil;
+    NSString *startstr = [NSString stringWithFormat:@"%@",self.leftTimeButton.titleLabel.text];
+    NSString *endstr = [NSString stringWithFormat:@"%@",self.rightTimeButton.titleLabel.text];
     
-    if ([self.leftTimeButton.titleLabel.text isEqualToString:@"- -"] && [self.rightTimeButton.titleLabel.text isEqualToString:@"- -"]) {
+    if ([startstr isEqualToString:@"- -"] && [endstr isEqualToString:@"- -"]) {
         parametersDict[@"starttime"] = @"00:00:00";
         parametersDict[@"endtime"] = @"00:00:00";
     }else if ([startstr isEqualToString:@"- -"]) {
