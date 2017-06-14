@@ -14,9 +14,9 @@
 
 @interface AriScenarioController ()<DropClickDelegate>
 @property (strong, nonatomic) IBOutlet UITableView           *tableView;
+
 @property (strong, nonatomic) IBOutlet UILabel               *aratoUser;
-@property (strong, nonatomic) IBOutlet UILabel               *roomnum;
-@property (strong, nonatomic) IBOutlet UILabel               *Rtime;
+
 @property (strong, nonatomic) IBOutlet UIButton              *pushButton;
 
 @property (nonatomic, strong) NSMutableArray                 *alldatas;
@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSString                       *roomname;
 
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
+
 
 @end
 
@@ -44,6 +45,7 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(detailRefresh)];
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
@@ -86,11 +88,7 @@
             
             [self.pushButton setBackgroundColor:NITColor(252, 82, 116)];
             
-            self.Rtime.text = [[self.alldatas.firstObject firstObject] objectForKey:@"registdate"];
-            
-            self.roomnum.text = [[self.alldatas.firstObject firstObject] objectForKey:@"scenarioname"];
-            
-            self.roomname = [[self.alldatas.firstObject firstObject] objectForKey:@"roomname"];
+            self.roomname = [[[self.alldatas.firstObject firstObject] firstObject] objectForKey:@"roomname"];
             
             [self.tableView reloadData];
             
@@ -134,21 +132,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.alldatas.count;
 }
 
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (self.subtitle.length) {
-        
-        return self.alldatas.count;
-        
-    } else {
-        
-        return [[self.alldatas firstObject] count];
-    }
+    NSArray *array = self.alldatas[section];
+    
+    return array.count;
+    
 }
 
 
@@ -158,11 +152,15 @@
     
     NSDictionary *dic = nil;
     
-    NSArray *array = self.alldatas[indexPath.row];
+    NSArray *dicarr = nil;
     
-    if (array.count >0) {
-        
-        dic  = array.firstObject;
+    NSArray *arr = self.alldatas[indexPath.section];
+    
+    dicarr  = arr[indexPath.row];
+   
+    dic = dicarr.firstObject;
+    
+    if (dicarr.count >0) {
         
         cell.devicename.text = dic[@"devicename"];
         
@@ -185,6 +183,48 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 30;
+    
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
+    UIView *bgview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, NITScreenW, 25)];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, (NITScreenW - 30) *0.4, 25)];
+    
+    UILabel *timelabel = [[UILabel alloc] initWithFrame:CGRectMake(NITScreenW *0.3 + 15, 0,NITScreenW - label.width - 15, 25)];
+    timelabel.font = [UIFont systemFontOfSize:15];
+    
+    [label setAdjustsFontSizeToFitWidth:YES];
+    [timelabel setAdjustsFontSizeToFitWidth:YES];
+    
+    [timelabel setTextAlignment:NSTextAlignmentRight];
+    
+    [bgview addSubview:label];
+    [bgview addSubview:timelabel];
+    
+    NSArray *dicarr = nil;
+    
+    dicarr = [self.alldatas[section] firstObject];
+    
+    if (dicarr.count >0) {
+        
+        timelabel.text = [dicarr. firstObject objectForKey:@"registdate"];
+        
+        label.text = [dicarr.firstObject objectForKey:@"scenarioname"];
+        
+        return bgview;
+        
+    } else {
+        
+        return nil;
+    }
+    
+    
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
