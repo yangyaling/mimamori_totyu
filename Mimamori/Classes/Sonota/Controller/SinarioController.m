@@ -224,10 +224,15 @@
                 NSInteger arcModelNo = self.modelindex;
                 
                 NSArray *oldarr = nil;
-                for (NSArray *arr in tmpArr) {
+                
+                NSInteger deleteindex = 0; //添加雏形所占用的模板下标号;
+                
+                for (int i = 0 ; i < tmpArr.count ; i++) {
+                    NSArray *arr = tmpArr[i];
                     NSInteger newnodetype = [[[tmpModelArr[arcModelNo] firstObject] objectForKey:@"nodetype"] integerValue];
-                   NSInteger oldnodetype = [[arr.firstObject objectForKey:@"nodetype"] integerValue];
+                    NSInteger oldnodetype = [[arr.firstObject objectForKey:@"nodetype"] integerValue];
                     if (oldnodetype == newnodetype) {
+                        deleteindex = i;
                         oldarr = arr.copy;
                         break;
                     }
@@ -262,9 +267,7 @@
                 
                 NSMutableArray *reparr = [NSMutableArray arrayWithArray:tmpArr.mutableCopy];
                 
-                [reparr replaceObjectAtIndex:0 withObject:allarr];
-                
-                
+                [reparr replaceObjectAtIndex:deleteindex withObject:allarr];
                 
                 [self.allarray removeAllObjects];
                 
@@ -273,7 +276,6 @@
                 NSData * data = [NSKeyedArchiver archivedDataWithRootObject:reparr];
                 
                 [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
-                
                 
                 
             } else {
