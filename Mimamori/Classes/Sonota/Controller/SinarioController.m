@@ -66,14 +66,14 @@
     
     self.sinarioText.text = self.textname;
     
-    NSArray *nodes = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"addnodeiddatas"]]];
-    
-    if (nodes.count > 0) {
-        
-        NSData * data = [NSKeyedArchiver archivedDataWithRootObject:nodes];
-        
-        [NITUserDefaults setObject:data forKey:@"tempdeaddnodeiddatas"];
-    }
+//    NSArray *nodes = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"addnodeiddatas"]]];
+//    
+//    if (nodes.count > 0) {
+//        
+//        NSData * data = [NSKeyedArchiver archivedDataWithRootObject:nodes];
+//        
+//        [NITUserDefaults setObject:data forKey:@"tempdeaddnodeiddatas"];
+//    }
     
     self.daySegment.selectedSegmentIndex = self.scopecd;
     
@@ -274,14 +274,7 @@
                 
                 [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
                 
-                NSArray *nodes =  [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"addnodeiddatas"]]];
                 
-                if (nodes.count > 0) {
-                    
-                    NSData * data = [NSKeyedArchiver archivedDataWithRootObject:nodes];
-                    
-                    [NITUserDefaults setObject:data forKey:@"tempdeaddnodeiddatas"];
-                }
                 
             } else {
                 
@@ -290,6 +283,15 @@
                 [NITUserDefaults setObject:data forKey:@"scenariodtlinfoarr"];
                 
                 self.allarray = [NSMutableArray arrayWithArray:tmpArr];
+            }
+            
+            NSArray *nodes =  [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"addnodeiddatas"]]];
+            
+            if (nodes.count > 0) {
+                
+                NSData * data = [NSKeyedArchiver archivedDataWithRootObject:nodes];
+                
+                [NITUserDefaults setObject:data forKey:@"tempdeaddnodeiddatas"];
             }
             
             [self.tableView reloadData];
@@ -602,9 +604,9 @@
     
     parametersDict[@"scopecd"] = [NSString stringWithFormat:@"%ld",self.timeIndex];
     
-    
     NSString *startstr = [NSString stringWithFormat:@"%@",self.leftTimeButton.titleLabel.text];
     NSString *endstr = [NSString stringWithFormat:@"%@",self.rightTimeButton.titleLabel.text];
+    
     
     if ([startstr isEqualToString:@"- -"] && [endstr isEqualToString:@"- -"]) {
         parametersDict[@"starttime"] = @"00:00:00";
