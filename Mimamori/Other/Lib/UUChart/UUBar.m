@@ -32,6 +32,10 @@
 
 -(void)setGrade:(float)grade
 {
+    if (isnan(grade))
+    return;
+    
+    
     if (grade==0)
     return;
     
@@ -44,12 +48,12 @@
     [progressline setLineWidth:1.0];
     [progressline setLineCapStyle:kCGLineCapSquare];
 	_chartLine.path = progressline.CGPath;
+    
 
 	if (_barColor) {
 		_chartLine.strokeColor = [_barColor CGColor];
 	}else{
         _chartLine.strokeColor = [[UIColor colorWithRed:220.0/255.0 green:220.0/255.0 blue:220.0/255.0 alpha:0.7f] CGColor];
-    
 	}
     
     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
@@ -61,6 +65,7 @@
     [_chartLine addAnimation:pathAnimation forKey:@"strokeEndAnimation"];
     
     _chartLine.strokeEnd = 2.0;
+    
 }
 
 @end

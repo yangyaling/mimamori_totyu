@@ -264,7 +264,7 @@
     
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-    
+      
     NSString *facilitycd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     
     NSDictionary *dic = @{@"custlist":str,@"facilitycd":facilitycd};
