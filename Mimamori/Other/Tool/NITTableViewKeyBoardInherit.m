@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) UITextField *editTextField;
 @property (nonatomic, strong) UITextView  *editTextView;
-@property (nonatomic, weak) UIButton      *bgBtn;
+//@property (nonatomic, weak) UIButton      *bgBtn;
 
 @end
 
@@ -42,13 +42,13 @@
 
 
 - (void)initviewDidLoad {
-    UIButton *bgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [bgBtn setFrame:CGRectMake(0, 0, NITScreenW, NITScreenH)];
-    [bgBtn setBackgroundColor:[UIColor clearColor]];
-    [bgBtn addTarget:self action:@selector(textFieldShouldReturn:) forControlEvents:UIControlEventTouchUpInside];
-    _bgBtn = bgBtn;
-    [WindowView addSubview:bgBtn];
-    [_bgBtn setHidden:YES];
+//    UIButton *bgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [bgBtn setFrame:CGRectMake(0, 0, NITScreenW, NITScreenH)];
+//    [bgBtn setBackgroundColor:[UIColor clearColor]];
+//    [bgBtn addTarget:self action:@selector(textFieldShouldReturn:) forControlEvents:UIControlEventTouchUpInside];
+//    _bgBtn = bgBtn;
+//    [WindowView addSubview:bgBtn];
+//    [_bgBtn setHidden:YES];
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showKeyboard:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
@@ -58,7 +58,7 @@
 #pragma mark - 键盘躲避
 - (void)showKeyboard:(NSNotification *)noti
 {
-    [_bgBtn setHidden:NO];
+//    [_bgBtn setHidden:NO];
     CGRect keyBoardRect=[noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
 }
@@ -75,7 +75,7 @@
 
 - (void)hideKeyboard:(NSNotification *)noti
 {
-    [_bgBtn setHidden:YES];
+//    [_bgBtn setHidden:YES];
     self.transform = CGAffineTransformIdentity;
 }
 

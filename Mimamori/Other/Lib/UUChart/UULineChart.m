@@ -302,6 +302,9 @@
         for (NSString * valueString in childAry) {
             
             float grade =([valueString floatValue]-_yValueMin) / ((float)_yValueMax-_yValueMin);
+            if (isnan(grade)) {
+                grade = 0;
+            }
             CGPoint point = CGPointMake(xPosition+index*_xLabelWidth, chartCavanHeight - grade * chartCavanHeight+UULabelHeight);
             [progressline addLineToPoint:point];
             
@@ -370,6 +373,9 @@
         
         float grade = ((float)firstValue-_yValueMin) / ((float)_yValueMax-_yValueMin);
         
+        if (isnan(grade)) {
+            grade = 0;
+        }
         //第一个点
         BOOL isShowMaxAndMinPoint = YES;
         if (self.ShowMaxMinArray) {
@@ -388,6 +394,9 @@
         for (NSString * valueString in childAry) {
             
             float grade =([valueString floatValue]-_yValueMin) / ((float)_yValueMax-_yValueMin);
+            if (isnan(grade)) {
+                grade = 0;
+            }
             if (index != 0) {
                 
                 CGPoint point = CGPointMake(xPosition+index*_xLabelWidth, chartCavanHeight - grade * chartCavanHeight+UULabelHeight);

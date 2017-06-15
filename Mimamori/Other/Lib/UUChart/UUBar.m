@@ -20,10 +20,15 @@
 		_chartLine = [CAShapeLayer layer];
         
 		_chartLine.lineCap = kCALineCapSquare;
+        
 		_chartLine.fillColor   = [[UIColor whiteColor] CGColor];
+        
 		_chartLine.lineWidth   = self.frame.size.width;
+        
 		_chartLine.strokeEnd   = 0.0;
+        
 		self.clipsToBounds = YES;
+        
 		[self.layer addSublayer:_chartLine];
 
     }
