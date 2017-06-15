@@ -112,16 +112,11 @@
         }
         
         
-        
-        if (roomlist.count >0) {
+        _allDatas = [NSMutableArray arrayWithArray:roomlist.mutableCopy];
             
-            _allDatas = [NSMutableArray arrayWithArray:roomlist.mutableCopy];
+        [NITUserDefaults setObject:roomlist forKey:@"ROOMMASTERINFOKEY"];
             
-            [NITUserDefaults setObject:roomlist forKey:@"ROOMMASTERINFOKEY"];
-            
-        }
-        
-        
+     
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         

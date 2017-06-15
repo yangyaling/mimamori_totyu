@@ -129,13 +129,11 @@
         
         
         
-        if (custlist.count >0) {
             
-            _allDatas = [NSMutableArray arrayWithArray:custlist.mutableCopy];
+        _allDatas = [NSMutableArray arrayWithArray:custlist.mutableCopy];
             
-            [NITUserDefaults setObject:custlist forKey:@"HOMECUSTINFO"];
-            
-        }
+        [NITUserDefaults setObject:custlist forKey:@"HOMECUSTINFO"];
+        
         
             
         [self.tableView reloadData];

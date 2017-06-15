@@ -294,13 +294,12 @@
             self.facilityNameTF.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
         }
         
-        if (sslist.count > 0) {
-            
-            _allDatas = [NSMutableArray arrayWithArray:sslist.mutableCopy];
-            NSData * data = [NSKeyedArchiver archivedDataWithRootObject:sslist];
-            [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
-            
-        }
+        _allDatas = [NSMutableArray arrayWithArray:sslist.mutableCopy];
+        NSData * data = [NSKeyedArchiver archivedDataWithRootObject:sslist];
+        [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
+         
+        
+        
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:@{@"custid":@"-",@"custname":@"- -"}];
         [arr addObjectsFromArray:custlist];

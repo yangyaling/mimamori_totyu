@@ -94,11 +94,11 @@
         
         self.maxId = [json objectForKey:@"maxstaffid"];
                 
-        if (stafflist.count >0) {
-            _allDatas = [NSMutableArray arrayWithArray:stafflist.mutableCopy];
+        
+        _allDatas = [NSMutableArray arrayWithArray:stafflist.mutableCopy];
             
-            [NITUserDefaults setObject:stafflist forKey:@"STAFFINFO"];
-        }
+        [NITUserDefaults setObject:stafflist forKey:@"STAFFINFO"];
+        
         
         if (baseinfos.count > 0) {
             self.companyName.text = [baseinfos.firstObject objectForKey:@"companyname"];
@@ -106,11 +106,9 @@
             self.facilityName.text = [baseinfos.firstObject objectForKey:@"facilityname2"];
         }
         
-        if (btnL.count >0) {
             
-            [NITUserDefaults setObject:btnL forKey:@"usertypelist"];
+        [NITUserDefaults setObject:btnL forKey:@"usertypelist"];
             
-        }
         
         [self.tableView reloadData];
         
