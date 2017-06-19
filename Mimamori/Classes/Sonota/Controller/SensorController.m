@@ -308,6 +308,7 @@
     param.scenarioid = scenarioID;
     
     [MScenarioTool scenarioDeleteWithParam:param success:^(NSString *code) {
+        
         [MBProgressHUD hideHUDForView:self.view];
         
         if ([code isEqualToString:@"200"]) {

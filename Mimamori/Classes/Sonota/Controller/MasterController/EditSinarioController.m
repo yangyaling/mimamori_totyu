@@ -129,7 +129,7 @@
         
         self.mySegment.selectedSegmentIndex = [[json objectForKey:@"scopecd"] integerValue];
         
-        
+        self.timeIndex = self.mySegment.selectedSegmentIndex;
         
         if (self.isEdit) {
             
@@ -273,9 +273,9 @@
 //其他时间的点击弹窗
 - (IBAction)timeButtonClick:(UIButton *)sender {
     if (self.ariSegment.selectedSegmentIndex == 1) {
-        _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:2];
+        _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:2 isBool:NO];
     } else {
-        _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:1];
+        _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:1 isBool:NO];
     }
     
     _picker.mydelegate = self;
@@ -319,14 +319,9 @@
         
         [self saveInfo:nil]; //
         
-        //取消编辑状态
-        //        [self.tableView setEditing:NO animated:YES];/
         
     }
     [self.tableView reloadData];
-//    [CATransaction setCompletionBlock:^{
-//        
-//    }];
 }
 - (IBAction)selectIndexTime:(UISegmentedControl *)sender {
     self.timeIndex = sender.selectedSegmentIndex;
@@ -390,14 +385,21 @@
         [MBProgressHUD hideHUDForView:self.view];
         
         if (json) {
+            
             NSString *code = [json objectForKey:@"code"];
+            
             NITLog(@"%@",code);
+            
             if ([code isEqualToString:@"200"]) {
                 
                 [self.navigationController popViewControllerAnimated:YES];
+                
             } else {
+                
                 [MBProgressHUD showError:@""];
+                
             }
+            
             [self.tableView reloadData];
         }
         
@@ -409,10 +411,9 @@
     
 }
 
+
 /**
- 
  保存-遍历检查scenario数据是否填写完整
- 
  */
 - (NSMutableArray *)saveScenario {
     //    BOOL scenariosuccess = YES;
@@ -439,21 +440,6 @@
     }
     return alldatas;
     
-//    if ([alldatas.firstObject count] > 0) {
-//        NITLog(@"%ld",alldatas.count);
-        // 网络请求，追加或更新
-        //            [MBProgressHUD showError:@"シナリオネームを入力してください"];
-        
-//        self.allarrays = alldatas.mutableCopy;
-        
-//        [self saveInfo:nil];
-    
-        
-//    }else{
-//        return alldatas;
-//        [MBProgressHUD  showError:@"入力項目をチェックしてください!"];
-//    }
-//    
 }
 
 
@@ -468,15 +454,8 @@
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-//    NSString *startstr = [NSString stringWithFormat:@"%@:00",self.leftTimeButton.titleLabel.text];
-//    NSString *endstr = [NSString stringWithFormat:@"%@:00",self.rightTimeButton.titleLabel.text];
-//    NITLog(@"%@-%@",startstr,endstr);
     
     [textField setBackgroundColor:[UIColor whiteColor]];
-    
-//    if (textField.tag == 1000) {
-//        self.lastLabel.text =  [textField.text isEqualToString:@"2"]?@"開閉":@"人感";
-//    }
     
 }
 
@@ -502,14 +481,38 @@
     }
     
 }
+
 - (IBAction)showScrollView:(UIButton *)sender {
-    _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:self.ariSegment.selectedSegmentIndex + 1];
+    
+    BOOL isOn = YES;
+    NSString *str = self.rgButton2.titleLabel.text;
+    if ([str isEqualToString:@"使用なし"] || [str isEqualToString:@"反応なし"]) {
+        isOn = NO;
+    }
+    
+    _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:self.ariSegment.selectedSegmentIndex + 1 isBool:isOn];
     
     _picker.mydelegate = self;
     
     [WindowView addSubview:_picker];
 }
 
+- (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell {
+    
+    [self.rgButton2 setTitle:sinario forState:UIControlStateNormal];
+    
+    if ([sinario isEqualToString:@"-"]) {
+        return;
+    }
+    
+    if ([sinario isEqualToString:@"使用なし"] || [sinario isEqualToString:@"反応なし"]) {
+        [self.rgButton1 setTitle:@"-" forState:UIControlStateNormal];
+    } else {
+        [self.rgButton1 setTitle:@"0H" forState:UIControlStateNormal];
+    }
+    
+    
+}
 
 
 

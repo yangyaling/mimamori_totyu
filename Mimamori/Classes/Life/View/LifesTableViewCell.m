@@ -131,7 +131,7 @@
     self.humidity.text = [NSString stringWithFormat:@"%.1f%@",[str6 floatValue],str7];
    
     
-    
+    	
     //　明るさ
     self.luminance.text = [NSString stringWithFormat:@"%@",str8];
    

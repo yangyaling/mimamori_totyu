@@ -15,6 +15,7 @@
 @optional
 - (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell;
 
+
 @end
 
 @interface NITPicker : UIView

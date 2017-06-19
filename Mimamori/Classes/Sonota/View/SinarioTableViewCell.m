@@ -9,7 +9,7 @@
 #import "SinarioTableViewCell.h"
 #import "NITPicker.h"
 #import "Device.h"
-@interface SinarioTableViewCell ()
+@interface SinarioTableViewCell ()<MyPickerDelegate>
 
 @property (nonatomic, strong) NITPicker       *picker;
 
@@ -24,8 +24,32 @@
 
 
 - (IBAction)PickShow:(UIButton *)sender {
-    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];
+    BOOL isOn = YES;
+    NSString *str = self.doaState.titleLabel.text;
+    if ([str isEqualToString:@"使用なし"] || [str isEqualToString:@"反応なし"]) {
+        isOn = NO;
+    }
+    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:isOn ? nil : @[@(isOn)] cellNumber:self.cellindex];
+    
+    _picker.mydelegate = self;
+    
     [WindowView addSubview:_picker];
+    
+}
+
+- (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell {
+    
+    [self.doaState setTitle:sinario forState:UIControlStateNormal];
+    
+    if ([sinario isEqualToString:@"-"]) {
+        return;
+    }
+    
+    if ([sinario isEqualToString:@"使用なし"] || [sinario isEqualToString:@"反応なし"]) {
+        [self.doatime setTitle:@"-" forState:UIControlStateNormal];
+    } else {
+        [self.doatime setTitle:@"0H" forState:UIControlStateNormal];
+    }
 }
 
 -(void)setCellarr:(NSArray *)cellarr {

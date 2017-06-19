@@ -26,8 +26,6 @@
  *
  *  @param superviews superview
  *  @param tag        父视图button 的 tag
- *  @param stype      0:1～72     1:1～100    2:以上 以下
- *
  */
--(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton  cellNumber:(NSInteger)number;
+-(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton cellNumber:(NSInteger)number isBool:(BOOL)isOn;
 @end

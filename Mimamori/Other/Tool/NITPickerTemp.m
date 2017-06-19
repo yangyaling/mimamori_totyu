@@ -53,14 +53,14 @@
 @property (nonatomic, strong) NSMutableArray           *names;
 @property (nonatomic, strong) UIButton                   *thisbutton;
 
-
+@property (nonatomic, assign) BOOL                     isOn;
 
 @property (nonatomic, assign) NSInteger                cellindex;
 @end
 
 @implementation NITPickerTemp
 
--(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton cellNumber:(NSInteger)number {
+-(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton cellNumber:(NSInteger)number isBool:(BOOL)isOn{
     self = [super initWithFrame:frame];
     if (self) {
         
@@ -112,19 +112,7 @@
             default:
                 break;
         }
-        //        if (selectbutton.tag==22||selectbutton.tag==11) {
-        //
-        //        }else if(selectbutton.tag==33){
-        //            scenariotype =1;
-        //        }else if(selectbutton.tag==44){
-        //            scenariotype = 2;
-        //        } else if (selectbutton.tag == 55) {
-        //            scenariotype = 3;
-        //        } else if (selectbutton.tag == 66){
-        //            scenariotype = 4;
-        //        } else {
-        //            scenariotype = 5;
-        //        }
+        self.isOn = isOn;
         self.cellindex = number;
         self.thisbutton = selectbutton;
         self.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -241,7 +229,7 @@
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
-    }else if (scenariotype == 6){
+    }else if (scenariotype == 6 || scenariotype == 8){
         // 2.通知代理
         if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
             [self.mydelegate PickerDelegateSelectString:select withDic:nil];
@@ -263,6 +251,12 @@
     
     if (scenariotype == 0  || scenariotype == 1  || scenariotype == 2 || scenariotype == 3 || scenariotype == 4 || scenariotype == 8 ) {
         
+        BOOL ison = NO;
+        if (scenariotype == 8) {
+            if ([select isEqualToString:@"使用あり"] || [select isEqualToString:@"反応あり"]) {
+                ison = YES;
+            }
+        }
 
         NSData *data = [NITUserDefaults objectForKey:@"EDITSINARIOINFO"];
 
@@ -289,6 +283,7 @@
                 [dicFour setObject:[select substringToIndex:[select length] - 1] forKey:@"time"];
                 break;
             case 111:
+                [dicFour setObject:ison ? @"0" : @"-" forKey:@"time"];
                 [dicFour setObject:@"0" forKey:@"value"];
                 [dicFour setObject:select forKey:@"rpoint"];
                 break;
@@ -734,10 +729,14 @@
         _time = [NSMutableArray new];
         [_time addObject:@"-"];
         if (scenariotype == 0) {
-            [_time addObject:@"0H"];
-            for (int i = 1; i<48; i++) {
-                [_time addObject:[NSString stringWithFormat:@"%.1fH",i / 2.0]];
+            if (!self.isOn) {
+                for (int i = 1; i<48; i++) {
+                    [_time addObject:[NSString stringWithFormat:@"%.1fH",i / 2.0]];
+                }
+            } else {
+                [_time addObject:@"0H"];
             }
+            
         } else {
             for (int i = 1; i<48; i++) {
                 [_time addObject:[NSString stringWithFormat:@"%.1fH",i / 2.0]];

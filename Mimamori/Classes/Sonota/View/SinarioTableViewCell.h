@@ -20,12 +20,6 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *doaState;
 //
-//@property (strong, nonatomic) IBOutlet UIButton *dayState;
-//
-//@property (strong, nonatomic) IBOutlet UIButton *timeSlot;
-//
-//
-//@property (strong, nonatomic) IBOutlet UILabel *timeT;
 
 @property (strong, nonatomic) IBOutlet UILabel *temperature;
 

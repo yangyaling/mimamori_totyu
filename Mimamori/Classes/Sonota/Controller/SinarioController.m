@@ -411,15 +411,6 @@
         [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
         
         
-//        NSMutableArray *disparray =[NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
-//        
-//        [disparray removeObject:addcell];
-//        
-//        NSData *tempdata = [NSKeyedArchiver archivedDataWithRootObject:disparray];
-//        
-//        [NITUserDefaults setObject:tempdata forKey:@"tempdeaddnodeiddatas"];
-        
-        
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation  :UITableViewRowAnimationNone];
@@ -435,7 +426,9 @@
 
 - (IBAction)PickShow:(UIButton *)sender {
     if (self.modelsArray.count >0) {
+        
         self.isAddCell = NO;
+        
         _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:self.modelsArray cellNumber:0];
         
         _picker.mydelegate = self;

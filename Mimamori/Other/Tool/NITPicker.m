@@ -257,7 +257,7 @@
         [self.thisbutton setTitle:str forState:UIControlStateNormal];
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
-    } else if (scenariotype == 6 || scenariotype == 7 || scenariotype == 12 || scenariotype == 14) {
+    } else if (scenariotype == 6 || scenariotype == 7 || scenariotype == 8 || scenariotype == 12 || scenariotype == 14) {
         
         if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
             
@@ -279,6 +279,13 @@
     }
     
     if (scenariotype == 0  || scenariotype == 1  || scenariotype == 2 || scenariotype == 3 || scenariotype == 4 || scenariotype == 8 ) {
+        
+        BOOL ison = NO;
+        if (scenariotype == 8) {
+            if ([select isEqualToString:@"使用あり"] || [select isEqualToString:@"反応あり"]) {
+                ison = YES;
+            }
+        }
         
         NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
     
@@ -306,6 +313,7 @@
                 [dicOne setObject:select forKey:@"time"];
                 break;
             case 111:
+                [dicOne setObject:ison ? @"0" : @"-" forKey:@"time"];
                 [dicOne setObject:@"0" forKey:@"value"];
                 [dicOne setObject:select forKey:@"rpoint"];
                 break;
@@ -337,6 +345,8 @@
         NSData *newdata = [NSKeyedArchiver archivedDataWithRootObject:arr];
         
         [NITUserDefaults setObject:newdata forKey:@"scenariodtlinfoarr"];
+        
+        
     } else if(scenariotype == 9) {
         //main的数据插入
         NSMutableDictionary *mainnodesdic = [NSMutableDictionary dictionaryWithDictionary:[NITUserDefaults objectForKey:@"mainondedatakey"]];
@@ -794,13 +804,22 @@
 
 -(NSMutableArray *)time{
     if (!_time) {
+        
         _time = [NSMutableArray new];
+        
         [_time addObject:@"-"];
+        
         if (scenariotype == 0) {
-            [_time addObject:@"0"];
-            for (int i = 1; i<48; i++) {
-                [_time addObject:[NSString stringWithFormat:@"%.1f",i / 2.0]];
+            
+            if (self.models.count > 0) {
+                
+                for (int i = 1; i<48; i++) {
+                    [_time addObject:[NSString stringWithFormat:@"%.1f",i / 2.0]];
+                }
+            } else {
+                [_time addObject:@"0"];
             }
+            
         } else {
             for (int i = 1; i<48; i++) {
                 [_time addObject:[NSString stringWithFormat:@"%.1f",i / 2.0]];

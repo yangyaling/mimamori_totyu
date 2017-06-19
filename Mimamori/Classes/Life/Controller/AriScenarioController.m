@@ -33,6 +33,7 @@
 
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     NSString *string = [NSString stringWithFormat:@"<アラート>%@",self.username];
@@ -40,10 +41,13 @@
     self.aratoUser.text = string;
     
     [self.pushButton setEnabled:NO];
+    
     [self.pushButton setBackgroundColor:NITColor(169, 169, 169)];
     
     self.tableView.backgroundColor = [UIColor clearColor];
+    
     self.tableView.tableFooterView = [[UIView alloc]init];
+    
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
     
@@ -52,6 +56,7 @@
     
     
     [MBProgressHUD showMessage:@"" toView:self.view];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -180,14 +185,14 @@
     }
     
     return cell;
-    
 }
 
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
     return 30;
-    
 }
+
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
@@ -195,16 +200,7 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, (NITScreenW - 30) *0.4, 25)];
     
-    UILabel *timelabel = [[UILabel alloc] initWithFrame:CGRectMake(NITScreenW *0.3 + 15, 0,NITScreenW - label.width - 15, 25)];
-    timelabel.font = [UIFont systemFontOfSize:15];
-    
-    [label setAdjustsFontSizeToFitWidth:YES];
-    [timelabel setAdjustsFontSizeToFitWidth:YES];
-    
-    [timelabel setTextAlignment:NSTextAlignmentRight];
-    
-    [bgview addSubview:label];
-    [bgview addSubview:timelabel];
+    UILabel *timelabel = [[UILabel alloc] initWithFrame:CGRectMake(NITScreenW *0.3 + 15, 0,NITScreenW - label.width - 15, 25)];      [bgview addSubview:timelabel];
     
     NSArray *dicarr = nil;
     

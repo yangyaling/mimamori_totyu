@@ -15,6 +15,7 @@
 @implementation MimamoriTabBarController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     [self setupChildControllers];
@@ -27,8 +28,11 @@
 -(void)setupChildControllers{
 
     UIViewController *vc1 = [self tabBarControllerWithStoryboardName:@"Notification" title:@"通知"];
+    
     UIViewController *vc2 =[self tabBarControllerWithStoryboardName:@"Life" title:@"生活"];
+    
     UIViewController *vc3 =[self tabBarControllerWithStoryboardName:@"Sonota" title:@"その他"];
+    
     self.viewControllers = @[vc1,vc2,vc3];
 }
 
@@ -38,9 +42,9 @@
     //vc->UINavigationController
     UIViewController *vc = [sb instantiateInitialViewController];
     vc.title = title;
-    
     return vc;
 }
+
 
 -(void)setupTabbarItems{
     
