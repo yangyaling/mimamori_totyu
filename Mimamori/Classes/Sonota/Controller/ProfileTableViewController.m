@@ -413,7 +413,7 @@
         UIImage *updateimg =  [self watermarkImage:image withName:updatedate];
         
         //图片压缩，因为原图都是很大的，不必要传原图
-        NSData *imageData = UIImageJPEGRepresentation(updateimg, 1);
+        NSData *imageData = UIImageJPEGRepresentation(updateimg, 0.5);
         
         
 //        NITLog(@"照片：1 ---%@",imageData);
