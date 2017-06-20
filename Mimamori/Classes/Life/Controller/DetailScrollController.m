@@ -17,12 +17,14 @@
 @interface DetailScrollController ()<DropClickDelegate>
 @property (strong, nonatomic) IBOutlet UICollectionView      *collectionView;
 
-@property (nonatomic, strong) NSMutableArray                 *controllersArray;  //控制器数组
+@property (nonatomic, strong) NSMutableArray                 *controllersArray;  //controllers
+
 @property (strong, nonatomic) IBOutlet UILabel               *ContrlTitle;
+
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 
 
-@property (nonatomic,strong) NSArray                    *chartArray;//模型数组
+@property (nonatomic,strong) NSArray                         *chartArray;//chart  datas
 
 @end
 
@@ -34,15 +36,15 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
     
     [super viewDidLoad];
     
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-    
+    // If YES, this navigation item will hide the back button when it's on top of the stack
     [self.navigationItem setHidesBackButton:YES];
+    
     //タイトル
     self.ContrlTitle.text = [NSString stringWithFormat:@"%@（%@）%@",self.chartModel.devicename,self.chartModel.nodename,self.chartModel.displayname];
     
+    // If a class is registered, it will be instantiated via alloc/initWithFrame:
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
-    //从缓存中取得点击的是第几页进入详细页面的
     [self setupCollectionView];
     
     [self getSensorDataInfoWithDate:self.datestring];
@@ -52,8 +54,10 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
     
+    //init
     _facilitiesBtn = [DropButton sharedDropButton];
     
+    //更新施設名２
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
     
     _facilitiesBtn.DropClickDelegate = self;
@@ -120,21 +124,14 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
 
 
 /**
- 弹出下拉设施菜单
- 
- @param sender
+ create page class
  */
-
 - (void)setupControllers
 {
     self.controllersArray = [NSMutableArray new];
     
     for (int i = 0; i < self.SumPage; i++) {
         
-//        NSString *dateStr = [NSDate otherDay:[NSDate date] symbols:LGFMinus dayNum:fabs(i-6.0)];
-       
-//        VC.userid0 = self.userid0;
-//        VC.index = i;
         UIStoryboard *lifesb = [UIStoryboard storyboardWithName:@"Life" bundle:nil];
         DetailChartViewController *VC = [lifesb instantiateViewControllerWithIdentifier:@"DetailChartView"];
         
@@ -148,7 +145,7 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
         
         [self addChildViewController:VC];
         
-        [self.controllersArray addObject:VC]; //viewC放到数组里面
+        [self.controllersArray addObject:VC];
     }
     
 }
@@ -156,7 +153,7 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
 
 
 /**
- *  定义collection的一些相关属性 / cell的id注册
+  Init CollectionViewFlowLayout
  */
 - (void)setupCollectionView {
     

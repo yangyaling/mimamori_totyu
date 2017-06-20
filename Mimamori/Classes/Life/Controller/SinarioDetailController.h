@@ -11,11 +11,16 @@
 @interface SinarioDetailController : UIViewController
 
 
-/**
- *  user0
+ /**
+ 入居者ID（見守られる人）
  */
 @property (nonatomic, copy) NSString *user0;
 
+
+
+/**
+ 居室ID
+ */
 @property (nonatomic, copy) NSString *roomId;
 
 @end

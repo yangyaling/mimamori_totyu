@@ -11,14 +11,32 @@
 @interface DetailChartViewController : UITableViewController
 
 
+/**
+ 日付
+ */
 @property (nonatomic, copy) NSString                      *dateString;
 
+
+/**
+ ノードID
+ */
 @property (nonatomic, copy) NSString                      *nodeId;
 
+/**
+ 入居者ID（見守られる人）
+ */
 @property (nonatomic, copy) NSString                      *userid0;
 
+
+/**
+ datas
+ */
 @property (nonatomic, strong) NSArray                     *subdeviceinfo;
 
+
+/**
+ current page
+ */
 @property (nonatomic, assign) NSInteger                    index;
 
 @end

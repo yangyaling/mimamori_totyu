@@ -20,42 +20,63 @@
 
 #import "SinarioDetailController.h"
 
-#import "DetailController.h"
-
 #import "AriScenarioController.h"
 
 #define Surplus 364
 #define NITVersionKey @"version"
 
+
+
+/**
+ グラフ クラス
+ */
 @interface LifeChartController ()<PopUpdateChartDelegate,DropClickDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView       *imageIcon;
+
 @property (strong, nonatomic) IBOutlet UIView            *leftbgView;
 
 @property (strong, nonatomic) IBOutlet UIButton          *arautoButton;
+
 @property (strong, nonatomic) IBOutlet UIButton          *sinarioButton;
+
 @property (strong, nonatomic) IBOutlet UISegmentedControl*segmentControl;
 
 @property (strong, nonatomic) UITableView               *myTableView;
 
 @property (strong, nonatomic) IBOutlet UICollectionView *myCollection;
 
+/**
+ all chart class
+ */
+@property (strong, nonatomic) NSMutableArray             *controlarr;
 
 /**
- *  总数组
+ *  all datas
  */
-@property (strong, nonatomic) NSMutableArray             *ZworksDataArray;
-@property (strong, nonatomic) NSMutableArray             *controlarr;
 @property (strong, nonatomic) NSMutableArray             *CLArray;
+
+
+/**
+  selected Segment Index
+ */
 @property (nonatomic) int                                xnum;
 
+/**
+ 拡大画像の背景の図
+ */
 @property (nonatomic,strong) UIView                      *hoverView;
 
+
+
+/**
+ 拡大後の画像
+ */
 @property (nonatomic,strong) UIImageView                 *bigImg;
 
 @property (strong, nonatomic) IBOutlet DropButton        *facilitiesBtn;
 
-@property (strong, nonatomic) IBOutlet UILabel *titleLabelC;
+@property (strong, nonatomic) IBOutlet UILabel           *titleLabelC;
 
 @end
 
@@ -66,23 +87,31 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.imageIcon.layer.masksToBounds = YES;
-    self.imageIcon.userInteractionEnabled = YES;
+    self.imageIcon.layer.masksToBounds = YES;   //マスク状態
+    self.imageIcon.userInteractionEnabled = YES; //インタラクティブ状態
     
     self.titleLabelC.text = self.viewTitle;
     
+    
     if ([self.ariresult isEqualToString:@"異常検知あり"]) {
+        
         
         self.arautoButton.enabled = YES;
         
     } else {
         
-         self.arautoButton.enabled = NO;
+        self.arautoButton.enabled = NO;
+        
         [self.arautoButton setTitle:@"なし❌" forState:UIControlStateNormal];
         
     }
     
+    // SegmentedControlのフォントを設定
     [self.segmentControl setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} forState:UIControlStateNormal];
+    
+    
+    
+    //キャッシュの写真を取得
     if (self.userid0) {
         NSData *imgdata =  [NITUserDefaults objectForKey:self.userid0];
         
@@ -91,8 +120,6 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
         } else {
             self.imageIcon.image = [UIImage imageNamed:@"placeholder"];
         }
-        //placeholder
-        //life_place_icon
     } else {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -121,7 +148,6 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     [self collectionViewsets];
     
 //    self.xnum = 0;
-    // 取得日单位的数据
     [self getSensorDataInfoWithType:MSensorDataTypeDaily];
     
     
@@ -134,14 +160,17 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 }
 
 /**
-  放大图片
+  拡大画像
  */
 - (void)imageViewClick {
+    
+    // background  view
     self.hoverView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, NITScreenW, NITScreenH)];
     self.hoverView.backgroundColor = [UIColor blackColor];
     [self.hoverView addTapAction:@selector(moveToOrigin) target:self];
     self.hoverView.alpha = 0.0f;
     [self.navigationController.view addSubview:self.hoverView];
+    
     
     self.bigImg = [[UIImageView alloc]init];
     [self.navigationController.view addSubview:self.bigImg];
@@ -158,21 +187,24 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     if (heightI > maxH) {
         heightI = maxH;
     }
-    //            ZLLog(@"%f-%f",widthI,heightI);
+    
     [self moveToCenterWidth:widthI withHeight:heightI];
     [self.bigImg addTapAction:@selector(moveToOrigin) target:self];
 }
 
 
-//选择根控制器
+
+/**
+ （見守られる人）画面  初めて入って
+ */
 - (void)chooesfirst{
-// /   获取当前的版本号
+
     NSString *currentVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
-   // //获取上一次的版本号
+
     NSString *lasteVersion = [NITUserDefaults objectForKey:NITVersionKey];
-    ///判断当前是否有新版本
+
     if (![currentVersion isEqualToString:lasteVersion]) {
-//       / //保存当前版本,用偏好设置
+
         [NITUserDefaults setObject:currentVersion forKey:NITVersionKey];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         static dispatch_once_t onceToken;
@@ -182,14 +214,12 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
             } parentView:self.view];
         });
     });
-    
     }
 }
 
 
 /**
-   anato页面的跳转
-
+ Push アラート一覧
  */
 - (IBAction)ArautoPush:(UIButton *)sender {
     [self performSegueWithIdentifier:@"aratopush" sender:self];
@@ -197,13 +227,16 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 
 
 /**
-   scenario一览页面的跳转
- 
+ Push シナリオ一覧
  */
 - (IBAction)SinarioPush:(UIButton *)sender {
     [self performSegueWithIdentifier:@"sinariopush" sender:self];
 }
 
+
+/**
+ Push action
+ */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:@"sinariopush"]){
@@ -231,7 +264,9 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 - (IBAction)selectAction:(UISegmentedControl *)sender {
     
     _xnum = (int)sender.selectedSegmentIndex;
+    
     [self reloadList];
+    
 }
 
 
@@ -262,8 +297,6 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
         NSString *chartType = [NSString stringWithFormat:@"%@", dic[@"type"]];
         
         NSArray *tmpArr = dic[@"deviceinfo"];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            NSString *imagestr = ;
         
         NSString *str = NSNullJudge(dic[@"picpath"]);
             if (str.length) {
@@ -287,17 +320,15 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
                 
             } else {
                 
-                NITLog(@"图片地址为空");
             }
-//        });
         if (tmpArr.count == 0) {
-            [_ZworksDataArray removeAllObjects];
             [MBProgressHUD showError:@"データがありません"];
         }else{
             
             if (!chartType.length) return ;
             
             if ([chartType integerValue] == _xnum) {
+                
                 _CLArray = [NSMutableArray arrayWithArray:tmpArr];
                 
                 self.controlarr = [NSMutableArray new];
@@ -312,7 +343,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
                     ChartC.updatedelegate = self;
                     ChartC.superrow = i;
                     [self addChildViewController:ChartC];
-                    [self.controlarr addObject:ChartC]; //viewC放到数组里面
+                    [self.controlarr addObject:ChartC];
                 }
                 
                 _myCollection.contentSize = self.myCollection.size;
@@ -324,15 +355,17 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
         }
         
     } failure:^(NSError *error) {
-        NSString *str = [error localizedDescription];
-        NITLog(@"%@",str);
+        
         [MBProgressHUD hideHUDForView:self.myCollection];
         
         [MBProgressHUD showError:@"後ほど試してください"];
     }];
-    
 }
 
+
+/**
+ 日 週 月  ボタンの切り替え
+ */
 - (void)updateCorrentTB:(int)numChart {
     self.xnum = numChart;
     [self reloadList];
@@ -341,7 +374,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 -(void)reloadList{
     
     if (_xnum==0) {
-        self.myTableView.allowsSelection = YES;
+        self.myTableView.allowsSelection = YES;      //TableView allows Selection Status
         [self getSensorDataInfoWithType:MSensorDataTypeDaily];
         
     }else if(_xnum==1){
@@ -354,6 +387,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
         [self getSensorDataInfoWithType:MSensorDataTypeMontyly];
     }
 }
+
 
 -(void)collectionViewsets{
     
@@ -371,12 +405,9 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     
     flowLayout.itemSize = CGSizeMake(NITScreenW, NITScreenH - Surplus);
     
-    
     _myCollection.collectionViewLayout = flowLayout;
     
     _myCollection.backgroundColor = [UIColor clearColor];
-    
-    //    _ZworksCV.alwaysBounceVertical = YES;
     
 }
 
@@ -398,20 +429,12 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 }
 
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    
-//    if (_ZworksTB) {
-//        [NITUserDefaults setInteger:_ZworksTB.contentOffset.x forKey:@"offsetX"];
-//        [NITUserDefaults setInteger:_ZworksTB.contentOffset.y forKey:@"offsetY"];
-//    }
-//}
-
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return NO ;  //cell无法被点击
 }
 
-//显示大图片到屏幕中心
+//show image
 - (void)moveToCenterWidth:(CGFloat)widthI withHeight:(CGFloat)heightI
 {
     [UIView animateWithDuration:0.5 animations:^{
@@ -422,7 +445,11 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     }];
 }
 
-//移除图
+
+
+/**
+ move  image
+ */
 - (void)moveToOrigin
 {
     [UIView animateWithDuration:0.5 animations:^{

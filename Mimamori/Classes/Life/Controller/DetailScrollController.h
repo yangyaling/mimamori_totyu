@@ -12,16 +12,14 @@
 
 @interface DetailScrollController : UIViewController
 
-@property (nonatomic, strong) ZworksChartModel                   *chartModel;
+@property (nonatomic, strong) ZworksChartModel                   *chartModel;  //datas model
 
-@property (nonatomic, copy) NSString                             *userid0;
+@property (nonatomic, copy) NSString                             *userid0;//入居者ID（見守られる人）
 
-@property (nonatomic, copy) NSString                             *updatename;
+@property (nonatomic) NSInteger                                  selectindex; //current  page
 
-@property (nonatomic) NSInteger                                  selectindex;
+@property (nonatomic, assign) NSInteger                          SumPage;  //Total page count
 
-@property (nonatomic, assign) NSInteger                          SumPage;
-
-@property (nonatomic, copy) NSString                      *datestring;
+@property (nonatomic, copy) NSString                             *datestring;  //日付
 
 @end

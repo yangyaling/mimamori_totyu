@@ -11,32 +11,18 @@
 #import "LifeUserListModel.h"
 
 @interface LifesTableViewCell ()
-/**
- *  名字
- */
+
 @property (weak, nonatomic) IBOutlet UILabel *name;
-/**
- *  温度
- */
+
 @property (weak, nonatomic) IBOutlet UILabel *temperature;
 
 
-/**
-  湿度
- */
 @property (strong, nonatomic) IBOutlet UILabel *humidity;
 
-/**
- *  亮度
- */
 @property (weak, nonatomic) IBOutlet UILabel *luminance;
-/**
- *  状态图片
- */
+
 @property (weak, nonatomic) IBOutlet UIButton *stateImage;
-/**
- *  状态文字
- */
+
 @property (weak, nonatomic) IBOutlet UILabel *stateText;
 
 @property (strong, nonatomic) IBOutlet UILabel *dipname;
@@ -112,8 +98,6 @@
     NSString *str8 = [self.CellModel.bd isEqual:[NSNull null]] || !self.CellModel.bd ? @"" : self.CellModel.bd;
     
     
-    
-    //　表示名
     NSString *strname = [NSString stringWithFormat:@"%@(%@)",str1,str2];
     
     self.name.text = strname;
@@ -123,10 +107,8 @@
     self.dipname.text = strdipname;
     
     //　温度
-    
     self.temperature.text = [NSString stringWithFormat:@"%.1f%@",[str4 floatValue],str5];
    
-    
     
     self.humidity.text = [NSString stringWithFormat:@"%.1f%@",[str6 floatValue],str7];
    
@@ -141,7 +123,6 @@
 
 - (IBAction)addNursingNotes:(UIButton*)sender {
     
-    //通知代理
     if ([self.delegate respondsToSelector:@selector(addBtnClicked:)]) {
         [self.delegate addBtnClicked:self];
     }

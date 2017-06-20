@@ -10,15 +10,15 @@
 
 @interface LifeUserListModel : NSObject
 /**
- *  picpath
+画像Path
  */
 @property (nonatomic, copy) NSString                         *picpath;
 /**
- *  userid0
+入居者ID（見守られる人）
  */
 @property (nonatomic, copy) NSString                         *userid0;
 /**
- *  user0name
+入居者名（見守られる人）
  */
 @property (nonatomic, copy) NSString                         *user0name;
 /**
@@ -26,15 +26,15 @@
  */
 @property (nonatomic, copy) NSString                         *dispname;
 /**
- *  resultname
+ *  result name
  */
 @property (nonatomic, copy) NSString                         *resultname;
 /**
- *  roomid
+ 居室ID
  */
 @property (nonatomic, copy) NSString                         *roomid;
 /**
- *  roomname
+居室番号
  */
 @property (nonatomic, copy) NSString                         *roomcd;
 /**

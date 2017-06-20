@@ -18,27 +18,18 @@
 /**
  *  見守り対象者を取得
  *
- *  @param param   请求参数
- *  @param success 请求成功的回调
- *  @param failure 请求失败的回调
  */
 +(void)custInfoWithParam:(MCustInfoParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure;
 
 /**
  *  見守り対象者を削除
  *
- *  @param param   请求参数
- *  @param success 请求成功的回调
- *  @param failure 请求失败的回调
  */
 +(void)custDeleteWithParam:(MCustDeleteParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure;
 
 /**
  *  見守り対象者を追加
  *
- *  @param param   请求参数
- *  @param success 请求成功的回调
- *  @param failure 请求失败的回调
  */
 +(void)custAddWithParam:(MCustAddParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure;
 @end

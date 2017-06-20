@@ -15,9 +15,12 @@
 
 #import "SinarioController.h"
 
+/**
+ シナリオ一覧
+ */
 @interface SinarioDetailController ()<DropClickDelegate>
 
-@property (nonatomic, strong) NSMutableArray                 *scenarioArray;
+@property (nonatomic, strong) NSMutableArray                 *scenarioArray; //シナリオ datas
 @property (strong, nonatomic) IBOutlet UITableView           *tableView;
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 @end
@@ -37,13 +40,12 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
-    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
+    
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];//更新施設名２
 }
 
 /**
- 弹出下拉设施菜单
- 
- @param sender
+ 施設切替後 -> pop to root ViewController
  */
 -(void)SelectedListName:(NSDictionary *)clickDic {
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -137,7 +139,8 @@
     svc.hideBarButton = YES;
     
 //    svc.delegate = self;
-    //跳转事件
+    
+    //push ->シナリオ詳細
     [self.navigationController pushViewController:svc animated:YES];
     
     

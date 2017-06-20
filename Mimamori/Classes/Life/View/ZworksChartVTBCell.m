@@ -26,10 +26,6 @@
     
     ZworksChartVTBCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ZworksTBCell"];
     
-//    if (!cell) {
-//        cell = [[NSBundle mainBundle] loadNibNamed:@"ZworksTBCell" owner:self options:nil].firstObject;
-//    }
-    
     return cell;
 }
 
@@ -39,11 +35,6 @@
     
     _cellarr = cellarr;
     
-//    NSDictionary *tmpdic = cellarr.firstObject;
-//    
-//    if (tmpdic[@"nodeid"] == [NSNull null]) {
-//        return;
-//    }
     
     if(cellarr == nil ) return;
     
@@ -53,12 +44,8 @@
         [chartview removeFromSuperview];
     }
     
-//    NSString *sensorname = [NSString stringWithFormat:@"%@:%.2f%@",celldic[@"devicename"],[celldic[@"latestvalue"] floatValue],celldic[@"deviceunit"]];
-    //    NSLog(@"%@",sensorname);
     
     
-    
-//    NSString *datestring = celldic[@"datestring"];
     selectdate = nil;
     devicedataarray = nil;
     allarray = [NSMutableArray new];
@@ -86,44 +73,6 @@
         devicedataarray = devicevalues.copy;
         [allarray addObject:devicedataarray];
     }
-    
-//    NSArray *devicearrays = devicearray[_superrow];
-    
-//    NSDictionary *devicedict = devicearrays[0];
-    
-//    if (_xnum==2) {
-//        celltype=2;
-//        selectdata = [devicedict valueForKey:@"label"];
-//        devicedataarray = [devicedict valueForKey:@"devicevalues"];
-    
-//        for (int i = 0; i<devicearray.count; i++) {
-//            NSArray *devicearrays = devicearray[i];
-//            NSDictionary *devicedict = devicearrays[0];
-//            NSArray *weekarr = [devicedict valueForKey:@"devicevalues"];
-//            for (int k = 0; k<weekarr.count; k++) {
-//                [allarray addObject: weekarr[k]];
-//            }
-//        }
-//    } else if ( _xnum ==1 ) {
-//        celltype=1;
-//        devicedataarray = [devicedict valueForKey:@"devicevalues"];
-//        
-//        for (int i =0; i < devicearray.count; i++) {
-//            NSArray *allarr = [NSArray arrayWithArray:devicearray[i]];
-//            NSDictionary *alldict = [NSDictionary dictionaryWithDictionary:allarr[0]];
-//            NSArray *dvarr = [NSArray arrayWithArray:[alldict valueForKey:@"devicevalues"]];
-//            [allarray addObject:dvarr];
-//        }
-        
-    
-//        if (_xnum==0) {
-//            selectdata = [devicedict valueForKey:@"datestring"];
-//        }else{
-//            selectdata = [devicedict valueForKey:@"label"];
-//        }
-//    } else {
-    
-//    }
     
     chartview =[[UUChart alloc]initwithUUChartDataFrame:CGRectMake(6,0, [UIScreen mainScreen].bounds.size.width-12, 148)
                                              withSource:self withStyle:celltype==1?UUChartLineStyle:UUChartBarStyle withdevicename:celldic[@"devicename"] withname:celldic[@"devicename"] withdate:selectdate];
@@ -161,11 +110,6 @@
 }
 
 - (NSArray *)UUChart_yValueArray:(UUChart *)chart{
-    
-    
-//    if (devicedataarray.count == 0) {
-//        return nil;
-//    }
     
     switch (_xnum) {
         case 0:

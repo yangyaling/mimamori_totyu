@@ -21,18 +21,18 @@
 
 
 /**
- *  nodeid
+ *  居室番号
  */
 @property (nonatomic, copy) NSString *roomID;
 
 
 /**
- *  ariresult
+ *  異常  result
  */
 @property (nonatomic, copy) NSString *ariresult;
 
 /**
- *  picpath
+ *  画像path
  */
 @property (nonatomic, copy) NSString *picpath;
 

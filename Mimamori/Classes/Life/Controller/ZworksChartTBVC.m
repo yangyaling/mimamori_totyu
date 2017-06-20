@@ -13,6 +13,7 @@
 
 #import "DetailScrollController.h"
 
+
 @interface ZworksChartTBVC ()
 
 @end
@@ -28,6 +29,11 @@
     [NITRefreshInit MJRefreshNormalHeaderInitTwo:(MJRefreshNormalHeader*)self.tableView.mj_header];
 }
 
+
+
+/**
+  refresh  delegate
+ */
 - (void)popReloadList {
     
     [self.updatedelegate updateCorrentTB:self.xnum];
@@ -35,11 +41,6 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
-//    CGFloat setx = [NITUserDefaults floatForKey:@"oneoffSetx"];
-//    CGFloat sety = [NITUserDefaults floatForKey:@"oneoffSety"];
-
-//    [self.tableView setContentOffset:CGPointMake(setx, sety)];
 }
 
 #pragma mark UITableView delegate and dataSource
@@ -67,12 +68,6 @@
     return 150;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-//    [NITUserDefaults setFloat:scrollView.contentOffset.y forKey:@"oneoffSety"];
-//    [NITUserDefaults setFloat:scrollView.contentOffset.x forKey:@"oneoffSetx"];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZworksChartVTBCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ZworksTBCell"];
     
@@ -83,21 +78,14 @@
     NSDictionary *dic = _zarray[_superrow];
     
     if (dic.count >0) {
-//        NSString *str1 = [NSString stringWithFormat:@"%@",dic[@"datestring"]];
         cell.datestr = dic[@"datestring"];
         cell.labelstr = dic[@"label"];
     }
-//    NSArray *array = [ZworksChartModel mj_objectArrayWithKeyValuesArray:arr];
-//    
-//    NSArray *cellarray = array[indexPath.section];
-//    
-//    cell.CellModel =  cellarray.count > 0 ? [ZworksChartModel mj_objectWithKeyValues:cellarray] : nil;
     NSArray *cellarr = dic[@"deviceinfo"];
     
     if (cellarr.count > 0) {
         cell.cellarr = cellarr[indexPath.section];
     }
-//    cell.celldic = arr.count > 0 ?  arr[indexPath.section] : nil;
     
     return cell;
 }
@@ -107,6 +95,12 @@
     if (_xnum==0)[self performSegueWithIdentifier:@"zworksDetailsPush" sender:self];
 }
 
+
+
+/**
+ 
+
+ */
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     NSDictionary *dic = _zarray[_superrow];
@@ -149,15 +143,13 @@
         [bgview addSubview:imageV];
         
     }
-//    NSArray *arr = [_zarray[section] objectForKey:@"deviceinfo"];
-//    NSDictionary *dic = arr[section];
-//    NSArray *array = [ZworksChartModel mj_objectArrayWithKeyValuesArray:arr];
-//    ZworksChartModel *model = [ZworksChartModel mj_objectWithKeyValues:array[section]];
-    return bgview;
     
+    return bgview;
 }
 
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     if([segue.identifier isEqualToString:@"zworksDetailsPush"]){
         DetailScrollController *zdvc = segue.destinationViewController;
         NSIndexPath *index = self.tableView.indexPathForSelectedRow;
@@ -171,10 +163,7 @@
         zdvc.selectindex = _superrow;
         zdvc.SumPage = 7;
     }
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 @end

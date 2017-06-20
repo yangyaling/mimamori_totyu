@@ -12,9 +12,9 @@
 
 @interface NotificationCell ()
 
-@property (weak, nonatomic) IBOutlet UILabel                      *notifType;  //cell的种类
+@property (weak, nonatomic) IBOutlet UILabel                      *notifType;  
 
-@property (weak, nonatomic) IBOutlet UILabel                      *notifEvent; //cell详情事件
+@property (weak, nonatomic) IBOutlet UILabel                      *notifEvent;
 
 @property (strong, nonatomic) IBOutlet UIButton                   *Srue;
 
@@ -36,12 +36,12 @@
 
 
 - (IBAction)ButtonClick:(UIButton *)sender {
-    // 1.让按钮文字变为“確認済”
+    // “確認済”
     sender.enabled = NO;
     
     [sender setTitle:@"確認済" forState:UIControlStateNormal];
     sender.backgroundColor = [UIColor lightGrayColor];
-    // 2.通知代理
+ 
     if ([self.delegate respondsToSelector:@selector(notificationCellBtnClicked:)]) {
         [self.delegate notificationCellBtnClicked:self];
     }
@@ -50,8 +50,8 @@
 
 
 -(void)setNotice:(NotificationModel *)notice{
-    _notice = notice;
     
+    _notice = notice;
     
     // ステータスボタン
     if (notice.status == 0) {
@@ -68,95 +68,15 @@
         
     }
     
-    // タイトル
-//    if (_notice.type == 0) {
-//        NSString *string = [NSString stringWithFormat:@"%@%@",@"",_notice.username];
-//        self.notifType.text = string;
-//        self.notifEvent.text = _notice.title;
-//
-    
     self.notifEvent.text = notice.title;
     self.inputTime.text = notice.registdate;
     
-//    if (notice.type == 1) {
-        NSString *string = [NSString stringWithFormat:@"<アラート>%@",notice.username];
-        self.notifType.text = string;
-        
-//    } else  {
-//        NSString *string = [NSString stringWithFormat:@"<支援要請>%@",notice.username];
-//        self.notifType.text = string;
-//        
-//    }
+    NSString *string = [NSString stringWithFormat:@"<アラート>%@",notice.username];
+    self.notifType.text = string;
     
-    //最終更新時間
-//    id date = [_notice valueForKey:@"registdate"];
-//    if ([date isKindOfClass:[NSDictionary class]]) {
-//        NSString *dateStr = [date valueForKey:@"date"];
-//
-//    }
     
     
 }
 
-
-/*
--(void)setCellModel:(NotificationModel *)cellModel{
-    
-    self.cellModel = cellModel;
-    
-    id date = [cellModel valueForKey:@"registdate"];
-    if ([date isKindOfClass:[NSDictionary class]]) {
-        NSString *dateStr = [date valueForKey:@"date"];
-        NITLog(@"date---%@",dateStr);
-        
-        //NoticeTimeModel *timeModel = [NoticeTimeModel mj_objectWithKeyValues:CellModel.registdate];
-        
-//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//        NSDate *tmpdate = [formatter dateFromString:dateStr];
-//        NSString *time = [tmpdate needDateStatus:HaveHMSType];
-        
-        self.inputTime.text = [dateStr substringToIndex:19];
-    }
-    
-    
-    NSString * status = cellModel.status;
-    
-    if ([status isEqualToString:@"0"]) {
-        [self.Srue setHidden:NO];
-        [self.Srue setTitle:@"確認必要" forState:UIControlStateNormal];
-        self.Srue.backgroundColor = NITColor(76, 164, 255);
-        
-    } else {
-        [self.Srue setHidden:NO];
-        [self.Srue setTitle:@"確認済" forState:UIControlStateNormal];
-        self.Srue.backgroundColor = [UIColor lightGrayColor];
-        
-    }
-    
-    if (self.cellModel.type == 0) {
-        NSString *string = [NSString stringWithFormat:@"%@%@",@"<支援要請>",self.cellModel.username];
-        self.notifType.text = string;
-        self.notifEvent.text = self.cellModel.title;
-        
-    } else if (self.cellModel.type == 1) {
-        NSString *string = [NSString stringWithFormat:@"%@%@",@"<センサー>",self.cellModel.groupname];
-        self.notifType.text = string;
-        self.notifEvent.text = self.cellModel.title;
-        
-    } else {
-        if (self.cellModel.type == 2) {
-            NSString *string = [NSString stringWithFormat:@"%@%@->%@",@"<お知らせ>",self.cellModel.username, self.cellModel.groupname];
-            //        NITLog(@"ooooooo%@",string);
-            self.notifType.text = string;
-            [self.Srue setHidden:YES];
-            self.notifEvent.text = self.cellModel.title;
-        }
-        
-    }
-    
-
-}
- */
 
 @end

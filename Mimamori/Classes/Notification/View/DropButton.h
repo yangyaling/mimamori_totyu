@@ -19,9 +19,9 @@
 @property (assign) IBOutlet id<DropClickDelegate>DropClickDelegate;
 
 
-@property (nonatomic, strong) NSString                    *buttonTitle;
+@property (nonatomic, strong) NSString                    *buttonTitle; //施設名2
 
-@property (nonatomic, assign) BOOL                         showAlert;
+@property (nonatomic, assign) BOOL                         showAlert;   //delete status
 
 
 +(instancetype)sharedDropButton;

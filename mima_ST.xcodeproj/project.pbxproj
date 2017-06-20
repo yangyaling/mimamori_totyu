@@ -29,7 +29,6 @@
 		928ED9B91DC9743C00144193 /* MGroupTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 928ED9B81DC9743C00144193 /* MGroupTool.m */; };
 		9291E49E1D9A029100FB8FC4 /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9291E49D1D9A029100FB8FC4 /* test.plist */; };
 		929519801D7D06FE00787997 /* MainNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519731D7D06FE00787997 /* MainNotificationController.m */; };
-		929519811D7D06FE00787997 /* PostLetterController.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519751D7D06FE00787997 /* PostLetterController.m */; };
 		929519821D7D06FE00787997 /* NoticeTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519781D7D06FE00787997 /* NoticeTimeModel.m */; };
 		929519831D7D06FE00787997 /* NotificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9295197A1D7D06FE00787997 /* NotificationModel.m */; };
 		929519841D7D06FE00787997 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9295197C1D7D06FE00787997 /* Notification.storyboard */; };
@@ -39,7 +38,6 @@
 		929519931D7D078B00787997 /* Emergency.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9295198E1D7D078B00787997 /* Emergency.storyboard */; };
 		929519941D7D078B00787997 /* NITSegmented.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519901D7D078B00787997 /* NITSegmented.m */; };
 		929519EF1D7D0A6000787997 /* LifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519D01D7D0A6000787997 /* LifeViewController.m */; };
-		929519F01D7D0A6000787997 /* NursingNotesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519D21D7D0A6000787997 /* NursingNotesTableViewController.m */; };
 		929519F21D7D0A6000787997 /* NursingNotesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519D71D7D0A6000787997 /* NursingNotesModel.m */; };
 		929519F41D7D0A6000787997 /* ZworksChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519DB1D7D0A6000787997 /* ZworksChartModel.m */; };
 		929519F61D7D0A6100787997 /* Life.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 929519DF1D7D0A6000787997 /* Life.storyboard */; };
@@ -146,7 +144,6 @@
 		EB581AE71E1CCAFD0076BAFD /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581AE01E1CCAFD0076BAFD /* NSString+FontAwesome.m */; };
 		EB581AE81E1CCAFD0076BAFD /* UIFont+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581AE21E1CCAFD0076BAFD /* UIFont+FontAwesome.m */; };
 		EB581AE91E1CCAFD0076BAFD /* MozTopAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581AE41E1CCAFD0076BAFD /* MozTopAlertView.m */; };
-		EB581AEC1E1D1F350076BAFD /* DetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581AEB1E1D1F350076BAFD /* DetailController.m */; };
 		EB581AEF1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB581AEE1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.m */; };
 		EB5D365B1E139A1800CEBF4E /* UUBar.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D36501E139A1800CEBF4E /* UUBar.m */; };
 		EB5D365C1E139A1800CEBF4E /* UUBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5D36521E139A1800CEBF4E /* UUBarChart.m */; };
@@ -210,7 +207,6 @@
 		EBE719231E2A13E60008ABE2 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE719151E2A13E60008ABE2 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		EBE719241E2A13E60008ABE2 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE719171E2A13E60008ABE2 /* View+MASAdditions.m */; };
 		EBE719251E2A13E60008ABE2 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE7191A1E2A13E60008ABE2 /* ViewController+MASAdditions.m */; };
-		EBE7192E1E2DAF850008ABE2 /* VoiceRecognitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE7192D1E2DAF850008ABE2 /* VoiceRecognitionController.m */; };
 		EBE719341E2E2CAB0008ABE2 /* RecordingStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE719331E2E2CAB0008ABE2 /* RecordingStatus.m */; };
 		EBE870161EC54373007EE0F1 /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE870151EC54373007EE0F1 /* NullSafe.m */; };
 		EBE8701C1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE8701B1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.m */; };
@@ -278,8 +274,6 @@
 		9291E49D1D9A029100FB8FC4 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
 		929519721D7D06FE00787997 /* MainNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainNotificationController.h; sourceTree = "<group>"; };
 		929519731D7D06FE00787997 /* MainNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainNotificationController.m; sourceTree = "<group>"; };
-		929519741D7D06FE00787997 /* PostLetterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostLetterController.h; sourceTree = "<group>"; };
-		929519751D7D06FE00787997 /* PostLetterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostLetterController.m; sourceTree = "<group>"; };
 		929519771D7D06FE00787997 /* NoticeTimeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeTimeModel.h; sourceTree = "<group>"; };
 		929519781D7D06FE00787997 /* NoticeTimeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeTimeModel.m; sourceTree = "<group>"; };
 		929519791D7D06FE00787997 /* NotificationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationModel.h; sourceTree = "<group>"; };
@@ -295,8 +289,6 @@
 		929519901D7D078B00787997 /* NITSegmented.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITSegmented.m; sourceTree = "<group>"; };
 		929519CF1D7D0A6000787997 /* LifeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeViewController.h; sourceTree = "<group>"; };
 		929519D01D7D0A6000787997 /* LifeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeViewController.m; sourceTree = "<group>"; };
-		929519D11D7D0A6000787997 /* NursingNotesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NursingNotesTableViewController.h; sourceTree = "<group>"; };
-		929519D21D7D0A6000787997 /* NursingNotesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NursingNotesTableViewController.m; sourceTree = "<group>"; };
 		929519D61D7D0A6000787997 /* NursingNotesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NursingNotesModel.h; sourceTree = "<group>"; };
 		929519D71D7D0A6000787997 /* NursingNotesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NursingNotesModel.m; sourceTree = "<group>"; };
 		929519DA1D7D0A6000787997 /* ZworksChartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZworksChartModel.h; sourceTree = "<group>"; };
@@ -505,8 +497,6 @@
 		EB581AE21E1CCAFD0076BAFD /* UIFont+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontAwesome.m"; sourceTree = "<group>"; };
 		EB581AE31E1CCAFD0076BAFD /* MozTopAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MozTopAlertView.h; sourceTree = "<group>"; };
 		EB581AE41E1CCAFD0076BAFD /* MozTopAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MozTopAlertView.m; sourceTree = "<group>"; };
-		EB581AEA1E1D1F350076BAFD /* DetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailController.h; sourceTree = "<group>"; };
-		EB581AEB1E1D1F350076BAFD /* DetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailController.m; sourceTree = "<group>"; };
 		EB581AED1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKAvoidKeyboardViewController.h; sourceTree = "<group>"; };
 		EB581AEE1E1DE96E0076BAFD /* WKAvoidKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKAvoidKeyboardViewController.m; sourceTree = "<group>"; };
 		EB5D364F1E139A1800CEBF4E /* UUBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUBar.h; sourceTree = "<group>"; };
@@ -634,8 +624,6 @@
 		EBE719181E2A13E60008ABE2 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		EBE719191E2A13E60008ABE2 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		EBE7191A1E2A13E60008ABE2 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
-		EBE7192C1E2DAF850008ABE2 /* VoiceRecognitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceRecognitionController.h; sourceTree = "<group>"; };
-		EBE7192D1E2DAF850008ABE2 /* VoiceRecognitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceRecognitionController.m; sourceTree = "<group>"; };
 		EBE719321E2E2CAB0008ABE2 /* RecordingStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingStatus.h; sourceTree = "<group>"; };
 		EBE719331E2E2CAB0008ABE2 /* RecordingStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingStatus.m; sourceTree = "<group>"; };
 		EBE870151EC54373007EE0F1 /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NullSafe.m; path = ../Tool/NullSafe.m; sourceTree = "<group>"; };
@@ -778,10 +766,6 @@
 			children = (
 				929519721D7D06FE00787997 /* MainNotificationController.h */,
 				929519731D7D06FE00787997 /* MainNotificationController.m */,
-				929519741D7D06FE00787997 /* PostLetterController.h */,
-				929519751D7D06FE00787997 /* PostLetterController.m */,
-				EB581AEA1E1D1F350076BAFD /* DetailController.h */,
-				EB581AEB1E1D1F350076BAFD /* DetailController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -875,10 +859,6 @@
 				92AF7BCC1D98C82100FC30E9 /* DetailScrollController.m */,
 				92AF7BC01D98AA8E00FC30E9 /* DetailChartViewController.h */,
 				92AF7BC11D98AA8E00FC30E9 /* DetailChartViewController.m */,
-				929519D11D7D0A6000787997 /* NursingNotesTableViewController.h */,
-				929519D21D7D0A6000787997 /* NursingNotesTableViewController.m */,
-				EBE7192C1E2DAF850008ABE2 /* VoiceRecognitionController.h */,
-				EBE7192D1E2DAF850008ABE2 /* VoiceRecognitionController.m */,
 				EB9C932E1E028BC200F3132C /* SinarioDetailController.h */,
 				EB9C932F1E028BC200F3132C /* SinarioDetailController.m */,
 				EBDFE8801E287439007D3320 /* AriScenarioController.h */,
@@ -1712,7 +1692,6 @@
 				92951A2D1D7D0B0100787997 /* ProfileModel.m in Sources */,
 				EBE719341E2E2CAB0008ABE2 /* RecordingStatus.m in Sources */,
 				EBE718FF1E2A12B80008ABE2 /* GGActionSheet.m in Sources */,
-				929519F01D7D0A6000787997 /* NursingNotesTableViewController.m in Sources */,
 				EB74552F1EB8808600DA4874 /* HomeMasterController.m in Sources */,
 				92F362F61DC9B1C80030DCE0 /* NSString+MJExtension.m in Sources */,
 				92F362DE1DC9B1C80030DCE0 /* WHUCalendarCell.m in Sources */,
@@ -1735,7 +1714,6 @@
 				92F362F81DC9B1C80030DCE0 /* MJRefreshBackFooter.m in Sources */,
 				EB5D36601E139A1800CEBF4E /* UULineChart.m in Sources */,
 				EB581AD31E1C993A0076BAFD /* EmergencyAController.m in Sources */,
-				EBE7192E1E2DAF850008ABE2 /* VoiceRecognitionController.m in Sources */,
 				EB7455111EB81DB200DA4874 /* IntelligenceMasterController.m in Sources */,
 				92951A301D7D0B0100787997 /* SelfModel.m in Sources */,
 				927C311B1D89447B00E097D2 /* Device.m in Sources */,
@@ -1839,7 +1817,6 @@
 				928C61FE1DC8625E009B5974 /* MNoticeInfoUploadParam.m in Sources */,
 				EB74550E1EB81D6500DA4874 /* PlaceSettingController.m in Sources */,
 				92F362FC1DC9B1C80030DCE0 /* MJRefreshAutoGifFooter.m in Sources */,
-				EB581AEC1E1D1F350076BAFD /* DetailController.m in Sources */,
 				EB7455141EB826E600DA4874 /* IntelligenceMasterCell.m in Sources */,
 				EBDFE8821E287439007D3320 /* AriScenarioController.m in Sources */,
 				92F362F31DC9B1C80030DCE0 /* NSObject+MJCoding.m in Sources */,
@@ -1858,7 +1835,6 @@
 				928C621B1DC8705D009B5974 /* MCustInfoParam.m in Sources */,
 				E9D4458E1D010FE500CFF364 /* main.m in Sources */,
 				EBE719221E2A13E60008ABE2 /* NSArray+MASAdditions.m in Sources */,
-				929519811D7D06FE00787997 /* PostLetterController.m in Sources */,
 				92F362DC1DC9B1C80030DCE0 /* AFURLSessionManager.m in Sources */,
 				92F3631E1DC9B3570030DCE0 /* NITRefreshInit.m in Sources */,
 				EBE8701C1EC57B88007EE0F1 /* NITTableViewKeyBoardInherit.m in Sources */,

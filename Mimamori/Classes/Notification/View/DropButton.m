@@ -77,6 +77,10 @@
 
 
 
+/**
+ facility  button  click  method
+
+ */
 -(void)buttonClick:(UIButton *)sender {
     if (self.isShow) {
         self.isShow = NO;
@@ -162,7 +166,6 @@
 }
 
 
-/**查找当前页面的根控制器*/
 - (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController {
     if ([rootViewController isKindOfClass:[UITabBarController class]]) {
         UITabBarController* tabBarController = (UITabBarController*)rootViewController;

@@ -10,10 +10,26 @@
 
 @interface MSessionInfoParam : NSObject
 
+
+
+/**
+ email
+ */
 @property (nonatomic, copy) NSString                               *email;
 
+
+
+/**
+ スタッフID（見守る人）
+ */
 @property (nonatomic, copy) NSString                               *staffid;
 
+
+
+
+/**
+ ホストコード
+ */
 @property (nonatomic, copy) NSString                               *hostcd;
 
 @end
