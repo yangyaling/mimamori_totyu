@@ -22,6 +22,8 @@
 @property (nonatomic, strong) NSArray                        *titleArray;
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 
+
+/** ユーザー权限*/
 @property (nonatomic, strong) NSString                       *MasterUser;
 
 @end
@@ -33,33 +35,23 @@
     
     _titleArray = @[@"見守り\n設定" ,@"ユーザ\n情報",@"管理者\n機能",@"ヘルプ\n機能",@"お問合せ\n機能",@""];
     
-    //-----お問合せ
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    self.OutButton.layer.cornerRadius = 5;
-    
-    //创建一个layout布局类
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     
     layout.sectionInset = UIEdgeInsetsMake(15, 30, 30, 30);
-    //设置布局方向为垂直流布局
+    
+    //
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    //设置每个item的大小为100*100
+    
+    //
     layout.itemSize = CGSizeMake((self.view.width - 90) / 2.0, 70);
     
     
     [self.collectionview setCollectionViewLayout:layout];
     
+    
+    /** ユーザー权限*/
     _MasterUser = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
     
-    
-//    NSString *string =@"sw00007";
-//    string = [string substringFromIndex:string.length - 5];
-//    NSRange range = [string rangeOfString:@"0"];//匹配得到的下标
-//    NSLog(@"rang:%@",NSStringFromRange(range));
-//    string = [string substringWithRange:range];//截取范围类的字符串
-//    NSLog(@"截取的值为：%@",string);
     
 }
 
@@ -68,16 +60,11 @@
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
+
+
 /**
- 弹出下拉设施菜单
- 
- @param sender
+ Logout method
  */
--(void)showSelectedList {
-    
-}
-
-
 - (IBAction)OutAtion:(UIButton *)sender {
     
     [NITDeleteAlert SharedAlertShowMessage:@"ログアウトします。よろしいですか。" andControl:self withOk:^(BOOL isOk) {
@@ -95,33 +82,22 @@
             return ;
         }
         
-        // 3 删除缓存数据(既読のお知らせアラート)
-        //[NITUserDefaults removeObjectForKey:@"readnotice"];
-        
-        //清空设施数组
-        //        NSArray *alldropArray = [NITUserDefaults objectForKey:@"FacilityList"];
-        //        NSArray *imagesArray = [NITUserDefaults objectForKey:@"CellImagesName"];
-        //        NSArray *tmpimagesArray = [NITUserDefaults objectForKey:@"TempcellImagesName"];
-        //        NSArray *facitilityname = [NITUserDefaults objectForKey:@"TempFacilityName"];
-        //        alldropArray = nil;
-        //        imagesArray = nil;
-        //        tmpimagesArray = nil;
         NSArray *arr = nil;
         [NITUserDefaults setObject:arr forKey:@"FacilityList"];
         [NITUserDefaults setObject:arr forKey:@"CellImagesName"];
         [NITUserDefaults setObject:arr forKey:@"TempcellImagesName"];
         [NITUserDefaults setObject:arr forKey:@"TempFacilityName"];
         
-        // 清除缓存
+        // バッファをクリアする
         NSString*appDomain = [[NSBundle mainBundle] bundleIdentifier];
         [NITUserDefaults removePersistentDomainForName:appDomain];
         
         
-        // 4.返回登录页面
+        // back to Login class
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         appDelegate.window.rootViewController = [appDelegate.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"LoginIdentifier"];
         
-        // 5.移除定时器
+        // タイマー   ストップ
         [appDelegate stopTimer];
     }];
     
@@ -151,7 +127,6 @@
 }
 
 
-//横向间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                     layout:(UICollectionViewLayout *)collectionViewLayout
 minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -160,13 +135,18 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 }
 
 
-//纵向
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                     layout:(UICollectionViewLayout *)collectionViewLayout
 minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
     return 10.0f;
 }
+
+
+
+/**
+ push ->Other Class
+ */
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.item == 0) {

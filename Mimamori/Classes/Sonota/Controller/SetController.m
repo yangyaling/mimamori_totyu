@@ -16,11 +16,12 @@
 
 #import "MCustTool.h"
 
+
+/**
+ 見守り設定
+ */
 @interface SetController ()<DropClickDelegate>
 
-@property (nonatomic, strong) NSArray                        *userarray;
-
-@property (nonatomic, strong) NSArray                        *numarray;
 
 @property (strong, nonatomic) NSMutableArray                 *custArr;//見守られる人
 
@@ -52,9 +53,7 @@
     [self.tableView.mj_header beginRefreshing];
 }
 
-/**
- 设施下拉框代理
- */
+
 -(void)SelectedListName:(NSDictionary *)clickDic; {
     
     [self.tableView.mj_header beginRefreshing];
@@ -89,12 +88,6 @@
         NITLog(@"zwgetcustlist请求失败");
         [self.tableView.mj_header endRefreshing];
     }];
-}
-
-- (IBAction)addCustButton:(id)sender {
-    
-    [self performSegueWithIdentifier:@"addCustPush" sender:self];
-    
 }
 
 
@@ -151,7 +144,7 @@
 }
 
 
-//tableviewcell点击跳转
+//tableviewcell  push 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"setcellpush" sender:self];

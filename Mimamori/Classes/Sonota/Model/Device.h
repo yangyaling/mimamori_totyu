@@ -15,18 +15,35 @@
 
 @property (nonatomic, copy) NSString *devicename;
 
+/**
+ 指定デバイスタイプ
+ */
 @property (nonatomic, copy) NSString *devicetype;
+
 
 @property (nonatomic, copy) NSString *nodename;
 
+
 @property (nonatomic, copy) NSString *nodeid;
 
+/**
+ 設置情報1
+ */
 @property (nonatomic, copy) NSString *displayname;
 
+/**
+ 設置情報3
+ */
 @property (nonatomic, copy) NSString *memo;
 
+/**
+ メインノードID
+ */
 @property (nonatomic, copy) NSString *mainnodeid;
 
+/**
+ 設置情報2
+ */
 @property (nonatomic, copy) NSString *place;
 
 

@@ -7,22 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ZworksChartModel.h"
-
 @interface ZworksChartVTBCell : UITableViewCell
 
-/**
- *  sensordata模型
- */
-@property (nonatomic, strong)  ZworksChartModel *CellModel;
 
+/**
+ cell   datas
+ */
 @property (nonatomic, strong) NSArray           *cellarr;
 
 @property (nonatomic) NSInteger                 superrow;
 
 @property (nonatomic) int                       xnum;
 
-@property (nonatomic, copy) NSString                      *datestr;
+@property (nonatomic, copy) NSString                      *datestr; //日付
 
 @property (nonatomic, copy) NSString                      *labelstr;
 

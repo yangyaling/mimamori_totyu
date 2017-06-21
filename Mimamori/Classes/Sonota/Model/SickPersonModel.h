@@ -9,34 +9,35 @@
 #import <Foundation/Foundation.h>
 
 @interface SickPersonModel : NSObject
-
 /**
- *  userid0
+ 入居者ID（見守られる人）
  */
 @property (nonatomic, copy) NSString                         *userid0;
 /**
- *  user0name
+ 入居者名（見守られる人）
  */
 @property (nonatomic, copy) NSString                         *user0name;
 /**
- *  dispname
+ *  設置情報1
  */
 @property (nonatomic, copy) NSString                         *dispname;
 /**
- *  roomid
+ 居室ID
  */
 @property (nonatomic, copy) NSString                         *roomid;
 /**
- *  roomname
+ 居室名
  */
 @property (nonatomic, copy) NSString                         *roomname;
 
-
 /**
-    sensorcount
+ センサ・カウント
  */
 @property (nonatomic, copy) NSString                         *sensorcount;
 
+/**
+ 居室階
+ */
 @property (nonatomic, copy) NSString                         *floorno;
 
 

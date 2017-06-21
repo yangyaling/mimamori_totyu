@@ -20,7 +20,7 @@
 
 @property(nonatomic,strong) GGActionSheet                  *actionSheetTitle;
 /**
- *  姓名
+ 入居者名（見守られる人）
  */
 @property (strong, nonatomic) IBOutlet UITextField         *user0name;
 /**
@@ -28,55 +28,52 @@
  */
 @property (strong, nonatomic) IBOutlet UITextField         *sex;
 /**
- *  楼层号
+ 居室階
+ *
  */
 @property (strong, nonatomic) IBOutlet UITextField         *floorNumber;
 /**
- *  房号
+ *  居室番号
  */
 @property (strong, nonatomic) IBOutlet UITextField         *roomNumber;
 /**
- *  生日
+ *  誕生日
  */
 @property (strong, nonatomic) IBOutlet UITextField         *birthday;
 /**
- *  地址
- */
-@property (strong, nonatomic) IBOutlet UITextField         *address;
-/**
- *  经常就诊的医生
+ かかりつけ医
  */
 @property (strong, nonatomic) IBOutlet UITextField         *kakaritsuke;
 /**
- *  服药情况
+ 服薬情報
  */
 @property (strong, nonatomic) IBOutlet UITextView          *drug;
 /**
- *  诊断结果
+ *健康診断結果
  */
 @property (strong, nonatomic) IBOutlet UITextView          *health;
 /**
- *  其它注意事项
+ その他お願い事項
  */
 @property (strong, nonatomic) IBOutlet UITextView          *other;
 /**
- *  最终更新日期
+ *  更新日付
  */
 @property (weak, nonatomic) IBOutlet UILabel               *updatedate;
 /**
- *  最终更新者名
+ *  更新者
  */
 @property (weak, nonatomic) IBOutlet UILabel               *updatename;
 
 @property (strong, nonatomic) IBOutlet UIImageView         *userIcon;
 
-@property (nonatomic, strong) NSData                       *imagedata;
+@property (nonatomic, strong) NSData                       *imagedata; //画像データ
 
 @property (nonatomic,strong) UIView                        *hoverView;
 
-@property (nonatomic,strong) UIImageView                   *bigImg;
+@property (nonatomic,strong) UIImageView                   *bigImg;    //拡大の画像
 
-@property (nonatomic, strong) UIImagePickerController      *imagePicker;
+@property (nonatomic, strong) UIImagePickerController      *imagePicker; //iOSカメラ
 
 @property (weak, nonatomic) IBOutlet UIView              *datePickerView;
 
@@ -100,7 +97,7 @@
     
     self.titleLabel.text = self.titleStr;
     
-    
+    //キャッシュの写真を取得
     if (self.userid0.length > 0) {
         self.imagedata = [NITUserDefaults objectForKey:self.userid0];
         
@@ -111,12 +108,12 @@
         }
     }
     
-    //赋值基本信息数据
+    //set data
     [self setupData];
     
     _datePickerView.width = NITScreenW;
     
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];//创建一个日期格式化器
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];//  タイムフォーマット
     
     dateFormatter.dateFormat=@"yyyy-MM-dd";
     
@@ -157,10 +154,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //画像をクリック -> セレクタ
     if (indexPath.section == 0 && indexPath.row == 0) {
         [self.actionSheetTitle showGGActionSheet];
     }
-    
+    //画像をクリック -> 日付けの選択
     if (indexPath.section == 5 && indexPath.row == 0) {
         [self.navigationController.view addSubview:_datePickerView];
         
@@ -185,7 +183,6 @@
     
     self.birthday.text = _pmodel.birthday;
     
-    self.address.text = _pmodel.address;
     self.kakaritsuke.text = _pmodel.kakaritsuke;
     self.drug.text = _pmodel.drug;
     self.health.text = _pmodel.health;
@@ -199,28 +196,6 @@
     _imagePicker.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 }
 
-/**
- * プロフィール情报
- */
-//-(void)getProfileInfo{
-//    
-//    MProfileInfoParam *param = [[MProfileInfoParam alloc]init];
-//    
-//    param.userid0 = self.userid0;
-//    
-//    [MProfileTool profileInfoWithParam:param success:^(NSArray *array) {
-//        if (array.count > 0){
-//            self.profileArray = [ProfileModel mj_objectArrayWithKeyValuesArray:array];
-//            [self setupData];
-//        } else {
-//            [MBProgressHUD hideHUDForView:self.tableView];
-//        }
-//    } failure:^(NSError *error) {
-//        [MBProgressHUD hideHUDForView:self.tableView];
-//         [MBProgressHUD showError:@"後ほど試してください"];
-//    }];
-//    
-//}
 
 /**
  *  更新プロフィール
@@ -252,7 +227,6 @@
     param.floorno = self.floorNumber.text;
     param.roomcd = self.roomNumber.text;
     param.birthday = self.birthday.text;
-    param.address = self.address.text;
     param.kakaritsuke = self.kakaritsuke.text;
     param.drug = self.drug.text;
     param.health = self.health.text;
@@ -407,7 +381,7 @@
     if (picker.allowsEditing) {
         UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         
-        NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
+        NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];//yyyy-MM-dd HH:mm:ss
         
         
         UIImage *updateimg =  [self watermarkImage:image withName:updatedate];
@@ -434,11 +408,6 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [MBProgressHUD hideHUDForView:self.navigationController.view];
-//    UIViewController *vc = picker;
-//    while (vc.presentingViewController) {
-//        vc = vc.presentingViewController;
-//    }
-//    [vc dismissViewControllerAnimated:YES completion:nil];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 

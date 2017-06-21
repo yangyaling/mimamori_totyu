@@ -19,9 +19,9 @@
 
 @property (strong, nonatomic) IBOutlet UIButton              *pushButton;
 
-@property (nonatomic, strong) NSMutableArray                 *alldatas;
+@property (nonatomic, strong) NSMutableArray                 *alldatas; //異常検知あり ->  datas
 
-@property (nonatomic, strong) NSString                       *roomname;
+@property (nonatomic, strong) NSString                       *roomname; //居室名
 
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 
@@ -39,7 +39,7 @@
     NSString *string = [NSString stringWithFormat:@"<アラート>%@",self.username];
     
     self.aratoUser.text = string;
-    
+    //　ボタンクリックを無効させる
     [self.pushButton setEnabled:NO];
     
     [self.pushButton setBackgroundColor:NITColor(169, 169, 169)];
@@ -61,7 +61,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
-    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
+    _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];////更新施設名２
 }
 
 /**
@@ -200,7 +200,11 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, (NITScreenW - 30) *0.4, 25)];
     
-    UILabel *timelabel = [[UILabel alloc] initWithFrame:CGRectMake(NITScreenW *0.3 + 15, 0,NITScreenW - label.width - 15, 25)];      [bgview addSubview:timelabel];
+    UILabel *timelabel = [[UILabel alloc] initWithFrame:CGRectMake(label.width + 15, 0,NITScreenW - label.width - 30, 25)];
+   
+    timelabel.textAlignment = NSTextAlignmentRight;
+    [bgview addSubview:label];
+    [bgview addSubview:timelabel];
     
     NSArray *dicarr = nil;
     

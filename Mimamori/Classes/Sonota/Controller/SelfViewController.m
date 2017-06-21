@@ -12,31 +12,17 @@
 
 #import "AFNetworking.h"
 
+
+/**
+ ユーザ情報
+ */
 @interface SelfViewController ()<DropClickDelegate>
 /**
  *  nikeName
  */
 @property (weak, nonatomic) IBOutlet UITextField *nickName;
-/**
- *  email
- */
-@property (weak, nonatomic) IBOutlet UITextField *email;
-/**
- *  groupPicker
- */
-@property (weak, nonatomic) IBOutlet UIPickerView *groupPicker;
 
 
-@property (nonatomic, strong) NSMutableArray *allGroupData;
-
-
-@property (nonatomic, assign) NSString  *groupid;//当前是分组id
-
-
-@property (nonatomic, strong) AFHTTPSessionManager *session;
-
-
-@property (nonatomic, strong) SelfModel *user;
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 
 
@@ -47,15 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    NSArray *tmpArr = [NotificationModel mj_objectArrayWithKeyValuesArray:[NITUserDefaults objectForKey:@"allGroupData"]];
-//    self.allGroupData = tmpArr.count > 0 ? [NSMutableArray arrayWithArray:tmpArr] : [NSMutableArray new];
-    
     [self getUserInfo];
-    
-//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getUserInfo)];
-//    
-//    [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
-//    //UserInfo
     
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
 }
@@ -73,21 +51,11 @@
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
-//- (void)GetGroupInfo {
-//    [MHttpTool postWithURL:NITGetGroupInfo params:nil success:^(id json) {
-//        [MBProgressHUD hideHUDForView:self.navigationController.view];
-//        if (json) {
-//            NSArray *dateArray = [json objectForKey:@"groupinfo"];
-//            self.allGroupData = dateArray.count > 0 ? [NSMutableArray arrayWithArray:dateArray] : [NSMutableArray new];
-//            [self.groupPicker reloadAllComponents];
-//        }
-//    } failure:^(NSError *error) {
-//        [MBProgressHUD hideHUDForView:self.navigationController.view];
-//        NITLog(@"groupinfo为空");
-//    }];
-//}
 
 
+/**
+ POST ->ユーザー情報
+ */
 -(void)getUserInfo{
 
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
@@ -119,7 +87,9 @@
 }
 
 
-
+/**
+ 更新 ->ユーザー情報
+ */
 -(void)updateUserInfo{
     
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
@@ -158,17 +128,20 @@
         [MBProgressHUD showError:@"後ほど試してください"];
     }];
     
-    
-    
-    
 
 }
 
+
+
+/**
+ Push ->  パスワード変更
+
+ */
 - (IBAction)pushPassWordC:(id)sender {
     [self performSegueWithIdentifier:@"pushpasswordC" sender:self];
 }
 
-//保存个人信息
+
 - (IBAction)saveButton:(id)sender {
     
     if (!self.nickName.text.length) {
@@ -180,36 +153,11 @@
     
 }
 
-#pragma mark - PickerView
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    return 1;
-}
+/**
+ hide  keyboard
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return self.allGroupData.count;
-}
-
--(NSString*) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    
-//    NotificationModel *model = self.allGroupData[row];
-//    if (model) {
-//        return model.groupname;
-//    }
-    
-    NSDictionary *dic = self.allGroupData[row];
-    return dic[@"name"];
-    
-}
-
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    
-//    NotificationModel *model = self.allGroupData[row];
-    
-    self.groupid = [NSString stringWithFormat:@"%ld",row];
-}
-
+ */
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;

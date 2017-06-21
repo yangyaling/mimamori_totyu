@@ -12,10 +12,21 @@
 
 @interface DetailChartCell : UITableViewCell
 
+
+/**
+ chart datas
+ */
 @property (nonatomic, strong)  NSDictionary *chartdic;
 
+
+/**
+ 日付
+ */
 @property (nonatomic, copy)    NSString         *dateStr;
 
+/**
+ ノードID
+ */
 @property (nonatomic, copy)    NSString         *nodeID;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;

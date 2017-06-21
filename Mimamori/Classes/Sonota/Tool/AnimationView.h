@@ -10,6 +10,7 @@
 
 @interface AnimationView : UIView
 
+
 -(void)StartAnimationXLayoutConstraint:(NSLayoutConstraint *)constraint;
 
 -(void)FinishAnimationZoneLayoutConstraint:(NSLayoutConstraint *)constraint;

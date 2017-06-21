@@ -14,7 +14,6 @@
 
 #import "Device.h"
 
-#import "ScenarioCellFrame.h"
 
 @interface SinarioController ()<MyPickerDelegate>
 
@@ -24,15 +23,12 @@
 
 @property (strong, nonatomic) IBOutlet UITableView         *tableView;
 
-@property (nonatomic, strong) NITPicker                    *picker;
-
-@property (nonatomic, assign) NSInteger                    cellnum;
+@property (nonatomic, strong) NITPicker                    *picker;  //セレクタ
 
 @property (nonatomic, strong) NSMutableArray               *allarray;
 
-@property (nonatomic, assign) BOOL                         isSelectModelScenario;
+@property (nonatomic, assign) BOOL                         isSelectModelScenario; //雛形(yes - no)
 
-@property (strong, nonatomic) IBOutlet UIButton            *editButton;
 
 @property (strong, nonatomic) IBOutlet UIButton            *leftTimeButton;
 
@@ -40,13 +36,13 @@
 
 @property (strong, nonatomic) IBOutlet UISegmentedControl  *daySegment;
 
-@property (nonatomic, assign) NSInteger                    timeIndex;
+@property (nonatomic, assign) NSInteger                    timeIndex;   //時間帯(0、1、2、3...)
 
-@property (nonatomic, strong) NSArray                      *modelsArray;
+@property (nonatomic, strong) NSArray                      *modelsArray;  //model datas
 
-@property (nonatomic, assign) NSInteger                    modelindex;
+@property (nonatomic, assign) NSInteger                    modelindex;   //雛形マーク
 
-@property (nonatomic, assign) BOOL                         isAddCell;
+@property (nonatomic, assign) BOOL                         isAddCell;    //追加cell状態レコード
 
 @property (strong, nonatomic) IBOutlet UIView              *footView;
 
@@ -62,28 +58,24 @@
     self.isAddCell = NO;
     
     
-    self.isSelectModelScenario = NO;  //雏形开关
+    self.isSelectModelScenario = NO;
     
     self.sinarioText.text = self.textname;
     
-//    NSArray *nodes = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"addnodeiddatas"]]];
-//    
-//    if (nodes.count > 0) {
-//        
-//        NSData * data = [NSKeyedArchiver archivedDataWithRootObject:nodes];
-//        
-//        [NITUserDefaults setObject:data forKey:@"tempdeaddnodeiddatas"];
-//    }
     
     self.daySegment.selectedSegmentIndex = self.scopecd;
     
+    
     self.timeIndex = self.scopecd;
+    
+    
     
     [self.leftTimeButton setTitle:(self.starttime.length > 0 ? self.starttime : @"- -") forState:UIControlStateNormal];
         
     [self.rightTimeButton setTitle:(self.endtime.length >0 ? self.endtime : @"- -") forState:UIControlStateNormal];
     
     
+     //一覧
     if (self.hideBarButton) {
         
         [self.daySegment setEnabled:NO];
@@ -98,7 +90,7 @@
         
         [self.tableView setEditing:NO];
         
-    } else {
+    } else {// 編集
         
         [self.daySegment setEnabled:YES];
         
@@ -117,11 +109,9 @@
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
     
-//    [MBProgressHUD showMessage:@"" toView:self.view];
-    
 }
 
-//时间段的选择
+//時間帯の選択
 - (IBAction)selectedTimeButton:(UISegmentedControl *)sender {
     
     if (sender.selectedSegmentIndex != 4) {
@@ -819,20 +809,5 @@
     }
     return _allarray;
 }
-
-
-//                NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//                //获取完整路径
-//                NSString *documentsPath = [path objectAtIndex:0];
-//                NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"ScenarioModel.plist"];
-//                NSMutableArray *arr = [NSMutableArray new];
-//                NSMutableDictionary *usersDic = [[NSMutableDictionary alloc ] init];
-//
-//                [usersDic setObject:tmpArr[0] forKey:@"ModelOne"];
-//                [usersDic setObject:tmpArr[0] forKey:@"ModelTwo"];
-//                [usersDic setObject:tmpArr[0] forKey:@"ModelThree"];
-//                [arr addObject:usersDic];
-//                //写入文件
-//                [usersDic writeToFile:plistPath atomically:YES];
 
 @end

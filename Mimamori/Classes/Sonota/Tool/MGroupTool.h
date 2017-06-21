@@ -10,13 +10,6 @@
 
 @interface MGroupTool : NSObject
 
-/**
- *  分组信息取得
- *
- *  @param param   请求参数
- *  @param success 请求成功的回调
- *  @param failure 请求失败的回调
- */
 +(void)groupInfoWithsuccess:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure;
 
 @end

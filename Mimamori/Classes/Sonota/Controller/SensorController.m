@@ -38,23 +38,24 @@
 
 @property (nonatomic, assign) BOOL                         isSensorTableView;
 
-@property (weak, nonatomic) IBOutlet UIButton *editButton;
+@property (weak, nonatomic) IBOutlet UIButton             *editButton;
 
-@property (nonatomic, assign) NSInteger                    addDataH;
+@property (nonatomic, assign) NSInteger                    addDataH; //追加シナリオボタンの高さ
 
 @property (strong, nonatomic) IBOutlet UIButton           *setPushButton;
 
-@property (nonatomic, strong) NSMutableArray               *profileArray;
+@property (nonatomic, strong) NSMutableArray               *profileArray;  //プロフィール情報
 
-@property (nonatomic, strong) NSMutableArray               *scenarioArray;
+@property (nonatomic, strong) NSMutableArray               *scenarioArray;  //シナリオ情報
 
-@property (nonatomic, strong) NSMutableArray               *sensorArray;
+@property (nonatomic, strong) NSMutableArray               *sensorArray;    //センサ情報
+
 @property (strong, nonatomic) IBOutlet DropButton          *facilitiesBtn;
 @property (strong, nonatomic) IBOutlet UILabel             *titleLabel;
 
-@property (strong, nonatomic) IBOutlet UIView              *footView;
+@property (strong, nonatomic) IBOutlet UIView              *footView;       //更新センサ情報 のボタン
 
-@property (nonatomic, assign) BOOL                         isEdit;
+@property (nonatomic, assign) BOOL                         isEdit;       //編集状態
 
 @end
 
@@ -70,7 +71,7 @@
     self.titleLabel.text = self.titleStr;
     
     NSArray *arr = nil;
-    [NITUserDefaults setObject:arr forKey:@"mainondedatakey"];
+    [NITUserDefaults setObject:arr forKey:@"mainondedatakey"];  //クリア  mainonde
     
     [self.sensorSegment setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20]} forState:UIControlStateNormal];
     
@@ -78,7 +79,9 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getScenarioList)];
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
+    //SensorTableView 表示している
     self.isSensorTableView = YES;
+    
     self.addDataH = 0;
     
     
@@ -159,9 +162,6 @@
         
     }
     [self.tableView reloadData];
-//    [CATransaction setCompletionBlock:^{
-//        [self.tableView reloadData];
-//    }];
 }
 
 /**
@@ -247,15 +247,6 @@
             NSArray *displays = dic[@"displaylist"];
             
             [NITUserDefaults setObject:displays forKey:@"tempdisplaylist"];
-            
-            
-//            NSString *mainnodeid =[NSString stringWithFormat:@"%@", [sensorarray[0] objectForKey:@"mainnodeid"]];
-//            if (mainnodeid.length) {
-//                NSDictionary *dic = @{@"mainnodeid":mainnodeid,@"":@""};
-//            } else {
-//                
-//            }
-//            NITLog(@"scenarioarray:%@",scenarioarray);
             
             self.scenarioArray = [NSMutableArray arrayWithArray:[Scenario mj_objectArrayWithKeyValuesArray:scenarioarray]];
             
@@ -373,7 +364,7 @@
 
 
 /**
-  保存displayname-nodeid-nodetype
+  ローカルキャッシュ （displayname-nodeid-nodetype）
  */
 - (void)saveNodeIdDatas {
     NSMutableArray *arr = [NSMutableArray new];
@@ -400,7 +391,7 @@
 }
 
 
-//segue跳转 profilePush
+// profile Push   / scenario Info Push   / add new scenario Push
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     SinarioController *src = segue.destinationViewController;
@@ -453,7 +444,7 @@
 }
 
 
-//tableviewcell删除
+//tableviewcell削除
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {

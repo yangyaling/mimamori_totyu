@@ -9,9 +9,6 @@
 
 #import "AFNetworking.h"
 
-
-
-
 @implementation MHttpTool
 
 
@@ -29,7 +26,7 @@
     NSString *hostcd = [NITUserDefaults objectForKey:@"HOSTCDKEY"];
     
     NSString *staffid = [NITUserDefaults objectForKey:@"STAFFIDKEY"];
-    [pdic setObject:staffid forKey:@"staffid"];
+    [pdic setObject:staffid forKey:@"loginuser"];
     [pdic setObject:hostcd forKey:@"hostcd"];
     
     // 2.发送请求
@@ -64,20 +61,12 @@
     
     NSString *hostcd = [NITUserDefaults objectForKey:@"HOSTCDKEY"];
     NSString *staffid = [NITUserDefaults objectForKey:@"STAFFIDKEY"];
-    [pdic setObject:staffid forKey:@"staffid"];
+    [pdic setObject:staffid forKey:@"loginuser"];
     [pdic setObject:hostcd forKey:@"hostcd"];
 //    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
     // 2.发送请求
     [session POST:url parameters:pdic constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull totalFormData) {
         
-//        for (NSData *formData in formDataArray) {
-//            [totalFormData appendPartWithFileData:formData.data name:formData.name fileName:formData.filename mimeType:formData.mimeType];
-
-//        NSData *data = formDataArray[0];
-        
-            //上传文件参数
-//        [totalFormData appendPartWithFileData:data name:@"photo" fileName:@"HeaderImage.jpeg" mimeType:@"image/jpeg"];
-//        }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -90,9 +79,6 @@
         }
     }];
     
-    //value	__NSCFString *	@"http://mimamori2.azurewebsites.net/upload/0002.jpg"	0x00000001704579d0
-    //[0]	(null)	@"picpath" : @"http://mimamori2.azurewebsites.net/upload/0002.jpg"
-    //value	__NSCFString *	@"http://mimamori2.azurewebsites.net/upload/0002.jpg"	0x0000000170058f00
     
 }
 
@@ -102,7 +88,7 @@
     
     NSString *hostcd = [NITUserDefaults objectForKey:@"HOSTCDKEY"];
     NSString *staffid = [NITUserDefaults objectForKey:@"STAFFIDKEY"];
-    [pdic setObject:staffid forKey:@"staffid"];
+    [pdic setObject:staffid forKey:@"loginuser"];
     [pdic setObject:hostcd forKey:@"hostcd"];
     // 1.创建请求管理对象
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];

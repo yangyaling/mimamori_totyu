@@ -9,7 +9,12 @@
 #import "UpdatePassWordController.h"
 #import "AppDelegate.h"
 
+
+/**
+ パスワード変更
+ */
 @interface UpdatePassWordController ()
+
 
 @property (strong, nonatomic) IBOutlet DropButton  *facilitiesBtn;
 @property (strong, nonatomic) IBOutlet UITextField *oldPassword;
@@ -27,17 +32,14 @@
         
 }
 
+
+/**
+ チェック -> パスワード  大文字、小文字、数字のどれかが含まれています。
+ */
 -(BOOL)checkPassWord:(NSString *)pwd
 {
-    //8-20位数字和字母组成
+    //
     NSString *regex = @"(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z-\\W]{8,16}";
-    //@"^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?![\\W]+$)[0-9A-Za-z-\\W]{8,16}$";
-    
-    //@"^(?[a-zA-Z0-9\\W]+$)(?[a-zA-Z0-9\\W.]+$).{8,20}$";
-    
-//    @"^(?=.*[a-zA-Z0-9].*)(?=.*[a-zA-Z\\W].*)(?=.*[0-9\\W].*).{6,20}$";
-    
-//    @"^(?![a-zA-Z0-9]+$)(?=.*[a-zA-Z\\W].*)(?=.*[0-9\\W].*).{8,20}$";
     
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
     
@@ -46,6 +48,10 @@
     return result;
 }
 
+
+/**
+ 変更  method
+ */
 - (IBAction)UpdatePassword:(id)sender {
     
     NSString *pwd = [NITUserDefaults objectForKey:@"PASSWORDKEY"];
@@ -132,6 +138,11 @@
 
 }
 
+
+
+/**
+編集をチェックして
+ */
 - (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason {
     NSString *pwd = [NITUserDefaults objectForKey:@"PASSWORDKEY"];
     
@@ -170,20 +181,6 @@
 
 }
 
-//
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-//    
-//    
-//    return YES;
-//}
-//
-//-(BOOL)textFieldShouldReturn:(UITextField *)textField{
-//    
-//    [textField resignFirstResponder];
-//    
-//    return YES;
-//    
-//}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {

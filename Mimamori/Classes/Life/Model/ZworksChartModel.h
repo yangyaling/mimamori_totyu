@@ -26,6 +26,9 @@
  */
 @property (nonatomic, copy) NSString                               *devicename;
 
+/**
+ ノードネーム
+ */
 @property (nonatomic, copy) NSString                               *nodename;
 /**
  *  単位
@@ -53,6 +56,9 @@
 @property (nonatomic, copy) NSString                               *datestring;
 
 
+/**
+ 設置情報1
+ */
 @property (nonatomic, copy) NSString                               *displayname;
 
 

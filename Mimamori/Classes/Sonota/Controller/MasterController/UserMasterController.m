@@ -342,6 +342,7 @@
                                        @"facilitycd":facd
                                        
                                        };
+                
                 if ([usertype isEqualToString:@"2"] && [utype isEqualToString:@"1"]) {
                     [MBProgressHUD hideHUDForView:self.view];
                     [MBProgressHUD showError:@""];

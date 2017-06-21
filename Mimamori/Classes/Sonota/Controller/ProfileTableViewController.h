@@ -11,7 +11,9 @@
 #import "ProfileModel.h"
 
 @interface ProfileTableViewController : UITableViewController
-
+/**
+ 入居者ID（見守られる人）
+ */
 @property NSString *userid0;
 
 @property (nonatomic, copy) NSString                      *titleStr;

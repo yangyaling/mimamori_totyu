@@ -20,6 +20,9 @@
 @interface LifesTableViewCell : UITableViewCell
 
 
+/**
+ cell  model
+ */
 @property (nonatomic, strong)  LifeUserListModel *CellModel;
 
 @property (nonatomic, assign) int                 segmentIndex;

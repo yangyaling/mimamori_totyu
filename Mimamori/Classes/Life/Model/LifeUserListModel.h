@@ -22,7 +22,7 @@
  */
 @property (nonatomic, copy) NSString                         *user0name;
 /**
- *  dispname
+ *  設置情報1
  */
 @property (nonatomic, copy) NSString                         *dispname;
 /**

@@ -33,7 +33,7 @@
         <!--その他-->
         <scene sceneID="4cm-Ay-tIb">
             <objects>
-                <viewController id="gXe-h5-sDd" userLabel="その他" customClass="OtherController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="gXe-h5-sDd" userLabel="その他" customClass="OtherController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="68W-77-6dD"/>
                         <viewControllerLayoutGuide type="bottom" id="kHa-wI-BT5"/>
@@ -67,6 +67,11 @@
                                 <state key="normal" title="ログアウト">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="OutAtion:" destination="gXe-h5-sDd" eventType="touchUpInside" id="xRv-YJ-36y"/>
                                 </connections>
@@ -120,7 +125,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQs-WC-3xz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3347" y="-2811"/>
+            <point key="canvasLocation" x="-3533" y="-2845"/>
         </scene>
         <!--管理者機能-->
         <scene sceneID="cX1-PA-V8k">

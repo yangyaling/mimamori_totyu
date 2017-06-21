@@ -9,17 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface IconModel : NSObject
-/**
- *  user0name
- */
 @property (nonatomic, copy) NSString                         *custid;
-/**
- *  sex
- */
 @property (nonatomic, copy) NSString                         *updatedate;
-/**
- *  birthday
- */
 @property (nonatomic, copy) NSString                           *picdata;
 
 @end

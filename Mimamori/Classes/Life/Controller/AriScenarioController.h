@@ -10,34 +10,31 @@
 
 @interface AriScenarioController : UIViewController
 
-
-@property (nonatomic, copy) NSString                 *viewTitle;
-
 /**
- usernumber
+   ユーザID
  */
 @property (nonatomic, copy) NSString                 *usernumber;
 
 /**
- type
+タイプ
  */
 @property (nonatomic, assign) NSInteger                type;
 
 
 /**
- username
+ ユーザー名
  */
 @property (nonatomic, copy) NSString                 *username;
 
 /**
- subtitle
+補助タイトル
  */
 @property (nonatomic, copy) NSString                 *subtitle;
 
 //
 
 /**
-  PushOrPop
+  Push Or Pop
  */
 @property (nonatomic, assign) BOOL                    isPushOrPop;
 

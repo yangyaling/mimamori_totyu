@@ -10,52 +10,52 @@
 
 @interface ProfileModel : NSObject
 /**
- *  imageurl
+ 画像Path
  */
 @property (nonatomic, copy) NSString                         *picpath;
 /**
- *  picupdatedate
+ *画像更新日
  */
 @property (nonatomic, copy) NSString                         *picupdatedate;
 
 /**
- *  user0name
+入居者名（見守られる人）
  */
 @property (nonatomic, copy) NSString                         *user0name;
 /**
- *  sex
+ * 性別
  */
 @property (nonatomic, copy) NSString                         *sex;
 /**
- *  sex
+居室階
  */
 @property (nonatomic, copy) NSString                         *floorno;
 /**
- *  sex
+ * 居室番号
  */
 @property (nonatomic, copy) NSString                         *roomcd;
 /**
- *  birthday
+ *  誕生日
  */
 @property (nonatomic, copy) NSString                         *birthday;
 /**
- *  address
+ *住所
  */
 @property (nonatomic, copy) NSString                         *address;
 /**
- *  kakaritsuke
+かかりつけ医
  */
 @property (nonatomic, copy) NSString                         *kakaritsuke;
 /**
- *  drug
+服薬情報
  */
 @property (nonatomic, copy) NSString                         *drug;
 /**
- *  health
+ *健康診断結果
  */
 @property (nonatomic, copy) NSString                         *health;
 /**
- *  other
+ その他お願い事項
  */
 @property (nonatomic, copy) NSString                         *other;
 /**
