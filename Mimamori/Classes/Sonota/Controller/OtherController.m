@@ -19,7 +19,7 @@
 
 @property (strong, nonatomic) IBOutlet UIButton              *OutButton;
 
-@property (nonatomic, strong) NSArray                        *titleArray;
+@property (nonatomic, strong) NSArray                        *titleArray;  //クラスのボタン名
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 
 

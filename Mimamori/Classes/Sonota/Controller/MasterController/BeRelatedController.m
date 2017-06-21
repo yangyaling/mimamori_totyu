@@ -11,9 +11,9 @@
 
 @interface BeRelatedController ()
 @property (strong, nonatomic) IBOutlet DropButton            *facilityBtn;
-@property (nonatomic, strong) NSArray                        *titleArray;
+@property (nonatomic, strong) NSArray                        *titleArray; //クラスのボタン名
 @property (strong, nonatomic) IBOutlet UICollectionView      *collectionView;
-@property (nonatomic, strong) NSString                       *MasterUser;
+@property (nonatomic, strong) NSString                       *MasterUser; /** ユーザー权限*/
 @end
 
 @implementation BeRelatedController
@@ -33,13 +33,13 @@
 
 -(void)setUI {
     _titleArray = @[@"設置場所\nマスタ" ,@"企業\nマスタ",@"施設\nマスタ",@"シナリオ\nマスタ"];
-    //创建一个layout布局类
+ 
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     
     layout.sectionInset = UIEdgeInsetsMake(15, 30, 30, 30);
-    //设置布局方向为垂直流布局
+ 
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    //设置每个item的大小为100*100
+    
     layout.itemSize = CGSizeMake((self.view.width - 90) / 2.0, 70);
     
     
@@ -47,11 +47,11 @@
 }
 
 
-//返回分区个数
+
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
-//返回每个分区的item个数
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return _titleArray.count;
 }
@@ -68,7 +68,7 @@
 }
 
 
-//横向间距
+
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                    layout:(UICollectionViewLayout *)collectionViewLayout
 minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -77,7 +77,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 }
 
 
-//纵向
+
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                    layout:(UICollectionViewLayout *)collectionViewLayout
 minimumLineSpacingForSectionAtIndex:(NSInteger)section

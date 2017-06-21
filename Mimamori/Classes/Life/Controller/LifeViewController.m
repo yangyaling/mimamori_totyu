@@ -14,6 +14,9 @@
 
 #import "MCustTool.h"
 
+/**
+入居者一覧画面のコントローラ
+ */
 @interface LifeViewController ()<LifesTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl  *segmentControl;

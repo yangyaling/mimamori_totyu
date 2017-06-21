@@ -12,6 +12,9 @@
 
 #import "MSensorDataTool.h"
 
+/**
+ 入居者一覧＞日単位グラフ＞温度・湿度・明るさのグラフ画面のコントローラ
+ */
 @interface DetailChartViewController ()
 
 @end

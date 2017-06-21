@@ -13,11 +13,11 @@
 }
 @property (strong, nonatomic) IBOutlet DropButton *facilityBtn;
 
-//基本情报
+//基本情報
 @property (strong, nonatomic) IBOutlet UITextField *kodoField;
 @property (strong, nonatomic) IBOutlet UITextField *nameField;
 
-//设施情报
+//施設情報
 @property (strong, nonatomic) IBOutlet UITextField *hosutoIdField;
 @property (strong, nonatomic) IBOutlet UITextField *facilityField;
 @property (strong, nonatomic) IBOutlet UITextField *facilityNameField;
@@ -51,6 +51,10 @@
 }
 
 
+
+/**
+ 情報取得
+ */
 - (void)getinfo {
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
@@ -85,6 +89,10 @@
     _facilityBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
+
+/**
+ 切替施設
+ */
 -(void)SelectedListName:(NSDictionary *)clickDic{
     [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
     [self statusEdit:NO withColor:TextFieldNormalColor];
@@ -94,6 +102,9 @@
 
 
 
+/**
+ 施設名改正後  保存
+ */
 - (void)AgainFacilityList {
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
@@ -144,7 +155,6 @@
     }];
 }
 
-
 - (IBAction)editCell:(UIButton *)sender {
     
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
@@ -152,15 +162,12 @@
         _facilityBtn.showAlert = YES;
         
         [sender setTitle:@"完了" forState:UIControlStateNormal];
+        
         [self statusEdit:YES withColor:[UIColor whiteColor]];
-        //进入编辑状态
+        
     }else{
-//        [sender setTitle:@"編集" forState:UIControlStateNormal];
-//        
-//        [self statusEdit:NO withColor:[UIColor whiteColor]];
         
         [self saveInfo]; //跟新或者追加
-        
     }
     
     [CATransaction setCompletionBlock:^{
@@ -168,6 +175,8 @@
     }];
     
 }
+
+
 
 - (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
     
@@ -184,6 +193,7 @@
         
     }
 }
+
 
 - (void)saveInfo {
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
@@ -202,9 +212,6 @@
     dic[@"facilityname2"]= self.facilityName2Field.text;
     dic[@"facilityname2kana"]= self.fckana2Field.text;
     
-//    dic[@"floorcount"] = self.numField.text;
-//    dic[@"roomcount"] = self.pesronNumField.text;
-//    dic[@"memo"] = self.sonotaField.text;
     
     NSError *parseError = nil;
     

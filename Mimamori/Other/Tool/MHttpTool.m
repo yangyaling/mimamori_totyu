@@ -26,7 +26,9 @@
     NSString *hostcd = [NITUserDefaults objectForKey:@"HOSTCDKEY"];
     
     NSString *staffid = [NITUserDefaults objectForKey:@"STAFFIDKEY"];
+    
     [pdic setObject:staffid forKey:@"loginuser"];
+    
     [pdic setObject:hostcd forKey:@"hostcd"];
     
     // 2.发送请求

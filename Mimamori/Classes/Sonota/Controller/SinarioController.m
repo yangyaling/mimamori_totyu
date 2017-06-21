@@ -111,7 +111,7 @@
     
 }
 
-//時間帯の選択
+//時間帯ボタンの状態
 - (IBAction)selectedTimeButton:(UISegmentedControl *)sender {
     
     if (sender.selectedSegmentIndex != 4) {
@@ -125,7 +125,7 @@
     
 }
 
-
+//時間帯の選択
 -(void)selectedTimeButtonIndex:(NSInteger)index{
     self.timeIndex = index;
     switch (index) {
@@ -162,7 +162,7 @@
     }
 }
 
-//其他时间的点击弹窗
+//その他時間帯のボタン
 - (IBAction)timeButtonClick:(UIButton *)sender {
     _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:0];
     
@@ -179,6 +179,9 @@
 }
 
 
+/**
+ シナリオ データ取得
+ */
 -(void)getScenariodtlInfo{
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
     
@@ -210,13 +213,14 @@
             
             if (self.isSelectModelScenario) {
                 
-                //选择的是第几个雏形赋值
+                
                 NSInteger arcModelNo = self.modelindex;
                 
                 NSArray *oldarr = nil;
                 
-                NSInteger deleteindex = 0; //添加雏形所占用的模板下标号;
+                NSInteger deleteindex = 0;
                 
+                /**nodeid  マッチング雛形 */
                 for (int i = 0 ; i < tmpArr.count ; i++) {
                     NSArray *arr = tmpArr[i];
                     NSInteger newnodetype = [[[tmpModelArr[arcModelNo] firstObject] objectForKey:@"nodetype"] integerValue];
@@ -244,13 +248,13 @@
                 
                 [self.rightTimeButton setTitle:[[tmpModelArr[arcModelNo] firstObject] objectForKey:@"endtime"] forState:UIControlStateNormal];
                 
-                if (tmpModelArr.count == 0) return ; //雏形数组
+                if (tmpModelArr.count == 0) return ; //雛形datas
                 
                 if (oldarr.count == 0) {
                     [MBProgressHUD showError:@""];
                     return;
                 }
-                //模板里的第一个与选择的雏形进行合并
+              
                 NSArray *allarr = [self ScenarioModelDatasUpdate:oldarr andNewArray:tmpModelArr[arcModelNo]];
                 
                 if (allarr.count == 0) return;
@@ -325,18 +329,18 @@
         
         NSMutableDictionary *tempdic = [NSMutableDictionary dictionaryWithDictionary:obj];
         
-        [tempdic setObject:@"1" forKey:@"detailno"];  //先把添加的此条cell 打开方便之后cell中判断detailno 为1的显示
+        [tempdic setObject:@"1" forKey:@"detailno"];  //detailno (1.表示)  （0.隠す）
         
         for (NSDictionary *dic in newarray) {
             
-            //只要是插入雏形数据  都用雏形的nodetype  和  时间段
+           
             [tempdic setObject:dic[@"nodetype"] forKey:@"nodetype"];
             [tempdic setObject:dic[@"endtime"] forKey:@"endtime"];
             [tempdic setObject:dic[@"starttime"] forKey:@"starttime"];
             
             if ([tempdic[@"devicetype"] integerValue] >= 4 && [dic[@"devicetype"] integerValue] >= 4) {
                 [tempdic setObject:dic[@"time"] forKey:@"time"];
-                [tempdic setObject:@"0" forKey:@"value"];    //反应 和  使用 的value  要改为  0
+                [tempdic setObject:@"0" forKey:@"value"];
                 [tempdic setObject:dic[@"rpoint"] forKey:@"rpoint"];
                 [tempdic setObject:dic[@"devicetype"] forKey:@"devicetype"];
             } else {
@@ -387,6 +391,8 @@
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
         
         
+        
+        //cell 追加する
         NSArray *deletearr = arr[index];
         NSMutableArray *newarr = [NSMutableArray new];
         for (int i = 0; i< deletearr.count; i++) {
@@ -502,11 +508,10 @@
 
 /**
    
-     保存-遍历检查scenario数据是否填写完整
+ チェック  データは完全に記入しているかどうか
 
  */
 - (IBAction)saveScenario:(UIButton *)sender {
-//    BOOL scenariosuccess = YES;
     
     NSMutableArray *alldatas = [NSMutableArray new];
     NSData * data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
@@ -557,10 +562,11 @@
         [MBProgressHUD showError:@"シナリオネームを入力してください"];
     }else{
         if ([alldatas.firstObject count] > 0) {
-            NITLog(@"%ld",alldatas.count);
-            // 网络请求，追加或更新
+            
             [self updateScenarioInfo:alldatas];
+            
             [MBProgressHUD showMessage:@"" toView:self.view];
+            
         }else{
             [MBProgressHUD  showError:@"入力項目をチェックしてください!"];
         }
@@ -571,7 +577,7 @@
 
 
 /**
- *   シナリオ上传到服务器
+ *   シナリオ  update
  */
 -(void)updateScenarioInfo:(NSArray *)array{
     
@@ -608,7 +614,6 @@
     }
     
     
-    //保存detailinfo的数组转换成json数据格式
     NSError *parseError = nil;
     NSData  *json = [NSJSONSerialization dataWithJSONObject:array options: NSJSONWritingPrettyPrinted error:&parseError];
     
@@ -616,7 +621,6 @@
     
     parametersDict[@"scenariodtlinfo"] = str;
     //
-    //NITUpdateScenarioInfo
     [MHttpTool postWithURL:NITUpdateScenarioInfo params:parametersDict success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         
@@ -624,7 +628,6 @@
         
         NITLog(@"%ld",[[json objectForKey:@"result"] integerValue]);
         
-        //追加成功，显示信息
         if ([[json valueForKey:@"code"]isEqualToString:@"200"]) {
             
             if (self.isRefresh) {
@@ -633,11 +636,9 @@
                 [MBProgressHUD showSuccess:@"追加いたしました"];
             }
             
-            //跳转到前页面
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
                 
-                // 如果刚刚添加的scenario检知到异常
                 if ([[json objectForKey:@"result"] integerValue] == 0) {
                     if ([self.delegate respondsToSelector:@selector(warningScenarioAddedShow:)]) {
                         NSString *message = [NSString stringWithFormat:@"<センサー> %@%@",self.user0name,_sinarioText.text];
@@ -690,7 +691,6 @@
         NSMutableArray *array = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:data]];
         NSArray *deletearr = array[indexPath.row];
         
-        //删除一个cell  pick上添加当前删除的displayname
         
         NSMutableArray *disparray = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData: [NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
         NSString *disstr = [deletearr.firstObject objectForKey:@"displayname"];
@@ -702,7 +702,6 @@
         [NITUserDefaults setObject:datas forKey:@"tempdeaddnodeiddatas"];
         
         
-        //删除总数组当行cell的所有数据  再缓存新的临时数组
         NSMutableArray *newarr = [NSMutableArray new];
         for (int i = 0; i< deletearr.count; i++) {
             NSMutableDictionary *dicOne = [NSMutableDictionary dictionaryWithDictionary:deletearr[i]];
@@ -733,12 +732,6 @@
     
     NSArray *arr = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
-//    NSMutableArray *lastDatas = [NSMutableArray array];
-//    for (NSArray *arrayC in arr) {
-//        if (arrayC.count == 4) {
-//            [lastDatas addObject:arrayC];
-//        }
-//    }
     
     NSArray *cellarr = arr[indexPath.row];
     

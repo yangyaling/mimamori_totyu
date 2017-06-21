@@ -14,6 +14,9 @@
 #import "MSensorDataTool.h"
 #define Surplus 148
 
+/**
+ 入居者一覧＞日単位グラフ＞＞温度・湿度・明るさのグラフがスクロールできるようにするコントローラ
+ */
 @interface DetailScrollController ()<DropClickDelegate>
 @property (strong, nonatomic) IBOutlet UICollectionView      *collectionView;
 

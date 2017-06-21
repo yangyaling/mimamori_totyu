@@ -14,6 +14,9 @@
 #import "DetailScrollController.h"
 
 
+/**
+ 入居者一覧＞個別入居者のグラフがスクロールできるようにするコントローラ
+ */
 @interface ZworksChartTBVC ()
 
 @end

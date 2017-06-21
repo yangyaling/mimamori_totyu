@@ -12,6 +12,9 @@
 
 #import "LifeChartController.h"
 
+/**
+ 入居者一覧＞個別入居者＞シナリオ一覧画面のコントローラ
+ */
 @interface AriScenarioController ()<DropClickDelegate>
 @property (strong, nonatomic) IBOutlet UITableView           *tableView;
 
@@ -64,10 +67,6 @@
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];////更新施設名２
 }
 
-/**
- 弹出下拉设施菜单
- @param sender
- */
 - (void)detailRefresh {
     
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
@@ -186,7 +185,6 @@
     
     return cell;
 }
-
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
