@@ -28,6 +28,8 @@
     
     NSString *hostcd = [NITUserDefaults objectForKey:@"HOSTCDKEY"];
     
+    NSString *staffid = [NITUserDefaults objectForKey:@"STAFFIDKEY"];
+    [pdic setObject:staffid forKey:@"staffid"];
     [pdic setObject:hostcd forKey:@"hostcd"];
     
     // 2.发送请求
@@ -61,7 +63,8 @@
     NSMutableDictionary *pdic = [NSMutableDictionary dictionaryWithDictionary:params];
     
     NSString *hostcd = [NITUserDefaults objectForKey:@"HOSTCDKEY"];
-    
+    NSString *staffid = [NITUserDefaults objectForKey:@"STAFFIDKEY"];
+    [pdic setObject:staffid forKey:@"staffid"];
     [pdic setObject:hostcd forKey:@"hostcd"];
 //    ((AFJSONResponseSerializer *)session.responseSerializer).removesKeysWithNullValues = YES;
     // 2.发送请求
@@ -98,7 +101,8 @@
     NSMutableDictionary *pdic = [NSMutableDictionary dictionaryWithDictionary:params];
     
     NSString *hostcd = [NITUserDefaults objectForKey:@"HOSTCDKEY"];
-    
+    NSString *staffid = [NITUserDefaults objectForKey:@"STAFFIDKEY"];
+    [pdic setObject:staffid forKey:@"staffid"];
     [pdic setObject:hostcd forKey:@"hostcd"];
     // 1.创建请求管理对象
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];

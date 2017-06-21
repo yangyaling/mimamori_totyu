@@ -10,7 +10,9 @@
 
 @interface AriScenarioController : UIViewController
 
+
 @property (nonatomic, copy) NSString                 *viewTitle;
+
 /**
  usernumber
  */
@@ -38,6 +40,5 @@
   PushOrPop
  */
 @property (nonatomic, assign) BOOL                    isPushOrPop;
-
 
 @end

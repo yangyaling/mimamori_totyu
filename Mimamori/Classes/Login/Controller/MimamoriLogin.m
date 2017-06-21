@@ -89,9 +89,13 @@
     
     /*ホストコード保存*/
     [NITUserDefaults setObject:hostId forKey:@"HOSTCDKEY"];
-    
     [NITUserDefaults synchronize];
     
+    /**
+     *  ユーザID 保存
+     */
+    [NITUserDefaults setObject:userid forKey:@"STAFFIDKEY"];
+    [NITUserDefaults synchronize];
     
     MLoginParam *param = [[MLoginParam alloc]init];
     param.hostcd = hostId;
@@ -107,6 +111,11 @@
             [NITUserDefaults setObject:hostId forKey:@"HOSTCDKEY"];
             [NITUserDefaults synchronize];
             
+            /**
+             *  ユーザID 保存
+             */
+            [NITUserDefaults setObject:userid forKey:@"STAFFIDKEY"];
+            [NITUserDefaults synchronize];
             
             //パスワード保存
             [NITUserDefaults setObject:pwd forKey:@"PASSWORDKEY"];
