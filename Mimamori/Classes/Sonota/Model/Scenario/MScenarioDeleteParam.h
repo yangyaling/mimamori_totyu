@@ -10,6 +10,9 @@
 
 @interface MScenarioDeleteParam : NSObject
 
+/**
+ シナリオID
+ */
 @property (nonatomic, copy) NSString                               *scenarioid;
 
 @end

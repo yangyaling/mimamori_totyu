@@ -14,17 +14,25 @@
 @interface MProfileTool : NSObject
 
 /**
+ 
+  見守り対象者情报を取得
+
  */
 +(void)profileInfoWithParam:(MProfileInfoParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure;
 
-
 /**
+ 
+ 見守り対象者情报を更新
+ 
  */
 +(void)profileInfoUpdateWithParam:(MProfileInfoUpdateParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure;
 
 
 
 /**
+ 
+ 見守り対象者画像を更新
+ 
  */
 +(void)profileInfoUpdateImageWithParam:(IconModel *)param withImageDatas:(NSArray *)images success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure;
 @end

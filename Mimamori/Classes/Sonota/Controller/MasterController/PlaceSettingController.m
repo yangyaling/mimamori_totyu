@@ -10,22 +10,32 @@
 #import "PlaceSettingCell.h"
 
 
+/**
+ その他＞管理者機能＞マスター関連>設置場所マスタ画面のコントローラ
+ */
 @interface PlaceSettingController (){
     NSString *usertype;
 }
-@property (strong, nonatomic) IBOutlet DropButton   *facilityBtn;
+@property (strong, nonatomic) IBOutlet DropButton         *facilityBtn;
 
-@property (strong, nonatomic) IBOutlet UITableView  *tableView;
+@property (strong, nonatomic) IBOutlet UITableView        *tableView;
 
-@property (strong, nonatomic) IBOutlet UIView       *footView;
+@property (strong, nonatomic) IBOutlet UIView             *footView;
 
 
-@property (nonatomic, strong) NSMutableArray        *allDatas;
+/**
+ 場所 データ
+ */
+@property (nonatomic, strong) NSMutableArray              *allDatas;
 
-@property (nonatomic, assign) BOOL                   isEdit;
-@property (strong, nonatomic) IBOutlet UIButton     *editButton;
 
-@property (strong, nonatomic) IBOutlet AnimationView  *editAnimationView;
+/**
+ 編集状態
+ */
+@property (nonatomic, assign) BOOL                         isEdit;
+@property (strong, nonatomic) IBOutlet UIButton           *editButton;
+
+@property (strong, nonatomic) IBOutlet AnimationView      *editAnimationView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *editAnimationViewLayout;
 
 @end
@@ -47,7 +57,7 @@
     
     
     NSArray *arr = nil;
-    [NITUserDefaults setObject:arr forKey:@"NLINFO"];
+    [NITUserDefaults setObject:arr forKey:@"NLINFO"];//クリア  （場所 データ）
     
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getnlInfo)];
@@ -59,7 +69,6 @@
 
 
 
-//NITUpdateNLInfo
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
@@ -68,7 +77,7 @@
 }
 
 
-//数据请求
+//情報取得
 - (void)getnlInfo {
     
     [MHttpTool postWithURL:NITGetNLInfo params:nil success:^(id json) {
@@ -98,6 +107,10 @@
 }
 
 
+
+/**
+ 編集スイッチ
+ */
 - (IBAction)editCell:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         
@@ -121,6 +134,7 @@
     
 }
 
+//更新データ
 - (IBAction)saveInfo:(id)sender {
     [MBProgressHUD showMessage:@"" toView:self.view];
     
@@ -176,6 +190,10 @@
 }
 
 
+
+/**
+ 動画表示の登録ボタン
+ */
 -(void)ViewAnimateStatas:(double)statas {
     [UIView animateWithDuration:0.5 animations:^{
         self.footView.height = statas;
@@ -187,6 +205,11 @@
     }];
 }
 
+
+
+/**
+ 追加セル
+ */
 - (IBAction)addCell:(id)sender {
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"NLINFO"]];
@@ -238,7 +261,10 @@
     return cell;
     
 }
-
+/**
+ tableview 編集状態
+ 
+ */
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!tableView.editing)
@@ -249,6 +275,10 @@
 }
 
 
+
+/**
+ 削除セル
+ */
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     

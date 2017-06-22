@@ -11,17 +11,23 @@
 
 #import "EditSinarioController.h"
 
+/**
+ その他＞管理者機能＞マスター関連>シナリオマスタ画面のコントローラ
+ */
 @interface SinarioMasterController (){
+    
     NSString *usertype;
+    
 }
-@property (strong, nonatomic) IBOutlet DropButton *facilityBtn;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
-@property (nonatomic, assign) BOOL                  isOpen;
-@property (nonatomic, strong) NSMutableArray        *allDatas;
+@property (strong, nonatomic) IBOutlet DropButton   *facilityBtn;
+@property (strong, nonatomic) IBOutlet UITableView  *tableView;
 
-@property (nonatomic, strong) NSString              *maxid;
-@property (strong, nonatomic) IBOutlet UIButton *addButton;
+@property (nonatomic, assign) BOOL                  isOpen;  //追加雛形（雛形詳細）
+@property (nonatomic, strong) NSMutableArray        *allDatas;   //雛形データ一覧
+
+@property (nonatomic, strong) NSString              *maxid; //追加のIDを許可する
+@property (strong, nonatomic) IBOutlet UIButton     *addButton;
 
 @end
 
@@ -46,6 +52,7 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getnlInfo)];
     
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -57,16 +64,15 @@
 }
 
 
-//数据请求
+//情報取得
 - (void)getnlInfo {
     
     [MHttpTool postWithURL:NITGetSPList params:nil success:^(id json) {
         
-        
-        
         [self.tableView.mj_header endRefreshing];
         
         self.maxid = [json objectForKey:@"maxprotoid"];
+        
         if (self.maxid.length > 0) {
             
             [self.addButton setEnabled:YES];
@@ -118,7 +124,7 @@
     return cell;
 }
 
-//tableviewcell点击跳转
+//tableviewcell push
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.isOpen = YES;
@@ -128,13 +134,12 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (!tableView.editing)
-//        return UITableViewCellEditingStyleNone;
-//    else {
         return UITableViewCellEditingStyleDelete;
-//    }
 }
 
+/**
+ 削除セル
+ */
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
@@ -209,6 +214,10 @@
 }
 
 
+
+/**
+ Push ->パラメータ付値
+ */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     EditSinarioController *esc = segue.destinationViewController;

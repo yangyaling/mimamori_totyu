@@ -30,6 +30,9 @@
 #import <AVFoundation/AVFoundation.h>
 
 
+/**
+ その他＞見守り設定>個別入居者画面のコントローラ
+ */
 @interface SensorController ()<ScenarioVcDelegate,NowRloadDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView         *tableView;
@@ -391,6 +394,9 @@
 }
 
 
+/**
+ Push ->   KVC値渡す
+ */
 // profile Push   / scenario Info Push   / add new scenario Push
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -482,6 +488,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
     if (self.isSensorTableView) {
         SensorSetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sensorcell" forIndexPath:indexPath];
         
@@ -532,12 +541,14 @@
 }
 
 
+
 /**
-   刷新当前的tb  显示更新的mainnode
+ delegate   更新
  */
 -(void)NowRefreshScreen {
     [self.tableView reloadData];
 }
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -549,14 +560,13 @@
 
 
 
-//
-//自定义 SectionHeader
+/**
+ カスタマイズ   tableViewHeader
+ */
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(10, 0, self.tableView.width,45)];
     
-//    titleView.backgroundColor = NITColor(235, 235, 235);
-    //シナリオ
         
     UIButton *editButton =[[UIButton alloc] initWithFrame:CGRectMake(self.tableView.width - 55, 5, 40, 35)];
     [editButton setTitle: @"＋" forState: UIControlStateNormal];
@@ -573,17 +583,11 @@
     return titleView;
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-//    return self.footView;
-//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return self.addDataH;
 }
 
-//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-//    return self.footView.height;
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

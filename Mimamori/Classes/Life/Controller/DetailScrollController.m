@@ -18,6 +18,7 @@
  入居者一覧＞日単位グラフ＞＞温度・湿度・明るさのグラフがスクロールできるようにするコントローラ
  */
 @interface DetailScrollController ()<DropClickDelegate>
+
 @property (strong, nonatomic) IBOutlet UICollectionView      *collectionView;
 
 @property (nonatomic, strong) NSMutableArray                 *controllersArray;  //controllers
@@ -25,7 +26,6 @@
 @property (strong, nonatomic) IBOutlet UILabel               *ContrlTitle;
 
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
-
 
 @property (nonatomic,strong) NSArray                         *chartArray;//chart  datas
 

@@ -32,6 +32,11 @@
     
 }
 
+
+
+/**
+ 右移動アニメーション
+ */
 - (void)animationAction:(BOOL)isOp andLayoutConstraint:(NSLayoutConstraint *)constraint {
     
     if (isOp) {

@@ -13,6 +13,9 @@
 #import "MHttpTool.h"
 
 
+/**
+ その他画面のコントローラ
+ */
 @interface OtherController ()<UIApplicationDelegate>
 
 @property (strong, nonatomic) IBOutlet UICollectionView      *collectionview;
@@ -105,11 +108,11 @@
 }
 
 
-//返回分区个数
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
-//返回每个分区的item个数
+
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return _titleArray.count;
 }

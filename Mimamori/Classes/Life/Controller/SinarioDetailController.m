@@ -112,6 +112,9 @@
 }
 
 
+/**
+ セルをクリック   -> KVO プッシュ
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UIStoryboard *lifeStoryBoard = [UIStoryboard storyboardWithName:@"Sonota" bundle:nil];

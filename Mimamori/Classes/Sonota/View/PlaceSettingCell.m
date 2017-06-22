@@ -62,6 +62,9 @@
 
 
 
+/**
+ 編集が終わった後に更新してデータを更新する
+ */
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     [textField setBackgroundColor:[UIColor whiteColor]];

@@ -53,7 +53,9 @@
     [self.tableView.mj_header beginRefreshing];
 }
 
-
+/**
+ 切替施設  delegate
+ */
 -(void)SelectedListName:(NSDictionary *)clickDic; {
     
     [self.tableView.mj_header beginRefreshing];
@@ -92,6 +94,9 @@
 
 
 
+/**
+ Push ->   KVC値渡す
+ */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     

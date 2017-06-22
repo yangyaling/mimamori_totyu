@@ -10,10 +10,6 @@
 
 @implementation ZworksChartModel
 
-//在这个方法说清楚
-//1.哪些属性需要归档
-//2.怎样存储这些属性
-
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     
     [aCoder encodeObject:_picpath forKey:@"picpath"];
@@ -28,10 +24,6 @@
 }
 
 
-
-//在这个方法说清楚
-//1.哪些属性需要解析（读取）
-//2.怎样解析（读取）这些属性
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     

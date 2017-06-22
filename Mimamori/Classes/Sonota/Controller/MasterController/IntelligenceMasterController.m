@@ -9,21 +9,25 @@
 #import "IntelligenceMasterController.h"
 #include "IntelligenceMasterCell.h"
 
+/**
+ その他＞管理者機能＞マスター関連>企業マスタ画面のコントローラ
+ */
 @interface IntelligenceMasterController (){
     NSString *usertype;
 }
-@property (strong, nonatomic) IBOutlet DropButton     *facilityBtn;
+@property (strong, nonatomic) IBOutlet DropButton         *facilityBtn;
 
-@property (strong, nonatomic) IBOutlet UITableView    *tableView;
-@property (strong, nonatomic) IBOutlet UIView         *footView;
-@property (strong, nonatomic) IBOutlet UIButton       *editButton;
-@property (nonatomic, assign) BOOL                    isEdit;
-@property (nonatomic, strong) NSMutableArray          *allDatas;
+@property (strong, nonatomic) IBOutlet UITableView        *tableView;
+@property (strong, nonatomic) IBOutlet UIView             *footView;
+@property (strong, nonatomic) IBOutlet UIButton           *editButton;
 
-@property (strong, nonatomic) IBOutlet UILabel *cpLabel2;
-@property (strong, nonatomic) IBOutlet UILabel *cpLabel1;
+@property (nonatomic, assign) BOOL                         isEdit; //編集状態
+@property (nonatomic, strong) NSMutableArray              *allDatas;  //企業マスタ データ
 
-@property (strong, nonatomic) IBOutlet AnimationView  *editAnimationView;
+@property (strong, nonatomic) IBOutlet UILabel            *cpLabel2;
+@property (strong, nonatomic) IBOutlet UILabel            *cpLabel1;
+
+@property (strong, nonatomic) IBOutlet AnimationView      *editAnimationView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *editAnimationViewLayout;
 
 @end
@@ -35,7 +39,7 @@
     self.footView.height = 0;
     self.footView.alpha = 0;
     
-    
+    //自動改行
     self.cpLabel1.text = @"企業コード\n／イニシャル";
     self.cpLabel2.text = @"企業名\n／企業名カナ";
     // 権限
@@ -47,7 +51,7 @@
     }
     
     NSArray *arr = nil;
-    [NITUserDefaults setObject:arr forKey:@"COMPANYINFO"];
+    [NITUserDefaults setObject:arr forKey:@"COMPANYINFO"];//クリア  （企業マスタ データ）
     
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getInfo)];
@@ -66,7 +70,7 @@
     
 }
 
-
+//情報取得
 - (void)getInfo {
     
     [MHttpTool postWithURL:NITGetCompanyInfo params:nil success:^(id json) {
@@ -97,6 +101,10 @@
     }];
 }
 
+
+/**
+ 編集スイッチ
+ */
 - (IBAction)editCell:(UIButton *)sender {
     
     
@@ -109,16 +117,18 @@
         [self.tableView setEditing:YES animated:YES];///////////
     }else{
         
-//        [sender setTitle:@"編集" forState:UIControlStateNormal];
         [self saveInfo:nil]; //跟新或者追加
         
     }
-    
+    //
     [CATransaction setCompletionBlock:^{
         [self.tableView reloadData];
     }];
 }
 
+/**
+ 動画表示の登録ボタン
+ */
 -(void)ViewAnimateStatas:(double)statas {
     
     [UIView animateWithDuration:0.5 animations:^{
@@ -131,6 +141,11 @@
     }];
 }
 
+
+
+/**
+ 追加セル
+ */
 - (IBAction)addCell:(id)sender {
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"COMPANYINFO"]];
     [arr addObject:@{
@@ -151,6 +166,8 @@
     }];
 }
 
+
+//更新データ
 - (IBAction)saveInfo:(id)sender {
     [MBProgressHUD showMessage:@"" toView:self.view];
     
@@ -223,6 +240,10 @@
 }
 
 
+/**
+ tableview 編集状態
+
+ */
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!tableView.editing)
@@ -232,6 +253,10 @@
     }
 }
 
+
+/**
+ 削除セル
+ */
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [NITDeleteAlert SharedAlertShowMessage:@"設定情報を削除します、よろしいですか。" andControl:self withOk:^(BOOL isOk) {

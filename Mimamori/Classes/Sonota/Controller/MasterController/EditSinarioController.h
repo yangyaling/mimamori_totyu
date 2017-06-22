@@ -12,8 +12,8 @@
 
 @property (nonatomic, copy) NSString                      *labelTitle;
 
-@property (nonatomic, assign) BOOL                    isEdit;
+@property (nonatomic, assign) BOOL                         isEdit; //詳細（追加）
 
-@property (nonatomic, copy) NSString                      *maxid;
+@property (nonatomic, copy) NSString                      *maxid;  //追加の有効ID
 
 @end

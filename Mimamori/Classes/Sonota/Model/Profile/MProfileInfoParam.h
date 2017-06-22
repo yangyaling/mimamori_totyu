@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface MProfileInfoParam : NSObject
-
+/**
+ 入居者ID（見守られる人）
+ */
 @property (nonatomic, copy) NSString                               *custid;
 
 @end

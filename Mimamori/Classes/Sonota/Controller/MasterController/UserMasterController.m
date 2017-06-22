@@ -10,27 +10,32 @@
 #import "UserMasterCell.h"
 
 
+/**
+ その他＞管理者機能＞使用者情報（見守る人）画面のコントローラ
+ */
 @interface UserMasterController (){
     NSString *usertype;
 }
 
-@property (strong, nonatomic) IBOutlet UITextField *companyName;
+@property (strong, nonatomic) IBOutlet UITextField        *companyName;
 
-@property (strong, nonatomic) IBOutlet UITextField *facilityName;
+@property (strong, nonatomic) IBOutlet UITextField        *facilityName;
 
-@property (strong, nonatomic) IBOutlet DropButton   *facilityBtn;
+@property (strong, nonatomic) IBOutlet DropButton         *facilityBtn;
 
-@property (strong, nonatomic) IBOutlet UITableView  *tableView;
-@property (strong, nonatomic) IBOutlet UIView       *footView;
+@property (strong, nonatomic) IBOutlet UITableView        *tableView;
+@property (strong, nonatomic) IBOutlet UIView             *footView;
 
-@property (nonatomic, assign) BOOL                   isEdit;
-@property (strong, nonatomic) IBOutlet UIButton     *editButton;
-@property (nonatomic, strong) NSMutableArray        *allDatas;
+@property (nonatomic, assign) BOOL                         isEdit;// 編集状態
 
-@property (nonatomic, strong) NSString              *maxId;
-@property (nonatomic, assign) NSInteger             numxxid;
 
-@property (strong, nonatomic) IBOutlet AnimationView  *editAnimationView;
+@property (strong, nonatomic) IBOutlet UIButton           *editButton;
+@property (nonatomic, strong) NSMutableArray              *allDatas; //情報データ
+
+@property (nonatomic, strong) NSString                    *maxId;    //追加のIDを許可する
+@property (nonatomic, assign) NSInteger                    numxxid;   //追加の数
+
+@property (strong, nonatomic) IBOutlet AnimationView      *editAnimationView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *editAnimationViewLayout;
 
 @end
@@ -52,7 +57,7 @@
     }
     
     NSArray *arr = nil;
-    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
+    [NITUserDefaults setObject:arr forKey:@"STAFFINFO"]; //クリア   データ
     
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getnlInfo)];
@@ -75,7 +80,7 @@
 }
 
 
-//数据请求
+//情報取得
 - (void)getnlInfo {
     
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
@@ -122,7 +127,9 @@
     
 }
 
-
+/**
+ 編集スイッチ
+ */
 - (IBAction)editCell:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
@@ -140,8 +147,6 @@
     }else{
         
         
-//        [sender setTitle:@"編集" forState:UIControlStateNormal];
-        
         [self saveNow:nil]; //跟新或者追加
         
     }
@@ -151,7 +156,9 @@
     }];
     
 }
-
+/**
+ 動画表示の登録ボタン
+ */
 -(void)ViewAnimateStatas:(double)statas {
     
     [UIView animateWithDuration:0.5 animations:^{
@@ -163,7 +170,9 @@
         }];
     }];
 }
-
+/**
+ 追加セル
+ */
 - (IBAction)addCell:(id)sender {
     
     if (![self.maxId isEqualToString:@""]) {
@@ -206,6 +215,7 @@
     
 }
 
+//更新データ
 - (IBAction)saveNow:(id)sender {
     
     [MBProgressHUD showMessage:@"" toView:self.view];
@@ -279,6 +289,7 @@
     
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UserMasterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserMasterCell" forIndexPath:indexPath];
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
@@ -298,7 +309,10 @@
     return YES;
 }
 
-
+/**
+ tableview 編集状態
+ 
+ */
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!tableView.editing)
@@ -307,7 +321,9 @@
         return UITableViewCellEditingStyleDelete;
     }
 }
-
+/**
+ 削除セル
+ */
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     

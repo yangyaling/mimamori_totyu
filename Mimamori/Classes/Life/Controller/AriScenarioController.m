@@ -51,6 +51,7 @@
     
     self.tableView.tableFooterView = [[UIView alloc]init];
     
+     //Style None
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
     
@@ -67,6 +68,10 @@
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];////更新施設名２
 }
 
+
+/**
+  通知詳細を取得
+ */
 - (void)detailRefresh {
     
     NSMutableDictionary *parametersDict = [NSMutableDictionary dictionary];
@@ -111,6 +116,10 @@
     
 }
 
+
+/**
+ Push ->   KVC値渡す
+ */
 - (IBAction)PushOrPopAction:(UIButton *)sender {
     if (self.isPushOrPop) {
         [self.navigationController popViewControllerAnimated:NO];
@@ -191,7 +200,9 @@
     return 30;
 }
 
-
+/**
+ カスタマイズ   tableViewHeader
+ */
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     UIView *bgview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, NITScreenW, 25)];

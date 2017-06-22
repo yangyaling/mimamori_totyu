@@ -9,6 +9,10 @@
 #import "BeRelatedController.h"
 #import "OtherCollectionCell.h"
 
+
+/**
+ その他＞管理者機能＞マスター関連画面のコントロール
+ */
 @interface BeRelatedController ()
 @property (strong, nonatomic) IBOutlet DropButton            *facilityBtn;
 @property (nonatomic, strong) NSArray                        *titleArray; //クラスのボタン名

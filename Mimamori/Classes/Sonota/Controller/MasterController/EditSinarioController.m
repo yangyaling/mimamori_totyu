@@ -11,6 +11,10 @@
 
 #import "EditSinarioController.h"
 #import "NITPickerTemp.h"
+
+/**
+ その他＞管理者機能＞マスター関連>シナリオマスタ＞シナリオ雛形の編集/追加画面のコントローラ
+ */
 @interface EditSinarioController ()<MyPickerDelegate>{
     NSString *usertype;
 }
@@ -52,11 +56,11 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl  *ariSegment;
 
 
-@property (nonatomic, assign) NSInteger                    timeIndex;
+@property (nonatomic, assign) NSInteger                    timeIndex; //時間帯 スコープ
 
 @property (strong, nonatomic) IBOutlet UILabel             *lastLabel;
 
-@property (nonatomic, strong) NSMutableArray               *allarrays;
+@property (nonatomic, strong) NSMutableArray               *allarrays;  //雛形データ
 @end
 
 @implementation EditSinarioController
@@ -78,7 +82,7 @@
     
     self.titleView.text = self.labelTitle;
     
-    
+    //雛形詳細
     if (self.isEdit) {
         self.isOpen = NO;
         [self.settingBGView setHidden:YES];
@@ -86,8 +90,9 @@
         [self.signLabel setHidden:NO];
         
         [self buttonStatus:NO withColor:NITColor(235, 235, 241)];
-    } else {
-        //追加进来
+        
+    } else {//追加
+        
         self.isOpen = YES;
         [self.signLabel setHidden:YES];
         [self.editButton setHidden:YES];
@@ -106,8 +111,7 @@
     
 }
 
-
-//数据请求
+//情報取得
 - (void)getnlInfo {
     
     NSDictionary *dic = @{@"protoid":self.maxid};
@@ -127,6 +131,7 @@
         
         self.signLabel.text = scopecdarr[[[json objectForKey:@"scopecd"] integerValue]];
         
+        //時間帯 スコープ
         self.mySegment.selectedSegmentIndex = [[json objectForKey:@"scopecd"] integerValue];
         
         self.timeIndex = self.mySegment.selectedSegmentIndex;
@@ -180,7 +185,7 @@
                         [self.rgButton2 setTitle:strV4 forState:UIControlStateNormal];
                     }else {
                         self.lastLabel.text = @"開閉";
-                        // 门
+                        // 開閉
                         NSString *strT4 = [NSString stringWithFormat:@"%@H",[dic[@"time"] isEqual:[NSNull null]]  ? @"-" :dic[@"time"]];
                         NSString *strV4 = [NSString stringWithFormat:@"%@",[dic[@"rpoint"] isEqual:[NSNull null]]  ? @"-" :dic[@"rpoint"]];
                         [self.rgButton1 setTitle:strT4 forState:UIControlStateNormal];
@@ -220,7 +225,7 @@
     _facilityBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
-//时间段的选择
+//時間帯ボタンの状態
 - (IBAction)selectedTimeButton:(UISegmentedControl *)sender {
     
     if (sender.selectedSegmentIndex != 4) {
@@ -233,6 +238,8 @@
     [self selectedTimeButtonIndex:sender.selectedSegmentIndex];
 }
 
+
+//時間帯 スコープ
 -(void)selectedTimeButtonIndex:(NSInteger)index{
     self.timeIndex = index;
     switch (index) {
@@ -270,7 +277,10 @@
 }
 
 
-//其他时间的点击弹窗
+
+/**
+ picker分類表示
+ */
 - (IBAction)timeButtonClick:(UIButton *)sender {
     if (self.ariSegment.selectedSegmentIndex == 1) {
         _picker = [[NITPickerTemp alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender cellNumber:2 isBool:NO];
@@ -283,6 +293,10 @@
     [WindowView addSubview:_picker];
 }
 
+
+/**
+ 編集スイッチ
+ */
 - (IBAction)editCell:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
@@ -302,8 +316,7 @@
         [self.sinarioName setBackgroundColor:[UIColor whiteColor]];
         
         [self buttonStatus:YES withColor:[UIColor whiteColor]];
-        //进入编辑状态
-        //        [self.tableView setEditing:YES animated:YES];///////////
+      
     }else{
         [sender setTitle:@"編集" forState:UIControlStateNormal];
         self.isOpen = NO;
@@ -323,13 +336,17 @@
     }
     [self.tableView reloadData];
 }
-- (IBAction)selectIndexTime:(UISegmentedControl *)sender {
-    self.timeIndex = sender.selectedSegmentIndex;
-}
 
+
+
+/**
+雛形データ更新
+ */
 - (IBAction)saveInfo:(UIButton *)sender {
     NSString *nodetypestr = [NSString stringWithFormat:@"%ld", self.ariSegment.selectedSegmentIndex + 1];
-    NSMutableArray *tmparray = [self saveScenario]; //本地检测是否 - -
+    NSMutableArray *tmparray = [self saveScenario];
+    
+    //ノードタイプによると， 表示人感 、開閉
     [tmparray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:obj];
         [dict setObject:nodetypestr forKey:@"nodetype"];
@@ -413,7 +430,7 @@
 
 
 /**
- 保存-遍历检查scenario数据是否填写完整
+ チェック  すべての雛形データ
  */
 - (NSMutableArray *)saveScenario {
     //    BOOL scenariosuccess = YES;
@@ -482,6 +499,9 @@
     
 }
 
+/**
+ セレクタ - （人感、開閉）ボタン
+ */
 - (IBAction)showScrollView:(UIButton *)sender {
     
     BOOL isOn = YES;
@@ -497,6 +517,11 @@
     [WindowView addSubview:_picker];
 }
 
+
+
+/**
+Picker Delegate 
+ */
 - (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell {
     
     [self.rgButton2 setTitle:sinario forState:UIControlStateNormal];
@@ -510,7 +535,6 @@
     } else {
         [self.rgButton1 setTitle:@"0H" forState:UIControlStateNormal];
     }
-    
     
 }
 
@@ -529,6 +553,9 @@
     return  YES;
 }
 
+/**
+ 権限状態 ->画面編集可能状態
+ */
 -(void)buttonStatus:(BOOL)noOp withColor:(UIColor *)color {
     
     [self.wdButton1 setEnabled:noOp];

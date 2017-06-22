@@ -115,10 +115,12 @@
             if ([code isEqualToString:@"200"]) {
                 [MBProgressHUD showSuccess:@""];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    // 4.返回登录页面
+                    
+                    // back to Login class
                     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                     appDelegate.window.rootViewController = [appDelegate.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:@"LoginIdentifier"];
-                    // 5.移除定时器
+                    
+                    // タイマー   ストップ
                     [appDelegate stopTimer];
                 });
                 

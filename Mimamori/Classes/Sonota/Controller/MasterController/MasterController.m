@@ -10,6 +10,9 @@
 #import "OtherCollectionCell.h"
 
 
+/**
+ その他＞管理者機能画面のコントローラ
+ */
 @interface MasterController ()
 @property (strong, nonatomic) IBOutlet DropButton            *facilityBtn;
 

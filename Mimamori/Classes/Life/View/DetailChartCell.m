@@ -18,11 +18,9 @@
 
 @property (nonatomic, strong) UUChart                        *chartView;
 
-@property (nonatomic, strong) NSArray                        *devicedataarray; //接收数组
+@property (nonatomic, strong) NSArray                        *devicedataarray;
 
-@property (nonatomic, strong) NSMutableArray                 *allarray; //接收数组
-
-//@property (nonatomic, strong) NSMutableArray                 *yNumbers;
+@property (nonatomic, strong) NSMutableArray                 *allarray;
 
 @property (strong ,nonatomic)NSMutableArray                  *mouthnumArr;
 
@@ -44,27 +42,8 @@
 -(void)setChartdic:(NSDictionary *)chartdic{
     _allarray = [NSMutableArray array];
     
-//    NSMutableArray *tmparr = [NSMutableArray array];
     NSArray *devicearray = chartdic[@"devicevalues"];
     
-//    self.yNumbers = [NSMutableArray array];
-//    for (NSArray *arr in devicearray) {
-//        NSArray *ccnumber = [devicearray.firstObject objectForKey:@"devicevalues"];
-//        CGFloat maxValue = [[ccnumber valueForKeyPath:@"@max.floatValue"] floatValue];
-//        CGFloat minValue = [[ccnumber valueForKeyPath:@"@min.floatValue"] floatValue];
-//        [tmparr addObject:@((float)maxValue)];
-//        [tmparr addObject:@((float)minValue)];
-//    }
-    
-//    CGFloat maxV = [[tmparr valueForKeyPath:@"@max.floatValue"] floatValue];
-//    CGFloat minV = [[tmparr valueForKeyPath:@"@min.floatValue"] floatValue];
-//    [self.yNumbers addObject:@((double)maxV)];
-//    [self.yNumbers addObject:@((double)minV)];
-    
-    
-//    if (_chartView) {
-//        [_chartView removeFromSuperview];
-//    }
     
     NSString *sensorname = [NSString stringWithFormat:@"%@:%.2f%@",chartdic[@"devicename"],[chartdic[@"latestvalue"] floatValue],chartdic[@"deviceunit"]];
     
@@ -82,21 +61,6 @@
 }
 
 
--(void)setupChartView{
-    
-//    if (_chartView) {
-//        [_chartView removeFromSuperview];
-//        _chartView =nil;
-//    }
-//    
-//    _chartView = [[UUChart alloc]initwithUUChartDataFrame:CGRectMake(3,5, [UIScreen mainScreen].bounds.size.width-6, 148) withSource:self withStyle:UUChartLineStyle withDeviceName:_chartModel.devicename withCategory:1 latestValue:_chartModel.latestvalue dateString:self.dateStr unitString:_chartModel.deviceunit];
-//    
-//    
-//    [self.chartView showInView:self];
-    
-    
-    
-}
 
 -(NSArray*)getXTitles:(int)num{
     NSMutableArray *xTitles = [[NSMutableArray alloc]initWithCapacity:0];

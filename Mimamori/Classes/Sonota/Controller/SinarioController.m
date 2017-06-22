@@ -15,6 +15,9 @@
 #import "Device.h"
 
 
+/**
+ その他＞見守り設定>個別入居者＞シナリオ＞シナリオ詳細/追加画面のコントローラ
+ */
 @interface SinarioController ()<MyPickerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField         *sinarioText;
@@ -314,6 +317,10 @@
     }];
 }
 
+
+/**
+ マッチング選択の雛形データ
+ */
 - (NSArray *)ScenarioModelDatasUpdate:(NSArray *)oldarray andNewArray:(NSArray *)newarray {
     
     if (oldarray.count == 0) {
@@ -325,6 +332,8 @@
     
     NSMutableArray *allarr = [NSMutableArray new];
     
+    
+    //雛形データ挿入
     for (NSDictionary *obj in oldarray) {
         
         NSMutableDictionary *tempdic = [NSMutableDictionary dictionaryWithDictionary:obj];
@@ -392,7 +401,7 @@
         
         
         
-        //cell 追加する
+        //セル 追加する
         NSArray *deletearr = arr[index];
         NSMutableArray *newarr = [NSMutableArray new];
         for (int i = 0; i< deletearr.count; i++) {
@@ -409,6 +418,7 @@
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         
+        //更新は操作のセル
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation  :UITableViewRowAnimationNone];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
     }
@@ -455,6 +465,9 @@
 
 
 
+/**
+  セルを値渡す
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     SinarioTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SinarioTableViewCell" forIndexPath:indexPath];
@@ -478,6 +491,9 @@
     
 }
 
+/**
+ 追加セル
+ */
 - (IBAction)addCell:(UIButton *)sender {
     
     NSArray *array = [NSArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"tempdeaddnodeiddatas"]]];
@@ -516,6 +532,8 @@
     NSMutableArray *alldatas = [NSMutableArray new];
     NSData * data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
     NSArray * scenarioarr = [[NSKeyedUnarchiver unarchiveObjectWithData:data] copy];
+    
+    
     
     for (NSArray *tmparr in scenarioarr) {
         NSMutableArray *array = [NSMutableArray new];
@@ -620,7 +638,8 @@
     NSString *str = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     
     parametersDict[@"scenariodtlinfo"] = str;
-    //
+    
+    //更新データ
     [MHttpTool postWithURL:NITUpdateScenarioInfo params:parametersDict success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         
@@ -642,6 +661,8 @@
                 if ([[json objectForKey:@"result"] integerValue] == 0) {
                     if ([self.delegate respondsToSelector:@selector(warningScenarioAddedShow:)]) {
                         NSString *message = [NSString stringWithFormat:@"<センサー> %@%@",self.user0name,_sinarioText.text];
+                        
+                        //緊急のお知らせをする
                         [self.delegate warningScenarioAddedShow:message];
                     }
                     
@@ -682,7 +703,9 @@
     
 }
 
-
+/**
+ 削除セル
+ */
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
@@ -726,6 +749,9 @@
 
 
 
+/**
+ 使用状態によって表示セルの高
+ */
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSData *data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];

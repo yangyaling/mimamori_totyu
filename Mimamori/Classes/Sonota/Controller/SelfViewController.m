@@ -18,7 +18,7 @@
  */
 @interface SelfViewController ()<DropClickDelegate>
 /**
- *  nikeName
+  ニックネーム（見守る人）
  */
 @property (weak, nonatomic) IBOutlet UITextField *nickName;
 
@@ -140,6 +140,7 @@
 - (IBAction)pushPassWordC:(id)sender {
     [self performSegueWithIdentifier:@"pushpasswordC" sender:self];
 }
+
 
 
 - (IBAction)saveButton:(id)sender {

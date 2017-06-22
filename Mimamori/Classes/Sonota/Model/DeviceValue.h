@@ -10,10 +10,19 @@
 
 @interface DeviceValue : NSObject
 
+/**
+ 時間の設定値
+ */
 @property (nonatomic, assign) NSNumber *time;
 
+/**
+ 設定値
+ */
 @property (nonatomic, assign) NSNumber *value;
 
+/**
+ 種別
+ */
 @property (nonatomic, copy) NSString *rpoint;
 
 @end

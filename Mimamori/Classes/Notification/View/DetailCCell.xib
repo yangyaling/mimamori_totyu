@@ -77,7 +77,7 @@
                 <outlet property="timeValue" destination="kHK-3Y-YJ4" id="5Bu-A1-DOY"/>
                 <outlet property="valueRp" destination="aM9-Ar-mcr" id="dnx-3Q-Tc4"/>
             </connections>
-            <point key="canvasLocation" x="-133" y="-283"/>
+            <point key="canvasLocation" x="-201" y="-293"/>
         </tableViewCell>
     </objects>
 </document>

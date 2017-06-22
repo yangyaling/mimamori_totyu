@@ -26,25 +26,6 @@
     
     _datasDic=datasDic;
     
-//    if (self.editOp) {
-    
-//        [self.igTextLabel setEnabled:YES];
-//        [self.yiniText setEnabled:YES];
-//        [self.igName setEnabled:YES];
-//        [self.igNameMemo setEnabled:YES];
-//        
-//        [self.igTextLabel setBackgroundColor:[UIColor whiteColor]];
-//        [self.yiniText setBackgroundColor:[UIColor whiteColor]];
-//        [self.igName setBackgroundColor:[UIColor whiteColor]];
-//        [self.igNameMemo setBackgroundColor:[UIColor whiteColor]];
-        
-        
-//    } else {
-//        [self.igTextLabel setEnabled:NO];
-//        [self.yiniText setEnabled:NO];
-//        [self.igName setEnabled:NO];
-//        [self.igNameMemo setEnabled:NO];
-//    }
     
     self.protoid.text = datasDic[@"protoid"];
     self.protoname.text = datasDic[@"protoname"];

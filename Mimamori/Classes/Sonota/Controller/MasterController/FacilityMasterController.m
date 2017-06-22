@@ -8,28 +8,32 @@
 
 #import "FacilityMasterController.h"
 
+/**
+ その他＞管理者機能＞マスター関連>施設マスタ画面のコントローラ
+ */
 @interface FacilityMasterController (){
     NSString *usertype;
 }
 @property (strong, nonatomic) IBOutlet DropButton     *facilityBtn;
-//设施情报
-@property (strong, nonatomic) IBOutlet UITextField *hosutoIdField;
 
-@property (strong, nonatomic) IBOutlet UITextField *facilityField;
-@property (strong, nonatomic) IBOutlet UITextField *facilityNameField;
-@property (strong, nonatomic) IBOutlet UITextField *fckanaField;
-@property (strong, nonatomic) IBOutlet UITextField *facilityName2Field;
+//施設情報
+@property (strong, nonatomic) IBOutlet UITextField    *hosutoIdField;
 
-@property (strong, nonatomic) IBOutlet UITextField *fckana2Field;
-@property (strong, nonatomic) IBOutlet UIButton *editButton;
+@property (strong, nonatomic) IBOutlet UITextField    *facilityField;
+@property (strong, nonatomic) IBOutlet UITextField    *facilityNameField;
+@property (strong, nonatomic) IBOutlet UITextField    *fckanaField;
+@property (strong, nonatomic) IBOutlet UITextField    *facilityName2Field;
+
+@property (strong, nonatomic) IBOutlet UITextField    *fckana2Field;
+@property (strong, nonatomic) IBOutlet UIButton       *editButton;
 
 
-//其他
-@property (strong, nonatomic) IBOutlet UITextField *numField;
+//other
+@property (strong, nonatomic) IBOutlet UITextField    *numField;
 
-@property (strong, nonatomic) IBOutlet UITextField *pesronNumField;
+@property (strong, nonatomic) IBOutlet UITextField    *pesronNumField;
 
-@property (strong, nonatomic) IBOutlet UITextField *sonotaField;
+@property (strong, nonatomic) IBOutlet UITextField    *sonotaField;
 @end
 
 @implementation FacilityMasterController
@@ -45,7 +49,8 @@
         self.editButton.hidden = YES;
     }
     
-    [self getinfo];
+    
+    [self getinfo]; //情報取得
     
     self.tableView.tableFooterView = [[UIView alloc]init];
 }
@@ -58,6 +63,10 @@
     [self performSegueWithIdentifier:@"pushRoomReport" sender:self];
 }
 
+
+/**
+ 情報取得
+ */
 - (void)getinfo {
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
@@ -101,6 +110,10 @@
     _facilityBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
+
+/**
+ 切替施設  delegate
+ */
 -(void)SelectedListName:(NSDictionary *)clickDic{
     [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
     [self statusEdit:NO withColor:TextFieldNormalColor];
@@ -108,7 +121,9 @@
     [self getinfo];
 }
 
-
+/**
+ 施設名改正後  保存
+ */
 - (void)AgainFacilityList {
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     
@@ -160,6 +175,9 @@
     }];
 }
 
+/**
+ 編集スイッチ
+ */
 - (IBAction)editCell:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
@@ -178,6 +196,10 @@
     
 }
 
+
+/**
+ 権限状態 ->画面編集可能状態
+ */
 - (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
     NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
     if (!master.length) return;
@@ -200,11 +222,6 @@
         
     } else {
         
-//        [self.hosutoIdField setEnabled:noOp];
-//        [self.hosutoIdField setBackgroundColor:color];
-//        [self.facilityField setEnabled:noOp];
-//        [self.facilityField setBackgroundColor:color];
-        
         [self.facilityNameField setEnabled:noOp];
         [self.facilityNameField setBackgroundColor:color];
         [self.fckanaField setEnabled:noOp];
@@ -225,6 +242,8 @@
     }
 }
 
+
+//更新データ
 - (void)saveInfo {
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     

@@ -59,13 +59,16 @@
  */
 @property (nonatomic, copy) NSString                         *other;
 /**
- *  updatedate
+ *   更新日付
  */
 @property (nonatomic, copy) NSString                         *updatedate;
 
+/**
+  日付
+ */
 @property (nonatomic, copy) NSString                          *date;
 /**
- *  updatename
+ *   更新者
  */
 @property (nonatomic, copy) NSString                         *updatename;
 

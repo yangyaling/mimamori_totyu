@@ -8,6 +8,10 @@
 
 #import "IntelligenceController.h"
 
+
+/**
+ その他＞管理者機能＞施設情報画面のコントローラ
+ */
 @interface IntelligenceController (){
     NSString *usertype;
 }
@@ -34,6 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 権限
     usertype = USERTYPE;
     if ([usertype isEqualToString:@"1"] || [usertype isEqualToString:@"2"]) {
         self.editButton.hidden = NO;
@@ -41,7 +46,7 @@
         self.editButton.hidden = YES;
     }
     
-    [self getinfo];
+    [self getinfo];  //POST ->情報取得
     
     self.tableView.tableFooterView = [[UIView alloc]init];
 }
@@ -101,13 +106,14 @@
 }
 
 
-
 /**
  施設名改正後  保存
  */
 - (void)AgainFacilityList {
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
+    
     NSString *staffid = [NITUserDefaults objectForKey:@"userid1"];
+    
     NSDictionary *dic = @{
                           @"staffid":staffid,
                           
@@ -178,6 +184,9 @@
 
 
 
+/**
+ 権限状態 ->画面編集可能状態
+ */
 - (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
     
     if ([usertype isEqualToString:@"2"]) {
@@ -195,6 +204,9 @@
 }
 
 
+/**
+ 更新施設情報
+ */
 - (void)saveInfo {
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     

@@ -16,6 +16,9 @@
 
 #import "GGActionSheet.h"
 
+/**
+ その他＞見守り設定>個別入居者＞プロフィール設定画面のコントローラ
+ */
 @interface ProfileTableViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,GGActionSheetDelegate>
 
 @property(nonatomic,strong) GGActionSheet                  *actionSheetTitle;
@@ -235,8 +238,7 @@
     param.updatename =[NITUserDefaults objectForKey:@"userid1name"];
     
     
-    //    NITLog(@"%@\n%@\n照片：2 ---%@",self.userid0,updatedate,self.imagedata);
-    //
+    //更新データ
     [MProfileTool profileInfoUpdateImageWithParam:iconM withImageDatas:nil success:^(NSString *path) {
         [MBProgressHUD hideHUDForView:self.navigationController.view];
         [NITUserDefaults setObject:self.imagedata forKey:self.userid0];
@@ -259,7 +261,7 @@
             [MBProgressHUD showError:@"後ほど試してください" toView:self.navigationController.view];
             NITLog(@"zwupdatecustinfo请求失败");
         }];
-        //http://mimamori2.azurewebsites.net/upload/0002.jpg
+        
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:self.navigationController.view];
         NITLog(@"%@",error.localizedDescription);
@@ -268,7 +270,10 @@
     
 }
 
-//显示大图片到屏幕中心
+
+/**
+ 画像移動はスクリーンの中間に移動する
+ */
 - (void)moveToCenterWidth:(CGFloat)widthI withHeight:(CGFloat)heightI
 {
     [UIView animateWithDuration:0.5 animations:^{
@@ -280,7 +285,9 @@
 }
 
 
-//移除图
+/**
+ 画像を取り除く
+ */
 - (void)moveToOrigin
 {
     [UIView animateWithDuration:0.5 animations:^{
@@ -297,6 +304,10 @@
 
 
 #pragma mark - GGActionSheet代理方法
+
+/**
+ 選択 ->(写真を撮る) (アルバムから取得) (写真を拡大する)
+ */
 -(void)GGActionSheetClickWithIndex:(int)index{
     
     if (index == 0) {
@@ -340,6 +351,9 @@
 
 
 
+/**
+ 画像を作成
+ */
 -(UIImage *)watermarkImage:(UIImage *)img withName:(NSString *)name
 
 {
@@ -355,13 +369,13 @@
     [img drawInRect:CGRectMake(0, 0, w, h)];
     
     NSDictionary *attr = @{
-                           NSFontAttributeName: [UIFont systemFontOfSize:36],  //设置字体
+                           NSFontAttributeName: [UIFont systemFontOfSize:36],  //フォントを設定
                            
-                           NSForegroundColorAttributeName : [UIColor whiteColor]   //设置字体颜色
+                           NSForegroundColorAttributeName : [UIColor whiteColor]   //フォントの色を設定して
                            };
     
     
-    [mark drawInRect:CGRectMake(10 ,h - 50 , w, 50) withAttributes:attr];  //右下角
+    [mark drawInRect:CGRectMake(10 ,h - 50 , w, 50) withAttributes:attr];  //画像左上角に表示されている
     
     
     UIImage *aimg = UIGraphicsGetImageFromCurrentImageContext();
@@ -374,6 +388,10 @@
 
 
 #pragma mark --  imagePicker delegate Action
+
+/**
+ ローカルカメラを起動する
+ */
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
     [MBProgressHUD hideHUDForView:self.navigationController.view];
@@ -386,26 +404,22 @@
         
         UIImage *updateimg =  [self watermarkImage:image withName:updatedate];
         
-        //图片压缩，因为原图都是很大的，不必要传原图
-        NSData *imageData = UIImageJPEGRepresentation(updateimg, 0.5);
+        NSData *imageData = UIImageJPEGRepresentation(updateimg, 0.5);  //サムネイルアップロード
         
         
-//        NITLog(@"照片：1 ---%@",imageData);
         self.imagedata = imageData;
 //
-        //UIImagePickerControllerMediaType
-        //UIImagePickerControllerCropRect
-        //UIImagePickerControllerEditedImage
-        //UIImagePickerControllerOriginalImage=
         self.userIcon.image = [UIImage imageWithData:imageData];
         
     }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-    NSLog(@"windows个数:%ld",[UIApplication sharedApplication].windows.count);
 }
 
 
+/**
+ ローカルカメラをキャンセル
+ */
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [MBProgressHUD hideHUDForView:self.navigationController.view];
     [picker dismissViewControllerAnimated:YES completion:nil];

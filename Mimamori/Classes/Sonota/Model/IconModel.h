@@ -9,8 +9,18 @@
 #import <Foundation/Foundation.h>
 
 @interface IconModel : NSObject
+
+/**
+ 入居者ID（見守られる人）
+ */
 @property (nonatomic, copy) NSString                         *custid;
+/**
+ 更新日付
+ */
 @property (nonatomic, copy) NSString                         *updatedate;
+/**
+ 画像データ
+ */
 @property (nonatomic, copy) NSString                           *picdata;
 
 @end

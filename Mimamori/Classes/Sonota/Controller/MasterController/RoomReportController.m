@@ -13,22 +13,22 @@
     NSString *usertype;
 }
 
-@property (strong, nonatomic) IBOutlet UITextField *hostID;
+@property (strong, nonatomic) IBOutlet UITextField        *hostID;
 
-@property (strong, nonatomic) IBOutlet UITextField *facilityName1;
+@property (strong, nonatomic) IBOutlet UITextField        *facilityName1;
 
-@property (strong, nonatomic) IBOutlet DropButton   *facilityBtn;
+@property (strong, nonatomic) IBOutlet DropButton         *facilityBtn;
 
-@property (strong, nonatomic) IBOutlet UITableView  *tableView;
-@property (strong, nonatomic) IBOutlet UIView       *footView;
+@property (strong, nonatomic) IBOutlet UITableView        *tableView;
+@property (strong, nonatomic) IBOutlet UIView             *footView;
 
-@property (nonatomic, assign) BOOL                   isEdit;
+@property (nonatomic, assign) BOOL                         isEdit;  // 編集状態
 
-@property (strong, nonatomic) IBOutlet UIButton     *editButton;
+@property (strong, nonatomic) IBOutlet UIButton           *editButton;
 
-@property (nonatomic, strong) NSMutableArray        *allDatas;
+@property (nonatomic, strong) NSMutableArray              *allDatas; //情報データ
 
-@property (strong, nonatomic) IBOutlet AnimationView  *editAnimationView;
+@property (strong, nonatomic) IBOutlet AnimationView      *editAnimationView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *editAnimationViewLayout;
 
 @end
@@ -50,9 +50,8 @@
     }
     
     NSArray *arr = nil;
-    [NITUserDefaults setObject:arr forKey:@"ROOMMASTERINFOKEY"];
+    [NITUserDefaults setObject:arr forKey:@"ROOMMASTERINFOKEY"]; //クリア   データ
     
-    //    self.tableView.tableFooterView = [[UIView alloc]init];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getnlInfo)];
     
@@ -70,7 +69,9 @@
     
     _facilityBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
-
+/**
+ 切替施設  delegate
+ */
 -(void)SelectedListName:(NSDictionary *)clickDic {
     [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
     
@@ -87,7 +88,7 @@
 }
 
 
-//数据请求
+//情報取得
 - (void)getnlInfo {
     
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
@@ -128,7 +129,9 @@
     
 }
 
-
+/**
+ 編集スイッチ
+ */
 - (IBAction)editCell:(UIButton *)sender {
     
     
@@ -154,6 +157,9 @@
     
 }
 
+/**
+ 動画表示の登録ボタン
+ */
 -(void)ViewAnimateStatas:(double)statas {
     
     [UIView animateWithDuration:0.5 animations:^{
@@ -165,10 +171,11 @@
         }];
     }];
 }
-
+/**
+ 追加セル
+ */
 - (IBAction)addCell:(id)sender {
     
-//    
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"ROOMMASTERINFOKEY"]];
     [arr addObject:@{
                      
@@ -191,7 +198,7 @@
     
 }
 
-
+//更新データ
 - (IBAction)saveInfo:(id)sender {
     
     [MBProgressHUD showMessage:@"" toView:self.view];
@@ -308,7 +315,9 @@
     }
 }
 
-
+/**
+ 削除セル
+ */
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [NITDeleteAlert SharedAlertShowMessage:@"設定情報を削除します、よろしいですか。" andControl:self withOk:^(BOOL isOk) {

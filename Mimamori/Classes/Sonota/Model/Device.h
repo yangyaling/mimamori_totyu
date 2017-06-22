@@ -11,8 +11,14 @@
 
 @interface Device : NSObject
 
+/**
+ デバイスID
+ */
 @property (nonatomic, copy) NSString *deviceid;
 
+/**
+ デバイス名
+ */
 @property (nonatomic, copy) NSString *devicename;
 
 /**
@@ -21,9 +27,15 @@
 @property (nonatomic, copy) NSString *devicetype;
 
 
+/**
+ ノード名
+ */
 @property (nonatomic, copy) NSString *nodename;
 
 
+/**
+ ノードID
+ */
 @property (nonatomic, copy) NSString *nodeid;
 
 /**
@@ -47,11 +59,14 @@
 @property (nonatomic, copy) NSString *place;
 
 
+/**
+ model datas
+ */
 @property (nonatomic, copy) NSArray           *modelArr;
 
 
 /**
- *  h
+ *  h 単位
  */
 @property (nonatomic, copy) NSString          *timeunit;
 

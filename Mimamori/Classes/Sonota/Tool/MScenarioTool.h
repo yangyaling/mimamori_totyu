@@ -27,7 +27,9 @@
 
 
 
-
+/**
+ *  シナリオ を更新
+ */
 +(void)sensorUpdateWithParam:(MScenarioListParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure;
 
 @end

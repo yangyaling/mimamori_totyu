@@ -7,19 +7,12 @@
 // 機器情報
 
 
-//{
-//    custid = 0002;
-//    custname = "(A)\U30cb\U30c3\U30bb\U30a4\U3000\U82b1\U5b50\U3055\U3093";
-//    oldcustid = 0002;
-//    oldsensorid = 0001;
-//    oldserial = 2016062200000396;
-//    sensorid = 0001;
-//    serial = 2016062200000396;
-//}
-
 #import "MachineController.h"
 #import "MachineCell.h"
 
+/**
+ その他＞管理者機能＞機器情報画面のコントローラ
+ */
 @interface MachineController (){
     
     NSString *usertype;
@@ -38,11 +31,11 @@
 
 @property (weak, nonatomic) IBOutlet UITextField    *facilityNameTF;
 
-@property (nonatomic, assign) BOOL                   isEdit;
+@property (nonatomic, assign) BOOL                   isEdit; // 編集状態
 
-@property (nonatomic, strong) NSMutableArray        *allDatas;
+@property (nonatomic, strong) NSMutableArray        *allDatas; //情報データ
 
-@property (nonatomic, assign) NSInteger              numxxid;
+@property (nonatomic, assign) NSInteger              numxxid; //追加のIDを許可する
 
 @end
 
@@ -53,6 +46,7 @@
     self.footView.height = 0;
     self.footView.alpha = 0;
     
+    // 権限
     usertype = USERTYPE;
     if ([usertype isEqualToString:@"1"] || [usertype isEqualToString:@"2"]) {
         self.editButton.hidden = NO;
@@ -61,14 +55,14 @@
     }
     
     NSArray *arr = nil;
-    [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];
+    [NITUserDefaults setObject:arr forKey:@"SENSORINFO"];//クリア   データ
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getSensorInfo)];
     [NITRefreshInit MJRefreshNormalHeaderInit:(MJRefreshNormalHeader*)self.tableView.mj_header];
     
     self.isEdit = NO;
     
-    // 企业名、设施名
+    // インタラクティブ状態
     self.companyNameTF.userInteractionEnabled = NO;
     self.facilityNameTF.userInteractionEnabled = NO;
     
@@ -84,7 +78,9 @@
 
 #pragma mark - Action Handle
 
-/** 点击编辑按钮 */
+/**
+ 編集スイッチ
+ */
 - (IBAction)editCell:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
         [sender setTitle:@"完了" forState:UIControlStateNormal];
@@ -93,7 +89,6 @@
         _facilityBtn.showAlert = YES;
         
         if ([usertype isEqualToString:@"1"]) {
-            //显示加号按钮和登陆按钮
             [self ViewAnimateStatas:120];
         }
         
@@ -103,6 +98,7 @@
         [self saveInfo:nil];
         
     }
+    
     [CATransaction setCompletionBlock:^{
         
         [self.tableView reloadData];
@@ -110,8 +106,9 @@
     }];
 
 }
-
-/** 点加号按钮 */
+/**
+ 追加セル
+ */
 - (IBAction)addCell:(id)sender {
     
     
@@ -141,22 +138,21 @@
     
 }
 
-
-/** 点登陆按钮 */
+//更新データ
 - (IBAction)saveInfo:(id)sender {
     
     [MBProgressHUD showMessage:@"" toView:self.view];
     
-    // 准备参数
     NSArray *array1 = [NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]];
     
-    //35
     NSMutableArray *array = [NSMutableArray arrayWithArray:array1];
     
     NSMutableArray *allarr = [NSMutableArray new];
     
     NSMutableArray *sameMutablearray = [@[] mutableCopy];
     
+    
+    /**  同じことを取り除く  **/
     for (int i = 0; i < array.count; i ++) {
         
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:array[i]];
@@ -201,7 +197,6 @@
         return;
     }
     
-//    NITLog(@"samearray:%@",sameMutablearray);
     
     
     
@@ -217,8 +212,7 @@
                           
                           };
     
-    
-//     发送请求
+    //更新データ
     [MHttpTool postWithURL:NITUpdateSSInfo params:dic success:^(id json) {
         [MBProgressHUD hideHUDForView:self.view];
         if (json) {
@@ -238,7 +232,7 @@
             }else if([code isEqualToString:@"600"]) {
                 NSArray *errors = [json objectForKey:@"errors"];
                 NSString *errormsg = [errors.firstObject firstObject];
-                [MBProgressHUD showError:errormsg];
+                [MBProgressHUD showError:errormsg]; //
                 
             } else {
                 
@@ -258,7 +252,9 @@
     
 }
 
-
+/**
+ 動画表示の登録ボタン
+ */
 -(void)ViewAnimateStatas:(double)statas {
     
     [UIView animateWithDuration:0.5 animations:^{
@@ -274,14 +270,11 @@
 
 
 #pragma mark - Request
-
-/** 機器情報取得 */
+//情報取得
 - (void)getSensorInfo{
-    // 1.准备参数
     NSString *facd = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilitycd"];
     NSDictionary *dic = @{@"facilitycd":facd};
     
-    // 2.发送请求
     [MHttpTool postWithURL:NITGetSSInfo params:dic success:^(id json) {
         [self.tableView.mj_header endRefreshing];
         _allDatas = [NSMutableArray new];
@@ -331,10 +324,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 1.创建cell
+    
     MachineCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MachineCell" forIndexPath:indexPath];
     
-    // 2.传递模型
+   
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
     
     NSDictionary *dic = arr[indexPath.row];
@@ -353,7 +346,10 @@
 
 
 
-
+/**
+ tableview 編集状態
+ 
+ */
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!tableView.editing)
@@ -363,7 +359,9 @@
     }
 }
 
-
+/**
+ 削除セル
+ */
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
@@ -423,11 +421,6 @@
                         } else {
                             
                             [MBProgressHUD showError:@""];
-                            //                        self.footView.height = 0;
-                            //                        self.footView.alpha = 0;
-                            //                        self.isEdit = NO;
-                            //                        [self.editButton setTitle:@"編集" forState:UIControlStateNormal];
-                            //                        [self.tableView setEditing:NO animated:YES];
                             
                         }
                         [CATransaction setCompletionBlock:^{
@@ -451,9 +444,8 @@
 
 
 #pragma mark － other
-
 /**
- 设施下拉框代理
+ 切替施設  delegate
  */
 -(void)SelectedListName:(NSDictionary *)clickDic; {
     [self.editButton setTitle:@"編集" forState:UIControlStateNormal];

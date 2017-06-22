@@ -11,6 +11,10 @@
 @interface AnimationView : UIView
 
 
+/**
+ マスター画面  アニメを編集する
+ */
+
 -(void)StartAnimationXLayoutConstraint:(NSLayoutConstraint *)constraint;
 
 -(void)FinishAnimationZoneLayoutConstraint:(NSLayoutConstraint *)constraint;

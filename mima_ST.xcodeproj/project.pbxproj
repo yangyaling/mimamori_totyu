@@ -26,7 +26,6 @@
 		928C62281DC88E0A009B5974 /* MScenarioTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 928C62271DC88E0A009B5974 /* MScenarioTool.m */; };
 		928C622F1DC88EDF009B5974 /* MScenarioListParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 928C622E1DC88EDF009B5974 /* MScenarioListParam.m */; };
 		928C62321DC890CC009B5974 /* MScenarioDeleteParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 928C62311DC890CC009B5974 /* MScenarioDeleteParam.m */; };
-		928ED9B91DC9743C00144193 /* MGroupTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 928ED9B81DC9743C00144193 /* MGroupTool.m */; };
 		9291E49E1D9A029100FB8FC4 /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9291E49D1D9A029100FB8FC4 /* test.plist */; };
 		929519801D7D06FE00787997 /* MainNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519731D7D06FE00787997 /* MainNotificationController.m */; };
 		929519821D7D06FE00787997 /* NoticeTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519781D7D06FE00787997 /* NoticeTimeModel.m */; };
@@ -38,11 +37,9 @@
 		929519931D7D078B00787997 /* Emergency.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9295198E1D7D078B00787997 /* Emergency.storyboard */; };
 		929519941D7D078B00787997 /* NITSegmented.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519901D7D078B00787997 /* NITSegmented.m */; };
 		929519EF1D7D0A6000787997 /* LifeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519D01D7D0A6000787997 /* LifeViewController.m */; };
-		929519F21D7D0A6000787997 /* NursingNotesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519D71D7D0A6000787997 /* NursingNotesModel.m */; };
 		929519F41D7D0A6000787997 /* ZworksChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519DB1D7D0A6000787997 /* ZworksChartModel.m */; };
 		929519F61D7D0A6100787997 /* Life.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 929519DF1D7D0A6000787997 /* Life.storyboard */; };
 		929519F71D7D0A6100787997 /* LifesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519E11D7D0A6000787997 /* LifesTableViewCell.m */; };
-		929519F81D7D0A6100787997 /* NITMPButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519E31D7D0A6000787997 /* NITMPButton.m */; };
 		92951A001D7D0AC200787997 /* LifeUserListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 929519FF1D7D0AC200787997 /* LifeUserListModel.m */; };
 		92951A291D7D0B0100787997 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A0A1D7D0B0100787997 /* ProfileTableViewController.m */; };
 		92951A2B1D7D0B0100787997 /* SelfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92951A0E1D7D0B0100787997 /* SelfViewController.m */; };
@@ -64,7 +61,6 @@
 		92E2D2A51DE3DE6800EADB78 /* MimamoriTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E2D2A41DE3DE6800EADB78 /* MimamoriTabBarController.m */; };
 		92F362431DC983D20030DCE0 /* MSensorDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F362421DC983D20030DCE0 /* MSensorDataTool.m */; };
 		92F362471DC984200030DCE0 /* MSensorDataParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F362461DC984200030DCE0 /* MSensorDataParam.m */; };
-		92F3624A1DC9908D0030DCE0 /* MBatteryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F362491DC9908D0030DCE0 /* MBatteryButton.m */; };
 		92F3624E1DC9930A0030DCE0 /* UIImage+Mj.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F3624D1DC9930A0030DCE0 /* UIImage+Mj.m */; };
 		92F362D71DC9B1C80030DCE0 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F362551DC9B1C80030DCE0 /* AFHTTPSessionManager.m */; };
 		92F362D81DC9B1C80030DCE0 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F362581DC9B1C80030DCE0 /* AFNetworkReachabilityManager.m */; };
@@ -265,8 +261,6 @@
 		928C62301DC890CC009B5974 /* MScenarioDeleteParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MScenarioDeleteParam.h; sourceTree = "<group>"; };
 		928C62311DC890CC009B5974 /* MScenarioDeleteParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MScenarioDeleteParam.m; sourceTree = "<group>"; };
 		928C62361DC8930E009B5974 /* MCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCommon.h; sourceTree = "<group>"; };
-		928ED9B71DC9743C00144193 /* MGroupTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGroupTool.h; sourceTree = "<group>"; };
-		928ED9B81DC9743C00144193 /* MGroupTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGroupTool.m; sourceTree = "<group>"; };
 		9291E49D1D9A029100FB8FC4 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
 		929519721D7D06FE00787997 /* MainNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainNotificationController.h; sourceTree = "<group>"; };
 		929519731D7D06FE00787997 /* MainNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainNotificationController.m; sourceTree = "<group>"; };
@@ -285,15 +279,11 @@
 		929519901D7D078B00787997 /* NITSegmented.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITSegmented.m; sourceTree = "<group>"; };
 		929519CF1D7D0A6000787997 /* LifeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeViewController.h; sourceTree = "<group>"; };
 		929519D01D7D0A6000787997 /* LifeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeViewController.m; sourceTree = "<group>"; };
-		929519D61D7D0A6000787997 /* NursingNotesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NursingNotesModel.h; sourceTree = "<group>"; };
-		929519D71D7D0A6000787997 /* NursingNotesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NursingNotesModel.m; sourceTree = "<group>"; };
 		929519DA1D7D0A6000787997 /* ZworksChartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZworksChartModel.h; sourceTree = "<group>"; };
 		929519DB1D7D0A6000787997 /* ZworksChartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZworksChartModel.m; sourceTree = "<group>"; };
 		929519DF1D7D0A6000787997 /* Life.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Life.storyboard; sourceTree = "<group>"; };
 		929519E01D7D0A6000787997 /* LifesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifesTableViewCell.h; sourceTree = "<group>"; };
 		929519E11D7D0A6000787997 /* LifesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifesTableViewCell.m; sourceTree = "<group>"; };
-		929519E21D7D0A6000787997 /* NITMPButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NITMPButton.h; sourceTree = "<group>"; };
-		929519E31D7D0A6000787997 /* NITMPButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NITMPButton.m; sourceTree = "<group>"; };
 		929519FE1D7D0AC200787997 /* LifeUserListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeUserListModel.h; sourceTree = "<group>"; };
 		929519FF1D7D0AC200787997 /* LifeUserListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeUserListModel.m; sourceTree = "<group>"; };
 		92951A091D7D0B0100787997 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
@@ -334,8 +324,6 @@
 		92F362421DC983D20030DCE0 /* MSensorDataTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSensorDataTool.m; sourceTree = "<group>"; };
 		92F362451DC984200030DCE0 /* MSensorDataParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSensorDataParam.h; sourceTree = "<group>"; };
 		92F362461DC984200030DCE0 /* MSensorDataParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSensorDataParam.m; sourceTree = "<group>"; };
-		92F362481DC9908D0030DCE0 /* MBatteryButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBatteryButton.h; sourceTree = "<group>"; };
-		92F362491DC9908D0030DCE0 /* MBatteryButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBatteryButton.m; sourceTree = "<group>"; };
 		92F3624C1DC9930A0030DCE0 /* UIImage+Mj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Mj.h"; sourceTree = "<group>"; };
 		92F3624D1DC9930A0030DCE0 /* UIImage+Mj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Mj.m"; sourceTree = "<group>"; };
 		92F362541DC9B1C80030DCE0 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -690,8 +678,6 @@
 				928C62101DC87012009B5974 /* MProfileTool.m */,
 				928C62261DC88E0A009B5974 /* MScenarioTool.h */,
 				928C62271DC88E0A009B5974 /* MScenarioTool.m */,
-				928ED9B71DC9743C00144193 /* MGroupTool.h */,
-				928ED9B81DC9743C00144193 /* MGroupTool.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -729,13 +715,6 @@
 				928C62311DC890CC009B5974 /* MScenarioDeleteParam.m */,
 			);
 			path = Scenario;
-			sourceTree = "<group>";
-		};
-		928ED9BA1DC9745600144193 /* Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Group;
 			sourceTree = "<group>";
 		};
 		929519701D7D06FE00787997 /* Notification */ = {
@@ -861,8 +840,6 @@
 				92F362441DC9840F0030DCE0 /* SensorData */,
 				929519FE1D7D0AC200787997 /* LifeUserListModel.h */,
 				929519FF1D7D0AC200787997 /* LifeUserListModel.m */,
-				929519D61D7D0A6000787997 /* NursingNotesModel.h */,
-				929519D71D7D0A6000787997 /* NursingNotesModel.m */,
 				929519DA1D7D0A6000787997 /* ZworksChartModel.h */,
 				929519DB1D7D0A6000787997 /* ZworksChartModel.m */,
 			);
@@ -881,10 +858,6 @@
 				92AF7BC31D98AADA00FC30E9 /* DetailChartCell.h */,
 				92AF7BC41D98AADA00FC30E9 /* DetailChartCell.m */,
 				92AF7BC51D98AADA00FC30E9 /* DetailChartCell.xib */,
-				929519E21D7D0A6000787997 /* NITMPButton.h */,
-				929519E31D7D0A6000787997 /* NITMPButton.m */,
-				92F362481DC9908D0030DCE0 /* MBatteryButton.h */,
-				92F362491DC9908D0030DCE0 /* MBatteryButton.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -925,7 +898,6 @@
 		92951A111D7D0B0100787997 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				928ED9BA1DC9745600144193 /* Group */,
 				928C62291DC88E78009B5974 /* Scenario */,
 				928C621C1DC87067009B5974 /* Profile */,
 				928C62121DC8705D009B5974 /* Cust */,
@@ -1739,7 +1711,6 @@
 				EB5D365C1E139A1800CEBF4E /* UUBarChart.m in Sources */,
 				92F362D91DC9B1C80030DCE0 /* AFSecurityPolicy.m in Sources */,
 				92F3630A1DC9B1C80030DCE0 /* UIView+MJExtension.m in Sources */,
-				928ED9B91DC9743C00144193 /* MGroupTool.m in Sources */,
 				928C61EA1DC854A2009B5974 /* MNoticeInfoParam.m in Sources */,
 				92951A2B1D7D0B0100787997 /* SelfViewController.m in Sources */,
 				EB7455171EB82CCE00DA4874 /* SinarioMasterController.m in Sources */,
@@ -1774,7 +1745,6 @@
 				92F362FF1DC9B1C80030DCE0 /* MJRefreshBackGifFooter.m in Sources */,
 				92F3624E1DC9930A0030DCE0 /* UIImage+Mj.m in Sources */,
 				928C621A1DC8705D009B5974 /* MCustDeleteParam.m in Sources */,
-				92F3624A1DC9908D0030DCE0 /* MBatteryButton.m in Sources */,
 				928C61FB1DC857B5009B5974 /* MNoticeInfoUpdateParam.m in Sources */,
 				929519821D7D06FE00787997 /* NoticeTimeModel.m in Sources */,
 				92F363051DC9B1C80030DCE0 /* MJRefreshStateHeader.m in Sources */,
@@ -1790,7 +1760,6 @@
 				EBCF9E9E1EE643FC00C64F5B /* NSDictionary+ZLDeleteNull.m in Sources */,
 				92F362EC1DC9B1C80030DCE0 /* MJDictionaryCache.m in Sources */,
 				EB581AE71E1CCAFD0076BAFD /* NSString+FontAwesome.m in Sources */,
-				929519F21D7D0A6000787997 /* NursingNotesModel.m in Sources */,
 				EB9C932D1E027F4700F3132C /* ZworksChartTBVC.m in Sources */,
 				928C61FE1DC8625E009B5974 /* MNoticeInfoUploadParam.m in Sources */,
 				EB74550E1EB81D6500DA4874 /* PlaceSettingController.m in Sources */,
@@ -1836,7 +1805,6 @@
 				EBE719231E2A13E60008ABE2 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				EB7455291EB8791C00DA4874 /* UserMasterController.m in Sources */,
 				EBBA97D11EBB4428004AA177 /* FacilityMasterController.m in Sources */,
-				929519F81D7D0A6100787997 /* NITMPButton.m in Sources */,
 				E9D445DE1D0112AD00CFF364 /* AppDelegate.m in Sources */,
 				92951A001D7D0AC200787997 /* LifeUserListModel.m in Sources */,
 				EB9C932A1E02730F00F3132C /* MBProgressHUD.m in Sources */,
