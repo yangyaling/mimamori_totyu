@@ -9,7 +9,7 @@
 #import "DeviceValue.h"
 
 @implementation DeviceValue
-// 归档
+
 - (void)encodeWithCoder:(NSCoder*)encoder
 {
     unsigned int count;
@@ -24,7 +24,6 @@
     free(ivars);
 }
 
-// 解档
 - (id)initWithCoder:(NSCoder*)decoder
 {
     if (self = [super init]) {

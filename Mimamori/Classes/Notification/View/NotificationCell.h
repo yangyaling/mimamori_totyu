@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @class NotificationModel,NotificationCell;
 
+
 @protocol NotificationCellDelegate <NSObject>
 
 @optional

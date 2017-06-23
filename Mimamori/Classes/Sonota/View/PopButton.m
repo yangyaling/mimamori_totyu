@@ -19,13 +19,17 @@
     return self;
 }
 
+
+/**
+ すべての戻りボタンをパッケージ
+ */
 -(void)select{
     
     [[self topViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController].navigationController popViewControllerAnimated:NO];
     
 }
 
-/**查找当前页面的根控制器*/
+/**現在のページを検索するコントローラ*/
 - (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController {
     if ([rootViewController isKindOfClass:[UITabBarController class]]) {
         UITabBarController* tabBarController = (UITabBarController*)rootViewController;

@@ -43,6 +43,8 @@
     
     _titleArray = @[@"マスタ\n関連" ,@"",@"施設情報",@"機器情報",@"使用者情報\n（見守る人）",@"入居者情報\n（見守られる人）"];
   
+    
+    //初期化 UICollectionViewFlowLayout
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     
     layout.sectionInset = UIEdgeInsetsMake(15, 30, 30, 30);
@@ -85,6 +87,9 @@
 }
 
 
+/**
+ ピッチ
+ */
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                    layout:(UICollectionViewLayout *)collectionViewLayout
 minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -92,7 +97,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
     return 10.0f;
 }
 
-
+/**
+ ピッチ
+ */
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                    layout:(UICollectionViewLayout *)collectionViewLayout
 minimumLineSpacingForSectionAtIndex:(NSInteger)section
@@ -101,6 +108,11 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 }
 
 
+
+
+/**
+ ボタンイベントのコントローラジャンプ
+ */
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     

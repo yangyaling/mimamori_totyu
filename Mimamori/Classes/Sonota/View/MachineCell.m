@@ -29,10 +29,15 @@
     usertype = USERTYPE;
 }
 
+
+/**
+ 配列コピー
+ */
 - (void)setDatasDic:(NSDictionary *)datasDic {
     
     _datasDic=datasDic;
     
+    //権限状態
     if (self.editOp) {
         [self statusEdit:YES withColor:[UIColor whiteColor]];
         
@@ -58,6 +63,9 @@
 }
 
 
+/**
+ コントロールの権限状態
+ */
 - (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
     if ([usertype isEqualToString:@"3"] || [usertype isEqualToString:@"x"]) {
        
@@ -89,6 +97,11 @@
     }
 }
 
+
+
+/**
+ オプションフレーム
+ */
 - (IBAction)showPick:(UIButton *)sender {
     [sender setBackgroundColor:NITColor(253, 164, 181)];
     self.serialNoTF.backgroundColor = [UIColor whiteColor];
@@ -97,6 +110,8 @@
     self.custNameTF.backgroundColor = NITColor(253, 164, 181);
     self.custNameTF.userInteractionEnabled = NO;
     
+    
+    //初期化オプションフレーム
     _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];
     _picker.mydelegate = self;
     
@@ -115,7 +130,9 @@
 }
 
 
-
+/**
+ 編集が終わった後に更新してデータを更新する
+ */
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
 
@@ -147,12 +164,16 @@
     
 }
 
+
+
+/**
+ //デリゲートの転送
+ */
 - (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell{
     
-    NITLog(@"%@",sinario);
     
     [self.custIdBtn setTitle:sinario forState:UIControlStateNormal];
-//    for (NSDictionary *dict in custlist) {
+    
     self.custNameTF.text = addcell[@"custname"];
     
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"SENSORINFO"]]];
@@ -169,15 +190,13 @@
     }
     
     
-    [arr replaceObjectAtIndex:self.cellindex withObject:dic];
+    [arr replaceObjectAtIndex:self.cellindex withObject:dic]; //この条転送のテキスト欄に入れ替わっ
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
     [NITUserDefaults setObject:data forKey:@"SENSORINFO"];
-//        }
-//    }
+
 }
 
 #pragma mark - UITextFieldDelegate
-
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];

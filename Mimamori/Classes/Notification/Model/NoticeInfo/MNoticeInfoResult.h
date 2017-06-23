@@ -10,6 +10,9 @@
 
 @interface MNoticeInfoResult : NotificationModel
 
+/**
+ コード
+ */
 @property (nonatomic, copy) NSString *code;
 
 @end

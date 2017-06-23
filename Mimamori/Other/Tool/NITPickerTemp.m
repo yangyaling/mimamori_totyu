@@ -5,29 +5,29 @@
 //  Created by totyu2 on 2017/5/5.
 //  Copyright © 2017年 totyu3. All rights reserved.
 //
-#define bgcolor [UIColor whiteColor]//self背景色
+#define bgcolor [UIColor whiteColor]
 #define pickertextcolor [UIColor blackColor]
 #define righttitlecolor [UIColor colorWithRed:12.0/255.0 green:10.0/255.0 blue:12.0/255.0 alpha:1.0]
 #define lefttitlecolor [UIColor colorWithRed:255.0/255.0 green:80.0/255.0 blue:80.0/255.0 alpha:1.0]
 #define pathcolor [UIColor colorWithRed:240.0/255.0 green:240.0/255.0 blue:240.0/255.0 alpha:1.0].CGColor
 
 
-#define realframe CGRectMake(self.frame.origin.x-120, self.frame.origin.y-120, self.frame.size.width+240, self.frame.size.height+160)//self真实frame
-#define pickerlabelframe CGRectMake(0, 0,_nitpicker.frame.size.width / 2.0,30)//picker标题
+#define realframe CGRectMake(self.frame.origin.x-120, self.frame.origin.y-120, self.frame.size.width+240, self.frame.size.height+160)
+#define pickerlabelframe CGRectMake(0, 0,_nitpicker.frame.size.width / 2.0,30)
 
-#define pickerlabelframe2 CGRectMake(0, 0,_nitpicker.frame.size.width,30)//picker标题
+#define pickerlabelframe2 CGRectMake(0, 0,_nitpicker.frame.size.width,30)
 
 #define pickerlabelframe3 CGRectMake(0, 0,_nitpicker.frame.size.width / 4.0, 30)
 
-#define nitpickerframe CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height*0.8)//主picker
-#define leftbuttonframe CGRectMake(self.bounds.origin.x, self.bounds.size.height*0.8, self.bounds.size.width/2, self.bounds.size.height*0.2)//取消按钮
-#define rightbuttonframe CGRectMake(self.bounds.size.width/2, self.bounds.size.height*0.8, self.bounds.size.width/2, self.bounds.size.height*0.2)//确定按钮
+#define nitpickerframe CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, self.bounds.size.height*0.8)
+#define leftbuttonframe CGRectMake(self.bounds.origin.x, self.bounds.size.height*0.8, self.bounds.size.width/2, self.bounds.size.height*0.2)
+#define rightbuttonframe CGRectMake(self.bounds.size.width/2, self.bounds.size.height*0.8, self.bounds.size.width/2, self.bounds.size.height*0.2)
 
 #import "NITPickerTemp.h"
 
 @interface NITPickerTemp ()<UIPickerViewDelegate,UIPickerViewDataSource>
 {
-    //以下对象无需 get set
+   
     NSString*select;
     NSString*select2;
     NSString*select3;
@@ -35,35 +35,35 @@
     NSDictionary *selectdic;
     int scenariotype;
 }
-@property (nonatomic, strong) UIPickerView             *nitpicker;
-@property (nonatomic, strong) UIButton                   *leftbtn;
-@property (nonatomic, strong) UIButton                   *rightbtn;
-@property (nonatomic, strong) CAShapeLayer             *pathlayer;
-@property (nonatomic, strong) NSMutableArray           *onedayHours;
-@property (nonatomic, strong) NSMutableArray           *onedayMinute;
-@property (nonatomic, strong) NSMutableArray           *userList;
 
-@property (nonatomic, strong) NSMutableArray           *custList;
-@property (nonatomic, strong) NSMutableArray           *roomList;
+@property (nonatomic, strong) UIPickerView             *nitpicker;
+@property (nonatomic, strong) UIButton                 *leftbtn; //キャンセルボタン
+@property (nonatomic, strong) UIButton                 *rightbtn; //確認ボタン
+@property (nonatomic, strong) CAShapeLayer             *pathlayer; //角丸せん断
+@property (nonatomic, strong) NSMutableArray           *onedayHours; //一日の時間配列
+@property (nonatomic, strong) NSMutableArray           *onedayMinute; //一日の分間配列
 
 
 @property (nonatomic, strong) NSMutableArray           *time;
 @property (nonatomic, strong) NSMutableArray           *value;
 @property (nonatomic, strong) NSMutableArray           *type;
 @property (nonatomic, strong) NSMutableArray           *names;
-@property (nonatomic, strong) UIButton                   *thisbutton;
+@property (nonatomic, strong) UIButton                 *thisbutton; //届けのボタン
 
 @property (nonatomic, assign) BOOL                     isOn;
 
-@property (nonatomic, assign) NSInteger                cellindex;
+@property (nonatomic, assign) NSInteger                cellindex;  //リレーが入ってきたセル標識
+
 @end
 
 @implementation NITPickerTemp
+
 
 -(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton cellNumber:(NSInteger)number isBool:(BOOL)isOn{
     self = [super initWithFrame:frame];
     if (self) {
         
+         //ボタンマーク
         switch (selectbutton.tag) {
                 
             
@@ -112,6 +112,7 @@
             default:
                 break;
         }
+        
         self.isOn = isOn;
         self.cellindex = number;
         self.thisbutton = selectbutton;
@@ -126,19 +127,20 @@
     }
     return self;
 }
-//初始化显示用数据源
+
+//初期設定データ
 -(void)commonInit{
     
-    //重置frame
+   
     self.frame = realframe;
     
-    //添加控件
+    
     [self addcontrol];
 }
 
 
 /**
- *  添加控件
+ *  コントロールを追加
  */
 -(void)addcontrol{
     
@@ -146,11 +148,13 @@
     [self addSubview:self.leftbtn];
     [self addSubview:self.rightbtn];
     [self.layer addSublayer:self.pathlayer];
-    [self defaultselect];//默认选中
+    [self defaultselect];
     
 }
+
+
 /**
- *  默认选中
+ *デフォルト選択
  */
 -(void)defaultselect{
     
@@ -190,30 +194,20 @@
             //            select3 = self.onedayHours[0];
             //            select4 = self.onedayMinute[0];
             break;
-        case 11:
-            select = [self.userList[0] objectForKey:@"name"];
-            break;
-        case 12:
-            
-            select = [NSString stringWithFormat:@"%@", [self.custList[0] objectForKey:@"floorno"]];
-            
-            break;
-        case 13:
-            select = [self.roomList[0] objectForKey:@"roomcd"];
-            break;
+        
             
         default:
             break;
     }
 }
 /**
- *  点击取消按钮
+ *  コントロールを除去する
  */
 -(void)leftbtnselsct{
     [self removeFromSuperview];
 }
 /**
- *  点击确定按钮
+ *  種類の違いによって
  */
 -(void)rightbtnselsct{
     if (scenariotype == 2) {
@@ -230,7 +224,7 @@
         [self.thisbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
     }else if (scenariotype == 6 || scenariotype == 8){
-        // 2.通知代理
+        
         if ([self.mydelegate respondsToSelector:@selector(PickerDelegateSelectString:withDic:)]) {
             [self.mydelegate PickerDelegateSelectString:select withDic:nil];
         }
@@ -250,11 +244,11 @@
     }
     
     if (scenariotype == 0  || scenariotype == 1  || scenariotype == 2 || scenariotype == 3 || scenariotype == 4 || scenariotype == 8 ) {
-        
+        //シナリオ雛形  ->異なる押しボタンのデータ更新
         BOOL ison = NO;
         if (scenariotype == 8) {
             if ([select isEqualToString:@"使用あり"] || [select isEqualToString:@"反応あり"]) {
-                ison = YES;
+                ison = YES; //アリ状態によると  選択できる時間帯 更新
             }
         }
 
@@ -327,86 +321,10 @@
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:arr];
         [NITUserDefaults setObject:data forKey:@"sensorallnodes"];
         
-    } else if (scenariotype == 11) {
-        
-        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"STAFFINFO"]];
-        
-        NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
-        
-        [nodesdic setValue:selectdic[@"cd"] forKey:@"usertype"];
-        
-        [nodesdic setValue:selectdic[@"name"] forKey:@"usertypename"];
-        
-        [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
-        
-        [NITUserDefaults setObject:arr forKey:@"STAFFINFO"];
-        
-    } else if (scenariotype == 12){
-        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
-        
-        NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
-        
-        [nodesdic setValue:select forKey:@"floorno"];
-        
-        
-        [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
-        
-        [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
-    } else if (scenariotype == 13) {
-        NSMutableArray *arr = [NSMutableArray arrayWithArray:[NITUserDefaults objectForKey:@"HOMECUSTINFO"]];
-        
-        NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:[arr objectAtIndex:self.cellindex]];
-        
-        [nodesdic setValue:select forKey:@"roomcd"];
-        
-        [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
-        
-        [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
     } else {
         
     }
     
-    
-    //    NITLog(@"nodesdic:%@",arr);
-    //\U5c45\U5ba4\U5165\U53e3
-    
-    //      [nodesdic setObject:dicnode forKey:self.model.nodeid];
-    //      [NITUserDefaults setObject:nodesdic forKey:@"sensorallnodes"];
-    //
-    //    } else {
-    //        NSDictionary *dic = @{@"displayname":select,@"place":@""};
-    //
-    //        [nodesdic setObject:dic forKey:self.model.nodeid];
-    //        [NITUserDefaults setObject:nodesdic forKey:@"sensorallnodes"];
-    //    }
-    
-    
-    //    [self.delegate selecttitle:select tag:thistag];
-    //    NSData * data = [NITUserDefaults objectForKey:@"scenariodtlinfoarr"];
-    //    NSMutableArray * scenarioarr= [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    //
-    //    for (int i = 0 ; i < scenarioarr.count ; i++) {
-    //        //NSMutableArray *modelarray = scenarioarr[i];
-    //        Device *device = [scenarioarr objectAtIndex:i];
-    //        if ([device.deviceid isEqualToString:_model.deviceid]) {
-    //            if (self.thisbutton.tag==11) {
-    //                device.deviceValue.time = @([select integerValue]);
-    //            }else if(self.thisbutton.tag==22){
-    //                device.deviceValue.time = @([select integerValue]);
-    //            }else if(self.thisbutton.tag==33){
-    //                device.deviceValue.value = @([select integerValue]);
-    //            }else if(self.thisbutton.tag==44){
-    //                device.deviceValue.rpoint = select;
-    //            }
-    //
-    ////            NSMutableArray *modelarrays = [NSMutableArray array];
-    ////            [modelarrays addObject:device];
-    //            [scenarioarr replaceObjectAtIndex:i withObject:device];
-    //        }
-    //    }
-    //
-    //    NSData * datas = [NSKeyedArchiver archivedDataWithRootObject:scenarioarr];
-    //    [NITUserDefaults setObject:datas forKey:@"scenariodtlinfoarr"];
     
     [self removeFromSuperview];
 }
@@ -455,18 +373,6 @@
         } else {
             return 0;
         }
-    }else if (scenariotype == 11) {
-        
-        return self.userList.count;
-        
-    } else if (scenariotype == 12) {
-        
-        return self.custList.count;
-        
-    } else if (scenariotype == 13) {
-        
-        return self.roomList.count;
-        
     } else {
         return self.names.count;
     }
@@ -537,14 +443,7 @@
             
         }else if(scenariotype == 9){
             text.text = [self.names[row] objectForKey:@"name"];
-        } else if(scenariotype == 11){
-            text.text = [self.userList[row] objectForKey:@"name"];
-        } else if(scenariotype == 12){
-            NSString *str  = [NSString stringWithFormat:@"%@", [self.custList[row] objectForKey:@"floorno"]];
-            text.text = str;
-        } else if(scenariotype == 13) {
-            text.text = [self.roomList[row] objectForKey:@"roomcd"];
-        }else {
+        } else {
             text.text = self.names[row];
         }
         [view addSubview:text];
@@ -595,31 +494,12 @@
         selectdic = self.names[row];
         select = [self.names[row] objectForKey:@"name"];
         
-    }else if(scenariotype == 11){
-        
-        selectdic = self.userList[row];
-        select = [self.userList[row] objectForKey:@"name"];
-        
-    } else if(scenariotype == 12){
-        
-        selectdic = self.custList[row];
-        
-        NSString *str  = [NSString stringWithFormat:@"%@", [self.custList[row] objectForKey:@"floorno"]];
-        
-        select = str;
-        
-    } else if(scenariotype == 13){
-        selectdic = self.roomList[row];
-        select = [self.roomList[row] objectForKey:@"roomcd"];
     }else{
         select = self.names[row];
     }
 }
 
 #pragma mark - 触摸
-/**
- *  子控件超出父控件fram依旧响应点击事件
- */
 -(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
     
     UIView *hitView = [super hitTest:point withEvent:event];
@@ -630,9 +510,6 @@
         return [super hitTest:point withEvent:event];
     }
 }
-/**
- *  点击非本控件收起菜单
- */
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event{
     
     return YES;
@@ -810,42 +687,7 @@
 }
 
 
--(NSMutableArray *)userList {
-    
-    if (!_userList) {
-        
-        NSArray *arr = [NITUserDefaults objectForKey:@"usertypelist"];
-        
-        _userList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
-        
-    }
-    
-    return _userList;
-}
 
-
--(NSMutableArray *)custList {
-    if (!_custList) {
-        NSArray *arr = [NITUserDefaults objectForKey:@"FLOORLISTKEY"];
-        _custList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
-    }
-    return _custList;
-}
-
--(NSMutableArray *)roomList {
-    
-    if (!_roomList) {
-        
-        NSArray *arr = [NITUserDefaults objectForKey:@"ROOMLISTKEY"];
-        
-        _roomList = arr.count > 0 ? [NSMutableArray arrayWithArray:arr] :[NSMutableArray new];
-        
-    }
-    return _roomList;
-}
-
-//HOMECUSTINFO
-//朝-昼-夜
 
 -(UIButton *)thisbutton{
     if (!_thisbutton) {

@@ -39,38 +39,30 @@
     
     NSString *plistPath = [NITDocumentDirectory stringByAppendingPathComponent:@"loginFlgRecord.plist"];
     NSDictionary *vcdic = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-//    NSString *vcstr = [NITUserDefaults objectForKey:@"OldloginFlgKey"];
+
+    
     // ログインFlag
     NSString *VcID = [vcdic[@"OldloginFlgKey"] isEqualToString:@"mimamori2"] ?  MainVC: LoginVC;
-//    NSString *VcID = [vcstr isEqualToString:@"mimamori2"] ?  MainVC: LoginVC;
+
     self.window.rootViewController = [self.window.rootViewController.storyboard instantiateViewControllerWithIdentifier:VcID];
     
     
     
-    //串行队列 异步任务 (非常非常有用！！！!!!!)
-    dispatch_async(dispatch_queue_create("SERIAL", DISPATCH_QUEUE_SERIAL), ^{
-//        [self getGroupInfo];
-    });
     
     
-    
-    //注册本地通知
-    
+    //登録ローカルの通知
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
-        //iOS10特有
+        //iOS10
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        // 必须写代理，不然无法监听通知的接收与点击
+        //
         center.delegate = self;
         [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
             if (granted) {
-                // 点击允许
-                NSLog(@"本地通知注册成功");
+                // クリックして許す
                 [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-//                    NSLog(@"%@", settings);
                 }];
             } else {
-                // 点击不允许
-                NSLog(@"本地通知注册失败");
+                //クリックして許しません
             }
         }];
     }else if ([[UIDevice currentDevice].systemVersion floatValue] >8.0){
@@ -78,23 +70,22 @@
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge categories:nil]];
         
     }else if ([[UIDevice currentDevice].systemVersion floatValue] < 8.0) {
-        //iOS8系统以下
+        //iOS8システム以下
         [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
     }
-    // 注册获得device Token
+    // 登録device Token
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     
     //================================================================
-    //[self redirectNSlogToDocumentFolder];
     //================================================================
     
-    // 添加定时器
+    // 追加タイマ
     [self addTimer];
     
     
     [self locationNotice];
     
-    // 整理缓存
+    // バッファを整理する
     [self clearSensorData];
     
     return YES;
@@ -102,7 +93,7 @@
 
 
 /**
-  本地后台通知
+  ローカルの通知
  */
 - (void)locationNotice {
     
@@ -119,7 +110,7 @@
     [_player setNumberOfLoops:LONG_MAX];
     
     
-//
+//プレーヤーを追加
     [[AVAudioSession sharedInstance]setCategory: AVAudioSessionCategoryPlayback error: nil];
     [[AVAudioSession sharedInstance]setActive:YES error: nil];
     
@@ -128,36 +119,34 @@
 
 
 /**
-   进入后台开始播放
+   楽屋入りに入ってから放送開始
  */
-
 - (void)applicationDidEnterBackground:(UIApplication *)application{
     
     [_player play];
     
 }
 
-// 通知的点击事件
+// 通知  method
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
     
     NSDictionary * userInfo = response.notification.request.content.userInfo;
-    UNNotificationRequest *request = response.notification.request; // 收到推送的请求
-    UNNotificationContent *content = request.content; // 收到推送的消息内容
-    NSNumber *badge = content.badge;  // 推送消息的角标
-    NSString *body = content.body;    // 推送消息体
-    UNNotificationSound *sound = content.sound;  // 推送消息的声音
-    NSString *subtitle = content.subtitle;  // 推送消息的副标题
-    NSString *title = content.title;  // 推送消息的标题
+    UNNotificationRequest *request = response.notification.request; // プッシュしてくれたお願い
+    UNNotificationContent *content = request.content; // プッシュしてくれたメッセージの内容
+    NSNumber *badge = content.badge;  //プッシュのニュースを見る
+    NSString *body = content.body;    // プッシュ情報体
+    UNNotificationSound *sound = content.sound;  // メッセージの音をする
+    NSString *subtitle = content.subtitle;
+    NSString *title = content.title;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-//        NSLog(@"iOS10 收到远程通知:%@", [self logDic:userInfo]);
+
         
     }
     else {
-        // 判断为本地通知
+      
         NSLog(@"iOS10 收到本地通知:{\\\\nbody:%@，\\\\ntitle:%@,\\\\nsubtitle:%@,\\\\nbadge：%@，\\\\nsound：%@，\\\\nuserInfo：%@\\\\n}",body,title,subtitle,badge,sound,userInfo);
     }
     
-    // Warning: UNUserNotificationCenter delegate received call to -userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler: but the completion handler was never called.
     completionHandler();  // 系统要求执行这个方法
     
 }
@@ -167,7 +156,6 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:
 (void (^)(UIBackgroundFetchResult))completionHandler {
     
-    NSLog(@"iOS7及以上系统，收到通知");
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
@@ -177,40 +165,41 @@ fetchCompletionHandler:
     [_player pause];
     
     [_player stop];
-    // 消息数归0
+    // メッセージ数は0に帰する
     [UIApplication sharedApplication].applicationIconBadgeNumber=0;
-    // 取消所有的通知
+    // すべての通知を取り消す
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
 }
 
 
-//添加定时器(每隔n秒调用一次)
+//180 秒ごとに1度呼び出す
 -(void)addTimer{
     self.timer = [NSTimer scheduledTimerWithTimeInterval:180.0 target:self selector:@selector(getNoticeInfo) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
-//停止定时器
+//停止タイマ
 -(void)stopTimer{
     [self.timer setFireDate:[NSDate distantFuture]];
 }
 
-//激活定时器
+//アクティブ・タイマ
 -(void)startTimer{
     [self.timer  setFireDate:[NSDate distantPast]];
 }
 
-//安排通知
+//通知を手配する
 -(void)scheduleNotifications{
     
     // 3.取出缓存过的通知(お知らせ)
     NSArray *readArr = [NITUserDefaults objectForKey:@"readnotice"];
     if (readArr) {
         
-        // 3.1 alertArr模型数组 -> 字典数组
+     
         NSArray *noticeArray = [NotificationModel mj_keyValuesArrayWithObjectArray:self.alertArr];
-        // 3.2 字典数组中(用noticeid)除去已读的通知
+        
+        // 読みのお知らせを除く
         NSMutableArray *types = [NSMutableArray array];
         for (int i = 0; i<readArr.count ;i++) {
             NSString *noticeid = readArr[i];
@@ -219,16 +208,15 @@ fetchCompletionHandler:
         NSPredicate *thePredicate = [NSCompoundPredicate andPredicateWithSubpredicates:types];
         NSArray *resultArr = [noticeArray filteredArrayUsingPredicate:thePredicate];
         
-        // 3.3 字典数组－>alertArr模型数组
+    
         self.alertArr = [NotificationModel mj_objectArrayWithKeyValuesArray:resultArr];
     }
     
     
-    // 4.整理并发送通知
+    // 4.整理してお知らせを発送する
     
     NSMutableArray *contentArray = [[NSMutableArray alloc]init];
-    
-    // 4.1 整理通知显示用内容
+   
     for (int i = 0; i<self.alertArr.count; i++) {
         NotificationModel *notice = [self.alertArr objectAtIndex:i];
         NSString *typeStr =@"";
@@ -240,8 +228,7 @@ fetchCompletionHandler:
         NSString *contentStr = [NSString stringWithFormat:@"%@%@ %@%@",typeStr,notice.username,notice.title,@"\n"];
         [contentArray addObject:contentStr];
     }
-    
-    // 4.2 设置、安排通知
+ 
     if (contentArray.count>0) {
         NSString *sampleContent = [contentArray objectAtIndex:0];
         NSString *alertstring = @"";
@@ -250,24 +237,20 @@ fetchCompletionHandler:
             alertstring = [alertstring stringByAppendingString:str];
         }
         
+        //ApplicationState Active
         if(!([UIApplication sharedApplication].applicationState == UIApplicationStateActive)){
-            //创建通知
+           
             if ([[UIDevice currentDevice].systemVersion floatValue] < 10.0) {
                 UILocalNotification *notification=[[UILocalNotification alloc]init];
                 notification.fireDate=[NSDate dateWithTimeIntervalSinceNow:0];
-                //notification.repeatInterval=1;
-                //notification.repeatCalendar=[NSCalendar currentCalendar];//当前日历，使用前最好设置时区等信息以便能够自动同步时间
                 notification.timeZone=[NSTimeZone defaultTimeZone];
                 notification.alertTitle = @"アラート";
-                notification.alertBody=[NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count]; //通知主体
-                notification.applicationIconBadgeNumber=contentArray.count;//应用程序图标右上角显示的消息数
-                notification.alertAction=@"OPEN"; //待机界面的滑动动作提示
-                //notification.alertLaunchImage=@"Default";//通过点击通知打开应用时的启动图
-                notification.soundName=UILocalNotificationDefaultSoundName;//收到通知时播放的声音，默认消息声音
-                //notification.soundName=@"msg.caf";//通知声音（需要真机才能听到声音）
-                //notification.userInfo=@{@"id":@1,@"content":contentArray};//绑定到通知上的其他附加信息
+                notification.alertBody=[NSString stringWithFormat:@"%@等%luアラートがあります",sampleContent,(unsigned long)contentArray.count];
+                notification.applicationIconBadgeNumber=contentArray.count;
+                notification.alertAction=@"OPEN";
+                notification.soundName=UILocalNotificationDefaultSoundName;
                 
-                [[UIApplication sharedApplication] scheduleLocalNotification:notification];//调用通知
+                [[UIApplication sharedApplication] scheduleLocalNotification:notification];
             } else {
                 UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:2 repeats:NO];
                 UNNotificationAction * actionone = [UNNotificationAction actionWithIdentifier:@"actionone" title:@"アラート" options:UNNotificationActionOptionNone];
@@ -310,7 +293,7 @@ fetchCompletionHandler:
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
     
-    //如果App不在前台，需要Badge
+    
     if(!([UIApplication sharedApplication].applicationState == UIApplicationStateActive)){
         completionHandler(UNNotificationPresentationOptionBadge);
     }
@@ -326,17 +309,17 @@ fetchCompletionHandler:
     
     UIAlertController *alert =[UIAlertController alertControllerWithTitle:@"アラート" message:titles preferredStyle:UIAlertControllerStyleAlert];
     
-    //点击OK按钮
+    
     UIAlertAction *OKAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        // 1.bandge消息数归0
+      
         [UIApplication sharedApplication].applicationIconBadgeNumber=0;
-        // 2.取消所有的通知
+
         [[UIApplication sharedApplication] cancelAllLocalNotifications];
-        // 3.缓存已经显示过的(已读)的通知
+
         if (self.readNoticeIdArr.count>0) {
             [NITUserDefaults setObject:self.readNoticeIdArr forKey:@"readnotice"];
         }
-        // 4.如果现在在别的页面，点击查看可以跳转到通知页面
+      
         
     }];
     
@@ -347,7 +330,7 @@ fetchCompletionHandler:
 }
 
 
-/**查找当前页面的根控制器*/
+/**現在のページを検索する*/
 - (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController {
     if ([rootViewController isKindOfClass:[UITabBarController class]]) {
         UITabBarController* tabBarController = (UITabBarController*)rootViewController;
@@ -364,7 +347,7 @@ fetchCompletionHandler:
 }
 
 /**
- *   清理缓存(7天前的缓存数据清除)
+ *バッファを整理する
  */
 -(void)clearSensorData{
 
@@ -417,23 +400,16 @@ fetchCompletionHandler:
             NSArray *noticeArr = [NotificationModel mj_objectArrayWithKeyValuesArray:array];
             
             self.alertArr = [[NSMutableArray alloc]init];
-//            NSMutableArray *noticeIdArr = [[NSMutableArray alloc]init];
             for (NotificationModel *notice in noticeArr) {
                 
-                // 0. 把お知らせ(type->2)的noticeid保存起来用来过滤(点击ok按钮后缓存)
-//                if (notice.type == 2) {
-//                    [noticeIdArr addObject:[NSString stringWithFormat:@"%ld",(long)notice.noticeid]];            }
                 
-                // 1.把statues->0（確認必要）的拎出来
+                // 1.statues->0（確認必要）
                 if (notice.status == 0) {
                     [self.alertArr addObject:notice];
                 }
             }
             
-//            self.readNoticeIdArr = [NSArray arrayWithArray:noticeIdArr];
             
-            
-            // 2.过滤数据，安排发送通知
             [self scheduleNotifications];
         } else {
             NITLog(@"h后台notice请求数据空");
@@ -448,15 +424,14 @@ fetchCompletionHandler:
 
 
 
-// 将NSlog打印信息保存到Document目录下的文件中
+
 - (void)redirectNSlogToDocumentFolder
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDirectory = [paths objectAtIndex:0];
-    NSString *fileName = [NSString stringWithFormat:@"dr.log"];// 注意不是NSData!
+    NSString *fileName = [NSString stringWithFormat:@"dr.log"];
     NSString *logFilePath = [documentDirectory stringByAppendingPathComponent:fileName];
-    // 先删除已经存在的文件
-    // 将log输入到文件
+   
     freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
     freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
 }

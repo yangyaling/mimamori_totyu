@@ -23,12 +23,17 @@
 }
 
 
+/**
+ オプションフレーム
+ */
 - (IBAction)PickShow:(UIButton *)sender {
     BOOL isOn = YES;
     NSString *str = self.doaState.titleLabel.text;
     if ([str isEqualToString:@"使用なし"] || [str isEqualToString:@"反応なし"]) {
-        isOn = NO;
+        isOn = NO;   //アリ状態によると  選択できる時間帯 更新
     }
+    
+    
     _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:isOn ? nil : @[@(isOn)] cellNumber:self.cellindex];
     
     _picker.mydelegate = self;
@@ -37,6 +42,10 @@
     
 }
 
+
+/**
+ //デリゲートの転送
+ */
 - (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell {
     
     [self.doaState setTitle:sinario forState:UIControlStateNormal];
@@ -52,6 +61,10 @@
     }
 }
 
+
+/**
+ 配列コピー
+ */
 -(void)setCellarr:(NSArray *)cellarr {
     
     if (cellarr.count != 4) {

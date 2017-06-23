@@ -9,11 +9,13 @@
 #import "NITRefreshInit.h"
 
 @implementation NITRefreshInit
+
+
 +(MJRefreshNormalHeader *)MJRefreshNormalHeaderInit:(MJRefreshNormalHeader *)header{
     
     if (header) {
         
-        // 设置文字
+        // 文字セット
         //プルで更新する
         [header setTitle:@"プルで更新する" forState:MJRefreshStateIdle];
         //放して更新する
@@ -21,17 +23,17 @@
         //更新中...
         [header setTitle:@"更新中..." forState:MJRefreshStateRefreshing];
         
-        // 设置字体
+        // フォントを設定
         header.stateLabel.font = [UIFont systemFontOfSize:15];
         header.lastUpdatedTimeLabel.font = [UIFont systemFontOfSize:14];
         
-        // 设置颜色
+        // 色をセットにして
         header.stateLabel.textColor = NITColor(166, 166, 166);
         
-        // 隐藏时间
+        // 隠し時間
         header.lastUpdatedTimeLabel.hidden = YES;
         
-        // 马上进入刷新状态
+        // すぐに更新状態に入り
         [header beginRefreshing];
         
     }
@@ -42,7 +44,7 @@
 +(MJRefreshNormalHeader*)MJRefreshNormalHeaderInitTwo:(MJRefreshNormalHeader*)header {
     if (header) {
         
-        // 设置文字
+      
         //プルで更新する
         [header setTitle:@"プルで更新する" forState:MJRefreshStateIdle];
         //放して更新する
@@ -50,18 +52,17 @@
         //更新中...
         [header setTitle:@"更新中..." forState:MJRefreshStateRefreshing];
         
-        // 设置字体
+   
         header.stateLabel.font = [UIFont systemFontOfSize:15];
         header.lastUpdatedTimeLabel.font = [UIFont systemFontOfSize:14];
         
-        // 设置颜色
+   
         header.stateLabel.textColor = NITColor(166, 166, 166);
         
-        // 隐藏时间
+     
         header.lastUpdatedTimeLabel.hidden = YES;
         
-        // 马上进入刷新状态
-//        [header beginRefreshing];
+
         
     }
     

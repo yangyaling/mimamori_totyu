@@ -20,11 +20,9 @@ static CGRect frameQ;
 
 @implementation NITDropDowm
 /*
- * frame               设定tableView的位置
- * imagesArr           图片数组
- * dataSourceArr       文字信息数组
- * action              通过block回调 确定菜单中 被选中的cell
- * animation           是否有动画效果
+ * frame               設定tableView位置
+ * imagesAr            画像配列
+ * dataSourceArr       文字情報
  */
 + (void)configCustomPopViewWithFrame:(CGRect)frame imagesArr:(NSArray *)imagesArr dataSourceArr:(NSArray *)dataourceArr  seletedRowForIndex:(void(^)(NSInteger index))action animation:(BOOL)animation {
   
@@ -45,7 +43,8 @@ static CGRect frameQ;
     backgroundView.animation = animation;
     backgroundView.backgroundColor = [UIColor blackColor];
     backgroundView.alpha = 0.1;
-    //添加手势 点击背景能够回收菜单
+    
+    //手真似を追加   背景をクリックしてメニューを取り除く
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:backgroundView action:@selector(handleRemoved)];
     [backgroundView addGestureRecognizer:tap];
     [window addSubview:backgroundView];
@@ -70,6 +69,10 @@ static CGRect frameQ;
     [window addSubview:tableViewQ];
 }
 
+
+/**
+ 除去
+ */
 + (void)removed {
     if (backgroundView.animation) {
         backgroundView.alpha = 0;
@@ -85,6 +88,11 @@ static CGRect frameQ;
         }];
     }
 }
+
+
+/**
+  method（removed）
+ */
 - (void)handleRemoved {
     if (backgroundView) {
         _action(10000);
@@ -96,7 +104,7 @@ static CGRect frameQ;
     static NSString *identifile = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifile];
     if (!cell) {
-        //选择普通的tableviewCell 左边是图片 右边是文字
+        
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifile];
     }
     
@@ -118,8 +126,6 @@ static CGRect frameQ;
     cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
-//    cell.imageView.image = [UIImage imageNamed:_imagesArr[indexPath.row]]; 
-//    cell.textLabel.font = [UIFont systemFontOfSize:12];
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.textLabel.text = textstr;
     
@@ -127,9 +133,15 @@ static CGRect frameQ;
     
     return cell;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _dataSourceArr.count;
 }
+
+
+/**
+ 数量計算高度に計算されて
+ */
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat cellH = tableViewQ.frame.size.height / _dataSourceArr.count;
     CGFloat maxH = tableViewQ.frame.size.height / 6.0;
@@ -141,30 +153,38 @@ static CGRect frameQ;
     
     
 }
+
+
+/**
+//block 転送
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (backgroundView.action) {
-        //利用block回调 确定选中的row
+        
         _action(indexPath.row);
         
         [NITDropDowm removed];
     }
 }
 
+
+
+/**
+ 絵を描く
+ */
 - (void)drawRect:(CGRect)rect {
-//    NSLog(@"123-%f,456-%f",rect.origin.x,rect.origin.y);
-    // 设置背景色
+    // 背景色の設定
     [[UIColor whiteColor] set];
-    //拿到当前视图准备好的画板
     
+    //現在のビューを準備したパネル
     CGContextRef  context = UIGraphicsGetCurrentContext();
     
-    //利用path进行绘制三角形
-    
-    CGContextBeginPath(context);//标记
+    //
+    CGContextBeginPath(context);//マーク
     CGFloat location = 95;
     CGContextMoveToPoint(context,
-                         location -  10 , 80);//设置起点
+                         location -  10 , 80);//スタートを設定して
     
     CGContextAddLineToPoint(context,
                             location - 2*10 ,  70);
@@ -172,14 +192,14 @@ static CGRect frameQ;
     CGContextAddLineToPoint(context,
                             location - 10 * 3, 80);
     
-    CGContextClosePath(context);//路径结束标志，不写默认封闭
+    CGContextClosePath(context);//
     
-    [[UIColor whiteColor] setFill];  //设置填充色
+    [[UIColor whiteColor] setFill];  //充填色を設定する
     
-    [[UIColor whiteColor] setStroke]; //设置边框颜色
+    [[UIColor whiteColor] setStroke]; //フレームの色を設定して
     
     CGContextDrawPath(context,
-                      kCGPathFillStroke);//绘制路径path
+                      kCGPathFillStroke);//
 
 }
 

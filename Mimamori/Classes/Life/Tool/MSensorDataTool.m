@@ -11,6 +11,9 @@
 
 @implementation MSensorDataTool
 
+/**
+ *  POST ->  （Daily、Weekly、Montyly）   デバイス情報
+ */
 +(void)sensorDataWithParam:(MSensorDataParam *)param type:(MSensorDataType)type success:(void (^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
     NSString *url;
     switch (type) {
@@ -27,6 +30,7 @@
         default:
             break;
     }
+    
     [MHttpTool postWithURL:url params:param.mj_keyValues success:^(id json) {
         if (success) {
             NSDictionary *tmpdic = json;
@@ -37,8 +41,6 @@
             failure(error);
         }
     }];
-    
 }
-
 
 @end

@@ -88,6 +88,10 @@
     
 }
 
+
+/**
+ 更新施設名
+ */
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
     
@@ -161,6 +165,13 @@
     }];
 }
 
+
+
+/**
+ 
+ 編集スイッチ
+
+ */
 - (IBAction)editCell:(UIButton *)sender {
     
     if ([sender.titleLabel.text isEqualToString:@"編集"]) {
@@ -173,7 +184,7 @@
         
     }else{
         
-        [self saveInfo]; //跟新或者追加
+        [self saveInfo]; //
     }
     
     [CATransaction setCompletionBlock:^{
@@ -236,6 +247,8 @@
                               @"facilityinfo":str
                               };
     
+    
+    //更新リクエスト
     [MHttpTool postWithURL:NITUpdateFacilityInfo params:lastDic success:^(id json) {
         [MBProgressHUD hideHUDForView:self.navigationController.view];
         if (json) {
@@ -262,6 +275,9 @@
 }
 
 
+/**
+ 編集開始
+ */
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
     [textField setBackgroundColor:TextSelectColor];
@@ -271,9 +287,12 @@
 
 
 
+/**
+ 編集が終わり
+ */
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-    [textField setBackgroundColor:[UIColor whiteColor]];
+    [textField setBackgroundColor:[UIColor whiteColor]]; //
     
 }
 

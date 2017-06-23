@@ -21,11 +21,7 @@
 @interface NITPickerTemp : UIView
 
 @property (nonatomic, weak) id<MyPickerDelegate>mydelegate;
-/**
- *  初始化
- *
- *  @param superviews superview
- *  @param tag        父视图button 的 tag
- */
+
+
 -(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton cellNumber:(NSInteger)number isBool:(BOOL)isOn;
 @end

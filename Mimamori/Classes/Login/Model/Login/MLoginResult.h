@@ -10,16 +10,33 @@
 
 @interface MLoginResult : NSObject
 
+/**
+ コード
+ */
 @property (nonatomic, copy) NSString                               *code;
 
+
+/**
+ スタッフ名（見守る人）
+ */
 @property (nonatomic, copy) NSString                               *staffname;
 
-@property (nonatomic, copy) NSString                               *groupid;
 
+/**
+ email
+ */
 @property (nonatomic, copy) NSString                               *email;
 
+
+/**
+ パスワード
+ */
 @property (nonatomic, copy) NSString                               *password;
 
+
+/**
+ ユーザー・タイプ
+ */
 @property (nonatomic, copy) NSString                               *usertype;
 
 @end

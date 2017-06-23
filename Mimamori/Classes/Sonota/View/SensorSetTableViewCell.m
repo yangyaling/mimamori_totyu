@@ -25,18 +25,9 @@
 
 @implementation SensorSetTableViewCell
 
-//+ (instancetype)cellWithTableView:(UITableView *)tableView {
-//    
-//    SensorSetTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"SensorSetTableViewCell"];
-//    if (!cell) {
-//        cell = [[NSBundle mainBundle] loadNibNamed:@"SensorSetTableViewCell" owner:self options:nil].firstObject;
-//        cell.roomname.delegate = cell;
-//        cell.roomname.spellCheckingType = UITextSpellCheckingTypeNo;
-//        cell.roomname.autocorrectionType = UITextAutocorrectionTypeNo;
-//    }
-//    return cell;
-//    
-//}
+/**
+ オプションフレーム
+ */
 - (IBAction)showPicker:(UIButton *)sender {
     
     NSArray *arr = [NITUserDefaults objectForKey:@"tempdisplaylist"];
@@ -49,8 +40,9 @@
     }
 }
 
+
 -(void)setSuperEdit:(BOOL)SuperEdit{
-    
+    //状態
     if (SuperEdit) {
         
         _roomname.backgroundColor = [UIColor whiteColor];
@@ -66,6 +58,10 @@
 }
 
 
+/**
+ 主なノードID選択
+
+ */
 - (IBAction)mainNodeidSelect:(UIButton *)sender {
     
     self.sensorname.textColor = NITColor(252, 58, 92);
@@ -83,6 +79,8 @@
     
     NSMutableArray *allarr = [NSMutableArray new];
     NSMutableArray *arr = [NSMutableArray arrayWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[NITUserDefaults objectForKey:@"sensorallnodes"]]];
+    
+    
     for (NSDictionary *dic in arr) {
         NSMutableDictionary *nodesdic = [NSMutableDictionary dictionaryWithDictionary:dic];
         [nodesdic setValue:self.nodeid forKey:@"mainnodeid"];
@@ -91,11 +89,6 @@
     
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:allarr];
     [NITUserDefaults setObject:data forKey:@"sensorallnodes"];
-    
-//    [self updateMainnodenameInfo:self.nodeid andNodename:nil withType:6];
-//    if (self.segmentbar.selectedSegmentIndex == 0) _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"外"];
-//    if (self.segmentbar.selectedSegmentIndex == 1) _mainname = [NSString stringWithFormat:@"%@ (%@)",self.roomname.text,@"内"];
-//    [NITUserDefaults setObject:@{@"mainnodeid":self.nodeid,@"mainnodename":_mainname} forKey:@"mainondedatakey"];
     
     
     if ([self.delegate respondsToSelector:@selector(NowRefreshScreen)]) {
@@ -106,6 +99,11 @@
 }
 
 
+
+/**
+ 外（内）の選択  method
+
+ */
 - (IBAction)selectPlaceNumber:(UISegmentedControl *)sender {
     NSMutableDictionary *mainnodesdic = [NSMutableDictionary dictionaryWithDictionary:[NITUserDefaults objectForKey:@"mainondedatakey"]];
     [mainnodesdic setValue:sender.selectedSegmentIndex == 0 ? @"外" : @"内" forKey:@"mainnodeplace"];
@@ -130,6 +128,9 @@
 
 
 
+/**
+角丸と角色を切る
+ */
 - (void)awakeFromNib
 {
     [super awakeFromNib];
@@ -147,7 +148,6 @@
     self.pickBtn.layer.borderWidth = 0.5;
     self.pickBtn.layer.borderColor = NITColor(200, 200, 200).CGColor;
     
-//    self.segmentbar.tintColor = NITColor(123, 182, 254);
     
 }
 
@@ -164,9 +164,9 @@
     return YES;
 }
 
-//
-////输入框编辑完成以后，将视图恢复到原始状态
-//
+/**
+ 編集が終わった後に更新してデータを更新する
+ */
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     [textField setBackgroundColor:[UIColor whiteColor]];

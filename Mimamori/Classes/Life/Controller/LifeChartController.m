@@ -92,7 +92,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     
     self.titleLabelC.text = self.viewTitle;
     
-    
+    //異常状態
     if ([self.ariresult isEqualToString:@"異常検知あり"]) {
         
         
@@ -139,10 +139,11 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
         });
     }
     
-    
+    //画像添加手真似
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewClick)];
     [self.imageIcon addGestureRecognizer:gesture];
     
+    //登録 UICollectionViewCell
     [self.myCollection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     [self collectionViewsets];
@@ -154,6 +155,11 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     [self chooesfirst];
 }
 
+
+
+/**
+ 更新施設名
+ */
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
     _facilitiesBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
@@ -235,7 +241,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 
 
 /**
- Push action
+ Push action KVC値渡す
  */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -261,11 +267,14 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 
 
 
+/**
+ 現在のオプションを記録して
+ */
 - (IBAction)selectAction:(UISegmentedControl *)sender {
     
     _xnum = (int)sender.selectedSegmentIndex;
     
-    [self reloadList];
+    [self reloadList]; //リクエスト
     
 }
 
@@ -371,10 +380,14 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
     [self reloadList];
 }
 
+
+/**
+ //TableView 選択状態のこと
+ */
 -(void)reloadList{
     
     if (_xnum==0) {
-        self.myTableView.allowsSelection = YES;      //TableView allows Selection Status
+        self.myTableView.allowsSelection = YES;
         [self getSensorDataInfoWithType:MSensorDataTypeDaily];
         
     }else if(_xnum==1){
@@ -389,20 +402,24 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 }
 
 
+
+/**
+ 初期化 collectionView
+ */
 -(void)collectionViewsets{
     
     _myCollection.showsHorizontalScrollIndicator = NO;
     
     _myCollection.pagingEnabled =YES;
     
+    //初期化 UICollectionViewFlowLayout
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     
     flowLayout.minimumLineSpacing = 0;
-    
-    //    flowLayout.minimumInteritemSpacing = 0;
-    
+        
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
+   
     flowLayout.itemSize = CGSizeMake(NITScreenW, NITScreenH - Surplus);
     
     _myCollection.collectionViewLayout = flowLayout;
@@ -429,12 +446,15 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 }
 
 
+/**
+ 応答できない
+ */
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return NO ;  //cell无法被点击
+    return NO ;
 }
 
-//show image
+//画像表示
 - (void)moveToCenterWidth:(CGFloat)widthI withHeight:(CGFloat)heightI
 {
     [UIView animateWithDuration:0.5 animations:^{
@@ -448,7 +468,7 @@ static NSString * const reuseIdentifier = @"ZworksCLCell";
 
 
 /**
- move  image
+画像を削除
  */
 - (void)moveToOrigin
 {

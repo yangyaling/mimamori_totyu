@@ -10,7 +10,10 @@
 #import "MHttpTool.h"
 
 @implementation MScenarioTool
-
+/**
+ *  シナリオ一覧を取得
+ *
+ */
 +(void)scenarioListWithParam:(MScenarioListParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure{
     
     [MHttpTool postWithURL:NITGetScenarioList params:param.mj_keyValues success:^(id json) {
@@ -29,7 +32,9 @@
     }];
     //[1]	(null)	@"sensorplacelist" : @"7 elements"
 }
-
+/**
+ *  シナリオ を削除
+ */
 +(void)scenarioDeleteWithParam:(MScenarioDeleteParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure{
     [MHttpTool postWithURL: NITDeleteScenario params:param.mj_keyValues success:^(id json) {
         if (success) {
@@ -43,7 +48,9 @@
     }];
 }
 
-
+/**
+ *  シナリオ を更新
+ */
 +(void)sensorUpdateWithParam:(MScenarioListParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure {
     [MHttpTool postWithURL:NITUpdateSensorInfo params:param.mj_keyValues success:^(id json) {
         if (success) {

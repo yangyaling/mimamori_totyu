@@ -10,10 +10,18 @@
 
 @implementation MTitleLabel
 
+
+/**
+ 初期化ラベル
+ */
 +(instancetype)titleLabel{
     return [[self alloc]init];
 }
 
+
+/**
+ ラベル創建  
+ */
 -(id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {

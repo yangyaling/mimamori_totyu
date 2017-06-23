@@ -69,7 +69,6 @@
     
     self.isEdit = NO;
     
-    
 }
 
 

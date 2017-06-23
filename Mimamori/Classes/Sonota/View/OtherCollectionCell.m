@@ -10,6 +10,11 @@
 
 @implementation OtherCollectionCell
 
+
+/**
+ 登録セル
+
+ */
 + (instancetype)CellWithCollectionView:(UICollectionView *)collectionView andIndexPath:(NSIndexPath *)indexPath {
     
     NSString *ID = @"OtherCollectionCell";

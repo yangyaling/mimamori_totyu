@@ -21,10 +21,9 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
-//停止定时器
 -(void)stopTimer;
 
-//激活定时器
+
 -(void)startTimer;
 
 @end

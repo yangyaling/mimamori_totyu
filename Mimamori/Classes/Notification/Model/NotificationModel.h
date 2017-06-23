@@ -26,14 +26,12 @@
  */
 @property (nonatomic, copy) NSString                         *userid1;
 
-@property (nonatomic, assign) NSString                       *groupid;
 
 /**
  ユーザー名
  */
 @property (nonatomic, copy) NSString                         *username;
 
-@property (nonatomic, copy) NSString                         *groupname;
 
 /**
  タイトル

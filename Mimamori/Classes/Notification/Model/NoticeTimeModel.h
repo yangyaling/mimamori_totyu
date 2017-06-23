@@ -10,10 +10,20 @@
 
 @interface NoticeTimeModel : NSObject
 
+/**
+ 日付
+ */
 @property (nonatomic, copy) NSString                    *date;
 
+/**
+ タイムゾーン
+ */
 @property (nonatomic, copy) NSString                    *timezone;
 
+
+/**
+ タイムゾーンのタイプ
+ */
 @property (nonatomic, copy) NSString                    *timezone_type;
 
 @end

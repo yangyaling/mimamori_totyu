@@ -29,12 +29,21 @@
     
 }
 
+
+/**
+ 更新施設名
+ */
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
     
     _facilityBtn.buttonTitle = [[NITUserDefaults objectForKey:@"TempFacilityName"] objectForKey:@"facilityname2"];
 }
 
+
+
+/**
+ 初期化 UICollectionViewFlowLayout
+ */
 -(void)setUI {
     _titleArray = @[@"設置場所\nマスタ" ,@"企業\nマスタ",@"施設\nマスタ",@"シナリオ\nマスタ"];
  
@@ -72,7 +81,9 @@
 }
 
 
-
+/**
+ ピッチ
+ */
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                    layout:(UICollectionViewLayout *)collectionViewLayout
 minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -81,7 +92,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 }
 
 
-
+/**
+ ピッチ
+ */
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                    layout:(UICollectionViewLayout *)collectionViewLayout
 minimumLineSpacingForSectionAtIndex:(NSInteger)section
@@ -89,7 +102,9 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
     return 10.0f;
 }
 
-
+/**
+ ボタンイベントのコントローラジャンプ
+ */
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.MasterUser isEqualToString:@"2"]) return;

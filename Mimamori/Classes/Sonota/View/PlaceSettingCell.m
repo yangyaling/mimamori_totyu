@@ -19,6 +19,9 @@
 }
 
 
+/**
+ 配列コピー
+ */
 - (void)setDatasDic:(NSDictionary *)datasDic {
     
     _datasDic=datasDic;
@@ -31,8 +34,8 @@
         [self.numCd setBackgroundColor:[UIColor whiteColor]];
         [self.cdName setBackgroundColor:[UIColor whiteColor]];
 
-    // 表示
-    } else {
+    
+    } else {// 表示
         [self.numCd setEnabled:NO];
         [self.cdName setEnabled:NO];
         
@@ -78,7 +81,7 @@
         
         [dic setObject:textField.text forKey:@"name"];
     }
-    [array replaceObjectAtIndex:self.cellindex withObject:dic];
+    [array replaceObjectAtIndex:self.cellindex withObject:dic]; //この条編集のテキスト欄に入れ替わっ
     [NITUserDefaults setObject:array forKey:@"NLINFO"];
     
 }

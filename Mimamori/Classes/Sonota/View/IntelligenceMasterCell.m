@@ -25,10 +25,16 @@
     // Initialization code
 }
 
+
+
+/**
+ 配列コピー
+ */
 - (void)setDatasDic:(NSDictionary *)datasDic {
     
     _datasDic=datasDic;
     
+    //コントロールの編集状態、背景色
     if (self.editOp) {
         
         [self.igTextLabel setEnabled:YES];
@@ -62,6 +68,8 @@
     
 }
 
+
+
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
     [textField setBackgroundColor:NITColor(253, 164, 181)];
@@ -71,6 +79,9 @@
 
 
 
+/**
+ 編集が終わり
+ */
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     [textField setBackgroundColor:[UIColor whiteColor]];
@@ -94,7 +105,7 @@
         default:
             break;
     }
-    [array replaceObjectAtIndex:self.cellindex withObject:dic];
+    [array replaceObjectAtIndex:self.cellindex withObject:dic];  //この条編集のテキスト欄に入れ替わっ
     [NITUserDefaults setObject:array forKey:@"COMPANYINFO"];
     
 }

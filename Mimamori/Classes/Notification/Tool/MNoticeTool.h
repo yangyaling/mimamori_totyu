@@ -24,36 +24,23 @@
 /**
  *  获取通知
  *
- *  @param param   请求参数
- *  @param success 请求成功的回调
- *  @param failure 请求失败的回调
  */
 +(void)noticeInfoWithParam:(MNoticeInfoParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure;
 
 /**
- *  获取有通知的日期
  *
- *  @param param   请求参数
- *  @param success 请求成功的回调
- *  @param failure 请求失败的回调
+ *通知の期日を得る
  */
 +(void)noticeDatesWithParam:(MNoticeDateParam *)param success:(void (^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
 
 /**
- *  更新通知状态(確認必要->確認済み)
- *
- *  @param param   请求参数
- *  @param success 请求成功的回调
- *  @param failure 请求失败的回调
+ *  通知状態に更新(確認必要->確認済み)
  */
 +(void)noticeInfoUpdateWithParam:(MNoticeInfoUpdateParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure;
 
 /**
- *  上传一条通知（お知らせ/支援要請）
+ *  アップロードのお知らせ（お知らせ/支援要請）
  *
- *  @param param   请求参数
- *  @param success 请求成功的回调
- *  @param failure 请求失败的回调
  */
 +(void)noticeInfoUploadWithParam:(MNoticeInfoUploadParam *)param success:(void (^)(NSString *code))success failure:(void (^)(NSError *error))failure;
 

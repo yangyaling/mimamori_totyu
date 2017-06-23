@@ -8,6 +8,9 @@
 
 #import "MimamoriTabBarController.h"
 
+/**
+ タブバーコントローラ
+ */
 @interface MimamoriTabBarController ()
 
 @end
@@ -25,6 +28,9 @@
 }
 
 
+/**
+ タブバーコントローラ  ->通知コントローラ , 生活コントローラ , その他コントローラ
+ */
 -(void)setupChildControllers{
 
     UIViewController *vc1 = [self tabBarControllerWithStoryboardName:@"Notification" title:@"通知"];
@@ -37,6 +43,10 @@
 }
 
 
+
+/**
+ 対応のストーリーボードのコントローラを探しています
+ */
 -(UIViewController *)tabBarControllerWithStoryboardName:(NSString *)storyboardName title:(NSString *)title{
     UIStoryboard *sb = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
     //vc->UINavigationController
@@ -46,6 +56,9 @@
 }
 
 
+/**
+ タブバーコントローラのアイコン
+ */
 -(void)setupTabbarItems{
     
     [self setupTabbarItemWithIndex:0 imageName:@"notification-0" selectedImageName:@"notification"];
@@ -55,9 +68,12 @@
     [[UITabBarItem appearance]setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor]} forState:UIControlStateNormal];
     [[UITabBarItem appearance]setTitleTextAttributes:@{NSForegroundColorAttributeName:NITColor(252, 82, 115)} forState:UIControlStateSelected];
     
-    
 }
 
+
+/**
+ セット -> アイコン
+ */
 -(void)setupTabbarItemWithIndex:(int)index imageName:(NSString *)imageName selectedImageName:(NSString *)selectedImageName{
      [[self.tabBar.items objectAtIndex:index]setImage:[[UIImage imageNamed:imageName]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [[self.tabBar.items objectAtIndex:index]setSelectedImage:[[UIImage imageNamed:selectedImageName]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];

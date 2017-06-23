@@ -49,6 +49,9 @@
 }
 
 
+/**
+ 初期化ドロップボタン
+ */
 -(instancetype)setinit {
     if (self) {
         self.layer.masksToBounds = YES;
@@ -70,6 +73,10 @@
     return self;
 }
 
+
+/**
+ 設置ドロップボタンタイトル
+ */
 - (void)setButtonTitle:(NSString *)buttonTitle {
     _buttonTitle = buttonTitle;
     [self setTitle:buttonTitle forState:UIControlStateNormal];
@@ -79,7 +86,6 @@
 
 /**
  facility  button  click  method
-
  */
 -(void)buttonClick:(UIButton *)sender {
     if (self.isShow) {
@@ -96,6 +102,7 @@
             
             if (index == 10000) return ;
             
+            //警報状態
             if (_showAlert) {
                 
                 [self isShowAlert:tmparr andIndex:index];
@@ -115,7 +122,6 @@
                 [NITUserDefaults setObject:tmpimagesname forKey:@"TempcellImagesName"];
                 [NITUserDefaults synchronize];
                 
-                
                 if ([self.DropClickDelegate respondsToSelector:@selector(SelectedListName:)]) {
                     [self.DropClickDelegate SelectedListName:tmparr[index]];
                 }
@@ -130,6 +136,10 @@
     
 }
 
+
+/**
+ マスターコントローラ  編集状態時切替施設
+ */
 - (void)isShowAlert:(NSArray *)array andIndex:(NSInteger)index {
     
     id control = [self topViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
@@ -157,6 +167,10 @@
     }];
 }
 
+
+/**
+ 回転アニメーション
+ */
 -(void)buttonImageViewAnimateStatas:(double)statas {
     
     [UIView animateWithDuration:0.2 animations:^{
@@ -166,6 +180,9 @@
 }
 
 
+/**
+ 現在のメインコントローラを探しています
+ */
 - (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController {
     if ([rootViewController isKindOfClass:[UITabBarController class]]) {
         UITabBarController* tabBarController = (UITabBarController*)rootViewController;

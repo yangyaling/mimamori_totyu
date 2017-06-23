@@ -39,6 +39,7 @@
  */
 - (void)popReloadList {
     
+    //デリゲートの転送
     [self.updatedelegate updateCorrentTB:self.xnum];
     
 }
@@ -70,6 +71,7 @@
     
     return 150;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZworksChartVTBCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ZworksTBCell"];

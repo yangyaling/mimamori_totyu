@@ -11,6 +11,10 @@
 
 @implementation MLoginTool
 
+/**
+ *  Login
+ *
+ */
 +(void)loginWithParam:(MLoginParam *)param success:(void (^)(MLoginResult *result))success failure:(void (^)(NSError *error))failure{
     
     [MHttpTool postWithURL:NITLogin params:param.mj_keyValues success:^(id json) {
@@ -26,7 +30,10 @@
         }
     }];
 }
-
+/**
+ *  セッション取得
+ *
+ */
 +(void)sessionInfoWithParam:(MSessionInfoParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure{
     
     [MHttpTool postWithURL:NITGetZsessionInfo params:param.mj_keyValues success:^(id json) {
@@ -43,6 +50,9 @@
     }];
 }
 
+/**
+ 施設情報取得
+ */
 +(void)getFacilityInfoWithParam:(MSessionInfoParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure {
     [MHttpTool postWithURL:NITGetfacilityList params:param.mj_keyValues success:^(id json) {
         if (success) {

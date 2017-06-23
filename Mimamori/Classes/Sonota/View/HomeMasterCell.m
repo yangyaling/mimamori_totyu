@@ -29,11 +29,14 @@
     // Initialization code
 }
 
-
+/**
+ 配列コピー
+ */
 - (void)setDatasDic:(NSDictionary *)datasDic {
     
     _datasDic=datasDic;
     
+    //権限状態
     if (self.editOp) {
         
         [self.custName setEnabled:YES];
@@ -45,7 +48,6 @@
         [self.floorbtn setEnabled:YES];
         [self.floorbtn setBackgroundColor:[UIColor whiteColor]];
         
-        //[self statusEdit:YES withColor:[UIColor whiteColor]];
         
     } else {
         
@@ -58,7 +60,6 @@
         [self.floorbtn setEnabled:NO];
         [self.floorbtn setBackgroundColor:TextFieldNormalColor];
         
-        //[self statusEdit:NO withColor:NITColor(235, 235, 241)];
     }
 
     [self.custID setEnabled:NO];
@@ -73,32 +74,10 @@
     
 }
 
-//- (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
-//    NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
-//    if (!master.length) return;
-//    
-//    if ([master isEqualToString:@"3"]) {
-//        
-//    } else if ([master isEqualToString:@"2"]) {
-//        
-//        
-//    } else {
-//        [self.custID setEnabled:noOp];
-//        [self.custID setBackgroundColor:color];
-//        
-//        [self.custName setEnabled:noOp];
-//        [self.custName setBackgroundColor:color];
-//        
-//        [self.roombtn setEnabled:noOp];
-//        [self.roombtn setBackgroundColor:color];
-//        
-//        [self.floorbtn setEnabled:noOp];
-//        [self.floorbtn setBackgroundColor:color];
-//        
-//    }
-//}
 
-
+/**
+ オプションフレーム
+ */
 - (IBAction)showPick:(UIButton *)sender {
     NSArray *arr = [NITUserDefaults objectForKey:@"FLOORLISTKEY"];
     
@@ -131,10 +110,14 @@
     
 }
 
-
+/**
+ //デリゲートの転送
+ */
 - (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell {
     NSArray *tmparr = [NITUserDefaults objectForKey:@"FLOORLISTKEY"];
     NSString *roomcd = nil;
+    
+    //同じことを取り除く
     for (NSDictionary *dic  in tmparr) {
         if ([dic[@"floorno"] isEqualToString:sinario]) {
             
@@ -157,7 +140,7 @@
     
     [nodesdic setValue:roomcd forKey:@"roomcd"];
     
-    [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];
+    [arr replaceObjectAtIndex:self.cellindex withObject:nodesdic];  //この条転送のテキスト欄に入れ替わっ
     
     [NITUserDefaults setObject:arr forKey:@"HOMECUSTINFO"];
     
@@ -174,7 +157,9 @@
 }
 
 
-
+/**
+ 編集が終わった後に更新してデータを更新する
+ */
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     [textField setBackgroundColor:[UIColor whiteColor]];

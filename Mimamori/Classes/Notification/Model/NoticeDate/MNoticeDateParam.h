@@ -10,8 +10,15 @@
 
 @interface MNoticeDateParam : NSObject
 
+/**
+ スタッフID（見守る人）
+ */
 @property (nonatomic, copy) NSString *staffid;
 
+
+/**
+ 施設コード
+ */
 @property (nonatomic, copy) NSString *facilitycd;
 
 @end

@@ -12,14 +12,35 @@
 
 @interface MCustAddParam : NSObject
 
-@property (nonatomic, copy) NSString                               *userid1;
 
+/**
+ 使用者ID（見守る人）
+ */
+@property (nonatomic, copy) NSString                               *userid1;
+/**
+ 入居者ID（見守られる人）
+ */
 @property (nonatomic, copy) NSString                               *userid0;
 
+
+
+/**
+ ニックネーム（見守る人）
+ */
 @property (nonatomic, copy) NSString                               *nickname;
 
+
+
+/**
+  居室番号
+ */
 @property (nonatomic, copy) NSString                               *roomid;
 
+
+
+/**
+ 更新日付
+ */
 @property (nonatomic, copy) NSString                               *updatedate;
 
 @end

@@ -5,9 +5,10 @@
 //  Created by totyu2 on 2016/06/06.
 //  Copyright © 2016年 totyu3. All rights reserved.
 //
-
 #import "NotificationCell.h"
+
 #import "NotificationModel.h"
+
 #import "NoticeTimeModel.h"
 
 @interface NotificationCell ()
@@ -26,6 +27,9 @@
 @implementation NotificationCell
 
 
+/**
+ 登録cell
+ */
 + (instancetype)cellWithTableView:(UITableView *)tableView {
     NotificationCell * cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationCell"];
     if (!cell) {
@@ -42,6 +46,7 @@
     [sender setTitle:@"確認済" forState:UIControlStateNormal];
     sender.backgroundColor = [UIColor lightGrayColor];
  
+    //デリゲートの転送
     if ([self.delegate respondsToSelector:@selector(notificationCellBtnClicked:)]) {
         [self.delegate notificationCellBtnClicked:self];
     }
@@ -49,6 +54,9 @@
 }
 
 
+/**
+ モデルコピー
+ */
 -(void)setNotice:(NotificationModel *)notice{
     
     _notice = notice;

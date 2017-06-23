@@ -8,28 +8,41 @@
 
 #import <Foundation/Foundation.h>
 /**
- $zsessioninfo[$index] = array(
- 'email' => $row[0],
- 'password' => $row[1],
- 'sessionid' => $row[2],
- 'updatetime' => $row[3],
- 'sessionstatus' => $row[4],
- 'devices' => $devices
- );
  */
 
 @interface MSessionInfoResult : NSObject
 
+/**
+ email
+ */
 @property (nonatomic, copy) NSString                               *email;
 
+
+/**
+ パスワード
+ */
 @property (nonatomic, copy) NSString                               *password;
 
+
+/**
+ セッションID
+ */
 @property (nonatomic, copy) NSString                               *sessionid;
 
+
+/**
+ 更新時間
+ */
 @property (nonatomic, copy) NSString                               *updatetime;
 
+/**
+ セッションステータス
+ */
 @property (nonatomic, copy) NSString                               *sessionstatus;
 
+/**
+ デバイス
+ */
 @property(nonatomic, strong) NSArray                               *devices;
 
 @end

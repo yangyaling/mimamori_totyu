@@ -96,6 +96,8 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
     param.deviceclass = @"2";
     param.nodeid = self.chartModel.nodeid;
     
+    
+    //情報更新
     [MSensorDataTool sensorDataWithParam:param type:MSensorDataTypeDaily success:^(NSDictionary *dic) {
       [MBProgressHUD hideHUDForView:self.view];
         NSArray *array = dic[@"deviceinfo"];
@@ -127,7 +129,7 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
 
 
 /**
- create page class
+ ページ・クラスの作成
  */
 - (void)setupControllers
 {
@@ -156,7 +158,7 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
 
 
 /**
-  Init CollectionViewFlowLayout
+ 初期化  CollectionViewFlowLayout
  */
 - (void)setupCollectionView {
     
@@ -179,8 +181,9 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
     flowLayout.itemSize = CGSizeMake(NITScreenW, NITScreenH - Surplus);
     
     
+    //主スレッド
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+        //指定のページへスクロール
         self.collectionView.contentOffset = CGPointMake(6 * NITScreenW, 0);
         
     });
@@ -201,6 +204,10 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
     return self.SumPage;
 }
 
+
+/**
+ ロードコントローラのビュー
+ */
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];

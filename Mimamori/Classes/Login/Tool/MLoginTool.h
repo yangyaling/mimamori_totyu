@@ -16,24 +16,21 @@
 @interface MLoginTool : NSObject
 
 /**
- *  登录
+ *  Login
  *
- *  @param param   请求参数
- *  @param success 请求成功的回调
- *  @param failure 请求失败的回调
  */
 +(void)loginWithParam:(MLoginParam *)param success:(void (^)(MLoginResult *result))success failure:(void (^)(NSError *error))failure;
 
 /**
  *  セッション取得
  *
- *  @param param   请求参数
- *  @param success 请求成功的回调
- *  @param failure 请求失败的回调
  */
 +(void)sessionInfoWithParam:(MSessionInfoParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure;
 
 
+/**
+ 施設情報取得
+ */
 +(void)getFacilityInfoWithParam:(MSessionInfoParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure;
 
 @end

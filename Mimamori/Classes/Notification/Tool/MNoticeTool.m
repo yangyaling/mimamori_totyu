@@ -14,7 +14,7 @@
 +(void)noticeInfoWithParam:(MNoticeInfoParam *)param success:(void (^)(NSArray *array))success failure:(void (^)(NSError *error))failure{
     [MHttpTool postWithURL:NITGetNoticeInfo params:param.mj_keyValues success:^(id json) {
         if (success) {
-            // 字典数组转模型数组
+           
             NSArray *noticesArray = [MNoticeInfoResult mj_objectArrayWithKeyValuesArray:[json objectForKey:@"notices"]];
             success(noticesArray);
         }

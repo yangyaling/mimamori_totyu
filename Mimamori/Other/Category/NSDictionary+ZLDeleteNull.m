@@ -8,10 +8,16 @@
 
 #import "NSDictionary+ZLDeleteNull.h"
 
+
+
+
+/**
+ データの中の（Null）   （@""）に転換する
+ */
 @implementation NSDictionary (ZLDeleteNull)
 
 #pragma mark - 私有方法
-//将NSDictionary中的Null类型的项目转化成@""
+
 +(NSDictionary *)nullDic:(NSDictionary *)myDic
 {
     NSArray *keyArr = [myDic allKeys];
@@ -33,7 +39,7 @@
 }
 
 
-//将NSDictionary中的Null类型的项目转化成@""
+
 +(NSArray *)nullArr:(NSArray *)myArr
 {
     NSMutableArray *resArr = [[NSMutableArray alloc] init];
@@ -50,20 +56,23 @@
     return resArr;
 }
 
-//将NSString类型的原路返回
+
 +(NSString *)stringToString:(NSString *)string
 {
     return string;
 }
 
-//将Null类型的项目转化成@""
 +(NSString *)nullToString
 {
     return @"";
 }
 
 #pragma mark - 公有方法
-//类型识别:将所有的NSNull类型转化成@""
+
+
+/**
+ 各種データの種類の判断
+ */
 +(id)changeType:(id)myObj
 {
     if ([myObj isKindOfClass:[NSDictionary class]])

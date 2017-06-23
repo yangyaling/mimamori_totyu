@@ -23,7 +23,9 @@
     [super awakeFromNib];
     // Initialization code
 }
-
+/**
+ 配列コピー
+ */
 - (void)setDatasDic:(NSDictionary *)datasDic {
     
     _datasDic=datasDic;
@@ -41,7 +43,9 @@
     self.roomcd.text = roomstr;
     
 }
-
+/**
+ コントロールの権限状態
+ */
 - (void)statusEdit:(BOOL)noOp withColor:(UIColor *)color {
     
     NSString *master = [NITUserDefaults objectForKey:@"MASTER_UERTTYPE"];
@@ -65,15 +69,6 @@
 }
 
 
-//- (IBAction)showPick:(UIButton *)sender {
-//    
-//    _picker = [[NITPicker alloc]initWithFrame:CGRectZero superviews:WindowView selectbutton:sender model:nil cellNumber:self.cellindex];
-//    
-//    _picker.mydelegate = self;
-//    
-//    [WindowView addSubview:_picker];
-//    
-//}
 
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -84,7 +79,9 @@
 }
 
 
-
+/**
+ 編集が終わった後に更新してデータを更新する
+ */
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     [textField setBackgroundColor:[UIColor whiteColor]];

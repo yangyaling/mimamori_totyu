@@ -22,11 +22,8 @@
 
 @property (nonatomic, weak) id<MyPickerDelegate>mydelegate;
 /**
- *  初始化
  *
- *  @param superviews superview
- *  @param tag        父视图button 的 tag
- *  @param stype      0:1～72     1:1～100    2:以上 以下
+ *初期化
  *
  */
 -(instancetype)initWithFrame:(CGRect)frame superviews:(UIView*)superviews selectbutton:(UIButton*)selectbutton model:(NSArray *)model cellNumber:(NSInteger)number;

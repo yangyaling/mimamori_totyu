@@ -155,6 +155,11 @@
                                                     <state key="normal" title="ログイン">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="saveBtn:" destination="VU4-L8-hto" eventType="touchUpInside" id="AHg-Tu-85e"/>
                                                     </connections>

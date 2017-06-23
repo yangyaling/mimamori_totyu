@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+
+
 @interface NSDictionary (ZLDeleteNull)
+
 
 +(id)changeType:(id)myObj;
 

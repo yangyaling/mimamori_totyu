@@ -9,9 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @interface MCustDeleteParam : NSObject
-
+/**
+ 使用者ID（見守る人）
+ */
 @property (nonatomic, copy) NSString                               *userid1;
-
+/**
+ 入居者ID（見守られる人）
+ */
 @property (nonatomic, copy) NSString                               *userid0;
 
 @end

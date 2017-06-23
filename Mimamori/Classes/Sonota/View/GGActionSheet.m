@@ -7,11 +7,11 @@
 //
 #define MAS_SHORTHAND
 #define MAS_SHORTHAND_GLOBALS
-//自动适配
+
 #define TTRealValue(value) ((value)/375.0f*[UIScreen mainScreen].bounds.size.width)
-//16位颜色
+
 #define HEXColor(hexValue,alphaValue) [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:alphaValue]
-//设置图片
+
 #define setIMG(name) [UIImage imageNamed:name]
 
 #import "GGActionSheet.h"
@@ -22,15 +22,15 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
 
 @interface GGActionSheet()
 @property(nonatomic,assign) GGActionSheetType actionSheetType;
-@property(nonatomic,strong) UIWindow *backWindow;
-@property(nonatomic,copy) NSArray *imgArray;
-@property(nonatomic,copy) NSArray *titles;
-@property(nonatomic,copy) NSArray *colors;
-@property(nonatomic,strong) UIButton *cancelBtn;
-@property(nonatomic,strong) UIView *optionsBgView;
-@property(nonatomic,strong) UIView *bgView;
-@property(nonatomic,strong) NSMutableArray *optionBtnArrayM;
-@property(nonatomic,assign) float bgViewHeigh;
+@property(nonatomic,strong) UIWindow          *backWindow;
+@property(nonatomic,copy) NSArray             *imgArray; //画像配列
+@property(nonatomic,copy) NSArray             *titles;     //タイトル配列
+@property(nonatomic,copy) NSArray             *colors;
+@property(nonatomic,strong) UIButton          *cancelBtn;   //キャンセルボタン
+@property(nonatomic,strong) UIView            *optionsBgView;
+@property(nonatomic,strong) UIView            *bgView;
+@property(nonatomic,strong) NSMutableArray    *optionBtnArrayM;
+@property(nonatomic,assign) float              bgViewHeigh;   //背景ビューの高さ
 @end
 @implementation GGActionSheet
 
@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
 +(instancetype)ActionSheetWithImageArray:(NSArray *)imgArray delegate:(id<GGActionSheetDelegate>)delegate{
     return [[self alloc] initSheetWithImgs:imgArray andDelegate:delegate];
 }
+
 -(instancetype)initSheetWithTitles:(NSArray *)titleArray andTitleColors:(NSArray *)colors andDelegate:(id<GGActionSheetDelegate>)delegate{
     self.titles = titleArray;
     self.colors = colors;
@@ -56,6 +57,10 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
 }
 
 
+
+/**
+ 初期化
+ */
 -(instancetype)initActionSheet{
     if (self = [super init]) {
         
@@ -63,15 +68,20 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
         
         [self setBackgroundColor:HEXColor(0x000000, 0)];
         [self addSubview:self.bgView];
+        
+        //タッチの手真似
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAlertView)];
         [self addGestureRecognizer:tap];
         [self.bgView addSubview:self.cancelBtn];
         [self.bgView addSubview:self.optionsBgView];
         
-        float btnHeight = TTRealValue(56);//按钮统一高度
-        float lineHeight = 0.5f;//线高
-        float optionViewLineHeight = 0;//线总高
+        float btnHeight = TTRealValue(56);
+        float lineHeight = 0.5f;
+        float optionViewLineHeight = 0;
         NSArray *arrayC = [[NSArray alloc] init];
+        
+        
+        //actionSheet Type
         switch (self.actionSheetType){
             case GGActionSheetTypeWithImg:
                 arrayC = self.imgArray;
@@ -82,34 +92,34 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
             default:
                 break;
         }
-        //线永远比数组数少一个 如果数组等于0 线的数量不能等于-1 所以线高等于0
+        
+        //分割線数
         if (arrayC.count == 0) {
             optionViewLineHeight = 0;
         }else{
             optionViewLineHeight = (arrayC.count-1) * lineHeight;
         }
-        float optionBgWithCancelBtnMargin = TTRealValue(8);//选项和按钮之间间距
-        float optionBgViewHeight = btnHeight*arrayC.count + optionViewLineHeight;//选项View高度
-        float btnAllAroundMargin = TTRealValue(16);//按钮距离四周的间距
+        float optionBgWithCancelBtnMargin = TTRealValue(8);//オプションとボタンの間の間隔
+        float optionBgViewHeight = btnHeight*arrayC.count + optionViewLineHeight;//オプション高度
+        float btnAllAroundMargin = TTRealValue(16);//ボタンの距離は四方の間隔にする
         self.bgViewHeigh = optionBgViewHeight+optionBgWithCancelBtnMargin+btnHeight;
         
-//        _bgView.frame = CGRectMake(0, 0,self.frame.size.width , self.bgViewHeigh);
         
-        
+        //コントロール自動配置
         [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_bottom);
             make.left.right.equalTo(self);
             make.height.equalTo(@(optionBgViewHeight+optionBgWithCancelBtnMargin+btnHeight));
         }];
         
-//        _cancelBtn.frame = CGRectMake(btnAllAroundMargin, <#CGFloat y#>, self, <#CGFloat height#>)
-        
+         //コントロール自動配置
         [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.bottom.equalTo(self.bgView).offset(-btnAllAroundMargin);
             make.left.equalTo(self.bgView).offset(btnAllAroundMargin);
             make.height.equalTo(@(btnHeight));
         }];
-        //选项背景View高度等于线总高+选项总高
+       
+         //コントロール自動配置
         [_optionsBgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.cancelBtn.mas_top).offset(-optionBgWithCancelBtnMargin);
             make.right.equalTo(self.bgView).offset(-btnAllAroundMargin);
@@ -118,6 +128,8 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
         }];
         
         
+        
+        //導入のボタンタイトル
         for (int i = 0; i<arrayC.count; ++i) {
             UIButton *button = [UIButton new];
             button.tag = 990+i;
@@ -132,26 +144,28 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
                 
             }else if (self.actionSheetType == GGActionSheetTypeWithImg){
                 NSString *imageName = @"";
-                //过滤掉误传的非NSString类型的图片名数据
+                //
                 NSAssert([self.imgArray[i] isKindOfClass:[NSString class]], @"图片名数组里必须传入NSString类型" );
                 imageName = self.imgArray[i];
                 [button setImage:setIMG(imageName) forState:UIControlStateNormal];
             }
             
             [self.optionsBgView addSubview:button];
-            //按钮布局从上向下 已布局按钮高度+已布局线高度
+            
+            //フィルターとしてのデータを濾過する
             [button mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(_optionsBgView).offset((i*btnHeight+(i*lineHeight)));
                 make.left.right.equalTo(_optionsBgView);
                 make.height.equalTo(@(btnHeight));
             }];
-            //当数组长度非0的时候 创建比数组少一的线
+            
+            //配列の長さ非0の時に創建する
             if (i != self.titles.count-1) {
                 UIView *line = [UIView new];
                 [self.optionsBgView addSubview:line];
                 [line setBackgroundColor:HEXColor(0x000000, 0.1)];
                 
-                
+                //コントロール自動配置
                 [line mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(button.mas_bottom);
                     make.left.right.equalTo(_optionsBgView);
@@ -175,11 +189,11 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
 }
 
 -(void)optionColorSet{
-    //颜色数组可以为空  为空默认黑色  不为空必须传UIColor类型
+    //配列は空っぽの時， 伝えなければならない UIColor タイプ
     if (self.optionBtnArrayM.count != 0) {
         UIColor *color = [UIColor whiteColor];
         
-            
+            //対応の色を設定する
             for (int i = 0; i<self.optionBtnArrayM.count; ++i) {
                 UIButton *button = self.optionBtnArrayM[i];
                 if (i<self.colors.count) {
@@ -208,6 +222,11 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
     [self dismissAlertView];
 }
 
+
+
+/**
+レイヤーアニメーションスイッチ
+ */
 -(void)layerAnimationMakeWithUp:(BOOL)up{
     [self.layer removeAllAnimations];
     CABasicAnimation *colorAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
@@ -229,6 +248,11 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
     [self.layer addAnimation:colorAnimation forKey:@"colorAnimation"];
 
 }
+
+
+/**
+ 表示
+ */
 -(void)showGGActionSheet{
     _backWindow.hidden = NO;
     [self.backWindow addSubview:self];
@@ -243,6 +267,11 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
         [self.bgView.superview layoutIfNeeded];//强制绘制
     }];
 }
+
+
+/**
+ 隠す
+ */
 -(void)dismissAlertView{
    
     [self layerAnimationMakeWithUp:NO];
@@ -257,6 +286,9 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
         _backWindow.hidden = YES;
     }];
 }
+
+
+
 -(UIWindow *)backWindow{
     if (!_backWindow) {
         _backWindow=[[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -266,6 +298,7 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
     }
     return _backWindow;
 }
+
 -(UIButton *)cancelBtn{
     if (!_cancelBtn) {
         _cancelBtn = [UIButton new];
@@ -278,6 +311,7 @@ typedef NS_ENUM(NSInteger,GGActionSheetType) {
     }
     return _cancelBtn;
 }
+
 -(UIView *)optionsBgView{
     if (!_optionsBgView) {
         _optionsBgView = [UIView new];

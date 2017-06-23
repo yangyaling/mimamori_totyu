@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong) UITextField *editTextField;
 @property (nonatomic, strong) UITextView  *editTextView;
-//@property (nonatomic, weak) UIButton      *bgBtn;
 
 @end
 
@@ -28,37 +27,20 @@
 
 
 
-//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-//    
-//    id view = [super hitTest:point withEvent:event];
-//    
-//    if (![view isKindOfClass:[UITextView class]]) {
-//        [self endEditing:YES];
-//    }
-//    
-//    return view;
-//}
 
-
-
+/**
+登録通知
+ */
 - (void)initviewDidLoad {
-//    UIButton *bgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [bgBtn setFrame:CGRectMake(0, 0, NITScreenW, NITScreenH)];
-//    [bgBtn setBackgroundColor:[UIColor clearColor]];
-//    [bgBtn addTarget:self action:@selector(textFieldShouldReturn:) forControlEvents:UIControlEventTouchUpInside];
-//    _bgBtn = bgBtn;
-//    [WindowView addSubview:bgBtn];
-//    [_bgBtn setHidden:YES];
-    //注册通知
+    //
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showKeyboard:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 
-#pragma mark - 键盘躲避
+#pragma mark - キーボード避ける
 - (void)showKeyboard:(NSNotification *)noti
 {
-//    [_bgBtn setHidden:NO];
     CGRect keyBoardRect=[noti.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.contentInset = UIEdgeInsetsMake(0, 0, keyBoardRect.size.height - 49, 0);
 }
@@ -75,7 +57,6 @@
 
 - (void)hideKeyboard:(NSNotification *)noti
 {
-//    [_bgBtn setHidden:YES];
     self.transform = CGAffineTransformIdentity;
 }
 

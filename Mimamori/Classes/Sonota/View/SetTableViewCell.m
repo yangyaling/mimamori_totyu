@@ -11,6 +11,10 @@
 @implementation SetTableViewCell
 
 
+/**
+ 登録セル
+
+ */
 + (instancetype)cellWithTableView:(UITableView *)tableView{
     
     return [SetTableViewCell cellFromNib:nil andCollectionView:tableView];

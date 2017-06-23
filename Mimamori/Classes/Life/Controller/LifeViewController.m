@@ -33,7 +33,7 @@
 
 
 /**
- all model data
+ すべてのモデルデータ
  */
 @property (strong, nonatomic) NSMutableArray             *custArr; //
 
@@ -65,7 +65,7 @@
 }
 
 /**
-   facility delegate
+   切替施設 delegate
  */
 -(void)SelectedListName:(NSDictionary *)clickDic; {
     
@@ -153,6 +153,9 @@
 
 #pragma mark - UIStoryboardSegue
 
+/**
+ Push ->   KVC値渡す
+ */
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
    

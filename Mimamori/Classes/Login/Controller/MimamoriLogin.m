@@ -44,8 +44,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _saveb.layer.cornerRadius = 5;
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -54,7 +52,7 @@
 
 
 /**
- button click
+ Login button click
  */
 - (IBAction)saveBtn:(id)sender {
     

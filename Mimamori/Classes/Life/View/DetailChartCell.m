@@ -12,23 +12,29 @@
 #import "UUChart.h"
 
 #define NITUUChartHeight 156
+
 #define NITUUChartBorder 3
 
 @interface DetailChartCell ()<UUChartDataSource>
 
+
 @property (nonatomic, strong) UUChart                        *chartView;
 
-@property (nonatomic, strong) NSArray                        *devicedataarray;
 
-@property (nonatomic, strong) NSMutableArray                 *allarray;
+@property (nonatomic, strong) NSArray                        *devicedataarray;  //
 
-@property (strong ,nonatomic)NSMutableArray                  *mouthnumArr;
+
+@property (nonatomic, strong) NSMutableArray                 *allarray;  //グラフデータ
+
 
 @end
 
 @implementation DetailChartCell
 
 
+/**
+ 登録セル
+ */
 + (instancetype)cellWithTableView:(UITableView *)tableView{
     
     DetailChartCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ChartCell"];
@@ -39,6 +45,9 @@
     return cell;
 }
 
+/**
+ 整理のデータをグラフにする
+ */
 -(void)setChartdic:(NSDictionary *)chartdic{
     _allarray = [NSMutableArray array];
     
@@ -52,6 +61,8 @@
     
     [_allarray addObject:_devicedataarray];
     
+    
+    //初期設定チャート
     _chartView =[[UUChart alloc]initwithUUChartDataFrame:CGRectMake(3,5.5, [UIScreen mainScreen].bounds.size.width-6, 150)
                                               withSource:self withStyle:UUChartLineStyle withdevicename:chartdic[@"devicename"] withname:sensorname withdate:_dateStr];
     _chartView.userInteractionEnabled = NO;
@@ -76,17 +87,23 @@
     return xTitles;
 }
 
+/**
+ x座標分類
+ */
 - (NSArray *)UUChart_xLableArray:(UUChart *)chart{
     
     return [self getXTitles:47];
 }
 
-
+/**
+ y座標分類
+ */
 - (NSArray *)UUChart_yValueArray:(UUChart *)chart{
     
     return @[self.devicedataarray];
     
 }
+
 
 - (NSArray *)UUChart_yValueArray4:(UUChart *)chart{
 
@@ -94,6 +111,9 @@
     
 }
 
+/**
+ グラフの色
+ */
 - (NSArray *)UUChart_ColorArray:(UUChart *)chart
 {
     return @[UUWhite];

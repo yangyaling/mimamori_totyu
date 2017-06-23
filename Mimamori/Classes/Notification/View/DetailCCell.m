@@ -10,6 +10,11 @@
 
 @implementation DetailCCell
 
+
+
+/**
+ 角裁断
+ */
 -(void)awakeFromNib {
     [super awakeFromNib];
     
@@ -31,6 +36,10 @@
     
 }
 
+
+/**
+ 登録cell
+ */
 + (instancetype)cellWithTableView:(UITableView *)tableView {
     DetailCCell * cell = [tableView dequeueReusableCellWithIdentifier:@"DetailCCell"];
     if (!cell) {
