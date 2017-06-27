@@ -3,8 +3,8 @@
 //  UIScrollView+Extension.m
 //  MJRefreshExample
 //
-//  Created by MJ Lee on 14-5-28.
-//  Copyright (c) 2014年 小码哥. All rights reserved.
+//  Created by NISSAY IT on 14-5-28.
+//  Copyright (c) 2014年 NISSAY IT. All rights reserved.
 //
 
 #import "UIScrollView+MJExtension.h"

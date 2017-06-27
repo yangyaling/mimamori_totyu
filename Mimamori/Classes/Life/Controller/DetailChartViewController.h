@@ -2,8 +2,8 @@
 //  DetailChartViewController.h
 //  Mimamori
 //
-//  Created by 楊亜玲 on 16/9/26.
-//  Copyright © 2016年 totyu3. All rights reserved.
+//  Created by NISSAY IT on 16/9/26.
+//  Copyright © 2016年 NISSAY IT. All rights reserved.
 //  生活ーグラフ画面（温度・湿度・明るさ）
 
 #import <UIKit/UIKit.h>

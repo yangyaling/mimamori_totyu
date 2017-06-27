@@ -2,8 +2,8 @@
 //  MJFoundation.m
 //  MJExtensionExample
 //
-//  Created by MJ Lee on 14/7/16.
-//  Copyright (c) 2014年 小码哥. All rights reserved.
+//  Created by NISSAY IT on 14/7/16.
+//  Copyright (c) 2014年 NISSAY IT. All rights reserved.
 //
 
 #import "MJFoundation.h"

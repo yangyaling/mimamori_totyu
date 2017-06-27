@@ -2,8 +2,8 @@
 //  UIImage+Mj.m
 //  Weibo
 //
-//  Created by 楊亜玲 on 16/9/29.
-//  Copyright © 2016年 楊亜玲. All rights reserved.
+//  Created by NISSAY IT on 16/9/29.
+//  Copyright © 2016年 NISSAY IT. All rights reserved.
 //
 
 #import "UIImage+Mj.h"
@@ -15,13 +15,13 @@
     if (iOS7) {
         NSString *newName = [name stringByAppendingString:@"_os7"];
         UIImage *image = [UIImage imageNamed:newName];
-        if (image == nil) { // 没有_os7后缀的图片
+        if (image == nil) {
             image = [UIImage imageNamed:name];
         }
         return image;
     }
     
-    // 非iOS7
+ 
     return [UIImage imageNamed:name];
 }
 

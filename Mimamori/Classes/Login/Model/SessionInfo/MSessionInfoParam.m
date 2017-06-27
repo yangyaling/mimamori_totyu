@@ -2,8 +2,8 @@
 //  MSessionInfoParam.m
 //  Mimamori
 //
-//  Created by 楊亜玲 on 16/10/31.
-//  Copyright © 2016年 totyu3. All rights reserved.
+//  Created by NISSAY IT on 16/10/31.
+//  Copyright © 2016年 NISSAY IT. All rights reserved.
 //
 
 #import "MSessionInfoParam.h"

@@ -2,8 +2,8 @@
 //  UIView+Extension.m
 //  
 //
-//  Created by apple on 14-10-7.
-//  Copyright (c) 2014年 huangziliang. All rights reserved.
+//  Created by NISSAY IT on 14-10-7.
+//  Copyright (c) 2014年 NISSAY IT. All rights reserved.
 //
 
 #import "UIView+Extension.h"

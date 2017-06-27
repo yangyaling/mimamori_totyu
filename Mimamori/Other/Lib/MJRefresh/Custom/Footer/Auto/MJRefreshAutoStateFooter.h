@@ -2,8 +2,8 @@
 //  MJRefreshAutoStateFooter.h
 //  MJRefreshExample
 //
-//  Created by MJ Lee on 15/6/13.
-//  Copyright © 2015年 小码哥. All rights reserved.
+//  Created by NISSAY IT on 15/6/13.
+//  Copyright © 2015年 NISSAY IT. All rights reserved.
 //
 
 #import "MJRefreshAutoFooter.h"

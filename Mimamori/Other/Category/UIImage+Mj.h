@@ -2,8 +2,8 @@
 //  UIImage+Mj.h
 //  Weibo
 //
-//  Created by 楊亜玲 on 16/9/29.
-//  Copyright © 2016年 楊亜玲. All rights reserved.
+//  Created by NISSAY IT on 16/9/29.
+//  Copyright © 2016年 NISSAY IT. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

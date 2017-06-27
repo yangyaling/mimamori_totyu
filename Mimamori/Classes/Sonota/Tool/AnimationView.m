@@ -2,8 +2,8 @@
 //  AnimationView.m
 //  继承view动画
 //
-//  Created by totyu2 on 2017/5/26.
-//  Copyright © 2017年 totyu2. All rights reserved.
+//  Created by NISSAY IT on 2017/5/26.
+//  Copyright © 2017年 NISSAY IT. All rights reserved.
 //
 
 #import "AnimationView.h"

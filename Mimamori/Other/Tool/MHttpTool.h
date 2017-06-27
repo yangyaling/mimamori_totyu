@@ -2,8 +2,8 @@
 //  MHttpTool.h
 //  Mimamori
 //
-//  Created by 楊亜玲 on 16/10/31.
-//  Copyright © 2016年 楊亜玲. All rights reserved.
+//  Created by NISSAY IT on 16/10/31.
+//  Copyright © 2016年 NISSAY IT. All rights reserved.
 //  网络请求工具类
 
 #import <Foundation/Foundation.h>

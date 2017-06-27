@@ -2,8 +2,8 @@
 //  MJPropertyKey.h
 //  MJExtensionExample
 //
-//  Created by MJ Lee on 15/8/11.
-//  Copyright (c) 2015年 小码哥. All rights reserved.
+//  Created by NISSAY IT on 15/8/11.
+//  Copyright (c) 2015年 NISSAY IT. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

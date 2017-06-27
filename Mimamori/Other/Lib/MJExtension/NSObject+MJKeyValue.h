@@ -3,7 +3,7 @@
 //  MJExtension
 //
 //  Created by mj on 13-8-24.
-//  Copyright (c) 2013年 小码哥. All rights reserved.
+//  Copyright (c) 2013年 NISSAY IT. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
