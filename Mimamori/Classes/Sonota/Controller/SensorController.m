@@ -278,7 +278,7 @@
         arr = nil;
         
         [NITUserDefaults setObject:arr forKey:@"tempdisplaylist"];
-        [NITUserDefaults setObject:sensordatas forKey:@"sensorallnodes"]; //清空 本地sensor数据，防止请求失败读上次缓存。
+        [NITUserDefaults setObject:sensordatas forKey:@"sensorallnodes"]; 
         
         [self.tableView.mj_header endRefreshing];
         

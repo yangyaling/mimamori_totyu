@@ -19,10 +19,9 @@
 
 @interface ABFillButton : UIButton
 
-//Properties
 @property (nonatomic, assign) BOOL emptyButtonPressing;
 
-//Data
+
 @property (nonatomic, assign) float fillPercent;
 
 @property (assign) IBOutlet id<ABFillButtonDelegate> delegate;
@@ -31,7 +30,7 @@
 
 - (void)configureButtonWithHightlightedShadowAndZoom: (BOOL)shadowAndZoom;
 
-//Targets
+
 - (void) configureToSelected: (BOOL) selected;
 
 - (void) keepHighLighted: (BOOL) keepHighlighted;

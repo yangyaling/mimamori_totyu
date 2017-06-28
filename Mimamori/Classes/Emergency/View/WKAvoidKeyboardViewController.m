@@ -2,8 +2,8 @@
 //  WKAvoidKeyboardViewController.m
 //  AvoidKeyboardDemo
 //
-//  Created by 吴珂 on 15/9/9.
-//  Copyright (c) 2015年 MyCompany. All rights reserved.
+//  Created by NISSAY IT on 15/9/9.
+//  Copyright (c) 2015年 NISSAY IT. All rights reserved.
 //
 
 #import "WKAvoidKeyboardViewController.h"
@@ -36,7 +36,7 @@
     [super viewDidLoad];
 
     [self searchTextViewWithView:self.view];
-    //注册通知
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showKeyboard:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideKeyboard:) name:UIKeyboardWillHideNotification object:nil];
 }
@@ -47,7 +47,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - 键盘躲避
+#pragma mark -
 - (void)showKeyboard:(NSNotification *)noti
 {
     

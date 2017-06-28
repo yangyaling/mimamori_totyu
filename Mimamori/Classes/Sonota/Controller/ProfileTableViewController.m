@@ -208,7 +208,7 @@
     [MBProgressHUD showMessage:@"" toView:self.navigationController.view];
     
     NSString *updatedate = [[NSDate date] needDateStatus:HaveHMSType];
-    // 请求参数
+    
     MProfileInfoUpdateParam *param = [[MProfileInfoUpdateParam alloc]init];
     IconModel *iconM = [[IconModel alloc] init];
     iconM.custid = self.userid0;

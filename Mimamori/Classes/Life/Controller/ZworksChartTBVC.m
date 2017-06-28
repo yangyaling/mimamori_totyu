@@ -102,10 +102,7 @@ delegate
 
 
 
-/**
- 
 
- */
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     NSDictionary *dic = _zarray[_superrow];
@@ -136,7 +133,7 @@ delegate
         [label setText:[NSString stringWithFormat:@"%@（%@）%@",model.devicename,model.nodename,model.displayname]];
         
         [label setFont:[UIFont systemFontOfSize:14]];
-        label.textAlignment = NSTextAlignmentCenter; //居中文字
+        label.textAlignment = NSTextAlignmentCenter;
         if ([model.batterystatus intValue] == 1) {
             [imageV setImage:[UIImage imageNamed:@"battery_full"]];
         }else if ([model.batterystatus intValue] == 2){

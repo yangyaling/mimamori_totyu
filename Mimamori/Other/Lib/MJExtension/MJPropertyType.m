@@ -29,7 +29,7 @@
     return type;
 }
 
-#pragma mark - 公共方法
+#pragma mark - 
 - (void)setCode:(NSString *)code
 {
     _code = code;

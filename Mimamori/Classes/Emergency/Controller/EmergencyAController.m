@@ -63,9 +63,7 @@
     [_ABButton setEmptyButtonPressing:YES];
 }
 
-/**
- *  发送一条支援要请
- */
+
 -(void)buttonIsEmpty:(ABFillButton *)button{
     
     MNoticeInfoUploadParam *param = [[MNoticeInfoUploadParam alloc]init];

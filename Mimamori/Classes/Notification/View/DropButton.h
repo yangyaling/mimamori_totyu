@@ -21,7 +21,7 @@
 
 @property (nonatomic, strong) NSString                    *buttonTitle; //施設名2
 
-@property (nonatomic, assign) BOOL                         showAlert;   //delete status
+@property (nonatomic, assign) BOOL                         showAlert;  
 
 
 +(instancetype)sharedDropButton;

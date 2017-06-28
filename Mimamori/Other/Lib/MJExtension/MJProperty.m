@@ -18,7 +18,7 @@
 
 @implementation MJProperty
 
-#pragma mark - 懒加载
+#pragma mark -
 - (NSMutableDictionary *)propertyKeysDict
 {
     if (!_propertyKeysDict) {
@@ -35,7 +35,7 @@
     return _objectClassInArrayDict;
 }
 
-#pragma mark - 缓存
+#pragma mark -
 + (instancetype)cachedPropertyWithProperty:(objc_property_t)property
 {
     MJProperty *propertyObj = objc_getAssociatedObject(self, property);
@@ -47,7 +47,7 @@
     return propertyObj;
 }
 
-#pragma mark - 公共方法
+#pragma mark -
 - (void)setProperty:(objc_property_t)property
 {
     _property = property;

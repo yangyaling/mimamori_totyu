@@ -2,8 +2,8 @@
 //  UIFont+FontAwesome.m
 //  FontAwesome-iOS Demo
 //
-//  Created by Alex Usbergo on 1/16/13.
-//  Copyright (c) 2013 Alex Usbergo. All rights reserved.
+//  Created by NISSAY IT. on 1/16/13.
+//  Copyright (c) 2013 NISSAY IT. All rights reserved.
 //
 
 #import "UIFont+FontAwesome.h"

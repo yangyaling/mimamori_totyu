@@ -48,7 +48,6 @@
 {
     [super prepare];
     
-   
     self.triggerAutomaticallyRefreshPercent = 1.0;
     
     

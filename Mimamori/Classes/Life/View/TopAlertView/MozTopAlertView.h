@@ -2,8 +2,8 @@
 //  MozTopAlertView.h
 //  MoeLove
 //
-//  Created by LuLucius on 14/12/7.
-//  Copyright (c) 2014年 MOZ. All rights reserved.
+//  Created by NISSAY IT.
+//  Copyright (c) 2014年 NISSAY IT.
 //
 
 #import <UIKit/UIKit.h>

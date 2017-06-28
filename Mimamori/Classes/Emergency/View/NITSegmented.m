@@ -16,18 +16,18 @@
 
 @property (assign          ) float                       btnHeight;
 
-@property (nonatomic,strong) UIColor *selectedTitleColor;   //选中字体颜色
-@property (nonatomic,strong) UIColor *defaultTitleColor;    //默认字体颜色
+@property (nonatomic,strong) UIColor *selectedTitleColor;
+@property (nonatomic,strong) UIColor *defaultTitleColor;
 
-@property (nonatomic,strong) UIColor *selectedBackgroundColor;   //选中背景颜色
-@property (nonatomic,strong) UIColor *defaultBackgroundColor;    //默认背景颜色
+@property (nonatomic,strong) UIColor *selectedBackgroundColor;
+@property (nonatomic,strong) UIColor *defaultBackgroundColor;
 
 @end
 
 @implementation NITSegmented
 
 
-#pragma mark - 无固定的type
+#pragma mark - 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     _arrButtons = [NSMutableArray new];
@@ -48,7 +48,7 @@
         _defaultTitleColor = [UIColor blackColor];
         
         
-        //根据传过来的数组创建button
+
         for (int i = 0; i< 5; i++)
         {
             
@@ -56,14 +56,14 @@
             
             btn.backgroundColor = _defaultBackgroundColor;
             
-            //设置创建按钮tag
+         
             btn.tag = i;
 
-            //设置按钮点击属性
+         
             [btn addTarget:self action:@selector(btnPressed:) forControlEvents:UIControlEventTouchUpInside];
             NSString *title = [NSString stringWithFormat:@"%dF",i+1];
 
-            //设置个个按钮标题
+  
             [btn setTitle:title forState:UIControlStateNormal];
             
             if (i== 0) {
@@ -78,7 +78,7 @@
                 
                 NSString *title = [NSString stringWithFormat:@"%dF",i-2];
                 
-                //设置个个按钮标题
+            
                 [btn setTitle:title forState:UIControlStateNormal];
                 
             }
@@ -91,14 +91,14 @@
             btn.showsTouchWhenHighlighted = YES;
             
             
-            //设置选中按钮标题颜色
+
             [btn setTitleColor:_selectedTitleColor forState:UIControlStateSelected];
             
             
-            //设置非选中按钮标题颜色
+
             [btn setTitleColor:_defaultTitleColor forState:UIControlStateNormal];
             
-            //添加按钮
+
             [self addSubview:btn];
             
             [_arrButtons addObject:btn];
@@ -108,7 +108,7 @@
 }
 
 
-#pragma mark - 点击事件
+#pragma mark -
 - (void)btnPressed:(UIButton *)sender
 {
     

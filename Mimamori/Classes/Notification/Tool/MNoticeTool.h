@@ -4,7 +4,7 @@
 //
 //  Created by NISSAY IT on 16/11/1.
 //  Copyright © 2016年 NISSAY IT. All rights reserved.
-//  封装 关于通知请求的工具类
+
 
 #import <Foundation/Foundation.h>
 
