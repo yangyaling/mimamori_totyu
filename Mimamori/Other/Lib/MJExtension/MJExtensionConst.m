@@ -3,9 +3,6 @@
 
 #import <Foundation/Foundation.h>
 
-/**
- *  成员变量类型（属性类型）
- */
 NSString *const MJPropertyTypeInt = @"i";
 NSString *const MJPropertyTypeShort = @"s";
 NSString *const MJPropertyTypeFloat = @"f";

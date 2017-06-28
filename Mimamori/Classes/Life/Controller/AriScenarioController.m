@@ -22,7 +22,7 @@
 
 @property (strong, nonatomic) IBOutlet UIButton              *pushButton;
 
-@property (nonatomic, strong) NSMutableArray                 *alldatas; //異常検知あり ->  datas
+@property (nonatomic, strong) NSMutableArray                 *alldatas; //異常検知あり ->  データ
 
 @property (nonatomic, strong) NSString                       *roomname; //居室名
 
@@ -51,7 +51,7 @@
     
     self.tableView.tableFooterView = [[UIView alloc]init];
     
-     //Style None
+     //
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
     

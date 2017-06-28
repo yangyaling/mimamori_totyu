@@ -10,21 +10,12 @@
 
 @interface MHttpTool : NSObject
 
-/*
- *  post
- *
- */
 +(void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
-/**
- *  アップロードファイルデータ
- *
- */
+
 +(void)postWithURL:(NSString *)url params:(NSDictionary *)params formDataArray:(NSArray *)formDataArray success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
-/**
- *
- */
+
 +(void)getWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
 @end

@@ -11,7 +11,7 @@
 
 
 /**
- cell   datas
+ セルのデータ
  */
 @property (nonatomic, strong) NSArray           *cellarr;
 

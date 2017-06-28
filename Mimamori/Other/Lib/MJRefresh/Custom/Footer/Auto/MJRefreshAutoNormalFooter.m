@@ -13,7 +13,7 @@
 @end
 
 @implementation MJRefreshAutoNormalFooter
-#pragma mark - 懒加载子控件
+#pragma mark
 - (UIActivityIndicatorView *)loadingView
 {
     if (!_loadingView) {
@@ -31,7 +31,7 @@
     self.loadingView = nil;
     [self setNeedsLayout];
 }
-#pragma makr - 重写父类的方法
+#pragma makr -
 - (void)prepare
 {
     [super prepare];
@@ -45,7 +45,7 @@
     
     if (self.loadingView.constraints.count) return;
     
-    // 圈圈
+   
     CGFloat loadingCenterX = self.mj_w * 0.5;
     if (!self.isRefreshingTitleHidden) {
         loadingCenterX -= 100;

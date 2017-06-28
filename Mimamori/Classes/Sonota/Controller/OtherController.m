@@ -148,7 +148,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section
 
 
 /**
- push ->Other Class
+ push ->他のクラス
  */
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -19,7 +19,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+   
 }
 
 - (void)setDatasDic:(NSDictionary *)datasDic {

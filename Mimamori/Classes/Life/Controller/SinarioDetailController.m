@@ -20,7 +20,7 @@
  */
 @interface SinarioDetailController ()<DropClickDelegate>
 
-@property (nonatomic, strong) NSMutableArray                 *scenarioArray; //シナリオ datas
+@property (nonatomic, strong) NSMutableArray                 *scenarioArray; //シナリオ  データ
 @property (strong, nonatomic) IBOutlet UITableView           *tableView;
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 @end

@@ -152,7 +152,7 @@
 }
 
 
-//sessioninfo 取得
+//セッション情報 取得
 -(void)getSessionInfoWithEmail:(NSString *)email{
     
     MSessionInfoParam *param = [[MSessionInfoParam alloc]init];

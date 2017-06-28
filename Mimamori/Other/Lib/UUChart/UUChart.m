@@ -2,8 +2,8 @@
 //  UUChart.m
 //  UUChart
 //
-//  Created by shake on 14-7-24.
-//  Copyright (c) 2014年 uyiuyao. All rights reserved.
+//  Created by NISSAY IT.
+//  Copyright (c) 2014年 NISSAY IT.
 //
 
 #import "UUChart.h"
@@ -54,7 +54,7 @@
         }
 
         [_lineChart backgroundColor:_devicename devicename:_uuuname devicedate:_udate];
-        //显示颜色
+        
         if ([self.dataSource respondsToSelector:@selector(UUChart_ColorArray:)]) {
             [_lineChart setColors:[self.dataSource UUChart_ColorArray:self]];
         }

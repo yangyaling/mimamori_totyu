@@ -2,8 +2,8 @@
 //  WHUCalendarYMSelectView.m
 //  TEST_Calendar
 //
-//  Created by SuperNova(QQ:422596694) on 15/11/6.
-//  Copyright (c) 2015年 SuperNova(QQ:422596694). All rights reserved.
+//  Created by NISSAY IT on 15/11/6.
+//  Copyright (c) 2015年 NISSAY IT. All rights reserved.
 //
 #import "WHUCalendarYMSelectView.h"
 #define WHUCalendarYMSelectView_Piker_Height 150.0f
@@ -71,12 +71,10 @@
   return [NSString stringWithFormat:@"%ld年%ld月",(long)year,(long)month];
 }
 
-// pickerView 列数
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 2;
 }
 
-// pickerView 每列个数
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if (component == 0) {
         return 41;
@@ -85,7 +83,6 @@
     return 12;
 }
 
-// 每列宽度
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
     if(component==0){
         return pickerView.frame.size.width/2.0f;
@@ -94,13 +91,11 @@
         return pickerView.frame.size.width/3.0f;
     }
 }
-// 返回选中的行
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     
 }
 
-//返回当前行的内容,此处是将数组中数值添加到滚动的那个显示栏上
 -(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     if (component == 0) {

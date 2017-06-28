@@ -28,22 +28,22 @@ static const char MJObjectClassInArrayKey = '\0';
 
 static const char MJCachedPropertiesKey = '\0';
 
-#pragma mark - --私有方法--
+#pragma mar
 + (NSString *)propertyKey:(NSString *)propertyName
 {
     MJExtensionAssertParamNotNil2(propertyName, nil);
     
     __block NSString *key = nil;
-    // 查看有没有需要替换的key
+
     if ([self respondsToSelector:@selector(mj_replacedKeyFromPropertyName121:)]) {
         key = [self mj_replacedKeyFromPropertyName121:propertyName];
     }
-    // 兼容旧版本
+
     if ([self respondsToSelector:@selector(replacedKeyFromPropertyName121:)]) {
         key = [self performSelector:@selector(replacedKeyFromPropertyName121) withObject:propertyName];
     }
     
-    // 调用block
+
     if (!key) {
         [self mj_enumerateAllClasses:^(__unsafe_unretained Class c, BOOL *stop) {
             MJReplacedKeyFromPropertyName121 block = objc_getAssociatedObject(c, &MJReplacedKeyFromPropertyName121Key);
@@ -53,12 +53,11 @@ static const char MJCachedPropertiesKey = '\0';
             if (key) *stop = YES;
         }];
     }
-    
-    // 查看有没有需要替换的key
+
     if (!key && [self respondsToSelector:@selector(mj_replacedKeyFromPropertyName)]) {
         key = [self mj_replacedKeyFromPropertyName][propertyName];
     }
-    // 兼容旧版本
+
     if (!key && [self respondsToSelector:@selector(replacedKeyFromPropertyName)]) {
         key = [self performSelector:@selector(replacedKeyFromPropertyName)][propertyName];
     }
@@ -73,7 +72,7 @@ static const char MJCachedPropertiesKey = '\0';
         }];
     }
     
-    // 2.用属性名作为key
+
     if (!key) key = propertyName;
     
     return key;
@@ -85,7 +84,7 @@ static const char MJCachedPropertiesKey = '\0';
     if ([self respondsToSelector:@selector(mj_objectClassInArray)]) {
         clazz = [self mj_objectClassInArray][propertyName];
     }
-    // 兼容旧版本
+ 
     if ([self respondsToSelector:@selector(objectClassInArray)]) {
         clazz = [self performSelector:@selector(objectClassInArray)][propertyName];
     }
@@ -100,20 +99,20 @@ static const char MJCachedPropertiesKey = '\0';
         }];
     }
     
-    // 如果是NSString类型
+
     if ([clazz isKindOfClass:[NSString class]]) {
         clazz = NSClassFromString(clazz);
     }
     return clazz;
 }
 
-#pragma mark - --公共方法--
+#pragma mar
 + (void)mj_enumerateProperties:(MJPropertiesEnumeration)enumeration
 {
-    // 获得成员变量
+ 
     NSArray *cachedProperties = [self properties];
     
-    // 遍历成员变量
+
     BOOL stop = NO;
     for (MJProperty *property in cachedProperties) {
         enumeration(property, &stop);
@@ -121,7 +120,7 @@ static const char MJCachedPropertiesKey = '\0';
     }
 }
 
-#pragma mark - 公共方法
+#pragma mark -
 + (NSMutableArray *)properties
 {
     NSMutableArray *cachedProperties = [MJDictionaryCache objectForKey:NSStringFromClass(self) forDictId:&MJCachedPropertiesKey];
@@ -130,11 +129,11 @@ static const char MJCachedPropertiesKey = '\0';
         cachedProperties = [NSMutableArray array];
         
         [self mj_enumerateClasses:^(__unsafe_unretained Class c, BOOL *stop) {
-            // 1.获得所有的成员变量
+        
             unsigned int outCount = 0;
             objc_property_t *properties = class_copyPropertyList(c, &outCount);
             
-            // 2.遍历每一个成员变量
+
             for (unsigned int i = 0; i<outCount; i++) {
                 MJProperty *property = [MJProperty cachedPropertyWithProperty:properties[i]];
                 // 过滤掉系统自动添加的元素
@@ -150,7 +149,7 @@ static const char MJCachedPropertiesKey = '\0';
                 [cachedProperties addObject:property];
             }
             
-            // 3.释放内存
+
             free(properties);
         }];
         
@@ -160,23 +159,23 @@ static const char MJCachedPropertiesKey = '\0';
     return cachedProperties;
 }
 
-#pragma mark - 新值配置
+#pragma
 + (void)mj_setupNewValueFromOldValue:(MJNewValueFromOldValue)newValueFormOldValue
 {
     objc_setAssociatedObject(self, &MJNewValueFromOldValueKey, newValueFormOldValue, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 + (id)mj_getNewValueFromObject:(__unsafe_unretained id)object oldValue:(__unsafe_unretained id)oldValue property:(MJProperty *__unsafe_unretained)property{
-    // 如果有实现方法
+
     if ([object respondsToSelector:@selector(mj_newValueFromOldValue:property:)]) {
         return [object mj_newValueFromOldValue:oldValue property:property];
     }
-    // 兼容旧版本
+
     if ([self respondsToSelector:@selector(newValueFromOldValue:property:)]) {
         return [self performSelector:@selector(newValueFromOldValue:property:)  withObject:oldValue  withObject:property];
     }
     
-    // 查看静态设置
+
     __block id newValue = oldValue;
     [self mj_enumerateAllClasses:^(__unsafe_unretained Class c, BOOL *stop) {
         MJNewValueFromOldValue block = objc_getAssociatedObject(c, &MJNewValueFromOldValueKey);
@@ -188,7 +187,7 @@ static const char MJCachedPropertiesKey = '\0';
     return newValue;
 }
 
-#pragma mark - array model class配置
+#pragma mark
 + (void)mj_setupObjectClassInArray:(MJObjectClassInArray)objectClassInArray
 {
     [self mj_setupBlockReturnValue:objectClassInArray key:&MJObjectClassInArrayKey];
@@ -196,7 +195,7 @@ static const char MJCachedPropertiesKey = '\0';
     [[MJDictionaryCache dictWithDictId:&MJCachedPropertiesKey] removeAllObjects];
 }
 
-#pragma mark - key配置
+#pragma mark 
 + (void)mj_setupReplacedKeyFromPropertyName:(MJReplacedKeyFromPropertyName)replacedKeyFromPropertyName
 {
     [self mj_setupBlockReturnValue:replacedKeyFromPropertyName key:&MJReplacedKeyFromPropertyNameKey];

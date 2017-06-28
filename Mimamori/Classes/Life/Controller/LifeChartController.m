@@ -47,18 +47,18 @@
 @property (strong, nonatomic) IBOutlet UICollectionView *myCollection;
 
 /**
- all chart class
+ すべてのグラフのクラス
  */
 @property (strong, nonatomic) NSMutableArray             *controlarr;
 
 /**
- *  all datas
+ *  すべてのデータ
  */
 @property (strong, nonatomic) NSMutableArray             *CLArray;
 
 
 /**
-  selected Segment Index
+  選択されたインデックス
  */
 @property (nonatomic) int                                xnum;
 

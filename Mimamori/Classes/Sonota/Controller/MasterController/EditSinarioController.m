@@ -520,7 +520,7 @@
 
 
 /**
-Picker Delegate 
+
  */
 - (void)PickerDelegateSelectString:(NSString *)sinario withDic:(NSDictionary *)addcell {
     

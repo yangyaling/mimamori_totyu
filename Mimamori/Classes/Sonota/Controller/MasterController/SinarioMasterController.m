@@ -124,7 +124,7 @@
     return cell;
 }
 
-//tableviewcell push
+//tableviewcell 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.isOpen = YES;

@@ -85,7 +85,7 @@
 
 
 /**
- facility  button  click  method
+ 施設ボタンをクリックする方法
  */
 -(void)buttonClick:(UIButton *)sender {
     if (self.isShow) {

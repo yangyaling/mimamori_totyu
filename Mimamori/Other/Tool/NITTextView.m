@@ -12,9 +12,6 @@
 
 
 
-/**
-set CornerRadius
- */
 -(void)setCornerRadius:(CGFloat)cornerRadius{
     _cornerRadius = cornerRadius;
     self.layer.cornerRadius = cornerRadius;
@@ -23,9 +20,6 @@ set CornerRadius
 
 
 
-/**
- set Border Width
- */
 -(void)setBorderWidth:(CGFloat)borderWidth{
     
     _borderWidth = borderWidth;
@@ -35,10 +29,6 @@ set CornerRadius
 
 
 
-/**
- set Border Color
-
- */
 -(void)setBorderColor:(UIColor *)borderColor{
     
     self.layer.borderColor = borderColor.CGColor;

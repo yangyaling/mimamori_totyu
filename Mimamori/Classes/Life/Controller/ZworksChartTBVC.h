@@ -19,8 +19,8 @@
 
 @property (nonatomic, assign) id<PopUpdateChartDelegate>updatedelegate;
 
-@property (nonatomic, strong) NSMutableArray   *zarray;  //chart  datas
-@property (nonatomic, assign) NSInteger        superrow; //current  page
+@property (nonatomic, strong) NSMutableArray   *zarray;  //チャート・データ
+@property (nonatomic, assign) NSInteger        superrow; //現在のページ
 @property (nonatomic, assign) int              xnum;    //日(0) 週(1) 月(2)
 
 @property (nonatomic, copy) NSString           *userid0; //入居者ID（見守られる人）

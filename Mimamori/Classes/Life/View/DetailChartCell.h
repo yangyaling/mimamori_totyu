@@ -14,7 +14,7 @@
 
 
 /**
- chart datas
+ チャート・データ
  */
 @property (nonatomic, strong)  NSDictionary *chartdic;
 

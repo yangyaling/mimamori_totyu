@@ -161,7 +161,7 @@
         self.footView.alpha = 1;
         self.isEdit = YES;
     }else{
-        [self saveNow:nil]; //跟新或者追加
+        [self saveNow:nil]; 
         
     }
     [self.tableView reloadData];

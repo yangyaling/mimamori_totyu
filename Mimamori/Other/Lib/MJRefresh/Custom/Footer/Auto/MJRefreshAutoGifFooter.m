@@ -12,14 +12,14 @@
 {
     __unsafe_unretained UIImageView *_gifView;
 }
-/** 所有状态对应的动画图片 */
+
 @property (strong, nonatomic) NSMutableDictionary *stateImages;
-/** 所有状态对应的动画时间 */
+
 @property (strong, nonatomic) NSMutableDictionary *stateDurations;
 @end
 
 @implementation MJRefreshAutoGifFooter
-#pragma mark - 懒加载
+#pragma mark -
 - (UIImageView *)gifView
 {
     if (!_gifView) {
@@ -45,7 +45,7 @@
     return _stateDurations;
 }
 
-#pragma mark - 公共方法
+#pragma mark -
 - (void)setImages:(NSArray *)images duration:(NSTimeInterval)duration forState:(MJRefreshState)state
 {
     if (images == nil) return;
@@ -65,7 +65,7 @@
     [self setImages:images duration:images.count * 0.1 forState:state];
 }
 
-#pragma mark - 实现父类的方法
+#pragma mark - 
 - (void)placeSubviews
 {
     [super placeSubviews];

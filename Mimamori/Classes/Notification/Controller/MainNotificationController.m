@@ -126,7 +126,7 @@
 
 
 /**
- facility delegate
+ 施設 delegate
  */
 -(void)SelectedListName:(NSString *)clickName {
     
@@ -147,7 +147,7 @@
     [oldbtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     
-    //hide calendar
+    //カレンダーを隠す
     [self.POPCalendar dismiss];
     
     
@@ -172,7 +172,7 @@
 {
     [MBProgressHUD hideHUDForView:self.view];
     
-    [self.MyTableView.mj_header endRefreshing]; //end refreshing
+    [self.MyTableView.mj_header endRefreshing]; //
     
 }
 
@@ -180,7 +180,7 @@
     
     _refreshDate = refreshDate;
     
-    self.titleLabel.text = self.refreshDate; //refreshing  nowdate
+    self.titleLabel.text = self.refreshDate; //
 }
 
 
@@ -210,7 +210,7 @@
 
 
 /**
- カレンダーボタン   click action
+ カレンダーボタン       押す
  */
 - (void)oldBtnAction:(UIButton *)sender {
     sender.backgroundColor = NITColor(252, 85, 115);
@@ -254,9 +254,9 @@
 #pragma mark  Refresh Action
 -(void)pullRefresh{
     
-    self.onstauts = NO;  //非日历选择日期状态
+    self.onstauts = NO;
     
-    [self.POPCalendar removeFromSuperview];   //每次刷新先删除日历
+    [self.POPCalendar removeFromSuperview];
 //    [MBProgressHUD showMessage:@"" toView:self.view];
     //1. 通知リストを取得
     if (self.segmentindex == 0) {
@@ -272,7 +272,7 @@
 
 #pragma mark Setup UI
 /**
- calendar click action
+ カレンダーを初期化
  */
 -(void)setupCalendarDates:(NSArray *)array{
     
@@ -286,7 +286,7 @@
     
     typeof(self) __weak weakSelf = self;
     
-    // 选择日期的时候会被调用
+    // 選択の日付をフィボナッチリトレースメントする
     self.POPCalendar.onDateSelectBlk=^(NSDate* date){
         [self selectButtonViewTag:8];
         
@@ -317,14 +317,14 @@
 #pragma mark Calendar
 
 /**
- calendar  delegate
+カレンダー  delegate
  */
 - (void)GetCurrentCanlendarStatus:(BOOL)isShow {
     self.isCounter = YES;
 }
 
 /**
- Calendar  -> show  or  hide
+ カレンダー  -> 表示/非表示
 
  */
 - (void)ShowCalendar:(UIButton *)sender {

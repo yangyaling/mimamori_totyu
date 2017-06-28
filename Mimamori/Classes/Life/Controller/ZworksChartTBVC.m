@@ -35,7 +35,7 @@
 
 
 /**
-  refresh  delegate
+delegate
  */
 - (void)popReloadList {
     

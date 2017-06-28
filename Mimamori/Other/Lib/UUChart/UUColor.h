@@ -2,8 +2,8 @@
 //  UUColor.h
 //  UUChart
 //
-//  Created by shake on 14-7-24.
-//  Copyright (c) 2014年 uyiuyao. All rights reserved.
+//  Created by NISSAY IT.
+//  Copyright (c) 2014年 NISSAY IT.
 //
 
 #import <UIKit/UIKit.h>
@@ -42,7 +42,7 @@
 #define UUiOSGreenColor [UIColor colorWithRed:98.0/255.0 green:247.0/255.0 blue:77.0/255.0 alpha:1.0]
 #define UURandomColor   [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1.0f]
 
-//范围
+
 struct Range {
     CGFloat max;
     CGFloat min;

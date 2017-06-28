@@ -2,8 +2,8 @@
 //  UULineChart.m
 //  UUChartDemo
 //
-//  Created by shake on 14-7-24.
-//  Copyright (c) 2014年 uyiuyao. All rights reserved.
+//  Created by NISSAY IT.
+//  Copyright (c) 2014年 NISSAY IT.
 //
 
 #import "UULineChart.h"
@@ -17,7 +17,7 @@
 //    int uiType;
     CAShapeLayer *_chartLine2;
     CAGradientLayer *gradientLayer;
-    NSString *temperature;  //温度
+    NSString *temperature;  
 }
 -(void)backgroundColor:(NSString *)deviceclass devicename:(NSString*)devicename devicedate:(NSString*)devicedate{
     temperature = deviceclass;
@@ -293,7 +293,7 @@
         CGFloat xPosition = (UUYLabelwidth + _xLabelWidth/2.0);
         CGFloat chartCavanHeight = self.frame.size.height - UULabelHeight*3;
         
-        //第一个点
+        
         [progressline moveToPoint:CGPointMake(xPosition,self.frame.size.height-6)];
         [progressline addLineToPoint:CGPointMake(xPosition,self.frame.size.height-6)];
         
@@ -315,7 +315,7 @@
         [progressline addLineToPoint:CGPointMake(xPosition+(childAry.count-1)*_xLabelWidth,self.frame.size.height-6)];
         [progressline closePath];
         //dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        //划线
+        
         _chartLine2 = [CAShapeLayer layer];
         _chartLine2.opaque = YES;
         _chartLine2.fillColor = [UIColor whiteColor].CGColor;
@@ -335,7 +335,7 @@
         if (childAry.count==0) {
             return;
         }
-        //获取最大最小位置
+        
         CGFloat max = [childAry[0] floatValue];
         CGFloat min = [childAry[0] floatValue];
         NSInteger max_i = 0;
@@ -353,7 +353,7 @@
             }
         }
         
-        //划线
+
         CAShapeLayer *_chartLine = [CAShapeLayer layer];
         _chartLine.lineCap = kCALineCapRound;
         _chartLine.lineJoin = kCALineJoinBevel;
@@ -376,7 +376,7 @@
         if (isnan(grade)) {
             grade = 0;
         }
-        //第一个点
+  
         BOOL isShowMaxAndMinPoint = YES;
         if (self.ShowMaxMinArray) {
             if ([self.ShowMaxMinArray[i] intValue]>0) {
@@ -439,42 +439,5 @@
     
     return self;
 }
-//- (void)addPoint:(CGPoint)point index:(NSInteger)index isShow:(BOOL)isHollow value:(CGFloat)value
-//{
-//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(5, 5, 6, 6)];
-//    view.center = point;
-//    view.layer.drawsAsynchronously = YES;
-//    view.layer.masksToBounds = YES;
-//    view.layer.cornerRadius = 3;
-//    view.clipsToBounds = YES;
-//    view.layer.borderWidth = 1.2;
-//    view.layer.borderColor = [[_colors objectAtIndex:index] CGColor]?[[_colors objectAtIndex:index] CGColor]:UUWhite.CGColor;
-//    view.opaque = YES;
-//    if (isHollow) {
-//        //圆点心颜色
-//        if ([uidd isEqualToString:@"8"]) {
-//            if (uiType == 0 || uiType == 4) {
-//                view.backgroundColor =  [UIColor colorWithRed:255.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0f];
-//            }else if(uiType == 1 || uiType == 5){
-//                view.backgroundColor =  [UIColor colorWithRed:0.0/255.0 green:130.0/255.0 blue:258.0/255.0 alpha:1.0f];
-//            }else{
-//                view.backgroundColor =  [UIColor colorWithRed:255.0/255.0 green:184.0/255.0 blue:0.0/255.0 alpha:1.0f];
-//            }
-//        }else{
-//            view.backgroundColor =  [UIColor colorWithRed:64.0/255.0 green:224.0/255.0 blue:208.0/255.0 alpha:1.0f];
-//        }
-//    }else{
-//        view.backgroundColor = [_colors objectAtIndex:index]?[_colors objectAtIndex:index]:UUGreen;
-//        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(point.x-UUTagLabelwidth/2.0, point.y-UULabelHeight*2, UUTagLabelwidth, UULabelHeight)];
-//        label.font = [UIFont systemFontOfSize:10];
-//        label.textAlignment = NSTextAlignmentCenter;
-//        label.textColor = view.backgroundColor;
-//        label.text = [NSString stringWithFormat:@"%d",(int)value];
-//        [self addSubview:label];
-//    }
-//    
-//    [self addSubview:view];
-//}
-
 
 @end

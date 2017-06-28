@@ -17,7 +17,7 @@ static NSSet *foundationClasses_;
 + (NSSet *)foundationClasses
 {
     if (foundationClasses_ == nil) {
-        // 集合中没有NSObject，因为几乎所有的类都是继承自NSObject，具体是不是NSObject需要特殊判断
+
         foundationClasses_ = [NSSet setWithObjects:
                               [NSURL class],
                               [NSDate class],

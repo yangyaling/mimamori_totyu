@@ -21,7 +21,7 @@
     NSArray *ignoredCodingPropertyNames = [clazz mj_totalIgnoredCodingPropertyNames];
     
     [clazz mj_enumerateProperties:^(MJProperty *property, BOOL *stop) {
-        // 检测是否被忽略
+     
         if (allowedCodingPropertyNames.count && ![allowedCodingPropertyNames containsObject:property.name]) return;
         if ([ignoredCodingPropertyNames containsObject:property.name]) return;
         
@@ -39,12 +39,12 @@
     NSArray *ignoredCodingPropertyNames = [clazz mj_totalIgnoredCodingPropertyNames];
     
     [clazz mj_enumerateProperties:^(MJProperty *property, BOOL *stop) {
-        // 检测是否被忽略
+    
         if (allowedCodingPropertyNames.count && ![allowedCodingPropertyNames containsObject:property.name]) return;
         if ([ignoredCodingPropertyNames containsObject:property.name]) return;
         
         id value = [decoder decodeObjectForKey:property.name];
-        if (value == nil) { // 兼容以前的MJExtension版本
+        if (value == nil) {
             value = [decoder decodeObjectForKey:[@"_" stringByAppendingString:property.name]];
         }
         if (value == nil) return;

@@ -9,8 +9,6 @@
 #import "RoomReportCell.h"
 //#import "NITPicker.h"
 @interface RoomReportCell ()
-//<MyPickerDelegate>
-//@property (nonatomic, strong) NITPicker            *picker;
 @property (strong, nonatomic) IBOutlet UITextField *floor;
 @property (strong, nonatomic) IBOutlet UITextField *roomcd;
 

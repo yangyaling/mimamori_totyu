@@ -61,7 +61,7 @@
 
 + (NSString *)SharedToday
 {
-    //当前时间
+
     NSDate *nowDate = [NSDate new];
     
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
@@ -76,7 +76,7 @@
 - (BOOL)isThisYear
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    // 获得某个时间的年月日时分秒
+
     NSDateComponents *dateCmps = [calendar components:NSCalendarUnitYear fromDate:self];
     NSDateComponents *nowCmps = [calendar components:NSCalendarUnitYear fromDate:[NSDate date]];
     return dateCmps.year == nowCmps.year;

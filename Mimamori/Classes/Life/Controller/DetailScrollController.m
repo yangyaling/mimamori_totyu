@@ -21,13 +21,13 @@
 
 @property (strong, nonatomic) IBOutlet UICollectionView      *collectionView;
 
-@property (nonatomic, strong) NSMutableArray                 *controllersArray;  //controllers
+@property (nonatomic, strong) NSMutableArray                 *controllersArray;  //コントローラ配列
 
 @property (strong, nonatomic) IBOutlet UILabel               *ContrlTitle;
 
 @property (strong, nonatomic) IBOutlet DropButton            *facilitiesBtn;
 
-@property (nonatomic,strong) NSArray                         *chartArray;//chart  datas
+@property (nonatomic,strong) NSArray                         *chartArray;//チャート・データ
 
 @end
 
@@ -39,13 +39,11 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
     
     [super viewDidLoad];
     
-    // If YES, this navigation item will hide the back button when it's on top of the stack
     [self.navigationItem setHidesBackButton:YES];
     
     //タイトル
     self.ContrlTitle.text = [NSString stringWithFormat:@"%@（%@）%@",self.chartModel.devicename,self.chartModel.nodename,self.chartModel.displayname];
     
-    // If a class is registered, it will be instantiated via alloc/initWithFrame:
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     
     [self setupCollectionView];
@@ -103,7 +101,7 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
         NSArray *array = dic[@"deviceinfo"];
         //        NSArray *array = tempdic[@"deviceinfo"];
         if (array.count > 0) {
-            // 0.数组 -> 　模型数组
+            
             self.chartArray = array.copy;
             
             [self setupControllers];
@@ -168,15 +166,15 @@ static NSString * const reuseIdentifier = @"DetailScrollCell";
     
     flowLayout.minimumInteritemSpacing = 0;
     
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;  //水平
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
     self.collectionView.backgroundColor = [UIColor whiteColor];
     
     self.collectionView.collectionViewLayout = flowLayout;
     
-    self.collectionView.showsHorizontalScrollIndicator = NO;      //滚动条
+    self.collectionView.showsHorizontalScrollIndicator = NO;
     
-    self.collectionView.pagingEnabled = YES;             //分页
+    self.collectionView.pagingEnabled = YES;
     
     flowLayout.itemSize = CGSizeMake(NITScreenW, NITScreenH - Surplus);
     

@@ -2,8 +2,8 @@
 //  UUBarChart.h
 //  UUChartDemo
 //
-//  Created by shake on 14-7-24.
-//  Copyright (c) 2014年 uyiuyao. All rights reserved.
+//  Created by NISSAY IT.
+//  Copyright (c) 2014年 NISSAY IT.
 //
 
 #import <UIKit/UIKit.h>
@@ -18,7 +18,6 @@
 @interface UUBarChart : UIView
 
 /**
- * This method will call and troke the line in animation
  */
 
 -(void)strokeChart;
@@ -46,6 +45,5 @@
 
 @property (nonatomic, strong) NSArray * colors;
 
-//- (NSArray *)chartLabelsForX;
 
 @end

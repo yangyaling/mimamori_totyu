@@ -12,9 +12,9 @@
 {
     __unsafe_unretained UIImageView *_gifView;
 }
-/** 所有状态对应的动画图片 */
+
 @property (strong, nonatomic) NSMutableDictionary *stateImages;
-/** 所有状态对应的动画时间 */
+
 @property (strong, nonatomic) NSMutableDictionary *stateDurations;
 @end
 

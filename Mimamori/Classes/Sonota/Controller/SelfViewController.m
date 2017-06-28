@@ -103,7 +103,6 @@
     [parametersDict setValue:self.nickName.text forKey:@"username"];
     
     
-    //当前时间
     NSString *currentTime = [[NSDate date] needDateStatus:HaveHMSType];
     
     [parametersDict setValue:currentTime forKey:@"updatedate"];

@@ -21,7 +21,7 @@
 
 
 /**
- cell  model
+セル モデル
  */
 @property (nonatomic, strong)  LifeUserListModel *CellModel;
 

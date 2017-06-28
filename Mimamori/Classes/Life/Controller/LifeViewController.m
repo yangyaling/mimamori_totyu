@@ -26,7 +26,7 @@
 
 
 /**
-  User Model
+  ユーザモデル
  */
 @property (nonatomic,strong) LifeUserListModel           *deliverModel;
 
@@ -130,7 +130,7 @@
     return cell;
 }
 
-//tableviewcell  push  action
+//tableviewcell  
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.deliverModel = self.custArr[indexPath.row];
