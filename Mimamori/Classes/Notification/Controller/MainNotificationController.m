@@ -382,7 +382,7 @@
         [self.MyTableView.mj_header endRefreshing];
         self.noticesArray = [NSMutableArray new];
         
-        //Transform into model
+        
         self.noticesArray = [NotificationModel mj_objectArrayWithKeyValuesArray:array];
         
         //　最終更新時間を更新

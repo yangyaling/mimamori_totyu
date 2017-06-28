@@ -19,7 +19,7 @@ typedef enum{
 @interface MSensorDataTool : NSObject
 
 /**
- *  Get  （Daily、Weekly、Montyly）   Device Info
+ *
  */
 +(void)sensorDataWithParam:(MSensorDataParam *)param type:(MSensorDataType)type success:(void (^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
 
