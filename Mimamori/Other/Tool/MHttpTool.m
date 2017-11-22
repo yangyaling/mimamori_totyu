@@ -18,6 +18,7 @@
  */
 +(void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
     
+    NSLog(@"当前的url:%@\n%@",url,params);
   
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     

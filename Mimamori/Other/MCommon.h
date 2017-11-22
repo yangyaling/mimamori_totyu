@@ -62,127 +62,127 @@
 /**
  sonota   URL
  */
-#define NITUpdatePassword @"http://mimamori2p1hb.azurewebsites.net/zwupdatepassword.php"
+#define NITUpdatePassword @"http://mimamoriapp.chinacloudsites.cn/zwupdatepassword.php"
 
-#define NITUpdateUserInfo @"http://mimamori2p1hb.azurewebsites.net/zwupdateuserinfo.php"
-
-
-#define NITGetUserInfo @"http://mimamori2p1hb.azurewebsites.net/zwgetuserinfo.php"
+#define NITUpdateUserInfo @"http://mimamoriapp.chinacloudsites.cn/zwupdateuserinfo.php"
 
 
-#define NITGetCustList @"http://mimamori2p1hb.azurewebsites.net/zwgetcustlist.php"
-
-#define NITDeleteCustList @"http://mimamori2p1hb.azurewebsites.net/zwdeletecust.php"
-
-#define NITAddCustList @"http://mimamori2p1hb.azurewebsites.net/zwaddcust.php"
+#define NITGetUserInfo @"http://mimamoriapp.chinacloudsites.cn/zwgetuserinfo.php"
 
 
+#define NITGetCustList @"http://mimamoriapp.chinacloudsites.cn/zwgetcustlist.php"
 
-#define NITGetCustInfo @"http://mimamori2p1hb.azurewebsites.net/zwgetcustinfo.php"
+#define NITDeleteCustList @"http://mimamoriapp.chinacloudsites.cn/zwdeletecust.php"
 
-#define NITUpdateCustInfo @"http://mimamori2p1hb.azurewebsites.net/zwupdatecustinfo.php"
-
-#define NITUploadpic @"http://mimamori2p1hb.azurewebsites.net/upload/zwuploadpic.php"
-
-
-#define NITGetScenarioList @"http://mimamori2p1hb.azurewebsites.net/zwgetsslist.php"
-
-#define NITUpdateSensorInfo @"http://mimamori2p1hb.azurewebsites.net/zwupdatenodeplaceinfo.php"
+#define NITAddCustList @"http://mimamoriapp.chinacloudsites.cn/zwaddcust.php"
 
 
-#define NITDeleteScenario @"http://mimamori2p1hb.azurewebsites.net/zwdeletescenarioinfo.php"
 
-#define NITGetGroupInfo @"http://mimamori2p1hb.azurewebsites.net/zwgetgroupinfo.php"
+#define NITGetCustInfo @"http://mimamoriapp.chinacloudsites.cn/zwgetcustinfo.php"
 
-#define NITGetScenarioInfo @"http://mimamori2p1hb.azurewebsites.net/zwgetscenariodtlinfo.php"
+#define NITUpdateCustInfo @"http://mimamoriapp.chinacloudsites.cn/zwupdatecustinfo.php"
 
-#define NITUpdateScenarioInfo @"http://mimamori2p1hb.azurewebsites.net/zwupdatescenarioinfo.php"
+#define NITUploadpic @"http://mimamoriapp.chinacloudsites.cn/upload/zwuploadpic.php"
+
+
+#define NITGetScenarioList @"http://mimamoriapp.chinacloudsites.cn/zwgetsslist.php"
+
+#define NITUpdateSensorInfo @"http://mimamoriapp.chinacloudsites.cn/zwupdatenodeplaceinfo.php"
+
+
+#define NITDeleteScenario @"http://mimamoriapp.chinacloudsites.cn/zwdeletescenarioinfo.php"
+
+#define NITGetGroupInfo @"http://mimamoriapp.chinacloudsites.cn/zwgetgroupinfo.php"
+
+#define NITGetScenarioInfo @"http://mimamoriapp.chinacloudsites.cn/zwgetscenariodtlinfo.php"
+
+#define NITUpdateScenarioInfo @"http://mimamoriapp.chinacloudsites.cn/zwupdatescenarioinfo.php"
 
 
 
 /*Master*/
-#define NITGetNLInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwgetnlinfo.php"
+#define NITGetNLInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwgetnlinfo.php"
 
-#define NITUpdateNLInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwupdatenlinfo.php"
+#define NITUpdateNLInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwupdatenlinfo.php"
 
-#define NITDeleteNLInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwdeletenlinfo.php"
+#define NITDeleteNLInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwdeletenlinfo.php"
 
-#define NITGetCompanyInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwgetcompanyinfo.php"
+#define NITGetCompanyInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwgetcompanyinfo.php"
 
-#define NITUpdateCompanyInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwupdatecompanyinfo.php"
+#define NITUpdateCompanyInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwupdatecompanyinfo.php"
 
-#define NITDeleteCompanyInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwdeletecompanyinfo.php"
+#define NITDeleteCompanyInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwdeletecompanyinfo.php"
 
-#define NITGetFacilityInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwgetfacilityinfo.php"
+#define NITGetFacilityInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwgetfacilityinfo.php"
 
-#define NITUpdateFacilityInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwupdatefacilityinfo.php"
+#define NITUpdateFacilityInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwupdatefacilityinfo.php"
 
-#define NITGetStaffInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwgetstaffinfo.php"
+#define NITGetStaffInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwgetstaffinfo.php"
 
-#define NITUpdateStaffInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwupdatestaffinfo.php"
+#define NITUpdateStaffInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwupdatestaffinfo.php"
 
-#define NITDeleteStaffInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwdeletestaffinfo.php"
+#define NITDeleteStaffInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwdeletestaffinfo.php"
 
-#define NITGetSPList @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwgetsplist.php"
+#define NITGetSPList @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwgetsplist.php"
 
-#define NITDeleteSPInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwdeletespinfo.php"
+#define NITDeleteSPInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwdeletespinfo.php"
 
-#define NITGetSPInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwgetspinfo.php"
+#define NITGetSPInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwgetspinfo.php"
 
-#define NITUpdateSPInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwupdatespinfo.php"
+#define NITUpdateSPInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwupdatespinfo.php"
 
-#define NITGetHomeCustInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwgetcustinfo.php"
+#define NITGetHomeCustInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwgetcustinfo.php"
 
-#define NITUpdateHomeCustInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwupdatecustinfo.php"
+#define NITUpdateHomeCustInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwupdatecustinfo.php"
 
-#define NITDeleteHomeCustInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwdeletecustinfo.php"
+#define NITDeleteHomeCustInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwdeletecustinfo.php"
   
-#define NITGetRoomInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwgetroominfo.php"
+#define NITGetRoomInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwgetroominfo.php"
 
-#define NITUpdateRoomInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwupdateroominfo.php"
+#define NITUpdateRoomInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwupdateroominfo.php"
 
-#define NITDeleteRoomInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwdeleteroominfo.php"
+#define NITDeleteRoomInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwdeleteroominfo.php"
 
 
 /**　機器情報　*/
-#define NITGetSSInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwgetssinfo.php"
-#define NITUpdateSSInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwupdatessinfo.php"
-#define NITDeleteSSInfo @"http://mimamori2p1hb.azurewebsites.net/mgmt/zwdeletessinfo.php"
+#define NITGetSSInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwgetssinfo.php"
+#define NITUpdateSSInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwupdatessinfo.php"
+#define NITDeleteSSInfo @"http://mimamoriapp.chinacloudsites.cn/mgmt/zwdeletessinfo.php"
 
 /**
  lift   URL
  */
-#define NITGetDailyDeviceInfo @"http://mimamori2p1hb.azurewebsites.net/zwgetdailydeviceinfo.php"
+#define NITGetDailyDeviceInfo @"http://mimamoriapp.chinacloudsites.cn/zwgetdailydeviceinfo.php"
 
-#define NITGetWeeklyDeviceInfo @"http://mimamori2p1hb.azurewebsites.net/zwgetweeklydeviceinfo.php"
+#define NITGetWeeklyDeviceInfo @"http://mimamoriapp.chinacloudsites.cn/zwgetweeklydeviceinfo.php"
 
-#define NITGetMonthlyDeviceInfo @"http://mimamori2p1hb.azurewebsites.net/zwgetmonthlydeviceinfo.php"
+#define NITGetMonthlyDeviceInfo @"http://mimamoriapp.chinacloudsites.cn/zwgetmonthlydeviceinfo.php"
 
-#define NITGetCarememoDateList @"http://mimamori2p1hb.azurewebsites.net/zwgetcarememodatelist.php"
+#define NITGetCarememoDateList @"http://mimamoriapp.chinacloudsites.cn/zwgetcarememodatelist.php"
 
-#define NITGetCarememoInfo @"http://mimamori2p1hb.azurewebsites.net/zwgetcarememoinfo.php"
+#define NITGetCarememoInfo @"http://mimamoriapp.chinacloudsites.cn/zwgetcarememoinfo.php"
 
-#define NITUpdateCarememoInfo @"http://mimamori2p1hb.azurewebsites.net/zwupdatecarememoinfo.php"
+#define NITUpdateCarememoInfo @"http://mimamoriapp.chinacloudsites.cn/zwupdatecarememoinfo.php"
 
 /**
  notice   URL
  */
-#define NITGetNoticeInfo @"http://mimamori2p1hb.azurewebsites.net/zwgetnoticeinfo.php"
+#define NITGetNoticeInfo @"http://mimamoriapp.chinacloudsites.cn/zwgetnoticeinfo.php"
 
-#define NITGetNoticeDateList @"http://mimamori2p1hb.azurewebsites.net/zwgetnoticedatelist.php"
+#define NITGetNoticeDateList @"http://mimamoriapp.chinacloudsites.cn/zwgetnoticedatelist.php"
 
-#define NITUpdateNoticeInfo @"http://mimamori2p1hb.azurewebsites.net/zwupdatenoticeinfo.php"
+#define NITUpdateNoticeInfo @"http://mimamoriapp.chinacloudsites.cn/zwupdatenoticeinfo.php"
 
 
 /**
  login   URL
  */
 
-#define NITLogin @"http://mimamori2p1hb.azurewebsites.net/zwlogin.php"
+#define NITLogin @"http://mimamoriapp.chinacloudsites.cn/zwlogin.php"
 
-#define NITGetZsessionInfo @"http://mimamori2p1hb.azurewebsites.net/zwgetzsessioninfo.php"
+#define NITGetZsessionInfo @"http://mimamoriapp.chinacloudsites.cn/zwgetzsessioninfo.php"
 
-#define NITGetfacilityList @"http://mimamori2p1hb.azurewebsites.net/zwgetfacilitylist.php"
+#define NITGetfacilityList @"http://mimamoriapp.chinacloudsites.cn/zwgetfacilitylist.php"
 
 
 

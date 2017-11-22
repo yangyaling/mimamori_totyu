@@ -368,7 +368,7 @@
     if (self.onstauts) {
         param.selectdate = date;
     } else {
-        param.startdate = date;
+        param.startdate = @"2017-5-5";
     }
     
     param.historyflg = flg;
